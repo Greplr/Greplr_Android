@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greplr.MainActivity;
 import com.greplr.R;
 
 /**
@@ -17,6 +18,13 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
         View itemView = LayoutInflater.
                 from(viewGroup.getContext()).
                 inflate(R.layout.topcategories_cardview, viewGroup, false);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.switchFragment();
+            }
+        });
 
         return new TopcategoriesHolder(itemView);
     }

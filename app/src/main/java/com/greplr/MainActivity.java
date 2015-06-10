@@ -1,17 +1,26 @@
 package com.greplr;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.greplr.subcategories.SubcategoriesFragment;
+import com.greplr.topcategories.TopcategoriesFragment;
+
 public class MainActivity extends AppCompatActivity {
+
+    private static FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
     }
 
 
@@ -35,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void switchFragment() {
+        fragmentManager.beginTransaction().replace(R.id.container, new SubcategoriesFragment()).commit();
     }
 
 }
