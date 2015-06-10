@@ -1,4 +1,4 @@
-package com.greplr.ui;
+package com.greplr.common.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

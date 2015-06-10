@@ -4,13 +4,20 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardCornerRadius="4dp"
+    card_view:cardCornerRadius="2dp"
     android:layout_margin="5dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
+        <View
+            android:minHeight="170dp"
+            android:minWidth="170dp"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
 
         <TextView
             android:text="Hello World"

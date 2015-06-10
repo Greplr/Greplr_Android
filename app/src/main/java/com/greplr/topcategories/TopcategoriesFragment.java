@@ -1,4 +1,4 @@
-package com.greplr;
+package com.greplr.topcategories;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -7,21 +7,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greplr.R;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainCategoryFragment extends Fragment {
+public class TopcategoriesFragment extends Fragment {
 
-    public MainCategoryFragment() {
+    public TopcategoriesFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
         categoryList.setHasFixedSize(true);
-        categoryList.setAdapter(new MainCategoryAdapter());
+        categoryList.setAdapter(new TopcategoriesAdapter());
         return rootView;
     }
 }
