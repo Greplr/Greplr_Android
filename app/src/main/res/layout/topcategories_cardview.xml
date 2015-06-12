@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView  xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+    android:id="@+id/topcategories_card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    card_view:cardCornerRadius="2dp"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="3dp"
     android:layout_margin="5dp">
 
     <LinearLayout
+        android:id="@+id/topcategories_card_container"
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <View
-            android:minHeight="170dp"
-            android:minWidth="170dp"
-            android:background="@android:color/holo_blue_dark"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+        <ImageView
+            android:padding="35dp"
+            android:id="@+id/topcategories_card_icon"
+            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <TextView
+            android:padding="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/white"
+            android:id="@+id/topcategories_card_title"
             android:text="Hello World"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
