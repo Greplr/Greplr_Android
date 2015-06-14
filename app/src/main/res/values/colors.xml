@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="travel_cardColor">#ff3f51b5</color>
-    <color name="food_cardColor">#ffff5722</color>
+    <color name="main_toolbarColor">#77111111</color>
+
+    <color name="travel_cardColor">#88006064</color>
+    <color name="food_cardColor">#88bf360c</color>
 </resources>
