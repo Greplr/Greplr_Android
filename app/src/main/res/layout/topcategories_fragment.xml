@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivityFragment">
 
-    <ImageView
+    <com.flaviofaria.kenburnsview.KenBurnsView
         android:id="@+id/topcategories_background"
         android:scaleType="centerCrop"
         android:layout_width="fill_parent"

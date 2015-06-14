@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.greplr.R;
 
 import java.util.Random;
@@ -30,7 +31,7 @@ public class TopcategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
-        ImageView backgroundImage = (ImageView) rootView.findViewById(R.id.topcategories_background);
+        KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
         int [] backImgs = {
           R.drawable.main1,
           R.drawable.main2,
