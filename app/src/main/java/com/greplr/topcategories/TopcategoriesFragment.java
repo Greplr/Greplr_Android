@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 
 import com.greplr.R;
+
+import java.util.Random;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -27,6 +30,14 @@ public class TopcategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
+        ImageView backgroundImage = (ImageView) rootView.findViewById(R.id.topcategories_background);
+        int [] backImgs = {
+          R.drawable.main1,
+          R.drawable.main2,
+          R.drawable.main3
+        };
+        Random rGen = new Random();
+        backgroundImage.setImageResource(backImgs[rGen.nextInt(3)]);
 //        categoryList.setHasFixedSize(true);
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         Point size = new Point();

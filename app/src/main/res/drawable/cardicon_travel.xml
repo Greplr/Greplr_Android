@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_travel_bus" android:duration="1500" />
+    <item android:drawable="@drawable/cardicon_travel_flight" android:duration="1500" />
+    <item android:drawable="@drawable/cardicon_travel_train" android:duration="1500" />
+    <item android:drawable="@drawable/cardicon_travel_taxi" android:duration="1500" />
+</animation-list>

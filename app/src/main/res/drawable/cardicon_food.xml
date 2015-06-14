@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_food_cafe" android:duration="1300" />
+    <item android:drawable="@drawable/cardicon_food_drinks" android:duration="1300" />
+    <item android:drawable="@drawable/cardicon_food_order" android:duration="1300" />
+    <item android:drawable="@drawable/cardicon_food_utensils" android:duration="1300" />
+</animation-list>

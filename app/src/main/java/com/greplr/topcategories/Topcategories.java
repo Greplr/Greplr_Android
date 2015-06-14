@@ -15,11 +15,11 @@ public class Topcategories {
         ArrayList<Category> categories = new ArrayList<>(TOTAL_CATEGORIES);
         categories.add(new Category(
                 "Travel",
-                R.drawable.cardicon_cafe,
+                R.drawable.cardicon_travel,
                 R.color.travel_cardColor));
         categories.add(new Category(
                 "Food",
-                R.drawable.cardicon_foodorder,
+                R.drawable.cardicon_food,
                 R.color.food_cardColor));
 
         return categories;
