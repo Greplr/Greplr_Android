@@ -39,7 +39,7 @@ public class TopcategoriesFragment extends Fragment {
         };
         Random rGen = new Random();
         backgroundImage.setImageResource(backImgs[rGen.nextInt(3)]);
-//        categoryList.setHasFixedSize(true);
+        categoryList.setHasFixedSize(true);
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);

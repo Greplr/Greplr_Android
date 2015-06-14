@@ -1,5 +1,6 @@
 package com.greplr;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static void switchFragment() {
         fragmentManager.beginTransaction().replace(R.id.container, new SubcategoriesFragment()).commit();
+    }
+
+    public static void switchFragment(Fragment frag) {
+        fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
     }
 
 }

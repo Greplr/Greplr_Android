@@ -29,6 +29,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
             android:id="@+id/topcategories_card_title"
+            android:gravity="center"
             android:text="Hello World"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />

@@ -39,7 +39,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
 
     @Override
     public void onBindViewHolder(TopcategoriesHolder holder, int position) {
-        Topcategories.Category cat = getItem(position);
+        final Topcategories.Category cat = getItem(position);
         try {
 //
             holder.cardIcon.setImageResource(cat.cardIcon);
@@ -48,7 +48,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
             holder.cardContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MainActivity.switchFragment();
+                    MainActivity.switchFragment(cat.categoryFragment);
                 }
             });
             holder.cardTitle.setText(cat.name);
