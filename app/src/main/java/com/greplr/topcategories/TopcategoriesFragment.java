@@ -46,7 +46,7 @@ public class TopcategoriesFragment extends Fragment {
         int screenWidth = size.x;
         glm.setSpanCount(screenWidth/(getResources().getDimensionPixelOffset(R.dimen.column_width_main_recyclerview)));
         categoryList.setLayoutManager(glm);
-        categoryList.setAdapter(new TopcategoriesAdapter());
+        categoryList.setAdapter(new TopcategoriesAdapter(getResources()));
         return rootView;
     }
 }

@@ -4,12 +4,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.greplr.subcategories.SubcategoriesFragment;
+import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.topcategories.TopcategoriesFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void switchFragment() {
-        fragmentManager.beginTransaction().replace(R.id.container, new SubcategoriesFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, new SubCategoryFragment()).commit();
     }
 
     public static void switchFragment(Fragment frag) {

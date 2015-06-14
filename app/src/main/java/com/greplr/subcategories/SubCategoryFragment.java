@@ -17,15 +17,12 @@ import com.greplr.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubcategoriesFragment extends Fragment {
+public class SubCategoryFragment extends Fragment {
 
 
-    public SubcategoriesFragment() {
+    public SubCategoryFragment() {
         // Required empty public constructor
     }
-
-    TabLayout tabLayout;
-    ViewPager viewPager;
 
 
     @Override
@@ -33,35 +30,6 @@ public class SubcategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.subcategories_fragment, container, false);
-
-        tabLayout = (TabLayout) rootView.findViewById(R.id.subcategories_tablayout);
-        viewPager = (ViewPager) rootView.findViewById(R.id.subcategories_viewpager);
-
-        final MyPagerAdapter pagerAdapter = new MyPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-        tabLayout.setTabsFromPagerAdapter(pagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setText("Selected");
-                tab.setIcon(android.R.drawable.sym_def_app_icon);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                tab.setText("");
-                tab.setIcon(android.R.drawable.sym_action_call);
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
 
         return rootView;
     }

@@ -3,18 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
-    tools:context="com.greplr.subcategories.SubcategoriesFragment">
-    <android.support.design.widget.TabLayout
-        android:id="@+id/subcategories_tablayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    tools:context="com.greplr.subcategories.SubCategoryFragment">
 
-    </android.support.design.widget.TabLayout>
-    <android.support.v4.view.ViewPager
-        android:id="@+id/subcategories_viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
