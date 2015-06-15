@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.greplr.MainActivity;
 import com.greplr.R;
 
 /**
@@ -30,6 +31,8 @@ public class SubCategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.subcategories_fragment, container, false);
+
+        ((MainActivity)getActivity()).getSupportActionBar().hide();
 
         return rootView;
     }

@@ -14,7 +14,9 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.flaviofaria.kenburnsview.Transition;
 import com.greplr.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
@@ -38,7 +40,10 @@ public class TopcategoriesFragment extends Fragment {
           R.drawable.main3
         };
         Random rGen = new Random();
-        backgroundImage.setImageResource(backImgs[rGen.nextInt(3)]);
+        int backImageResource = backImgs[rGen.nextInt(3)];
+        rGen = null; backImgs = null;
+        //backgroundImage.setImageResource(backImageResource);
+        Picasso.with(getActivity()).load(backImageResource).fit().centerCrop().into(backgroundImage);
         categoryList.setHasFixedSize(true);
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         Point size = new Point();
@@ -46,7 +51,7 @@ public class TopcategoriesFragment extends Fragment {
         int screenWidth = size.x;
         glm.setSpanCount(screenWidth/(getResources().getDimensionPixelOffset(R.dimen.column_width_main_recyclerview)));
         categoryList.setLayoutManager(glm);
-        categoryList.setAdapter(new TopcategoriesAdapter(getResources()));
+        categoryList.setAdapter(new TopcategoriesAdapter(getActivity()));
         return rootView;
     }
 }

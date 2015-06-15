@@ -1,7 +1,10 @@
 package com.greplr.topcategories;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +22,11 @@ import java.util.ArrayList;
 public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHolder> {
 
     private ArrayList<Topcategories.Category> categories;
-    private Resources mResources;
+    private Context mContext;
 
-    public TopcategoriesAdapter(Resources res) {
+    public TopcategoriesAdapter(Context c) {
         categories = Topcategories.getTopCategories();
-        mResources = res;
+        mContext = c;
     }
 
 
@@ -47,10 +50,11 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
         try {
 //            holder.cardIcon.setImageResource(cat.cardIcon);
 
-            AnimationDrawable ad = (AnimationDrawable) mResources.getDrawable(cat.cardIcon);
+            AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(mContext, cat.cardIcon);
             ad.setEnterFadeDuration(800);
             ad.setExitFadeDuration(800);
             holder.cardIcon.setImageDrawable(ad);
+            ad.start();
             holder.cardIcon.setAdjustViewBounds(true);
             holder.cardContainer.setBackgroundResource(cat.cardColor);
             holder.cardContainer.setOnClickListener(new View.OnClickListener() {

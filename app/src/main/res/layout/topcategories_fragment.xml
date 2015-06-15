@@ -6,7 +6,6 @@
 
     <com.flaviofaria.kenburnsview.KenBurnsView
         android:id="@+id/topcategories_background"
-        android:scaleType="centerCrop"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
