@@ -3,22 +3,23 @@ package com.greplr.subcategories;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.greplr.MainActivity;
 import com.greplr.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubCategoryFragment extends Fragment {
+public abstract class SubCategoryFragment extends Fragment {
 
 
     public SubCategoryFragment() {
@@ -34,30 +35,50 @@ public class SubCategoryFragment extends Fragment {
 
         ((MainActivity)getActivity()).getSupportActionBar().hide();
 
+        MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
+
+        Toolbar toolbar = matViewPager.getToolbar();
+
+        if (toolbar != null) {
+            ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+
+            ActionBar actionBar = ((MainActivity)getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayUseLogoEnabled(false);
+            actionBar.setHomeButtonEnabled(true);
+        }
+        ViewPager viewPager = matViewPager.getViewPager();
+        SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        matViewPager.getPagerTitleStrip().setViewPager(viewPager);
+
+
         return rootView;
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    private class SubCategoryPagerAdapter extends FragmentPagerAdapter {
 
-        public MyPagerAdapter(FragmentManager fm) {
+        public SubCategoryPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return new Fragment();
+            return getUnderSubFragments()[position];
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return getUnderSubFragments().length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Title";
+            return ((UnderSubCategoryFragment)getUnderSubFragments()[position]).getPageTitle();
         }
     }
+
+    public abstract Fragment[] getUnderSubFragments ();
 
 
 }

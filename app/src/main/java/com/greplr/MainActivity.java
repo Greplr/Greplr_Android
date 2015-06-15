@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void switchFragment() {
-        fragmentManager.beginTransaction().replace(R.id.container, new SubCategoryFragment()).commit();
-    }
-
     public static void switchFragment(Fragment frag) {
         fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
     }

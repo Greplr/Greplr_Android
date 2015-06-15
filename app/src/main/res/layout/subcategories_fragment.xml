@@ -6,7 +6,7 @@
     tools:context="com.greplr.subcategories.SubCategoryFragment">
 
     <com.github.florent37.materialviewpager.MaterialViewPager
-        android:id="@+id/materialViewPager"
+        android:id="@+id/subcategory_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:viewpager_logo="@layout/header_logo"
@@ -20,6 +20,7 @@
         app:viewpager_parallaxHeaderFactor="1.5"
         app:viewpager_headerAdditionalHeight="20dp"
         app:viewpager_displayToolbarWhenSwipe="true"
+        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
         />
 
 </LinearLayout>

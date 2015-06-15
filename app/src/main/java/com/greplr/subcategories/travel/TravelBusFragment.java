@@ -7,6 +7,11 @@ import com.greplr.subcategories.UnderSubCategoryFragment;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelBusFragment extends UnderSubCategoryFragment{
+
+    public static TravelBusFragment newInstance() {
+        return new TravelBusFragment();
+    }
+
     @Override
     public int getFragmentIcon() {
         return R.drawable.cardicon_travel_bus;

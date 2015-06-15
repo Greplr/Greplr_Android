@@ -8,6 +8,10 @@ import com.greplr.subcategories.UnderSubCategoryFragment;
  */
 public class TravelCabFragment extends UnderSubCategoryFragment {
 
+    public static TravelCabFragment newInstance() {
+        return new TravelCabFragment();
+    }
+
     @Override
     public int getFragmentIcon() {
         return R.drawable.cardicon_travel_taxi;
