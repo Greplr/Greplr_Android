@@ -14,11 +14,15 @@ public class FoodFragment extends SubCategoryFragment {
     }
 
     @Override
-    public Fragment[] getUnderSubFragments() {
-        Fragment[] underSubFragments = new Fragment[] {
-            FoodOrderingFragment.newInstance(),
-            FoodRestaurantsFragment.newInstance()
-        };
-        return underSubFragments;
+    public Fragment getUnderSubFragments(int pos) {
+        switch (pos) {
+            case 0: default: return FoodOrderingFragment.newInstance();
+            case 1: return FoodRestaurantsFragment.newInstance();
+        }
+    }
+
+    @Override
+    public int getUnderSubFragCount() {
+        return 2;
     }
 }

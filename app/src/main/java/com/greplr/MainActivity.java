@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void switchFragment(Fragment frag) {
-        fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
+        fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
     }
 
 }

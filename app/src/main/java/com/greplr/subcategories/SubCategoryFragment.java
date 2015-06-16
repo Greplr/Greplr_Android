@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.greplr.MainActivity;
 import com.greplr.R;
 
@@ -21,12 +23,12 @@ import com.greplr.R;
  */
 public abstract class SubCategoryFragment extends Fragment {
 
+    private ActionBar mActionBar;
+
 
     public SubCategoryFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,16 +44,16 @@ public abstract class SubCategoryFragment extends Fragment {
         if (toolbar != null) {
             ((MainActivity)getActivity()).setSupportActionBar(toolbar);
 
-            ActionBar actionBar = ((MainActivity)getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayUseLogoEnabled(false);
-            actionBar.setHomeButtonEnabled(true);
+            mActionBar= ((MainActivity)getActivity()).getSupportActionBar();
+            mActionBar.setDisplayHomeAsUpEnabled(false);
+            mActionBar.setDisplayUseLogoEnabled(false);
+            mActionBar.setHomeButtonEnabled(false);
         }
-        ViewPager viewPager = matViewPager.getViewPager();
+        mActionBar.setTitle("");
         SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-        matViewPager.getPagerTitleStrip().setViewPager(viewPager);
-
+        matViewPager.getViewPager().setAdapter(pagerAdapter);
+        matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
+        matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
 
         return rootView;
     }
@@ -64,21 +66,22 @@ public abstract class SubCategoryFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return getUnderSubFragments()[position];
+            return getUnderSubFragments(position);
         }
 
         @Override
         public int getCount() {
-            return getUnderSubFragments().length;
+            return getUnderSubFragCount();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return ((UnderSubCategoryFragment)getUnderSubFragments()[position]).getPageTitle();
+            return ((UnderSubCategoryFragment)getItem(position)).getPageTitle();
         }
     }
 
-    public abstract Fragment[] getUnderSubFragments ();
+    public abstract Fragment getUnderSubFragments (int pos);
+    public abstract int getUnderSubFragCount();
 
 
 }

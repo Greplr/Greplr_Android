@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/materialviewpager_logoHeight">
-    <ImageView
-        android:scaleType="centerInside"
-        android:background="@drawable/cardicon_food_cafe"
-        android:layout_width="@dimen/materialviewpager_logoHeight"
-        android:layout_height="match_parent" />
-    <TextView
-        android:id="@+id/logo_white"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/materialviewpager_logoHeight"
-        android:text="Material is Good"
-        android:textSize="30sp"
-        android:textColor="@android:color/white"/>
-</LinearLayout>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/subcategory_logo"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:adjustViewBounds="true"
+    android:layout_centerHorizontal="true"
+    android:src="@drawable/cardicon_travel_bus" />

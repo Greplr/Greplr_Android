@@ -14,10 +14,15 @@ public class TravelFragment extends SubCategoryFragment {
     }
 
     @Override
-    public Fragment[] getUnderSubFragments() {
-        return new Fragment[]{
-                TravelCabFragment.newInstance(),
-                TravelBusFragment.newInstance()
-        };
+    public Fragment getUnderSubFragments(int pos) {
+        switch (pos) {
+            case 0:default: return TravelCabFragment.newInstance();
+            case 1: return TravelBusFragment.newInstance();
+        }
+    }
+
+    @Override
+    public int getUnderSubFragCount() {
+        return 2;
     }
 }

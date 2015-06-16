@@ -1,5 +1,14 @@
 package com.greplr.subcategories.travel;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.greplr.R;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 
@@ -20,5 +29,21 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     @Override
     public String getPageTitle() {
         return "Cabs";
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("Greplr", "TravelCabFragment onCreateView");
+        return inflater.inflate(R.layout.travel_cab_fragment, container, false);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ObservableScrollView osv = (ObservableScrollView) view.findViewById(R.id.travel_cab_scrollview);
+        MaterialViewPagerHelper.registerScrollView(getActivity(), osv, null);
+
     }
 }
