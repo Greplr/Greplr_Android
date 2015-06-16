@@ -32,6 +32,10 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     }
 
     @Override
+    public int getBackgroundResId() {
+        return R.drawable.background_cab;
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "TravelCabFragment onCreateView");
         return inflater.inflate(R.layout.travel_cab_fragment, container, false);

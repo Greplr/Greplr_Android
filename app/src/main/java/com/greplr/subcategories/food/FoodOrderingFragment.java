@@ -21,4 +21,9 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment{
     public String getPageTitle() {
         return "Order";
     }
+
+    @Override
+    public int getBackgroundResId() {
+        return R.drawable.background_cab;
+    }
 }

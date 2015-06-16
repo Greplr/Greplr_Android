@@ -35,15 +35,13 @@ public class TopcategoriesFragment extends Fragment {
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
         KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
         int [] backImgs = {
-          R.drawable.main1,
-          R.drawable.main2,
-          R.drawable.main3
+          R.drawable.main_background_1,
+          R.drawable.main_background_2,
         };
         Random rGen = new Random();
-        int backImageResource = backImgs[rGen.nextInt(3)];
-        rGen = null; backImgs = null;
+        int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
         //backgroundImage.setImageResource(backImageResource);
-        Picasso.with(getActivity()).load(backImageResource).fit().centerCrop().into(backgroundImage);
+        Picasso.with(getActivity()).load(backImageResource).fit().centerInside().into(backgroundImage);
         categoryList.setHasFixedSize(true);
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         Point size = new Point();

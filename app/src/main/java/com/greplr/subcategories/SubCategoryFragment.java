@@ -8,15 +8,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +27,7 @@ import com.greplr.R;
 public abstract class SubCategoryFragment extends Fragment {
 
     private ActionBar mActionBar;
+    private KenBurnsView backgroundImage;
 
 
     public SubCategoryFragment() {
@@ -37,7 +41,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
         ((MainActivity)getActivity()).getSupportActionBar().hide();
 
-        MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
+        final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
 
         Toolbar toolbar = matViewPager.getToolbar();
 
@@ -50,10 +54,37 @@ public abstract class SubCategoryFragment extends Fragment {
             mActionBar.setHomeButtonEnabled(false);
         }
         mActionBar.setTitle("");
-        SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
+        mActionBar.hide();
+        backgroundImage = (KenBurnsView) rootView.findViewById(R.id.subcategory_background);
+
+        final SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
         matViewPager.getViewPager().setAdapter(pagerAdapter);
         matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
+        matViewPager.setColor(getResources().getColor(getToolColorResId()), 500);
+
+        matViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //Log.d("Greplr", "onPageSelected");
+                int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getBackgroundResId();
+                Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        //Set the first under-sub fragment's background image by default
+        int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getBackgroundResId();
+        Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
 
         return rootView;
     }
@@ -82,6 +113,6 @@ public abstract class SubCategoryFragment extends Fragment {
 
     public abstract Fragment getUnderSubFragments (int pos);
     public abstract int getUnderSubFragCount();
-
+    public abstract int getToolColorResId();
 
 }

@@ -2,6 +2,7 @@ package com.greplr.subcategories.food;
 
 import android.support.v4.app.Fragment;
 
+import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 
 /**
@@ -24,5 +25,10 @@ public class FoodFragment extends SubCategoryFragment {
     @Override
     public int getUnderSubFragCount() {
         return 2;
+    }
+
+    @Override
+    public int getToolColorResId() {
+        return R.color.food_cardColor;
     }
 }

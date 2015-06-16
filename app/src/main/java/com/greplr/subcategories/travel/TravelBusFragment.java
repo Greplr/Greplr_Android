@@ -33,6 +33,11 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
         return "Bus";
     }
 
+    @Override
+    public int getBackgroundResId() {
+        return R.drawable.background_bus;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,4 +55,5 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
         MaterialViewPagerHelper.registerScrollView(getActivity(), osv, null);
 
     }
+
 }
