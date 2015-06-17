@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
+import com.greplr.subcategories.UnderSubCategory;
 
 /**
  * Created by championswimmer on 10/6/15.
@@ -14,21 +15,27 @@ public class TravelFragment extends SubCategoryFragment {
         return new TravelFragment();
     }
 
+
     @Override
-    public Fragment getUnderSubFragments(int pos) {
-        switch (pos) {
-            case 0:default: return TravelCabFragment.newInstance();
-            case 1: return TravelBusFragment.newInstance();
-        }
+    public UnderSubCategory[] getUnderSubCategories() {
+        return new UnderSubCategory[] {
+                new UnderSubCategory(
+                        "Cab",
+                        R.drawable.background_cab,
+                        R.drawable.cardicon_travel_taxi,
+                        TravelCabFragment.newInstance()
+                ),
+                new UnderSubCategory(
+                        "Bus",
+                        R.drawable.background_bus,
+                        R.drawable.cardicon_travel_bus,
+                        TravelBusFragment.newInstance()
+                )
+        };
     }
 
     @Override
-    public int getUnderSubFragCount() {
-        return 2;
-    }
-
-    @Override
-    public int catNo() {
+    public int topCatNo() {
         return 0;
     }
 }

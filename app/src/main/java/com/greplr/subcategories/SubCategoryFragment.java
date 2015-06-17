@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
@@ -26,6 +27,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
     private ActionBar mActionBar;
     private KenBurnsView backgroundImage;
+    private ImageView headerLogo;
 
 
     public SubCategoryFragment() {
@@ -61,6 +63,8 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
         matViewPager.setColor(getResources().getColor(getToolbarColorResId()), 500);
 
+        headerLogo = (ImageView) matViewPager.findViewById(R.id.logoContainer).findViewById(R.id.subcategory_logo);
+
         matViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -72,6 +76,7 @@ public abstract class SubCategoryFragment extends Fragment {
                 //Log.d("Greplr", "onPageSelected");
                 int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getBackgroundResId();
                 Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
+                headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getFragmentIcon());
             }
 
             @Override
@@ -84,6 +89,9 @@ public abstract class SubCategoryFragment extends Fragment {
         int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getBackgroundResId();
         Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
 
+        headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getFragmentIcon());
+
+
         return rootView;
     }
 
@@ -95,7 +103,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return getUnderSubFragments(position);
+            return getUnderSubFragment(position);
         }
 
         @Override
@@ -109,12 +117,22 @@ public abstract class SubCategoryFragment extends Fragment {
         }
     }
 
-    public abstract Fragment getUnderSubFragments (int pos);
-    public abstract int getUnderSubFragCount();
-    public abstract int catNo();
+    public abstract UnderSubCategory[] getUnderSubCategories();
+    public abstract int topCatNo();
+
 
     public int getToolbarColorResId() {
-        return Topcategories.getTopCategories().get(catNo()).cardColor;
+        return Topcategories.getTopCategories().get(topCatNo()).cardColor;
     }
+
+    public int getUnderSubFragCount() {
+        return getUnderSubCategories().length;
+    }
+
+    public Fragment getUnderSubFragment(int pos) {
+        return getUnderSubCategories()[pos].frag;
+    }
+
+
 
 }

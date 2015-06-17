@@ -4,6 +4,9 @@ import android.support.v4.app.Fragment;
 
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
+import com.greplr.subcategories.UnderSubCategory;
+import com.greplr.subcategories.travel.TravelBusFragment;
+import com.greplr.subcategories.travel.TravelCabFragment;
 import com.greplr.topcategories.Topcategories;
 
 /**
@@ -16,20 +19,24 @@ public class FoodFragment extends SubCategoryFragment {
     }
 
     @Override
-    public Fragment getUnderSubFragments(int pos) {
-        switch (pos) {
-            case 0: default: return FoodOrderingFragment.newInstance();
-            case 1: return FoodRestaurantsFragment.newInstance();
-        }
+    public UnderSubCategory[] getUnderSubCategories() {
+        return new UnderSubCategory[] {
+                new UnderSubCategory(
+                        "Order",
+                        R.drawable.background_cab,
+                        R.drawable.cardicon_food_order,
+                        FoodOrderingFragment.newInstance()
+                ),
+                new UnderSubCategory(
+                        "Restaurants",
+                        R.drawable.background_bus,
+                        R.drawable.cardicon_food_utensils,
+                        FoodRestaurantsFragment.newInstance()
+                )
+        };
     }
-
     @Override
-    public int getUnderSubFragCount() {
-        return 2;
-    }
-
-    @Override
-    public int catNo() {
+    public int topCatNo() {
         return 1;
     }
 }
