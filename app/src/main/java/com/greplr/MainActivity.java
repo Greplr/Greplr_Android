@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.topcategories.TopcategoriesFragment;
 
 public class MainActivity extends AppCompatActivity {

@@ -47,8 +47,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
     @Override
     public void onBindViewHolder(TopcategoriesHolder holder, int position) {
         final Topcategories.Category cat = getItem(position);
-        try {
-//            holder.cardIcon.setImageResource(cat.cardIcon);
+//        try {
 
             AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(mContext, cat.cardIcon);
             ad.setEnterFadeDuration(800);
@@ -64,9 +63,9 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
                 }
             });
             holder.cardTitle.setText(cat.name);
-        } catch (Exception e) {
-            Log.d("Greplr", "Unable to setup category cards");
-        }
+//        } catch (Exception e) {
+//            Log.d("Greplr", "Unable to setup category cards");
+//        }
 
 
     }

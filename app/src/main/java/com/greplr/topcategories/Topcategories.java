@@ -2,6 +2,7 @@ package com.greplr.topcategories;
 
 import android.support.v4.app.Fragment;
 
+import com.greplr.ApplicationWrapper;
 import com.greplr.R;
 import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.travel.TravelFragment;
@@ -20,12 +21,12 @@ public class Topcategories {
         categories.add(new Category(
                 "Travel",
                 R.drawable.cardicon_travel,
-                R.color.travel_cardColor,
+                R.color.travel_cardColor_dark,
                 TravelFragment.newInstance()));
         categories.add(new Category(
                 "Food",
                 R.drawable.cardicon_food,
-                R.color.food_cardColor,
+                R.color.food_cardColor_dark,
                 FoodFragment.newInstance()));
 
         return categories;

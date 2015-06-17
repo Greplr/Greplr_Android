@@ -1,7 +1,16 @@
-<resources>
+<resources xmlns:com.greplr="http://schemas.android.com/apk/res-auto">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="AppTheme.Light">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.Dark">
         <!-- Customize your theme here. -->
     </style>
 

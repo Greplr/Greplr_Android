@@ -2,6 +2,7 @@ package com.greplr.subcategories.travel;
 
 import android.support.v4.app.Fragment;
 
+import com.greplr.ApplicationWrapper;
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 
@@ -29,6 +30,6 @@ public class TravelFragment extends SubCategoryFragment {
 
     @Override
     public int getToolColorResId() {
-        return R.color.travel_cardColor;
+        return R.color.travel_cardColor_dark;
     }
 }
