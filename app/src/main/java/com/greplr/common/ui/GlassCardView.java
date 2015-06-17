@@ -12,13 +12,13 @@ import com.greplr.ApplicationWrapper;
  */
 public class GlassCardView extends CardView {
 
-    private int cardBackgroundColor = ApplicationWrapper.CARD_THEME ?
+    private int cardBackgroundColor = ApplicationWrapper.DARK_CARDS ?
             R.color.cardview_dark_background : R.color.cardview_light_background;
     
-    private int theme = ApplicationWrapper.CARD_THEME ?
-            R.style.AppTheme : R.style.AppTheme_Light;
+    private int theme = ApplicationWrapper.DARK_CARDS ?
+            R.style.AppTheme : R.style.AppTheme_LightCards;
     
-    private float cardViewAlpha = 0.9f;
+    private float cardViewAlpha = 0.8f;
 
     public GlassCardView(Context context) {
         super(context);

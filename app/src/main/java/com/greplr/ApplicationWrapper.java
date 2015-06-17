@@ -7,7 +7,7 @@ import android.app.Application;
  */
 public class ApplicationWrapper extends Application {
 
-    public static boolean CARD_THEME = true;
+    public static boolean DARK_CARDS = false;
 
     @Override
     public void onCreate() {

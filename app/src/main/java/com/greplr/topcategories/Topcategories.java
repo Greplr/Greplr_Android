@@ -2,7 +2,6 @@ package com.greplr.topcategories;
 
 import android.support.v4.app.Fragment;
 
-import com.greplr.ApplicationWrapper;
 import com.greplr.R;
 import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.travel.TravelFragment;
@@ -16,20 +15,23 @@ public class Topcategories {
 
     public static final int TOTAL_CATEGORIES = 2;
 
-    public static ArrayList<Category> getTopCategories() {
-        ArrayList<Category> categories = new ArrayList<>(TOTAL_CATEGORIES);
-        categories.add(new Category(
-                "Travel",
-                R.drawable.cardicon_travel,
-                R.color.travel_cardColor_dark,
-                TravelFragment.newInstance()));
-        categories.add(new Category(
-                "Food",
-                R.drawable.cardicon_food,
-                R.color.food_cardColor_dark,
-                FoodFragment.newInstance()));
+    private static ArrayList<Category> topCategories;
 
-        return categories;
+    public static ArrayList<Category> getTopCategories() {
+        if (topCategories == null) {
+            topCategories = new ArrayList<>(TOTAL_CATEGORIES);
+            topCategories.add(new Category(
+                    "Travel",
+                    R.drawable.cardicon_travel,
+                    R.color.travel_cardColor,
+                    TravelFragment.newInstance()));
+            topCategories.add(new Category(
+                    "Food",
+                    R.drawable.cardicon_food,
+                    R.color.food_cardColor,
+                    FoodFragment.newInstance()));
+        }
+        return topCategories;
     }
 
     public static class Category {

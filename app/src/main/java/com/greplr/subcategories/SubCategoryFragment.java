@@ -8,17 +8,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.topcategories.Topcategories;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -61,7 +59,7 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getViewPager().setAdapter(pagerAdapter);
         matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
-        matViewPager.setColor(getResources().getColor(getToolColorResId()), 500);
+        matViewPager.setColor(getResources().getColor(getToolbarColorResId()), 500);
 
         matViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -113,6 +111,10 @@ public abstract class SubCategoryFragment extends Fragment {
 
     public abstract Fragment getUnderSubFragments (int pos);
     public abstract int getUnderSubFragCount();
-    public abstract int getToolColorResId();
+    public abstract int catNo();
+
+    public int getToolbarColorResId() {
+        return Topcategories.getTopCategories().get(catNo()).cardColor;
+    }
 
 }

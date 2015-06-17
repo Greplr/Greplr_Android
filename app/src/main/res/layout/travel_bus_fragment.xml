@@ -14,7 +14,6 @@
         <include layout="@layout/material_view_pager_placeholder"/>
 
         <com.greplr.common.ui.GlassCardView
-            android:theme="@style/AppTheme.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -43,7 +42,6 @@
             </LinearLayout>
         </com.greplr.common.ui.GlassCardView>
         <com.greplr.common.ui.GlassCardView
-            android:theme="@style/AppTheme.Light"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

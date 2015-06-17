@@ -1,4 +1,4 @@
-<resources xmlns:com.greplr="http://schemas.android.com/apk/res-auto">
+<resources >
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -6,12 +6,29 @@
     </style>
 
 
-    <style name="AppTheme.Light">
+    <style name="AppTheme.LightCards">
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/AppTheme.DarkCards.TextViewStyle</item>
     </style>
 
-    <style name="AppTheme.Dark">
+    <style name="AppTheme.DarkCards">
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/AppTheme.LightCards.TextViewStyle</item>
+    </style>
+
+    <style name="AppTheme.DarkCards.TextViewStyle" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="android:textColorTertiary">@android:color/black</item>
+
+    </style>
+
+    <style name="AppTheme.LightCards.TextViewStyle" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:textColorTertiary">@android:color/white</item>
     </style>
 
 </resources>
