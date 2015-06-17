@@ -1,13 +1,8 @@
 package com.greplr.subcategories.food;
 
-import android.support.v4.app.Fragment;
-
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategory;
-import com.greplr.subcategories.travel.TravelBusFragment;
-import com.greplr.subcategories.travel.TravelCabFragment;
-import com.greplr.topcategories.Topcategories;
 
 /**
  * Created by championswimmer on 10/6/15.
@@ -23,13 +18,13 @@ public class FoodFragment extends SubCategoryFragment {
         return new UnderSubCategory[] {
                 new UnderSubCategory(
                         "Order",
-                        R.drawable.background_cab,
+                        R.drawable.background_travel_cab,
                         R.drawable.cardicon_food_order,
                         FoodOrderingFragment.newInstance()
                 ),
                 new UnderSubCategory(
                         "Restaurants",
-                        R.drawable.background_bus,
+                        R.drawable.background_travel_bus,
                         R.drawable.cardicon_food_utensils,
                         FoodRestaurantsFragment.newInstance()
                 )

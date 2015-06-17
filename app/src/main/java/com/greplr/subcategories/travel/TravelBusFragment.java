@@ -12,8 +12,6 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.greplr.R;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 
-import java.util.Observable;
-
 /**
  * Created by championswimmer on 15/6/15.
  */
@@ -35,7 +33,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_bus;
+        return R.drawable.background_travel_bus;
     }
 
     @Nullable

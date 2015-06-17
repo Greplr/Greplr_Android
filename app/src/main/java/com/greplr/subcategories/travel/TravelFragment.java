@@ -1,7 +1,5 @@
 package com.greplr.subcategories.travel;
 
-import android.support.v4.app.Fragment;
-
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategory;
@@ -21,13 +19,13 @@ public class TravelFragment extends SubCategoryFragment {
         return new UnderSubCategory[] {
                 new UnderSubCategory(
                         "Cab",
-                        R.drawable.background_cab,
+                        R.drawable.background_travel_cab,
                         R.drawable.cardicon_travel_taxi,
                         TravelCabFragment.newInstance()
                 ),
                 new UnderSubCategory(
                         "Bus",
-                        R.drawable.background_bus,
+                        R.drawable.background_travel_bus,
                         R.drawable.cardicon_travel_bus,
                         TravelBusFragment.newInstance()
                 )

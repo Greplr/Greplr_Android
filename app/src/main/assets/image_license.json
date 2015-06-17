@@ -3,8 +3,21 @@
     [
         {
         "image": "cab_background",
-        "author": "Prayitno",
-        "url": "https://www.flickr.com/photos/prayitnophotography/8077359796/"
+        "author": "Phil Dolby",
+        "url": "https://www.flickr.com/photos/126654539@N08/16774244253/",
+        "modifications": "false"
         },
+        {
+        "image": "bus_background",
+        "author": "Sludge G",
+        "url": "https://www.flickr.com/photos/sludgeulper/3125865955/",
+        "modifications": "true"
+        },
+        {
+        "image": "restaurant_background",
+        "author": "Blondinrikard Fröberg",
+        "url": "https://www.flickr.com/photos/blondinrikard/14278404027/",
+        "modifications": "true"
+        }
     ]
 }
