@@ -1,11 +1,22 @@
 package com.greplr;
 
+
 import android.os.Build;
 import android.os.Bundle;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +29,21 @@ import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static FragmentManager fragmentManager;
+
     private RestAdapter restAdapter;
     private Api apiHandler;
     private SearchBox search;
     private Toolbar toolbar;
+
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    String latitudes, longitudes;
+    boolean gpsEnabled = false;
+    boolean networkEnabled = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +83,49 @@ public class MainActivity extends AppCompatActivity {
         return apiHandler;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try{
+            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            Log.d("gpsEnabled = ", gpsEnabled+"");
+        } catch (Exception e){
+
+        }
+
+        try{
+            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            Log.d("gpsEnabled = ", networkEnabled+"");
+        } catch (Exception e){
+
+        }
+
+        if(!gpsEnabled && !networkEnabled){
+            //alert the user
+            Log.d("raghav", "Reached here");
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage("Location is diabled, please enable it.");
+            dialog.setCancelable(false);
+            dialog.setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    MainActivity.this.startActivity(intent);
+                }
+            });
+            dialog.show();
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -155,6 +217,28 @@ public class MainActivity extends AppCompatActivity {
     public static void switchFragment(Fragment frag, View view, String name) {
         //fragmentManager.beginTransaction().addSharedElement(view, name);
         fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d("Latitudes = ", location.getLatitude()+"");
+        Log.d("Longitude = ", location.getLongitude()+"");
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        Log.d("Latitude","status");
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 
 }
