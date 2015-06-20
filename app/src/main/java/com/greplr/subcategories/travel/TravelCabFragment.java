@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.greplr.ApplicationWrapper;
 import com.greplr.MainActivity;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Cab;
@@ -58,8 +59,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelCabs(
-                "28.6328",
-                "77.2197",
+                String.valueOf(ApplicationWrapper.currentLatitude),
+                String.valueOf(ApplicationWrapper.currentLongitude),
                 new Callback<List<Cab>>() {
                     @Override
                     public void success(List<Cab> cabs, Response response) {
