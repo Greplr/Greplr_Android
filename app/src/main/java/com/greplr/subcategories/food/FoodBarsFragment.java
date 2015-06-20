@@ -18,35 +18,35 @@ import com.greplr.subcategories.UnderSubCategoryFragment;
 /**
  * Created by championswimmer on 15/6/15.
  */
-public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
+public class FoodBarsFragment extends UnderSubCategoryFragment{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    public static FoodRestaurantsFragment newInstance() {
-        return new FoodRestaurantsFragment();
+    public static FoodBarsFragment newInstance() {
+        return new FoodBarsFragment();
     }
 
     @Override
     public int getFragmentIcon() {
-        return R.drawable.cardicon_food_restaurant;
+        return R.drawable.cardicon_food_bar;
     }
 
     @Override
     public String getPageTitle() {
-        return "Restaurants";
+        return "Bars";
     }
     
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_food_restaurant;
+        return R.drawable.background_food_bar;
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("Greplr", "FoodRestaurantsFragment onCreateView");
+        Log.d("Greplr", "FoodBarsFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.food_restaurant_fragment, container, false);
+        View rootView =  inflater.inflate(R.layout.food_bar_fragment, container, false);
 
 
 
@@ -58,7 +58,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_food_restaurant);
+                R.id.recyclerview_food_bar);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));

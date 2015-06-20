@@ -18,15 +18,27 @@ public class FoodFragment extends SubCategoryFragment {
         return new UnderSubCategory[] {
                 new UnderSubCategory(
                         "Order",
-                        R.drawable.background_travel_cab,
+                        R.drawable.background_food_order,
                         R.drawable.cardicon_food_order,
                         FoodOrderingFragment.newInstance()
                 ),
                 new UnderSubCategory(
                         "Restaurants",
-                        R.drawable.background_travel_bus,
-                        R.drawable.cardicon_food_utensils,
+                        R.drawable.background_food_restaurant,
+                        R.drawable.cardicon_food_restaurant,
                         FoodRestaurantsFragment.newInstance()
+                ),
+                new UnderSubCategory(
+                        "Cafes",
+                        R.drawable.background_food_cafe,
+                        R.drawable.cardicon_food_cafe,
+                        FoodCafesFragment.newInstance()
+                ),
+                new UnderSubCategory(
+                        "Bars",
+                        R.drawable.background_food_bar,
+                        R.drawable.cardicon_food_bar,
+                        FoodBarsFragment.newInstance()
                 )
         };
     }
