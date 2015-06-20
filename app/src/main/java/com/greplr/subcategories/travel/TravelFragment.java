@@ -28,6 +28,12 @@ public class TravelFragment extends SubCategoryFragment {
                         R.drawable.background_travel_bus,
                         R.drawable.cardicon_travel_bus,
                         TravelBusFragment.newInstance()
+                ),
+                new UnderSubCategory(
+                        "Flight",
+                        R.drawable.background_travel_bus,
+                        R.drawable.cardicon_travel_flight,
+                        TravelFlightFragment.newInstance()
                 )
         };
     }
