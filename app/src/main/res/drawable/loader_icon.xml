@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_food_cafe" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_food_bar" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_food_order" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_food_restaurant" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_travel_bus" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_travel_flight" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_travel_train" android:duration="75" />
+    <item android:drawable="@drawable/cardicon_travel_taxi" android:duration="75" />
+
+</animation-list>

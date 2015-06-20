@@ -12,6 +12,8 @@ public class ApplicationWrapper extends Application {
     public static double currentLatitude = 28.6328;
     public static double currentLongitude = 77.2197;
 
+    public static boolean locationInitialised = false;
+
     @Override
     public void onCreate() {
         super.onCreate();

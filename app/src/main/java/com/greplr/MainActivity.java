@@ -61,7 +61,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         search.setLogoTextColor(getResources().getColor(android.R.color.white));
 
         fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+
+        if (ApplicationWrapper.locationInitialised) {
+            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
+        }
+
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -265,6 +271,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
     }
 
+
+
     @Override
     public void onLocationChanged(Location location) {
 
@@ -272,6 +280,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        Log.d("Longitude = ", location.getLongitude()+"");
         ApplicationWrapper.currentLatitude = location.getLatitude();
         ApplicationWrapper.currentLongitude = location.getLongitude();
+
+        if (!ApplicationWrapper.locationInitialised) {
+            ApplicationWrapper.locationInitialised = true;
+            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+        }
+
     }
 
     @Override
