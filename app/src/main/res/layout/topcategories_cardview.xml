@@ -11,8 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardPreventCornerOverlap="false"
-    android:layout_margin="5dp"
-    android:transitionName="mTransition">
+    android:layout_margin="5dp">
 
     <LinearLayout
         android:id="@+id/topcategories_card_container"

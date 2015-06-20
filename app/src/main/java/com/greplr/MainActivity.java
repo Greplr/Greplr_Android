@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void switchFragment(Fragment frag, View view, String name) {
-        fragmentManager.executePendingTransactions();
+        //fragmentManager.beginTransaction().addSharedElement(view, name);
         fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
     }
 

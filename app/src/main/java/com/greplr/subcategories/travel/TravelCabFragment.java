@@ -2,20 +2,26 @@ package com.greplr.subcategories.travel;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.R;
+import com.greplr.adapters.NumberedAdapter;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 
 /**
  * Created by championswimmer on 15/6/15.
  */
 public class TravelCabFragment extends UnderSubCategoryFragment {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -46,8 +52,13 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ObservableScrollView osv = (ObservableScrollView) view.findViewById(R.id.travel_cab_scrollview);
-        MaterialViewPagerHelper.registerScrollView(getActivity(), osv, null);
+        mRecyclerView = (RecyclerView) view.findViewById(
+                R.id.recyclerview_cab);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
+        mRecyclerView.setAdapter(mAdapter);
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
 }

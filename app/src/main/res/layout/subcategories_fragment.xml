@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/subcategory_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        />
 
     <com.github.florent37.materialviewpager.MaterialViewPager
         android:layout_alignParentTop="true"
