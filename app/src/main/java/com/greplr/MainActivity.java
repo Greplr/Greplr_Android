@@ -4,6 +4,7 @@ package com.greplr;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,17 +18,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.greplr.api.Api;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.greplr.models.location.GeoCodingLocation;
+import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
@@ -43,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     String latitudes, longitudes;
     boolean gpsEnabled = false;
     boolean networkEnabled = false;
+    String geoLocation;
 
 
     @Override
@@ -125,13 +135,33 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(final DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    final Dialog customDialog = new Dialog(MainActivity.this);
+                    LayoutInflater dialogLayout = getLayoutInflater();
 
+
+
+                    customDialog.setContentView(R.layout.dialogbox_take_location);
+                    customDialog.setTitle("Enter Your Location");
+                    Button buttonDone = (Button) customDialog.findViewById(R.id.button_done);
+                    buttonDone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
+                            String location = locationEdTxt.getText().toString();
+                            customDialog.dismiss();
+                            geoLocation = location;
+
+                        }
+                    });
+                    customDialog.show();
 
                 }
-            })
+            });
             dialog.show();
+            ArrayList<GeoCodingLocation> arrayList = GeoCodingLocationData.fetchData(geoLocation);
+
         }
 
     }
