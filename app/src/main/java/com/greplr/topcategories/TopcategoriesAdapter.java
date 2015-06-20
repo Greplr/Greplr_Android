@@ -52,7 +52,8 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
             holder.cardIcon.setImageDrawable(ad);
             ad.start();
             holder.cardIcon.setAdjustViewBounds(true);
-            holder.cardContainer.setBackgroundResource(cat.drawable);
+            //holder.cardContainer.setBackgroundResource(cat.drawable);
+            holder.cardView.setCardBackgroundColor(mContext.getResources().getColor(cat.cardColor));
             holder.cardContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
