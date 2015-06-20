@@ -1,8 +1,6 @@
 package com.greplr;
 
 
-import android.os.Build;
-import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -22,12 +21,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.greplr.api.Api;
-import android.widget.Button;
-import android.widget.EditText;
-
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.quinny898.library.persistentsearch.SearchBox;
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         search = (SearchBox) findViewById(R.id.searchbox);
         search.enableVoiceRecognition(this);
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             //alert the user
             Log.d("raghav", "Reached here");
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setMessage("Location is diabled, please enable it.");
+            dialog.setMessage("Location is disabled, please enable it.");
             dialog.setCancelable(false);
             dialog.setPositiveButton("Enable", new DialogInterface.OnClickListener() {
 
@@ -148,12 +147,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         public void onClick(View v) {
                             EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
                             String location = locationEdTxt.getText().toString();
-                            customDialog.dismiss();
-                            geoLocation = location;
-                            Log.d("Location:", geoLocation + "");
-                            GeoCodingLocationData.fetchData(geoLocation);
+                            if(location.equals("")){
+                                locationEdTxt.setError("Please Enter");
+                            } else {
+                                customDialog.dismiss();
+                                geoLocation = location;
+                                Log.d("Location:", geoLocation + "");
+                                GeoCodingLocationData.fetchData(geoLocation);
 
-
+                            }
 
 
                         }
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
 
     }
-//    public void setLocationMode(int mode) {
+    //    public void setLocationMode(int mode) {
 //        if (isRestricted()) {
 //            // Location toggling disabled by user restriction. Read the current location mode to
 //            // update the location master switch.
@@ -195,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onResume() {
         super.onResume();
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
     }
