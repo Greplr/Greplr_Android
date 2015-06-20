@@ -115,13 +115,13 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
-            viewHolder.minPrice.setText(cabList.get(i).getMin_price());
-            viewHolder.timeOfArrival.setText(cabList.get(i).getTime_of_arrival());
-            viewHolder.prizePerKM.setText(cabList.get(i).getPrice_per_km());
+            viewHolder.minPrice.setText("Minimum price : \u20b9"+cabList.get(i).getMin_price());
+            viewHolder.timeOfArrival.setText("ETA :  "+cabList.get(i).getTime_of_arrival()+ " min");
+            viewHolder.prizePerKM.setText("₹"+cabList.get(i).getPrice_per_km()+ " /Km");
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if(viewHolder.provider.getText().toString().equalsIgnoreCase("uber")){
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ub_ic_launcher));
-            }else if(viewHolder.provider.getText().toString().toLowerCase() == "taxiforsure"){
+            }else if(viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")){
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.taxi_for_sure_icon));
             }else viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
         }
