@@ -1,6 +1,7 @@
 package com.greplr.api;
 
 import com.greplr.models.travel.Cab;
+import com.greplr.models.travel.Flight;
 
 import java.util.List;
 
@@ -14,10 +15,9 @@ import retrofit.http.Path;
 /**
  * Created by championswimmer on 20/6/15.
  */
-public interface Api <T> {
+public interface Api {
 
     String BASE_URL = "http://128.199.128.227:8080";
-
 
     @FormUrlEncoded
     @POST("/api/travel/cabs")
@@ -25,5 +25,15 @@ public interface Api <T> {
             @Field("lat") String latitude,
             @Field("lng") String longitude,
             Callback<List<Cab>> cabs);
+
+    @FormUrlEncoded
+    @POST("/api/travel")
+    void getTravelFlights(
+            @Field("src")String src,
+            @Field("dest")String dest,
+            @Field("date") String date,
+            @Field("adults") int adults,
+            Callback<List<Flight>> callback);
+
 
 }
