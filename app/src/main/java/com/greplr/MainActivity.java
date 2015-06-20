@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             dialog.show();
 
 
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
 
     }
@@ -167,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onResume() {
         super.onResume();
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
 
     }
 

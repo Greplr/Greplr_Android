@@ -2,6 +2,7 @@ package com.greplr.models.location;
 
 import android.util.Log;
 
+import com.greplr.ApplicationWrapper;
 import com.greplr.api.GeoCoding;
 
 import java.util.List;
@@ -36,7 +37,9 @@ public class GeoCodingLocationData {
 
             @Override
             public void success(List<GeoCodingLocation> geoCodingLocations, Response response) {
-                Log.d("raghav", geoCodingLocations.get(0).getLat());
+                Log.d("raghav", geoCodingLocations.get(0).getLat() + "  " + geoCodingLocations.get(0).getArea());
+                ApplicationWrapper.currentLatitude = Double.valueOf(geoCodingLocations.get(0).getLat());
+                ApplicationWrapper.currentLongitude = Double.valueOf(geoCodingLocations.get(0).getLng());
             }
 
             @Override
