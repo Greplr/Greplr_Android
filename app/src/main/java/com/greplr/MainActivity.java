@@ -163,30 +163,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
 
     }
-    //    public void setLocationMode(int mode) {
-//        if (isRestricted()) {
-//            // Location toggling disabled by user restriction. Read the current location mode to
-//            // update the location master switch.
-//
-//
-//
-//        }
-//        Intent intent = new Intent(MODE_CHANGING_ACTION);
-//        intent.putExtra(CURRENT_MODE_KEY, mCurrentMode);
-//        intent.putExtra(NEW_MODE_KEY, mode);
-//        MainActivity.this.sendBroadcast(intent, android.Manifest.permission.WRITE_SECURE_SETTINGS);
-//        Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
-//
-//    }
-//    public int getLocationMode(Context context)
-//    {
-//        try {
-//            return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-//        } catch (Exception e){
-//
-//        }
-//        return 0;
-//    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -289,8 +266,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     public void onLocationChanged(Location location) {
 
-        Log.d("Latitudes = ", location.getLatitude()+"");
-        Log.d("Longitude = ", location.getLongitude()+"");
+//        Log.d("Latitudes = ", location.getLatitude()+"");
+//        Log.d("Longitude = ", location.getLongitude()+"");
+        ApplicationWrapper.currentLatitude = location.getLatitude();
+        ApplicationWrapper.currentLongitude = location.getLongitude();
     }
 
     @Override
