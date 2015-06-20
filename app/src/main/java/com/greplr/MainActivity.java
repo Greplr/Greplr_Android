@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -109,8 +110,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-//                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                    MainActivity.this.startActivity(intent);
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    MainActivity.this.startActivity(intent);
 //                    if(getLocationMode(getApplicationContext()) == 0 ){
 //                        int mode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE,
 //                                Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
@@ -121,6 +122,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                 }
             });
+
+            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+
+                }
+            })
             dialog.show();
         }
 
@@ -140,15 +150,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        Settings.Secure.putInt(getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
 //
 //    }
-    public int getLocationMode(Context context)
-    {
-        try {
-            return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
-        } catch (Exception e){
-
-        }
-        return 0;
-    }
+//    public int getLocationMode(Context context)
+//    {
+//        try {
+//            return Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
+//        } catch (Exception e){
+//
+//        }
+//        return 0;
+//    }
     @Override
     protected void onResume() {
         super.onResume();
