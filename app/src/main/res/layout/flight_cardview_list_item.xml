@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.greplr.common.ui.GlassCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="175dp"
+    android:layout_height="225dp"
     android:layout_margin="5dp"
     android:background="@android:color/white"
     android:foreground="?selectableItemBackground">
@@ -38,7 +39,8 @@
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:adjustViewBounds="true"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/ic_flight"/>
 
 
                 </LinearLayout>
@@ -109,12 +111,12 @@
 
 
                     <TextView
-                        android:id="@+id/cab_name"
+                        android:id="@+id/airline"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingBottom="4dp"
-                        android:text="Cab Name"
+                        android:text="Airline"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#483C46"
                         android:textStyle="bold" />
@@ -141,7 +143,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/wallet_profile"
+                        android:background="@drawable/ic_flight"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -156,18 +158,94 @@
                     android:paddingLeft="4dp">
 
                     <TextView
-                        android:id="@+id/min_price"
+                        android:id="@+id/flight_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingBottom="6dp"
-                        android:text="Min Prize"
+                        android:text="Flight No."
                         android:textColor="#212121"
                         android:textStyle="normal" />
 
                 </LinearLayout>
             </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp">
+
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toEndOf="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Departure :"
+                android:textColor="#F29559"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/dept_time_flight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NA"
+                android:textColor="#212121"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@+id/item_image"
+            android:layout_toRightOf="@+id/item_image"
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
+
+            <LinearLayout
+                android:id="@+id/l4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@+id/item_image"
+                android:layout_toRightOf="@+id/item_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Arrival :"
+                    android:textColor="#F29559"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="5dp"/>
+
+                <TextView
+                    android:id="@+id/arr_time_flight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NA"
+                    android:textColor="#212121"/>
+
+            </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -181,14 +259,14 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/th1"
+                        android:id="@+id/th5"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_history"
+                        android:background="@drawable/seat_flight"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -203,15 +281,14 @@
                     android:paddingLeft="4dp">
 
                     <TextView
-                        android:id="@+id/time_of_arrival"
+                        android:id="@+id/seating_class"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingBottom="6dp"
-                        android:text="Time of arrival"
+                        android:text="Prize per km"
                         android:textColor="#212121"
                         android:textStyle="normal" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -249,7 +326,7 @@
                     android:paddingLeft="4dp">
 
                     <TextView
-                        android:id="@+id/price_per_km"
+                        android:id="@+id/flight_fare"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -259,6 +336,7 @@
                         android:textStyle="normal" />
                 </LinearLayout>
             </LinearLayout>
+
 
 
         </LinearLayout>
