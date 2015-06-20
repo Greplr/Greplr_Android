@@ -118,13 +118,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 public void onClick(DialogInterface dialog, int which) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     MainActivity.this.startActivity(intent);
-//                    if(getLocationMode(getApplicationContext()) == 0 ){
-//                        int mode = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE,
-//                                Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
-//
-//                        Settings.Global.putInt(getApplicationContext().getContentResolver(), LocationManager.GPS_PROVIDER, mode );
-//                    }
-
 
                 }
             });
