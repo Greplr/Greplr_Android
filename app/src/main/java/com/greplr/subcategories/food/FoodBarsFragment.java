@@ -11,9 +11,19 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.ApplicationWrapper;
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
+import com.greplr.api.Api;
+import com.greplr.models.food.Bar;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by championswimmer on 15/6/15.
@@ -22,6 +32,8 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+
+    private List<Bar> barList;
 
     public static FoodBarsFragment newInstance() {
         return new FoodBarsFragment();
@@ -48,7 +60,25 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
 
         View rootView =  inflater.inflate(R.layout.food_bar_fragment, container, false);
 
+        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        apiHandler.getFoodBars(
+                String.valueOf(ApplicationWrapper.currentLatitude),
+                String.valueOf(ApplicationWrapper.currentLongitude),
+                new Callback<List<Bar>>() {
+                    @Override
+                    public void success(List<Bar> bars, Response response) {
+                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        barList = bars;
+                        updateBars(barList);
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+
+                    }
+                }
+        );
 
         return rootView;
     }
@@ -64,6 +94,10 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
+    }
+
+    public void updateBars (List<Bar> bars) {
 
     }
 }

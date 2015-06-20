@@ -11,9 +11,20 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.ApplicationWrapper;
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
+import com.greplr.api.Api;
+import com.greplr.models.food.Bar;
+import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by championswimmer on 15/6/15.
@@ -22,6 +33,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+
+    private List<Restaurant> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
         return new FoodRestaurantsFragment();
@@ -48,7 +61,25 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
 
         View rootView =  inflater.inflate(R.layout.food_restaurant_fragment, container, false);
 
+        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        apiHandler.getFoodRestaurants(
+                String.valueOf(ApplicationWrapper.currentLatitude),
+                String.valueOf(ApplicationWrapper.currentLongitude),
+                new Callback<List<Restaurant>>() {
+                    @Override
+                    public void success(List<Restaurant> restaurants, Response response) {
+                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        restaurantList = restaurants;
+                        updateRestaurants(restaurantList);
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+
+                    }
+                }
+        );
 
         return rootView;
     }
@@ -64,6 +95,10 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
+    }
+
+    public void updateRestaurants (List<Restaurant> restaurants) {
 
     }
 }
