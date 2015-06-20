@@ -1,12 +1,9 @@
 package com.greplr.topcategories;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,11 +52,11 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
             holder.cardIcon.setImageDrawable(ad);
             ad.start();
             holder.cardIcon.setAdjustViewBounds(true);
-            holder.cardContainer.setBackgroundResource(cat.cardColor);
+            holder.cardContainer.setBackgroundResource(cat.drawable);
             holder.cardContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MainActivity.switchFragment(cat.categoryFragment);
+                    MainActivity.switchFragment(cat.categoryFragment, view, "mTransition");
                 }
             });
             holder.cardTitle.setText(cat.name);

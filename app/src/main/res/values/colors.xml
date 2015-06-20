@@ -2,7 +2,7 @@
 <resources>
     <color name="main_toolbarColor">#77111111</color>
 
-    <color name="travel_cardColor">#99006064</color>
-    <color name="food_cardColor">#99bf360c</color>
+    <color name="travel_cardColor">#aa483C46</color>
+    <color name="food_cardColor">#aaF4743B</color>
 
 </resources>

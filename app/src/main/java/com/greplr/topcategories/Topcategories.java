@@ -23,11 +23,13 @@ public class Topcategories {
             topCategories.add(new Category(
                     "Travel",
                     R.drawable.cardicon_travel,
+                    R.drawable.topcategorycard_bg_travel,
                     R.color.travel_cardColor,
                     TravelFragment.newInstance()));
             topCategories.add(new Category(
                     "Food",
                     R.drawable.cardicon_food,
+                    R.drawable.topcategorycard_bg_food,
                     R.color.food_cardColor,
                     FoodFragment.newInstance()));
         }
@@ -35,15 +37,17 @@ public class Topcategories {
     }
 
     public static class Category {
-        public Category(String name, int cardIcon, int cardColor, Fragment categoryFragment) {
+        public Category(String name, int cardIcon,int drawable, int cardColor, Fragment categoryFragment) {
             this.name = name;
             this.cardIcon = cardIcon;
+            this.drawable = drawable;
             this.cardColor = cardColor;
             this.categoryFragment = categoryFragment;
         }
 
         public String name;
         public int cardIcon;
+        public int drawable;
         public int cardColor;
         public Fragment categoryFragment;
     }
