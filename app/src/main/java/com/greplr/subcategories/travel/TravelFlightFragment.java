@@ -60,7 +60,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         apiHandler.getTravelFlights(
                 "DEL",
                 "MUM",
-                "2015-10-10",
+                "20151010",
                 1,
                 new Callback<List<Flight>>() {
                     @Override

@@ -9,8 +9,8 @@ public class ApplicationWrapper extends Application {
 
     public static boolean DARK_CARDS = false;
 
-    public static double currentLatitude = 0;
-    public static double currentLongitude = 0;
+    public static double currentLatitude = 28.6328;
+    public static double currentLongitude = 77.2197;
 
     @Override
     public void onCreate() {
