@@ -1,5 +1,8 @@
 package com.greplr.api;
 
+import com.greplr.models.food.Bar;
+import com.greplr.models.food.Cafe;
+import com.greplr.models.food.Restaurant;
 import com.greplr.models.travel.Bus;
 import com.greplr.models.travel.Cab;
 import com.greplr.models.travel.Flight;
@@ -43,6 +46,27 @@ public interface Api {
             @Field("dest")String destination,
             @Field("date")String date,
             Callback<List<Bus>> callback);
+
+    @FormUrlEncoded
+    @POST("/api/food/restaurants")
+    void getFoodRestaurants(
+            @Field("lat")String latitude,
+            @Field("lng")String longitude,
+            Callback<List<Restaurant>> callback);
+
+    @FormUrlEncoded
+    @POST("/api/food/cafe")
+    void getFoodCafes(
+            @Field("lat")String latitude,
+            @Field("lng")String longitude,
+            Callback<List<Cafe>> callback);
+
+    @FormUrlEncoded
+    @POST("/api/food/bar")
+    void getFoodBars(
+            @Field("lat")String latitude,
+            @Field("lng")String longitude,
+            Callback<List<Bar>> callback);
 
 
 
