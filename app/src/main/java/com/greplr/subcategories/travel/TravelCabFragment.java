@@ -9,13 +9,24 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.api.Api;
+import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by championswimmer on 15/6/15.
  */
 public class TravelCabFragment extends UnderSubCategoryFragment {
+
+    private List<Cab> cabList;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -38,8 +49,28 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "TravelCabFragment onCreateView");
-        return inflater.inflate(R.layout.travel_cab_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.travel_cab_fragment, container, false);
 
+        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        apiHandler.getTravelCabs(
+                "28.6328",
+                "77.2197",
+                new Callback<List<Cab>>() {
+                    @Override
+                    public void success(List<Cab> cabs, Response response) {
+                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        cabList = cabs;
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+
+                    }
+                }
+        );
+
+        return rootView;
     }
 
     @Override

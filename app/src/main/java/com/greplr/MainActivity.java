@@ -5,14 +5,33 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.greplr.api.Api;
+import com.greplr.api.FetchDataTask;
+import com.greplr.models.travel.Cab;
 import com.greplr.topcategories.TopcategoriesFragment;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private static FragmentManager fragmentManager;
+    private RestAdapter restAdapter;
+    private Api apiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
+        getApiHandler();
+
+
+    }
+
+    public Api getApiHandler() {
+        if (apiHandler == null) {
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(Api.BASE_URL)
+                    .build();
+            apiHandler = restAdapter.create(Api.class);
+        }
+        return apiHandler;
     }
 
 
