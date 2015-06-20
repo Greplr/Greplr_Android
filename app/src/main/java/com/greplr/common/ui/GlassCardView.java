@@ -18,7 +18,7 @@ public class GlassCardView extends CardView {
     private int theme = ApplicationWrapper.DARK_CARDS ?
             R.style.AppTheme : R.style.AppTheme_LightCards;
     
-    private float cardViewAlpha = 0.8f;
+    private float cardViewAlpha = 0.94f;
 
     public GlassCardView(Context context) {
         super(context);
