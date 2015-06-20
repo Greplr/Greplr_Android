@@ -28,15 +28,12 @@ import com.greplr.api.Api;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.greplr.models.location.GeoCodingLocation;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
@@ -144,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     customDialog.setContentView(R.layout.dialogbox_take_location);
                     customDialog.setTitle("Enter Your Location");
+                    customDialog.setCancelable(false);
                     Button buttonDone = (Button) customDialog.findViewById(R.id.button_done);
                     buttonDone.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -152,6 +150,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                             String location = locationEdTxt.getText().toString();
                             customDialog.dismiss();
                             geoLocation = location;
+                            Log.d("Location:", geoLocation + "");
+                            GeoCodingLocationData.fetchData(geoLocation);
+
+
+
 
                         }
                     });
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
             });
             dialog.show();
-            ArrayList<GeoCodingLocation> arrayList = GeoCodingLocationData.fetchData(geoLocation);
+
 
         }
 
