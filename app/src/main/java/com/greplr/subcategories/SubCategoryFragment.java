@@ -26,7 +26,7 @@ import com.squareup.picasso.Picasso;
 public abstract class SubCategoryFragment extends Fragment {
 
     private ActionBar mActionBar;
-    private KenBurnsView backgroundImage;
+    private ImageView backgroundImage;
     private ImageView headerLogo;
 
 
@@ -55,7 +55,7 @@ public abstract class SubCategoryFragment extends Fragment {
         }
         mActionBar.setTitle("");
         mActionBar.hide();
-        backgroundImage = (KenBurnsView) rootView.findViewById(R.id.subcategory_background);
+        backgroundImage = (ImageView) rootView.findViewById(R.id.subcategory_background);
 
         final SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
         matViewPager.getViewPager().setAdapter(pagerAdapter);
@@ -75,7 +75,7 @@ public abstract class SubCategoryFragment extends Fragment {
             public void onPageSelected(int position) {
                 //Log.d("Greplr", "onPageSelected");
                 int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getBackgroundResId();
-                Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
+                Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
                 headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getFragmentIcon());
             }
 
@@ -87,7 +87,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
         //Set the first under-sub fragment's background image by default
         int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getBackgroundResId();
-        Picasso.with(getActivity()).load(backImgRes).fit().centerInside().into(backgroundImage);
+        Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
 
         headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getFragmentIcon());
 

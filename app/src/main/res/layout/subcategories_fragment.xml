@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.greplr.subcategories.SubCategoryFragment">
 
-    <com.flaviofaria.kenburnsview.KenBurnsView
+    <ImageView
         android:id="@+id/subcategory_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
