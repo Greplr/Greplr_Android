@@ -6,12 +6,13 @@
     card_view:cardBackgroundColor="@android:color/transparent"
     android:padding="0dp"
     card_view:contentPadding="0dp"
-    card_view:cardElevation="0dp"
-    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardPreventCornerOverlap="false"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:transitionName="mTransition">
 
     <LinearLayout
         android:id="@+id/topcategories_card_container"
