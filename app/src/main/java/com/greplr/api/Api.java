@@ -1,5 +1,6 @@
 package com.greplr.api;
 
+import com.greplr.models.travel.Bus;
 import com.greplr.models.travel.Cab;
 import com.greplr.models.travel.Flight;
 
@@ -27,13 +28,22 @@ public interface Api {
             Callback<List<Cab>> cabs);
 
     @FormUrlEncoded
-    @POST("/api/travel")
+    @POST("/api/travel/flight")
     void getTravelFlights(
             @Field("src")String src,
             @Field("dest")String dest,
             @Field("date") String date,
             @Field("adults") int adults,
             Callback<List<Flight>> callback);
+
+    @FormUrlEncoded
+    @POST("/api/travel/bus")
+    void getTravelBus(
+            @Field("src")String source,
+            @Field("dest")String destination,
+            @Field("date")String date,
+            Callback<List<Bus>> callback);
+
 
 
 }
