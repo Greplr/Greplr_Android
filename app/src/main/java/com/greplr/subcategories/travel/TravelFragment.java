@@ -31,7 +31,7 @@ public class TravelFragment extends SubCategoryFragment {
                 ),
                 new UnderSubCategory(
                         "Flight",
-                        R.drawable.background_travel_bus,
+                        R.drawable.background_travel_flight,
                         R.drawable.cardicon_travel_flight,
                         TravelFlightFragment.newInstance()
                 )

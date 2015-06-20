@@ -39,7 +39,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getFragmentIcon() {
-        return R.drawable.cardicon_travel_taxi;
+        return R.drawable.cardicon_travel_flight;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_travel_bus;
+        return R.drawable.background_travel_flight;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
