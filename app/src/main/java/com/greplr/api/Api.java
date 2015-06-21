@@ -71,10 +71,19 @@ public interface Api {
             Callback<List<Bar>> callback);
 
     @GET("/api/events/movies")
-    void getEventMovies(@Query("mid") String param1, Callback<List<Movies>> callback);
+    void getEventMovies(
+            //@Query("mid") String param1,
+            Callback<List<Movies>> callback);
 
     @GET("/api/events/plays")
-    void getEventPlays(@Query("mid") String param1, Callback<List<Plays>> callback);
+    void getEventPlays(
+            //@Query("mid") String param1,
+            Callback<List<Plays>> callback);
+
+    @GET("/api/events/events")
+    void getEventCultural(
+            //@Query("mid") String param1,
+            Callback<List<Plays>> callback);
 
 
 }

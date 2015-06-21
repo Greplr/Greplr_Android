@@ -52,7 +52,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_travel;
+        return R.drawable.background_travel_flight;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

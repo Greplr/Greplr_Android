@@ -22,11 +22,18 @@ public class EventFragment extends SubCategoryFragment {
                         R.drawable.background_travel_cab,
                         R.drawable.cardicon_events_movies,
                         EventMovieFragment.newInstance()
-                )};
+                ),
+                new UnderSubCategory(
+                        "Plays",
+                        R.drawable.background_travel_cab,
+                        R.drawable.cardicon_events_plays,
+                        EventPlayFragment.newInstance()
+                )
+        };
     }
 
     @Override
     public int topCatNo() {
-        return 0;
+        return 2;
     }
 }
