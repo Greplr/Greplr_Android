@@ -2,12 +2,14 @@ package com.greplr.subcategories.travel;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -59,14 +61,15 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelFlights(
                 "DEL",
-                "MUM",
-                "20151010",
+                "BOM",
+                "20150627",
                 1,
                 new Callback<List<Flight>>() {
                     @Override
                     public void success(List<Flight> flights, Response response) {
                         Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
                         flightList = flights;
+                        UpdateFlight(flightList);
                     }
 
                     @Override
@@ -88,9 +91,65 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_flight);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
+        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
+
+    public void UpdateFlight(List<Flight> flights) {
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
+    }
+
+    public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder> {
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.flight_cardview_list_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.airline.setText(flightList.get(i).getAirline());
+            viewHolder.flightnum.setText(flightList.get(i).getFlightnum());
+            viewHolder.depdate.setText(flightList.get(i).getDepdate());
+            viewHolder.arrdate.setText(flightList.get(i).getArrdate());
+            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
+            viewHolder.flight_fare.setText(flightList.get(i).getFare());
+           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ub_ic_launcher));
+            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.taxi_for_sure_icon));
+            } else
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
+        }
+
+        @Override
+        public int getItemCount() {
+            return flightList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView airline;
+            TextView flightnum;
+            TextView depdate;
+            TextView arrdate;
+            TextView seatingclass;
+            TextView flight_fare;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                airline = (TextView) v.findViewById(R.id.airline);
+                flightnum = (TextView) v.findViewById(R.id.flight_no);
+                depdate = (TextView) v.findViewById(R.id.dept_time_flight);
+                arrdate = (TextView) v.findViewById(R.id.arr_time_flight);
+                seatingclass = (TextView) v.findViewById(R.id.seating_class);
+                flight_fare = (TextView) v.findViewById(R.id.flight_fare);
+            }
+        }
+    }
+
 }
