@@ -3,6 +3,7 @@ package com.greplr.topcategories;
 import android.support.v4.app.Fragment;
 
 import com.greplr.R;
+import com.greplr.subcategories.events.EventFragment;
 import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.travel.TravelFragment;
 
@@ -37,7 +38,7 @@ public class Topcategories {
                     R.drawable.cardicon_events,
                     R.drawable.topcategorycard_bg_events,
                     R.color.event_cardColor,
-                    FoodFragment.newInstance()));
+                    EventFragment.newInstance()));
         }
         return topCategories;
     }

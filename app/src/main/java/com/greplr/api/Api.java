@@ -1,5 +1,6 @@
 package com.greplr.api;
 
+import com.greplr.models.events.Movies;
 import com.greplr.models.food.Bar;
 import com.greplr.models.food.Cafe;
 import com.greplr.models.food.Restaurant;
@@ -10,11 +11,11 @@ import com.greplr.models.travel.Flight;
 import java.util.List;
 
 import retrofit.Callback;
-import retrofit.client.Response;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
-import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by championswimmer on 20/6/15.
@@ -68,6 +69,9 @@ public interface Api {
             @Field("lng")String longitude,
             Callback<List<Bar>> callback);
 
+    @FormUrlEncoded
+    @GET("/api/events/movies")
+    void getEventMovies(@Query("mid") String param1, Callback<List<Movies>> callback);
 
 
 }

@@ -123,6 +123,12 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO book cab by sending lat, long and product_id
+                    }
+                });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
             } else
@@ -141,9 +147,11 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             TextView prizePerKM;
             TextView provider;
             ImageView icon;
+            View view;
 
             public ViewHolder(CardView v) {
                 super(v);
+                view = v;
                 displayName = (TextView) v.findViewById(R.id.cab_name);
                 minPrice = (TextView) v.findViewById(R.id.min_price);
                 timeOfArrival = (TextView) v.findViewById(R.id.time_of_arrival);
