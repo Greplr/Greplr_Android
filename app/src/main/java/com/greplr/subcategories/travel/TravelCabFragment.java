@@ -59,7 +59,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "TravelCabFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.travel_cab_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelCabs(
@@ -122,9 +122,9 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             viewHolder.prizePerKM.setText("₹" + cabList.get(i).getPrice_per_km() + " /Km");
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ub_ic_launcher));
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.taxi_for_sure_icon));
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
             } else
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
         }

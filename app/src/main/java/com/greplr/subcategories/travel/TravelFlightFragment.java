@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -56,7 +57,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "TravelFlightFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.travel_flight_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_travel_flight, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelFlights(
@@ -119,12 +120,20 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
             viewHolder.arrdate.setText(flightList.get(i).getArrdate());
             viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
             viewHolder.flight_fare.setText(flightList.get(i).getFare());
-           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ub_ic_launcher));
-            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.taxi_for_sure_icon));
-            } else
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
+
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("IndiGo")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_indigo);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Vistara")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_vistara);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Jet Airways")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_jet_airways);
+            }
+
         }
 
         @Override
@@ -139,6 +148,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
             TextView arrdate;
             TextView seatingclass;
             TextView flight_fare;
+            ImageView icon;
 
             public ViewHolder(CardView v) {
                 super(v);
@@ -148,6 +158,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 arrdate = (TextView) v.findViewById(R.id.arr_time_flight);
                 seatingclass = (TextView) v.findViewById(R.id.seating_class);
                 flight_fare = (TextView) v.findViewById(R.id.flight_fare);
+                icon = (ImageView) v.findViewById(R.id.app_icon);
             }
         }
     }

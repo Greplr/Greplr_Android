@@ -60,7 +60,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "TravelBusFragment onCreateView");
 
-        View rootView = inflater.inflate(R.layout.travel_bus_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelBus(

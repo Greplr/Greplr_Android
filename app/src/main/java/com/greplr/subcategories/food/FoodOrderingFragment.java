@@ -46,7 +46,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "FoodOrderingFragment onCreateView");
-        View rootView  = inflater.inflate(R.layout.food_order_fragment, container, false);
+        View rootView  = inflater.inflate(R.layout.fragment_food_order, container, false);
 
 
 

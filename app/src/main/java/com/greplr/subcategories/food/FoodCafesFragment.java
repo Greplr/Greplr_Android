@@ -16,7 +16,6 @@ import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
-import com.greplr.models.food.Bar;
 import com.greplr.models.food.Cafe;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 
@@ -59,7 +58,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "FoodCafesFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.food_cafe_fragment, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_food_cafe, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getFoodCafes(
