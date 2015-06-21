@@ -23,12 +23,14 @@ package com.greplr.subcategories.events;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -89,6 +91,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                     public void success(List<Movies> movies, Response response) {
                         Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
                         movieList = movies;
+                        updateMovies(movieList);
                     }
 
                     @Override
@@ -110,9 +113,57 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
+        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
+
+    public void updateMovies(List<Movies> movies) {
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new MoviesAdapter()));
+    }
+
+    public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.movies_cardview_list_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.EventTitle.setText(movieList.get(i).getEventTitle());
+            viewHolder.Ratings.setText(movieList.get(i).getRatings()+"/10");
+            viewHolder.Language.setText(movieList.get(i).getLanguage());
+            viewHolder.Length.setText(movieList.get(i).getLength());
+            viewHolder.Actors.setText(movieList.get(i).getActors());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return movieList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView EventTitle;
+            TextView Ratings;
+            TextView Language;
+            TextView Length;
+            TextView Actors;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                EventTitle = (TextView) v.findViewById(R.id.event_title);
+                Ratings = (TextView) v.findViewById(R.id.rating);
+                Language = (TextView) v.findViewById(R.id.language);
+                Length = (TextView) v.findViewById(R.id.length);
+                Actors = (TextView) v.findViewById(R.id.actors);
+            }
+        }
+    }
+
 }

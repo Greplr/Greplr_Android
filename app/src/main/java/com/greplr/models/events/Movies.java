@@ -21,15 +21,22 @@
 
 package com.greplr.models.events;
 
-import java.util.ArrayList;
-
 /**
  * Created by raghav on 21/06/15.
  */
 public class Movies {
 
     public String Ratings;
-    public ArrayList<String> Actors;
+
+    public String getActors() {
+        return Actors;
+    }
+
+    public void setActors(String actors) {
+        Actors = actors;
+    }
+
+    public String Actors;
     public String Language;
     public String Length;
     public String EventTitle;
@@ -41,14 +48,6 @@ public class Movies {
 
     public void setRatings(String ratings) {
         Ratings = ratings;
-    }
-
-    public ArrayList<String> getActors() {
-        return Actors;
-    }
-
-    public void setActors(ArrayList<String> actors) {
-        Actors = actors;
     }
 
     public String getLanguage() {

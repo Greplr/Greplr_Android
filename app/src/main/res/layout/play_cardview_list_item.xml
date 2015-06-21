@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.greplr.common.ui.GlassCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view_bus_item"
+    android:layout_width="match_parent"
+    android:layout_height="225dp"
+    android:layout_margin="5dp"
+    android:background="@android:color/white"
+    android:foreground="?selectableItemBackground">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:padding="2dp">
+
+                    <!--<ImageView
+                        android:id="@+id/item_image"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/track_driver"
+                        android:scaleType="centerCrop" />-->
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp">
+
+
+                    <TextView
+                        android:id="@+id/play_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="4dp"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:text="Play name"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textColor="#483C46"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/th5"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_star"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/play_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Fare"
+                        android:textColor="#212121"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:paddingLeft="5dp">
+
+                <LinearLayout
+                    android:id="@+id/l3"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Length :"
+                        android:textColor="#0d47a1"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:id="@+id/play_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NA"
+                        android:maxLines="2"
+                        android:ellipsize="marquee"
+                        android:textColor="#212121"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/l13"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Director :"
+                        android:textColor="#0d47a1"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:id="@+id/Director_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="NA"
+                        android:maxLines="2"
+                        android:ellipsize="marquee"
+                        android:textColor="#212121"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp">
+
+<!--
+                    <LinearLayout
+                        android:id="@+id/l2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@+id/item_image"
+                        android:layout_toRightOf="@+id/item_image"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Length :"
+                            android:textColor="#0d47a1"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:id="@+id/length"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NA"
+                            android:maxLines="2"
+                            android:ellipsize="marquee"
+                            android:textColor="#212121"/>
+
+                    </LinearLayout>
+-->
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/th3"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_actors"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/play_actors"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Fare"
+                        android:textColor="#424242"
+                        android:textStyle="italic"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.greplr.common.ui.GlassCardView>
