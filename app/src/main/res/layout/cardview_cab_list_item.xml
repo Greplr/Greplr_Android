@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+    android:id="@+id/card_view_cab_item"
     android:layout_width="match_parent"
     android:layout_height="175dp"
     android:layout_margin="5dp"
