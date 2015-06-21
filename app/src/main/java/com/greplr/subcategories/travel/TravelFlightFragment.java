@@ -52,7 +52,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_travel_flight;
+        return R.drawable.background_travel;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,11 +115,11 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.airline.setText(flightList.get(i).getAirline());
-            viewHolder.flightnum.setText(flightList.get(i).getFlightnum());
+            viewHolder.flightnum.setText("Flight No. : "+flightList.get(i).getFlightnum());
             viewHolder.depdate.setText(flightList.get(i).getDepdate());
             viewHolder.arrdate.setText(flightList.get(i).getArrdate());
             viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
-            viewHolder.flight_fare.setText(flightList.get(i).getFare());
+            viewHolder.flight_fare.setText("₹"+flightList.get(i).getFare());
 
             if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
                 viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);

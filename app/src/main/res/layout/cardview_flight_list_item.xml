@@ -57,7 +57,7 @@
                 android:orientation="horizontal">
 
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/provider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     android:text="provider"
                     android:textColor="#BDBDBD"
                     android:textSize="10sp"
-                    android:textStyle="italic" />
+                    android:textStyle="italic" />-->
             </LinearLayout>
 
         </LinearLayout>
@@ -269,7 +269,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/seat_flight"
+                        android:background="@drawable/ic_work"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 

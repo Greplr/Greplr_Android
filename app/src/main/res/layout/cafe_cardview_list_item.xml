@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.greplr.common.ui.GlassCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:foreground="?selectableItemBackground"
+    android:background="@android:color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.15">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="2dp">
+
+                    <!--<ImageView
+                        android:id="@+id/th1"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/wallet_profile"
+                        android:scaleType="centerCrop" />-->
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/cafe_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Cafe name"
+                        android:textColor="#F4743B"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/th2"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_distance"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/cafe_distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Distance"
+                        android:textColor="#212121"
+                        android:textStyle="normal"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/th3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_map"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="vertical"
+                    android:paddingLeft="4dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/cafe_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Address"
+                        android:textColor="#212121"
+                        android:textStyle="normal"
+                        android:gravity="center_vertical"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:gravity="top|right"
+            android:layout_gravity="top|right">
+
+            <ImageButton
+                android:id="@+id/overflow_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|right"
+                android:src="@drawable/ic_location"
+                android:background="@android:color/transparent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.greplr.common.ui.GlassCardView>

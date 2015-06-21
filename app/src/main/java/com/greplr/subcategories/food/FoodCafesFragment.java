@@ -2,12 +2,14 @@ package com.greplr.subcategories.food;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -99,6 +101,50 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
     }
 
     public void updateCafes (List<Cafe> cafes) {
-
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CafeAdapter()));
     }
+
+    public class CafeAdapter extends RecyclerView.Adapter<CafeAdapter.ViewHolder> {
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cafe_cardview_list_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.restaurantName.setText(cafeList.get(i).getName());
+            viewHolder.distance.setText(String.valueOf(cafeList.get(i).getDistance())+" meter");
+            viewHolder.address.setText(cafeList.get(i).getAddress());
+           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
+            } else
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
+        }
+
+        @Override
+        public int getItemCount() {
+            return cafeList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView restaurantName;
+            TextView distance;
+            TextView address;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                restaurantName = (TextView) v.findViewById(R.id.cafe_name);
+                distance = (TextView) v.findViewById(R.id.cafe_distance);
+                address = (TextView) v.findViewById(R.id.cafe_address);
+            }
+        }
+    }
+
+
 }
