@@ -112,7 +112,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.bus_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

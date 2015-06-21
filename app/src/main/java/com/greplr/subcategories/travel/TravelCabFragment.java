@@ -110,7 +110,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.cab_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_cab_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 
