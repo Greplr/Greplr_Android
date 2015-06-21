@@ -2,14 +2,18 @@ package com.greplr.subcategories.events;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
@@ -63,7 +67,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                     @Override
                     public void success(List<Movies> movies, Response response) {
                         Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
-
+                        movieList = movies;
                     }
 
                     @Override
@@ -75,6 +79,19 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         );
 
         return rootView;
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
+        mRecyclerView.setAdapter(mAdapter);
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
 }
