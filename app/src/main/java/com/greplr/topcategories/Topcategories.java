@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Topcategories {
 
-    public static final int TOTAL_CATEGORIES = 2;
+    public static final int TOTAL_CATEGORIES = 3;
 
     private static ArrayList<Category> topCategories;
 
