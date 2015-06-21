@@ -1,6 +1,7 @@
 package com.greplr.api;
 
 import com.greplr.models.events.Movies;
+import com.greplr.models.events.Plays;
 import com.greplr.models.food.Bar;
 import com.greplr.models.food.Cafe;
 import com.greplr.models.food.Restaurant;
@@ -69,9 +70,11 @@ public interface Api {
             @Field("lng")String longitude,
             Callback<List<Bar>> callback);
 
-    @FormUrlEncoded
     @GET("/api/events/movies")
     void getEventMovies(@Query("mid") String param1, Callback<List<Movies>> callback);
+
+    @GET("/api/events/plays")
+    void getEventPlays(@Query("mid") String param1, Callback<List<Plays>> callback);
 
 
 }
