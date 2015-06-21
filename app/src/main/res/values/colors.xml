@@ -2,7 +2,8 @@
 <resources>
     <color name="main_toolbarColor">#77111111</color>
 
-    <color name="travel_cardColor">#aa483C46</color>
-    <color name="food_cardColor">#aaF4743B</color>
+    <color name="travel_cardColor">#aa388e3c</color>
+    <color name="food_cardColor">#aad32f2f</color>
+    <color name="event_cardColor">#aa1976d2</color>
 
 </resources>

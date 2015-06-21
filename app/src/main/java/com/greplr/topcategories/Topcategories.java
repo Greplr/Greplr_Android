@@ -32,6 +32,12 @@ public class Topcategories {
                     R.drawable.topcategorycard_bg_food,
                     R.color.food_cardColor,
                     FoodFragment.newInstance()));
+            topCategories.add(new Category(
+                    "Events",
+                    R.drawable.cardicon_events,
+                    R.drawable.topcategorycard_bg_events,
+                    R.color.event_cardColor,
+                    FoodFragment.newInstance()));
         }
         return topCategories;
     }
