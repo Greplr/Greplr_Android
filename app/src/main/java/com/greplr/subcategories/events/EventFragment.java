@@ -40,13 +40,13 @@ public class EventFragment extends SubCategoryFragment {
         return new UnderSubCategory[] {
                 new UnderSubCategory(
                         "Movies",
-                        R.drawable.background_travel_cab,
+                        R.drawable.background_events_movies,
                         R.drawable.cardicon_events_movies,
                         EventMovieFragment.newInstance()
                 ),
                 new UnderSubCategory(
                         "Plays",
-                        R.drawable.background_travel_cab,
+                        R.drawable.background_events_play,
                         R.drawable.cardicon_events_plays,
                         EventPlayFragment.newInstance()
                 )

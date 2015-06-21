@@ -73,7 +73,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_food_cafe;
+        return R.drawable.background_events_play;
     }
 
     @Nullable
