@@ -94,7 +94,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
                 R.id.recyclerview_food_cafe);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
+        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
