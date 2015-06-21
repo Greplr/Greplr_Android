@@ -11,6 +11,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -66,6 +68,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
         } else {
             fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ApplicationWrapper.locationInitialised = true;
+                    fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                }
+            }, 5000);
         }
 
         toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -285,7 +294,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             ApplicationWrapper.locationInitialised = true;
             fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
         }
-
     }
 
     @Override
