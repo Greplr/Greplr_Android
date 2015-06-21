@@ -21,9 +21,11 @@
 
 package com.greplr.subcategories.travel;
 
+
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -35,6 +37,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +49,7 @@ import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.models.Feedback;
 import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 
@@ -160,6 +165,52 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
             } else
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
+            viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    final Dialog customDialog = new Dialog(getActivity());
+                    customDialog.setContentView(R.layout.dialogbox_take_location);
+                    customDialog.setTitle("Give your feedback");
+                    customDialog.setCancelable(false);
+                    Button buttonDone = (Button) customDialog.findViewById(R.id.button_done);
+                    buttonDone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
+                            String userFeedback = locationEdTxt.getText().toString();
+                            if(userFeedback.equals("")){
+                                locationEdTxt.setError("Please Enter");
+                            } else {
+                                customDialog.dismiss();
+                                Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                                apiHandler.giveFeedBack(
+                                        userFeedback,
+                                        "Travel",
+                                        new Callback<List<Feedback>>() {
+                                            @Override
+                                            public void success(List<Feedback> feedbacks, Response response) {
+                                                Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                                            }
+
+                                            @Override
+                                            public void failure(RetrofitError error) {
+                                                Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+
+                                            }
+                                        }
+                                );
+                            }
+
+
+                        }
+                    });
+                    customDialog.show();
+
+
+
+                    return true;
+                }
+            });
         }
 
         @Override

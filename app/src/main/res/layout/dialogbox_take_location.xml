@@ -27,7 +27,7 @@
 
     <EditText
         android:id="@+id/dialog_edittext"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:imeOptions="actionDone"
         android:layout_gravity="left" />
