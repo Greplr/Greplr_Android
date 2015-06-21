@@ -21,10 +21,12 @@
 
 package com.greplr.subcategories.travel;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -187,13 +189,20 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         }
     }
 
-    public AlertDialog newCabHailDialog(Context c, Cab cab) {
+    public AlertDialog newCabHailDialog(final Context c, final Cab cab) {
 
         AlertDialog.Builder cabHailDialog = new AlertDialog.Builder(c);
         cabHailDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(c)
+                                .setSmallIcon(R.drawable.ic_brand_uber)
+                                .setContentTitle(cab.getDisplay_name() + "is on the way")
+                                .setContentText("Your cab is " + cab.getTime_of_arrival() + " minutes away");
+                NotificationManager mNotifyMgr =
+                        (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotifyMgr.notify(1010, mBuilder.build());
             }
         });
         cabHailDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

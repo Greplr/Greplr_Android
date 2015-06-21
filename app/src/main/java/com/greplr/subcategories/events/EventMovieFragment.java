@@ -62,7 +62,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getFragmentIcon() {
-        return R.drawable.cardicon_food_cafe;
+        return R.drawable.cardicon_events_movies;
     }
 
     @Override
