@@ -1,5 +1,7 @@
 package com.greplr.models.travel;
 
+import android.content.SharedPreferences;
+
 /**
  * Created by championswimmer on 20/6/15.
  */
@@ -10,6 +12,15 @@ public class Cab {
     private String time_of_arrival;
     private String price_per_km;
     private String provider;
+    private String product_id;
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
 
     public String getDisplay_name() {
         return display_name;
