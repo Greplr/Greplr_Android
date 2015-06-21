@@ -20,7 +20,7 @@ public class EventFragment extends SubCategoryFragment {
                 new UnderSubCategory(
                         "Movies",
                         R.drawable.background_travel_cab,
-                        R.drawable.cardicon_travel_taxi,
+                        R.drawable.cardicon_events_movies,
                         EventMovieFragment.newInstance()
                 )};
     }
