@@ -85,5 +85,4 @@ public interface Api {
             //@Query("mid") String param1,
             Callback<List<Plays>> callback);
 
-
 }

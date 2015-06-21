@@ -61,7 +61,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         View rootView =  inflater.inflate(R.layout.fragment_events_plays, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getEventPlays("",
+        apiHandler.getEventPlays(
                 new Callback<List<Plays>>() {
 
 

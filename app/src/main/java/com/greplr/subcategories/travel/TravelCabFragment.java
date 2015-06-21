@@ -1,7 +1,10 @@
 package com.greplr.subcategories.travel;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -126,7 +129,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO book cab by sending lat, long and product_id
+                        AlertDialog cabDialog = newCabHailDialog(getActivity(), cabList.get(i));
+                        cabDialog.show();
                     }
                 });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
@@ -160,6 +164,28 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 icon = (ImageView) v.findViewById(R.id.app_icon);
             }
         }
+    }
+
+    public AlertDialog newCabHailDialog(Context c, Cab cab) {
+
+        AlertDialog.Builder cabHailDialog = new AlertDialog.Builder(c);
+        cabHailDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        cabHailDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        cabHailDialog.setTitle("Book " + cab.getDisplay_name());
+        cabHailDialog.setMessage("Are you sure you want to book\n" +
+                cab.getDisplay_name() + " from " + cab.getProvider() + " ?\n" +
+                "Minimum Fare : " + cab.getMin_price());
+        return cabHailDialog.create();
     }
 
 }

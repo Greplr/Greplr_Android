@@ -61,7 +61,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         View rootView =  inflater.inflate(R.layout.fragment_events_movies, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getEventMovies("",
+        apiHandler.getEventMovies(
                 new Callback<List<Movies>>() {
 
                     @Override
