@@ -125,34 +125,66 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder> {
 
+        static final int TYPE_HEADER = 0;
+        static final int TYPE_CELL = 1;
+
+        @Override
+        public int getItemViewType(int position) {
+            switch (position) {
+                case 0:
+                    return TYPE_HEADER;
+                default:
+                    return TYPE_CELL;
+            }
+        }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.cardview_flight_list_item, viewGroup, false);
-            return new ViewHolder(v);
+            CardView v = null;
+
+            switch (i) {
+                case TYPE_HEADER: {
+                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
+                    return new ViewHolder(v);
+                }
+                case TYPE_CELL: {
+                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.cardview_flight_list_item, viewGroup, false);
+                    return new ViewHolder(v);
+                }
+            }
+            return null;
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.airline.setText(flightList.get(i).getAirline());
-            viewHolder.flightnum.setText("Flight No. : "+flightList.get(i).getFlightnum());
-            viewHolder.depdate.setText(flightList.get(i).getDepdate());
-            viewHolder.arrdate.setText(flightList.get(i).getArrdate());
-            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
-            viewHolder.flight_fare.setText("₹"+flightList.get(i).getFare());
+            switch (getItemViewType(i)) {
+                case TYPE_HEADER:
+                    break;
+                case TYPE_CELL:
+                    break;
+            }
+            if(getItemViewType(i)==TYPE_CELL) {
+                viewHolder.airline.setText(flightList.get(i).getAirline());
+                viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
+                viewHolder.depdate.setText(flightList.get(i).getDepdate());
+                viewHolder.arrdate.setText(flightList.get(i).getArrdate());
+                viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
+                viewHolder.flight_fare.setText("₹" + flightList.get(i).getFare());
 
-            if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
-                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
-            }
-            if (viewHolder.airline.getText().toString().equalsIgnoreCase("IndiGo")) {
-                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_indigo);
-            }
-            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Vistara")) {
-                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_vistara);
-            }
-            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Jet Airways")) {
-                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_jet_airways);
+                if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
+                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
+                }
+                if (viewHolder.airline.getText().toString().equalsIgnoreCase("IndiGo")) {
+                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_indigo);
+                }
+                if (viewHolder.airline.getText().toString().equalsIgnoreCase("Vistara")) {
+                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_vistara);
+                }
+                if (viewHolder.airline.getText().toString().equalsIgnoreCase("Jet Airways")) {
+                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_jet_airways);
+                }
             }
 
         }

@@ -129,22 +129,56 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
 
     public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {
 
+        static final int TYPE_HEADER = 0;
+        static final int TYPE_CELL = 1;
+
+        @Override
+        public int getItemViewType(int position) {
+            switch (position) {
+                case 0:
+                    return TYPE_HEADER;
+                default:
+                    return TYPE_CELL;
+            }
+        }
+
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
-            return new ViewHolder(v);
+
+            CardView v = null;
+
+            switch (i) {
+                case TYPE_HEADER: {
+                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
+                    return new ViewHolder(v);
+                }
+                case TYPE_CELL: {
+                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                            .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
+                    return new ViewHolder(v);
+                }
+            }
+            return null;
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.travelagency.setText(busList.get(i).getTravelagency());
-            viewHolder.bustype.setText(busList.get(i).getBustype());
-            viewHolder.seat.setText(busList.get(i).getSeat());
-            viewHolder.depdate.setText(busList.get(1).getDepdate());
-            viewHolder.arrdate.setText(busList.get(1).getArrdate());
-            viewHolder.fare.setText(busList.get(i).getFare());
+            switch (getItemViewType(i)) {
+                case TYPE_HEADER:
+                    break;
+                case TYPE_CELL:
+                    break;
+            }
+            if(getItemViewType(i)==TYPE_CELL) {
+                viewHolder.travelagency.setText(busList.get(i).getTravelagency());
+                viewHolder.bustype.setText(busList.get(i).getBustype());
+                viewHolder.seat.setText(busList.get(i).getSeat());
+                viewHolder.depdate.setText(busList.get(i).getDepdate());
+                viewHolder.arrdate.setText(busList.get(i).getArrdate());
+                viewHolder.fare.setText(busList.get(i).getFare());
+            }
         }
 
         @Override
