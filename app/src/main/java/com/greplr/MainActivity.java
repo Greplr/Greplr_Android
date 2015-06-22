@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationListener locationListener;
 
     public static void switchFragment(Fragment frag, View view, String name) {
-        //fragmentManager.beginTransaction().addSharedElement(view, name);
         fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
     }
 
