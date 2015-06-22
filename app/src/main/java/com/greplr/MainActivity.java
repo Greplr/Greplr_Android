@@ -59,19 +59,21 @@ import retrofit.RestAdapter;
 public class MainActivity extends AppCompatActivity implements LocationListener {
 
     private static FragmentManager fragmentManager;
-
-    private RestAdapter restAdapter;
-    private Api apiHandler;
-    private SearchBox search;
-    private Toolbar toolbar;
-
-    private LocationManager locationManager;
-    private LocationListener locationListener;
     String latitudes, longitudes;
     boolean gpsEnabled = false;
     boolean networkEnabled = false;
     String geoLocation;
+    private RestAdapter restAdapter;
+    private Api apiHandler;
+    private SearchBox search;
+    private Toolbar toolbar;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
 
+    public static void switchFragment(Fragment frag, View view, String name) {
+        //fragmentManager.beginTransaction().addSharedElement(view, name);
+        fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,21 +130,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     @Override
     protected void onStart() {
         super.onStart();
-        try{
+        try {
             gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Log.d("gpsEnabled = ", gpsEnabled+"");
-        } catch (Exception e){
+            Log.d("gpsEnabled = ", gpsEnabled + "");
+        } catch (Exception e) {
 
         }
 
-        try{
+        try {
             networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Log.d("gpsEnabled = ", networkEnabled+"");
-        } catch (Exception e){
+            Log.d("gpsEnabled = ", networkEnabled + "");
+        } catch (Exception e) {
 
         }
 
-        if(!gpsEnabled && !networkEnabled){
+        if (!gpsEnabled && !networkEnabled) {
             //alert the user
             Log.d("raghav", "Reached here");
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -166,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     LayoutInflater dialogLayout = getLayoutInflater();
 
 
-
                     customDialog.setContentView(R.layout.dialogbox_take_location);
                     customDialog.setTitle("Enter Your Location");
                     customDialog.setCancelable(false);
@@ -176,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         public void onClick(View v) {
                             EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
                             String location = locationEdTxt.getText().toString();
-                            if(location.equals("")){
+                            if (location.equals("")) {
                                 locationEdTxt.setError("Please Enter");
                             } else {
                                 customDialog.dismiss();
@@ -293,15 +294,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         toolbar.showOverflowMenu();
         getSupportActionBar().show();
         search.hideCircularly(this);
-        if(search.getSearchText().isEmpty())toolbar.setTitle("Greplr");
+        if (search.getSearchText().isEmpty()) toolbar.setTitle("Greplr");
     }
-
-    public static void switchFragment(Fragment frag, View view, String name) {
-        //fragmentManager.beginTransaction().addSharedElement(view, name);
-        fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
-    }
-
-
 
     @Override
     public void onLocationChanged(Location location) {
@@ -319,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude","status");
+        Log.d("Latitude", "status");
     }
 
     @Override

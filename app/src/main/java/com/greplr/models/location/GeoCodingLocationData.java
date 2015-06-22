@@ -38,8 +38,8 @@ import retrofit.client.Response;
  */
 public class GeoCodingLocationData {
 
-    String location;
     private static final String END_POINT = "http://128.199.128.227:8080";
+    String location;
 
     public GeoCodingLocationData(String location) {
         this.location = location;

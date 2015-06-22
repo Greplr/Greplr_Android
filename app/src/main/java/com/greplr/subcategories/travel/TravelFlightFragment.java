@@ -54,13 +54,12 @@ import retrofit.client.Response;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelFlightFragment extends UnderSubCategoryFragment {
-    
-    public static final String LOG_TAG = "Greplr/Travel/Flight";
 
+    public static final String LOG_TAG = "Greplr/Travel/Flight";
+    Api apiHandler;
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    Api apiHandler;
 
     public static TravelFlightFragment newInstance() {
         return new TravelFlightFragment();
@@ -80,6 +79,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     public int getBackgroundResId() {
         return R.drawable.background_travel_flight;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelFlightFragment onCreateView");
@@ -199,7 +199,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 case TYPE_CELL:
                     break;
             }
-            if(getItemViewType(i)==TYPE_CELL) {
+            if (getItemViewType(i) == TYPE_CELL) {
                 viewHolder.airline.setText(flightList.get(i).getAirline());
                 viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
                 viewHolder.depdate.setText(flightList.get(i).getDepdate());

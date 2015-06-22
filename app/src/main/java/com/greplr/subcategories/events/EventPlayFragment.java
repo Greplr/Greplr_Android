@@ -51,7 +51,7 @@ import retrofit.client.Response;
  * Created by raghav on 21/06/15.
  */
 public class EventPlayFragment extends UnderSubCategoryFragment {
-    
+
     public static final String LOG_TAG = "Greplr/Event/Play";
 
 
@@ -83,7 +83,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "EventPlaysFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.fragment_events_plays, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_events_plays, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getEventPlays(
@@ -136,7 +136,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.EventTitle.setText(playList.get(i).getEventTitle());
-            viewHolder.Ratings.setText(playList.get(i).getRatings()+"/10");
+            viewHolder.Ratings.setText(playList.get(i).getRatings() + "/10");
             viewHolder.Director.setText(playList.get(i).getDirector());
             viewHolder.Length.setText(playList.get(i).getLength());
             viewHolder.Actors.setText(playList.get(i).getActors());

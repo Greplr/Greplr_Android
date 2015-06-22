@@ -29,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Random;
@@ -45,7 +44,7 @@ public class LoaderFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static LoaderFragment newInstance () {
+    public static LoaderFragment newInstance() {
         return new LoaderFragment();
     }
 
@@ -57,7 +56,7 @@ public class LoaderFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_loader, container, false);
 
         ImageView backgroundImage = (ImageView) rootView.findViewById(R.id.loader_container);
-        int [] backImgs = {
+        int[] backImgs = {
                 R.drawable.main_background_1,
                 R.drawable.main_background_2,
         };

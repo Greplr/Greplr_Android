@@ -23,7 +23,7 @@ package com.greplr.adapters;
 
 /**
  * Created by yogeshbalan on 20/6/15.
- *
+ * <p/>
  * Dummy RecyclerView adapter generator
  */
 
@@ -39,22 +39,26 @@ import java.util.List;
 
 public class NumberedAdapter extends RecyclerView.Adapter<TextViewHolder> {
     private List<String> labels;
+
     public NumberedAdapter(int count) {
         labels = new ArrayList<String>(count);
         for (int i = 0; i < count; ++i) {
             labels.add(String.valueOf(i));
         }
     }
+
     @Override
     public TextViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_card_layout, parent, false);
         return new TextViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(final TextViewHolder holder, final int position) {
         final String label = labels.get(position);
 
     }
+
     @Override
     public int getItemCount() {
         return labels.size();

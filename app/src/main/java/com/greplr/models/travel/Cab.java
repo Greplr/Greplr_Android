@@ -21,8 +21,6 @@
 
 package com.greplr.models.travel;
 
-import android.content.SharedPreferences;
-
 /**
  * Created by championswimmer on 20/6/15.
  */

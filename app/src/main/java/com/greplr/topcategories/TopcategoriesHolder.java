@@ -21,7 +21,6 @@
 
 package com.greplr.topcategories;
 
-import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.greplr.MainActivity;
 import com.greplr.R;
 
 /**

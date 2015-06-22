@@ -48,8 +48,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
     }
 
 
-
-    public Topcategories.Category getItem (int id) {
+    public Topcategories.Category getItem(int id) {
         return categories.get(id);
     }
 
@@ -67,21 +66,21 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
         final Topcategories.Category cat = getItem(position);
 //        try {
 
-            AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(mContext, cat.cardIcon);
-            ad.setEnterFadeDuration(800);
-            ad.setExitFadeDuration(800);
-            holder.cardIcon.setImageDrawable(ad);
-            ad.start();
-            holder.cardIcon.setAdjustViewBounds(true);
-            //holder.cardContainer.setBackgroundResource(cat.drawable);
-            holder.cardView.setCardBackgroundColor(mContext.getResources().getColor(cat.cardColor));
-            holder.cardContainer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MainActivity.switchFragment(cat.categoryFragment, view, "mTransition");
-                }
-            });
-            holder.cardTitle.setText(cat.name);
+        AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(mContext, cat.cardIcon);
+        ad.setEnterFadeDuration(800);
+        ad.setExitFadeDuration(800);
+        holder.cardIcon.setImageDrawable(ad);
+        ad.start();
+        holder.cardIcon.setAdjustViewBounds(true);
+        //holder.cardContainer.setBackgroundResource(cat.drawable);
+        holder.cardView.setCardBackgroundColor(mContext.getResources().getColor(cat.cardColor));
+        holder.cardContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.switchFragment(cat.categoryFragment, view, "mTransition");
+            }
+        });
+        holder.cardTitle.setText(cat.name);
 //        } catch (Exception e) {
 //            Log.d("Greplr", "Unable to setup category cards");
 //        }

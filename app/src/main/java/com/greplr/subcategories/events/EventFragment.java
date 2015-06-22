@@ -37,7 +37,7 @@ public class EventFragment extends SubCategoryFragment {
 
     @Override
     public UnderSubCategory[] getUnderSubCategories() {
-        return new UnderSubCategory[] {
+        return new UnderSubCategory[]{
                 new UnderSubCategory(
                         "Movies",
                         R.drawable.background_events_movies,

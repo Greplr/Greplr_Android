@@ -37,7 +37,7 @@ public class TravelFragment extends SubCategoryFragment {
 
     @Override
     public UnderSubCategory[] getUnderSubCategories() {
-        return new UnderSubCategory[] {
+        return new UnderSubCategory[]{
                 new UnderSubCategory(
                         "Cab",
                         R.drawable.background_travel_cab,

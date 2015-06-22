@@ -34,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -54,22 +53,23 @@ public abstract class SubCategoryFragment extends Fragment {
     public SubCategoryFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.subcategories_fragment, container, false);
 
-        ((MainActivity)getActivity()).getSupportActionBar().hide();
+        ((MainActivity) getActivity()).getSupportActionBar().hide();
 
         final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
 
         Toolbar toolbar = matViewPager.getToolbar();
 
         if (toolbar != null) {
-            ((MainActivity)getActivity()).setSupportActionBar(toolbar);
+            ((MainActivity) getActivity()).setSupportActionBar(toolbar);
 
-            mActionBar= ((MainActivity)getActivity()).getSupportActionBar();
+            mActionBar = ((MainActivity) getActivity()).getSupportActionBar();
             mActionBar.setDisplayHomeAsUpEnabled(false);
             mActionBar.setDisplayUseLogoEnabled(false);
             mActionBar.setHomeButtonEnabled(false);
@@ -95,9 +95,9 @@ public abstract class SubCategoryFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 //Log.d("Greplr", "onPageSelected");
-                int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getBackgroundResId();
+                int backImgRes = ((UnderSubCategoryFragment) pagerAdapter.getItem(position)).getBackgroundResId();
                 Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
-                headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(position)).getFragmentIcon());
+                headerLogo.setImageResource(((UnderSubCategoryFragment) pagerAdapter.getItem(position)).getFragmentIcon());
             }
 
             @Override
@@ -107,13 +107,29 @@ public abstract class SubCategoryFragment extends Fragment {
         });
 
         //Set the first under-sub fragment's background image by default
-        int backImgRes = ((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getBackgroundResId();
+        int backImgRes = ((UnderSubCategoryFragment) pagerAdapter.getItem(0)).getBackgroundResId();
         Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
 
-        headerLogo.setImageResource(((UnderSubCategoryFragment)pagerAdapter.getItem(0)).getFragmentIcon());
+        headerLogo.setImageResource(((UnderSubCategoryFragment) pagerAdapter.getItem(0)).getFragmentIcon());
 
 
         return rootView;
+    }
+
+    public abstract UnderSubCategory[] getUnderSubCategories();
+
+    public abstract int topCatNo();
+
+    public int getToolbarColorResId() {
+        return Topcategories.getTopCategories().get(topCatNo()).cardColor;
+    }
+
+    public int getUnderSubFragCount() {
+        return getUnderSubCategories().length;
+    }
+
+    public Fragment getUnderSubFragment(int pos) {
+        return getUnderSubCategories()[pos].frag;
     }
 
     private class SubCategoryPagerAdapter extends FragmentPagerAdapter {
@@ -134,26 +150,9 @@ public abstract class SubCategoryFragment extends Fragment {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return ((UnderSubCategoryFragment)getItem(position)).getPageTitle();
+            return ((UnderSubCategoryFragment) getItem(position)).getPageTitle();
         }
     }
-
-    public abstract UnderSubCategory[] getUnderSubCategories();
-    public abstract int topCatNo();
-
-
-    public int getToolbarColorResId() {
-        return Topcategories.getTopCategories().get(topCatNo()).cardColor;
-    }
-
-    public int getUnderSubFragCount() {
-        return getUnderSubCategories().length;
-    }
-
-    public Fragment getUnderSubFragment(int pos) {
-        return getUnderSubCategories()[pos].frag;
-    }
-
 
 
 }

@@ -36,5 +36,5 @@ import retrofit.http.POST;
 public interface GeoCoding {
     @FormUrlEncoded
     @POST("/geo")
-    void findLocation(@Field("location")String location, Callback<List<GeoCodingLocation>> geoCodingLocation);
+    void findLocation(@Field("location") String location, Callback<List<GeoCodingLocation>> geoCodingLocation);
 }

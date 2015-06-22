@@ -51,8 +51,8 @@ import retrofit.client.Response;
 /**
  * Created by championswimmer on 15/6/15.
  */
-public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
-    
+public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
+
     public static final String LOG_TAG = "Greplr/Food/Restaurants";
 
     private RecyclerView mRecyclerView;
@@ -73,17 +73,18 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
     public String getPageTitle() {
         return "Restaurants";
     }
-    
+
     @Override
     public int getBackgroundResId() {
         return R.drawable.background_food_restaurant;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.fragment_food_restaurant, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getFoodRestaurants(
@@ -122,7 +123,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
 
     }
 
-    public void updateRestaurants (List<Restaurant> restaurants) {
+    public void updateRestaurants(List<Restaurant> restaurants) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RestaurantAdapter()));
     }
 
@@ -139,7 +140,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment{
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(restaurantList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(restaurantList.get(i).getDistance())+" meter");
+            viewHolder.distance.setText(String.valueOf(restaurantList.get(i).getDistance()) + " meter");
             viewHolder.address.setText(restaurantList.get(i).getAddress());
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));

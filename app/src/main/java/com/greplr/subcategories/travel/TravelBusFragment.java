@@ -50,8 +50,8 @@ import retrofit.client.Response;
 /**
  * Created by championswimmer on 15/6/15.
  */
-public class TravelBusFragment extends UnderSubCategoryFragment{
-    
+public class TravelBusFragment extends UnderSubCategoryFragment {
+
     public static final String LOG_TAG = "Greplr/Travel/Bus";
 
     private RecyclerView mRecyclerView;
@@ -173,7 +173,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
                 case TYPE_CELL:
                     break;
             }
-            if(getItemViewType(i)==TYPE_CELL) {
+            if (getItemViewType(i) == TYPE_CELL) {
                 viewHolder.travelagency.setText(busList.get(i).getTravelagency());
                 viewHolder.bustype.setText(busList.get(i).getBustype());
                 viewHolder.seat.setText(busList.get(i).getSeat());

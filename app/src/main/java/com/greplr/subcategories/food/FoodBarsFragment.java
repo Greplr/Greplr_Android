@@ -51,7 +51,7 @@ import retrofit.client.Response;
 /**
  * Created by championswimmer on 15/6/15.
  */
-public class FoodBarsFragment extends UnderSubCategoryFragment{
+public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/Food/Bars";
 
@@ -73,17 +73,18 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
     public String getPageTitle() {
         return "Bars";
     }
-    
+
     @Override
     public int getBackgroundResId() {
         return R.drawable.background_food_bar;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodBarsFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.fragment_food_bar, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getFoodBars(
@@ -122,7 +123,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
 
     }
 
-    public void updateBars (List<Bar> bars) {
+    public void updateBars(List<Bar> bars) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BarAdapter()));
     }
 
@@ -139,7 +140,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment{
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(barList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(barList.get(i).getDistance())+" meter");
+            viewHolder.distance.setText(String.valueOf(barList.get(i).getDistance()) + " meter");
             viewHolder.address.setText(barList.get(i).getAddress());
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));

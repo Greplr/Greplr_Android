@@ -51,8 +51,8 @@ import retrofit.client.Response;
 /**
  * Created by championswimmer on 15/6/15.
  */
-public class FoodCafesFragment extends UnderSubCategoryFragment{
-    
+public class FoodCafesFragment extends UnderSubCategoryFragment {
+
     public static final String LOG_TAG = "Greplr/Food/Cafes";
 
     private RecyclerView mRecyclerView;
@@ -73,17 +73,18 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
     public String getPageTitle() {
         return "Cafes";
     }
-    
+
     @Override
     public int getBackgroundResId() {
         return R.drawable.background_food_cafe;
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodCafesFragment onCreateView");
 
-        View rootView =  inflater.inflate(R.layout.fragment_food_cafe, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_food_cafe, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getFoodCafes(
@@ -123,7 +124,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
 
     }
 
-    public void updateCafes (List<Cafe> cafes) {
+    public void updateCafes(List<Cafe> cafes) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CafeAdapter()));
     }
 
@@ -140,7 +141,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment{
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(cafeList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(cafeList.get(i).getDistance())+" meter");
+            viewHolder.distance.setText(String.valueOf(cafeList.get(i).getDistance()) + " meter");
             viewHolder.address.setText(cafeList.get(i).getAddress());
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));

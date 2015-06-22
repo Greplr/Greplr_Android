@@ -65,18 +65,17 @@ public class Topcategories {
     }
 
     public static class Category {
-        public Category(String name, int cardIcon,int drawable, int cardColor, Fragment categoryFragment) {
+        public String name;
+        public int cardIcon;
+        public int drawable;
+        public int cardColor;
+        public Fragment categoryFragment;
+        public Category(String name, int cardIcon, int drawable, int cardColor, Fragment categoryFragment) {
             this.name = name;
             this.cardIcon = cardIcon;
             this.drawable = drawable;
             this.cardColor = cardColor;
             this.categoryFragment = categoryFragment;
         }
-
-        public String name;
-        public int cardIcon;
-        public int drawable;
-        public int cardColor;
-        public Fragment categoryFragment;
     }
 }

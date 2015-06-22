@@ -30,13 +30,13 @@ import com.greplr.subcategories.UnderSubCategory;
  */
 public class FoodFragment extends SubCategoryFragment {
 
-    public static FoodFragment newInstance (){
+    public static FoodFragment newInstance() {
         return new FoodFragment();
     }
 
     @Override
     public UnderSubCategory[] getUnderSubCategories() {
-        return new UnderSubCategory[] {
+        return new UnderSubCategory[]{
                 new UnderSubCategory(
                         "Order",
                         R.drawable.background_food_order,
@@ -63,6 +63,7 @@ public class FoodFragment extends SubCategoryFragment {
                 )
         };
     }
+
     @Override
     public int topCatNo() {
         return 1;

@@ -25,8 +25,8 @@ import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
-import com.greplr.R;
 import com.greplr.App;
+import com.greplr.R;
 
 /**
  * Created by championswimmer on 17/6/15.
@@ -35,10 +35,10 @@ public class GlassCardView extends CardView {
 
     private int cardBackgroundColor = App.DARK_CARDS ?
             R.color.cardview_dark_background : R.color.cardview_light_background;
-    
+
     private int theme = App.DARK_CARDS ?
             R.style.AppTheme : R.style.AppTheme_LightCards;
-    
+
     private float cardViewAlpha = 0.94f;
 
     public GlassCardView(Context context) {
@@ -74,7 +74,6 @@ public class GlassCardView extends CardView {
         margins.rightMargin = horizontalMargin;
         setLayoutParams(margins);
     }
-
 
 
 }

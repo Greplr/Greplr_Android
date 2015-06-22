@@ -22,10 +22,10 @@
 package com.greplr.subcategories.travel;
 
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -63,7 +63,7 @@ import retrofit.client.Response;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelCabFragment extends UnderSubCategoryFragment {
-    
+
     public static final String LOG_TAG = "Greplr/Travel/Cab";
 
     private List<Cab> cabList;
@@ -137,6 +137,35 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CabAdapter()));
     }
 
+    public AlertDialog newCabHailDialog(final Context c, final Cab cab) {
+
+        AlertDialog.Builder cabHailDialog = new AlertDialog.Builder(c);
+        cabHailDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(c)
+                                .setSmallIcon(R.drawable.ic_brand_uber)
+                                .setContentTitle(cab.getDisplay_name() + "is on the way")
+                                .setContentText("Your cab is " + cab.getTime_of_arrival() + " minutes away");
+                NotificationManager mNotifyMgr =
+                        (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
+                mNotifyMgr.notify(1010, mBuilder.build());
+            }
+        });
+        cabHailDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        cabHailDialog.setTitle("Book " + cab.getDisplay_name());
+        cabHailDialog.setMessage("Are you sure you want to book\n" +
+                cab.getDisplay_name() + " from " + cab.getProvider() + " ?\n" +
+                "Minimum Fare : " + cab.getMin_price());
+        return cabHailDialog.create();
+    }
+
     public class CabAdapter extends RecyclerView.Adapter<CabAdapter.ViewHolder> {
 
 
@@ -180,7 +209,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         public void onClick(View v) {
                             EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
                             String userFeedback = locationEdTxt.getText().toString();
-                            if(userFeedback.equals("")){
+                            if (userFeedback.equals("")) {
                                 locationEdTxt.setError("Please Enter");
                             } else {
                                 customDialog.dismiss();
@@ -207,7 +236,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         }
                     });
                     customDialog.show();
-
 
 
                     return true;
@@ -240,35 +268,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 icon = (ImageView) v.findViewById(R.id.app_icon);
             }
         }
-    }
-
-    public AlertDialog newCabHailDialog(final Context c, final Cab cab) {
-
-        AlertDialog.Builder cabHailDialog = new AlertDialog.Builder(c);
-        cabHailDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(c)
-                                .setSmallIcon(R.drawable.ic_brand_uber)
-                                .setContentTitle(cab.getDisplay_name() + "is on the way")
-                                .setContentText("Your cab is " + cab.getTime_of_arrival() + " minutes away");
-                NotificationManager mNotifyMgr =
-                        (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
-                mNotifyMgr.notify(1010, mBuilder.build());
-            }
-        });
-        cabHailDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        cabHailDialog.setTitle("Book " + cab.getDisplay_name());
-        cabHailDialog.setMessage("Are you sure you want to book\n" +
-                cab.getDisplay_name() + " from " + cab.getProvider() + " ?\n" +
-                "Minimum Fare : " + cab.getMin_price());
-        return cabHailDialog.create();
     }
 
 }

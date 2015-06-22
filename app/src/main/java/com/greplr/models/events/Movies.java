@@ -27,6 +27,11 @@ package com.greplr.models.events;
 public class Movies {
 
     public String Ratings;
+    public String Actors;
+    public String Language;
+    public String Length;
+    public String EventTitle;
+    public String EventCensor;
 
     public String getActors() {
         return Actors;
@@ -35,12 +40,6 @@ public class Movies {
     public void setActors(String actors) {
         Actors = actors;
     }
-
-    public String Actors;
-    public String Language;
-    public String Length;
-    public String EventTitle;
-    public String EventCensor;
 
     public String getRatings() {
         return Ratings;
