@@ -35,8 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:inputType="phone"
             android:singleLine="true"
+            android:id="@+id/et_origin"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/button_material_dark"
             android:textSize="14sp" />
@@ -63,8 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:inputType="phone"
                 android:singleLine="true"
+                android:id="@+id/et_destination"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/button_material_dark"
                 android:textSize="14sp" />
@@ -88,7 +88,7 @@
                 android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/contact"
+                android:id="@+id/et_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"

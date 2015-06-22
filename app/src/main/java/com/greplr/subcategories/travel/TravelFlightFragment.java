@@ -30,6 +30,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,6 +58,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    Api apiHandler;
 
     public static TravelFlightFragment newInstance() {
         return new TravelFlightFragment();
@@ -80,7 +83,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         Log.d("Greplr", "TravelFlightFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_flight, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelFlights(
                 "DEL",
                 "BOM",
@@ -146,6 +149,35 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 case TYPE_HEADER: {
                     v = (CardView) LayoutInflater.from(viewGroup.getContext())
                             .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
+                    Button okButton = (Button) v.findViewById(R.id.ok_button);
+                    final EditText orig = (EditText) v.findViewById(R.id.et_origin);
+                    final EditText dest = (EditText) v.findViewById(R.id.et_destination);
+                    final EditText date = (EditText) v.findViewById(R.id.et_date);
+                    okButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            apiHandler.getTravelFlights(
+                                    orig.getText().toString().toUpperCase(),
+                                    dest.getText().toString().toUpperCase(),
+                                    date.getText().toString(),
+                                    1,
+                                    new Callback<List<Flight>>() {
+                                        @Override
+                                        public void success(List<Flight> flights, Response response) {
+                                            Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                                            flightList = flights;
+                                            UpdateFlight(flightList);
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError error) {
+                                            Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+
+                                        }
+                                    }
+                            );
+                        }
+                    });
                     return new ViewHolder(v);
                 }
                 case TYPE_CELL: {
