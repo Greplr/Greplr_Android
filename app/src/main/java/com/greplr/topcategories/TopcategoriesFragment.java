@@ -45,6 +45,10 @@ public class TopcategoriesFragment extends Fragment {
     public TopcategoriesFragment() {
     }
 
+    public static TopcategoriesFragment newInstance() {
+        return new TopcategoriesFragment();
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

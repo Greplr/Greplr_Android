@@ -93,7 +93,10 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                 new Callback<List<Bar>>() {
                     @Override
                     public void success(List<Bar> bars, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, "success" + response.getUrl());
+                        Log.d(LOG_TAG,"lat " + App.currentLatitude);
+                        Log.d(LOG_TAG,"lng " + App.currentLongitude);
+                        Log.d(LOG_TAG, "response " + response.getStatus());
                         barList = bars;
                         updateBars(barList);
                     }

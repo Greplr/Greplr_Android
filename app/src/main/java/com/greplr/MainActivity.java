@@ -49,6 +49,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.greplr.api.Api;
+import com.greplr.common.utils.GreplocationListener;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.quinny898.library.persistentsearch.SearchBox;
@@ -56,10 +57,11 @@ import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity {
+
+    public static final String LOG_TAG = "Greplr/MainActivity";
 
     private static FragmentManager fragmentManager;
-    String latitudes, longitudes;
     boolean gpsEnabled = false;
     boolean networkEnabled = false;
     String geoLocation;
@@ -68,10 +70,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private SearchBox search;
     private Toolbar toolbar;
     private LocationManager locationManager;
-    private LocationListener locationListener;
+    private GreplocationListener gpsLocListener, netLocListener;
 
-    public static void switchFragment(Fragment frag, View view, String name) {
-        fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
+    public static void switchFragment(Fragment frag, boolean addToBackStack) {
+        if (addToBackStack) {
+            fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack("main").commit();
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
+        }
+
+    }
+
+    public static void goToTopFragment() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack("main", 0);
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.container, TopcategoriesFragment.newInstance()).commit();
+        }
     }
 
     @Override
@@ -80,6 +95,37 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setContentView(R.layout.activity_main);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        gpsLocListener = new GreplocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d(LOG_TAG, "Latitudes = " + location.getLatitude()+"");
+                Log.d(LOG_TAG, "Longitude = " +  location.getLongitude()+"");
+                App.currentLatitude = location.getLatitude();
+                App.currentLongitude = location.getLongitude();
+
+                if (!App.locationInitialised) {
+                    App.locationInitialised = true;
+                    goToTopFragment();
+                }
+
+            }
+        };
+        netLocListener = new GreplocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                Log.d(LOG_TAG, "Latitudes = " + location.getLatitude()+"");
+                Log.d(LOG_TAG, "Longitude = " +  location.getLongitude()+"");
+                App.currentLatitude = location.getLatitude();
+                App.currentLongitude = location.getLongitude();
+
+                if (!App.locationInitialised) {
+                    App.locationInitialised = true;
+                    goToTopFragment();
+                }
+
+            }
+        };
+
         search = (SearchBox) findViewById(R.id.searchbox);
         search.enableVoiceRecognition(this);
         search.setLogoTextColor(getResources().getColor(android.R.color.white));
@@ -87,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         fragmentManager = getSupportFragmentManager();
 
         if (App.locationInitialised) {
-            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+            goToTopFragment();
         } else {
             fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
@@ -131,16 +177,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onStart();
         try {
             gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Log.d("gpsEnabled = ", gpsEnabled + "");
+            Log.d(LOG_TAG, "gpsEnabled = " + gpsEnabled + "");
         } catch (Exception e) {
 
         }
 
         try {
             networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Log.d("gpsEnabled = ", networkEnabled + "");
+            Log.d(LOG_TAG, "gpsEnabled = " + networkEnabled + "");
         } catch (Exception e) {
 
+        }
+
+        if (gpsEnabled) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsLocListener);
+        }
+        if (networkEnabled) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, netLocListener);
         }
 
         if (!gpsEnabled && !networkEnabled) {
@@ -194,10 +247,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
             });
             dialog.show();
-
-
-        } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
 
     }
@@ -296,33 +345,5 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (search.getSearchText().isEmpty()) toolbar.setTitle("Greplr");
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-
-//        Log.d("Latitudes = ", location.getLatitude()+"");
-//        Log.d("Longitude = ", location.getLongitude()+"");
-        App.currentLatitude = location.getLatitude();
-        App.currentLongitude = location.getLongitude();
-
-        if (!App.locationInitialised) {
-            App.locationInitialised = true;
-            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
-        }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude", "status");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
 
 }

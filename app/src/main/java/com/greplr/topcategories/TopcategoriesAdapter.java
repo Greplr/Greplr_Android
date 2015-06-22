@@ -77,7 +77,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
         holder.cardContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.switchFragment(cat.categoryFragment, view, "mTransition");
+                MainActivity.switchFragment(cat.categoryFragment, true);
             }
         });
         holder.cardTitle.setText(cat.name);

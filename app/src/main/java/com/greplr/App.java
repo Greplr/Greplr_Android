@@ -29,6 +29,8 @@ import android.content.SharedPreferences;
  */
 public class App extends Application {
 
+    public static final String LOG_TAG = "Greplr/App";
+
     public static boolean DARK_CARDS = false;
 
     public static double currentLatitude = 28.6328;
