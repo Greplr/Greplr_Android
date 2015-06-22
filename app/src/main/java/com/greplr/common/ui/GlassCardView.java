@@ -26,17 +26,17 @@ import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
 import com.greplr.R;
-import com.greplr.ApplicationWrapper;
+import com.greplr.App;
 
 /**
  * Created by championswimmer on 17/6/15.
  */
 public class GlassCardView extends CardView {
 
-    private int cardBackgroundColor = ApplicationWrapper.DARK_CARDS ?
+    private int cardBackgroundColor = App.DARK_CARDS ?
             R.color.cardview_dark_background : R.color.cardview_light_background;
     
-    private int theme = ApplicationWrapper.DARK_CARDS ?
+    private int theme = App.DARK_CARDS ?
             R.style.AppTheme : R.style.AppTheme_LightCards;
     
     private float cardViewAlpha = 0.94f;

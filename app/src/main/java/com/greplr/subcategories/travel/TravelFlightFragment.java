@@ -54,6 +54,8 @@ import retrofit.client.Response;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelFlightFragment extends UnderSubCategoryFragment {
+    
+    public static final String LOG_TAG = "Greplr/Travel/Flight";
 
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
@@ -80,7 +82,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("Greplr", "TravelFlightFragment onCreateView");
+        Log.d(LOG_TAG, "TravelFlightFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_flight, container, false);
 
         apiHandler = ((MainActivity) getActivity()).getApiHandler();
@@ -92,14 +94,14 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 new Callback<List<Flight>>() {
                     @Override
                     public void success(List<Flight> flights, Response response) {
-                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         flightList = flights;
                         UpdateFlight(flightList);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                     }
                 }
@@ -164,14 +166,14 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                                     new Callback<List<Flight>>() {
                                         @Override
                                         public void success(List<Flight> flights, Response response) {
-                                            Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                                             flightList = flights;
                                             UpdateFlight(flightList);
                                         }
 
                                         @Override
                                         public void failure(RetrofitError error) {
-                                            Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                                         }
                                     }

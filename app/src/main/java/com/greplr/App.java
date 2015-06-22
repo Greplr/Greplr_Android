@@ -27,7 +27,7 @@ import android.content.SharedPreferences;
 /**
  * Created by championswimmer on 17/6/15.
  */
-public class ApplicationWrapper extends Application {
+public class App extends Application {
 
     public static boolean DARK_CARDS = false;
 

@@ -51,6 +51,8 @@ import retrofit.client.Response;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelBusFragment extends UnderSubCategoryFragment{
+    
+    public static final String LOG_TAG = "Greplr/Travel/Bus";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -79,7 +81,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("Greplr", "TravelBusFragment onCreateView");
+        Log.d(LOG_TAG, "TravelBusFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
 
@@ -91,14 +93,14 @@ public class TravelBusFragment extends UnderSubCategoryFragment{
                 new Callback<List<Bus>>() {
                     @Override
                     public void success(List<Bus> buses, Response response) {
-                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
                         updateBus(busList);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                     }
                 }

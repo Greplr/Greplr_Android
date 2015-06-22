@@ -51,6 +51,8 @@ import retrofit.client.Response;
  * Created by raghav on 21/06/15.
  */
 public class EventMovieFragment extends UnderSubCategoryFragment {
+    
+    public static final String LOG_TAG = "Greplr/Event/Movie";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -79,7 +81,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        Log.d("Greplr", "EventMovieFragment onCreateView");
+        Log.d(LOG_TAG, "EventMovieFragment onCreateView");
 
         View rootView =  inflater.inflate(R.layout.fragment_events_movies, container, false);
 
@@ -89,14 +91,14 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
                     @Override
                     public void success(List<Movies> movies, Response response) {
-                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         movieList = movies;
                         updateMovies(movieList);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                     }
                 }

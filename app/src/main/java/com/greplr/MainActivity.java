@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         fragmentManager = getSupportFragmentManager();
 
-        if (ApplicationWrapper.locationInitialised) {
+        if (App.locationInitialised) {
             fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
         } else {
             fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    ApplicationWrapper.locationInitialised = true;
+                    App.locationInitialised = true;
                     fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
                 }
             }, 5000);
@@ -308,11 +308,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 //        Log.d("Latitudes = ", location.getLatitude()+"");
 //        Log.d("Longitude = ", location.getLongitude()+"");
-        ApplicationWrapper.currentLatitude = location.getLatitude();
-        ApplicationWrapper.currentLongitude = location.getLongitude();
+        App.currentLatitude = location.getLatitude();
+        App.currentLongitude = location.getLongitude();
 
-        if (!ApplicationWrapper.locationInitialised) {
-            ApplicationWrapper.locationInitialised = true;
+        if (!App.locationInitialised) {
+            App.locationInitialised = true;
             fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
         }
     }

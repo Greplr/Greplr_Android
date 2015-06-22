@@ -44,7 +44,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.greplr.ApplicationWrapper;
+import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
@@ -63,6 +63,8 @@ import retrofit.client.Response;
  * Created by championswimmer on 15/6/15.
  */
 public class TravelCabFragment extends UnderSubCategoryFragment {
+    
+    public static final String LOG_TAG = "Greplr/Travel/Cab";
 
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
@@ -89,24 +91,24 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("Greplr", "TravelCabFragment onCreateView");
+        Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelCabs(
-                String.valueOf(ApplicationWrapper.currentLatitude),
-                String.valueOf(ApplicationWrapper.currentLongitude),
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
                 new Callback<List<Cab>>() {
                     @Override
                     public void success(List<Cab> cabs, Response response) {
-                        Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         cabList = cabs;
                         updateCabs(cabList);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                     }
                 }
@@ -189,12 +191,12 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                                         new Callback<List<Feedback>>() {
                                             @Override
                                             public void success(List<Feedback> feedbacks, Response response) {
-                                                Log.d("Greplr", "success" + response.getUrl() + response.getStatus());
+                                                Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                                             }
 
                                             @Override
                                             public void failure(RetrofitError error) {
-                                                Log.d("Greplr", "failure" + error.getUrl() + error.getMessage());
+                                                Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
 
                                             }
                                         }
