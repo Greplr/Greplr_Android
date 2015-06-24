@@ -28,7 +28,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +51,7 @@ import com.greplr.api.Api;
 import com.greplr.common.utils.GreplocationListener;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
+import com.parse.ParseUser;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 
@@ -93,73 +93,79 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        gpsLocListener = new GreplocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d(LOG_TAG, "Latitudes = " + location.getLatitude()+"");
-                Log.d(LOG_TAG, "Longitude = " +  location.getLongitude()+"");
-                App.currentLatitude = location.getLatitude();
-                App.currentLongitude = location.getLongitude();
-
-                if (!App.locationInitialised) {
-                    App.locationInitialised = true;
-                    goToTopFragment();
-                }
-
-            }
-        };
-        netLocListener = new GreplocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                Log.d(LOG_TAG, "Latitudes = " + location.getLatitude()+"");
-                Log.d(LOG_TAG, "Longitude = " +  location.getLongitude()+"");
-                App.currentLatitude = location.getLatitude();
-                App.currentLongitude = location.getLongitude();
-
-                if (!App.locationInitialised) {
-                    App.locationInitialised = true;
-                    goToTopFragment();
-                }
-
-            }
-        };
-
-        search = (SearchBox) findViewById(R.id.searchbox);
-        search.enableVoiceRecognition(this);
-        search.setLogoTextColor(getResources().getColor(android.R.color.white));
-
-        fragmentManager = getSupportFragmentManager();
-
-        if (App.locationInitialised) {
-            goToTopFragment();
+        ParseUser parseUser = ParseUser.getCurrentUser();
+        if ((parseUser == null)) {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
         } else {
-            fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+            gpsLocListener = new GreplocationListener() {
                 @Override
-                public void run() {
-                    App.locationInitialised = true;
-                    fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                public void onLocationChanged(Location location) {
+                    Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
+                    Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
+                    App.currentLatitude = location.getLatitude();
+                    App.currentLongitude = location.getLongitude();
+
+                    if (!App.locationInitialised) {
+                        App.locationInitialised = true;
+                        goToTopFragment();
+                    }
+
                 }
-            }, 5000);
-        }
+            };
+            netLocListener = new GreplocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
+                    Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
+                    App.currentLatitude = location.getLatitude();
+                    App.currentLongitude = location.getLongitude();
 
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                openSearch();
-                return true;
+                    if (!App.locationInitialised) {
+                        App.locationInitialised = true;
+                        goToTopFragment();
+                    }
+
+                }
+            };
+
+            search = (SearchBox) findViewById(R.id.searchbox);
+            search.enableVoiceRecognition(this);
+            search.setLogoTextColor(getResources().getColor(android.R.color.white));
+
+            fragmentManager = getSupportFragmentManager();
+
+            if (App.locationInitialised) {
+                goToTopFragment();
+            } else {
+                fragmentManager.beginTransaction().replace(R.id.container, LoaderFragment.newInstance()).commit();
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        App.locationInitialised = true;
+                        fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                    }
+                }, 5000);
             }
-        });
 
-        getApiHandler();
+            toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+            setSupportActionBar(toolbar);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    openSearch();
+                    return true;
+                }
+            });
 
-
+            getApiHandler();
+        }
     }
 
     public Api getApiHandler() {
