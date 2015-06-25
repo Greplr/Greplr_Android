@@ -81,6 +81,7 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
             }
         });
         holder.cardTitle.setText(cat.name);
+
 //        } catch (Exception e) {
 //            Log.d("Greplr", "Unable to setup category cards");
 //        }
