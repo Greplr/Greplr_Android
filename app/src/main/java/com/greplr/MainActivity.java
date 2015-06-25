@@ -22,24 +22,20 @@
 package com.greplr;
 
 
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,8 +43,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.greplr.api.Api;
-import com.greplr.common.utils.GreplocationListener;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseUser;
@@ -57,20 +64,25 @@ import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ConnectionCallbacks,
+        OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener,
+        ResultCallback<LocationSettingsResult> {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
 
     private static FragmentManager fragmentManager;
-    boolean gpsEnabled = false;
-    boolean networkEnabled = false;
+    private final int REQUEST_CHECK_SETTINGS = 0x1;
     String geoLocation;
     private RestAdapter restAdapter;
     private Api apiHandler;
     private SearchBox search;
     private Toolbar toolbar;
-    private LocationManager locationManager;
-    private GreplocationListener gpsLocListener, netLocListener;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private LocationSettingsRequest mLocationSettingsRequest;
+    private Location mCurrentLocation;
+    private Boolean mRequestingLocationUpdates;
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
         if (addToBackStack) {
@@ -100,39 +112,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         } else {
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-            gpsLocListener = new GreplocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
-                    Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
-                    App.currentLatitude = location.getLatitude();
-                    App.currentLongitude = location.getLongitude();
-
-                    if (!App.locationInitialised) {
-                        App.locationInitialised = true;
-                        goToTopFragment();
-                    }
-
-                }
-            };
-            netLocListener = new GreplocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
-                    Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
-                    App.currentLatitude = location.getLatitude();
-                    App.currentLongitude = location.getLongitude();
-
-                    if (!App.locationInitialised) {
-                        App.locationInitialised = true;
-                        goToTopFragment();
-                    }
-
-                }
-            };
-
+            mRequestingLocationUpdates = false;
+            buildGoogleApiClient();
+            createLocationRequest();
+            buildLocationSettingsRequest();
+            checkLocationSettings();
             search = (SearchBox) findViewById(R.id.searchbox);
             search.enableVoiceRecognition(this);
             search.setLogoTextColor(getResources().getColor(android.R.color.white));
@@ -181,87 +165,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        try {
-            gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Log.d(LOG_TAG, "gpsEnabled = " + gpsEnabled + "");
-        } catch (Exception e) {
-
-        }
-
-        try {
-            networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Log.d(LOG_TAG, "gpsEnabled = " + networkEnabled + "");
-        } catch (Exception e) {
-
-        }
-
-        if (gpsEnabled) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsLocListener);
-        }
-        if (networkEnabled) {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, netLocListener);
-        }
-
-        if (!gpsEnabled && !networkEnabled) {
-            //alert the user
-            Log.d("raghav", "Reached here");
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setMessage("Location is disabled, please enable it.");
-            dialog.setCancelable(false);
-            dialog.setPositiveButton("Enable", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    MainActivity.this.startActivity(intent);
-
-                }
-            });
-
-            dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                    final Dialog customDialog = new Dialog(MainActivity.this);
-                    LayoutInflater dialogLayout = getLayoutInflater();
-
-
-                    customDialog.setContentView(R.layout.dialogbox_take_location);
-                    customDialog.setTitle("Enter Your Location");
-                    customDialog.setCancelable(false);
-                    Button buttonDone = (Button) customDialog.findViewById(R.id.button_done);
-                    buttonDone.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
-                            String location = locationEdTxt.getText().toString();
-                            if (location.equals("")) {
-                                locationEdTxt.setError("Please Enter");
-                            } else {
-                                customDialog.dismiss();
-                                geoLocation = location;
-                                Log.d("Location:", geoLocation + "");
-                                GeoCodingLocationData.fetchData(geoLocation);
-
-                            }
-
-
-                        }
-                    });
-                    customDialog.show();
-
-                }
-            });
-            dialog.show();
-        }
-
+        mGoogleApiClient.connect();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -284,6 +210,45 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            // Check for the integer request code originally supplied to startResolutionForResult().
+            case REQUEST_CHECK_SETTINGS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        Log.i(LOG_TAG, "User agreed to make required location settings changes.");
+                        startLocationUpdates();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Log.i(LOG_TAG, "User chose not to make required location settings changes.");
+                        final Dialog customDialog = new Dialog(MainActivity.this);
+                        customDialog.setContentView(R.layout.dialogbox_take_location);
+                        customDialog.setTitle("Enter Your Location");
+                        customDialog.setCancelable(false);
+                        Button buttonDone = (Button) customDialog.findViewById(R.id.button_done);
+                        buttonDone.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                EditText locationEdTxt = (EditText) customDialog.findViewById(R.id.dialog_edittext);
+                                String location = locationEdTxt.getText().toString();
+                                if (location.equals("")) {
+                                    locationEdTxt.setError("Please Enter");
+                                } else {
+                                    customDialog.dismiss();
+                                    geoLocation = location;
+                                    Log.d("Location:", geoLocation + "");
+                                    GeoCodingLocationData.fetchData(geoLocation);
+                                }
+                            }
+                        });
+                        customDialog.show();
+                        break;
+                }
+                break;
+        }
     }
 
     public void openSearch() {
@@ -351,5 +316,116 @@ public class MainActivity extends AppCompatActivity {
         if (search.getSearchText().isEmpty()) toolbar.setTitle("Greplr");
     }
 
+    protected synchronized void buildGoogleApiClient() {
+        Log.i(LOG_TAG, "Building GoogleApiClient");
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
 
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+
+        // Sets the desired interval for active location updates.
+        mLocationRequest.setInterval(10000);
+
+        // Sets the fastest rate for active location updates.
+        mLocationRequest.setFastestInterval(5000);
+
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+    protected void buildLocationSettingsRequest() {
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        mLocationSettingsRequest = builder.build();
+    }
+
+    protected void checkLocationSettings() {
+        PendingResult<LocationSettingsResult> result =
+                LocationServices.SettingsApi.checkLocationSettings(
+                        mGoogleApiClient,
+                        mLocationSettingsRequest
+                );
+        result.setResultCallback(this);
+    }
+
+    protected void startLocationUpdates() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient,
+                mLocationRequest,
+                this
+        );
+    }
+
+    protected void stopLocationUpdates() {
+        // It is a good practice to remove location requests when the activity is in a paused or
+        // stopped state. Doing so helps battery performance and is especially
+        // recommended in applications that request frequent location updates.
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient,
+                this
+        );
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        mCurrentLocation = location;
+        Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
+        Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
+        App.currentLatitude = location.getLatitude();
+        App.currentLongitude = location.getLongitude();
+
+        if (!App.locationInitialised) {
+            App.locationInitialised = true;
+            goToTopFragment();
+        }
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        if (mCurrentLocation == null) {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onResult(LocationSettingsResult locationSettingsResult) {
+        final Status status = locationSettingsResult.getStatus();
+        switch (status.getStatusCode()) {
+            case LocationSettingsStatusCodes.SUCCESS:
+                Log.i(LOG_TAG, "All location settings are satisfied.");
+                startLocationUpdates();
+                break;
+            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                Log.i(LOG_TAG, "Location settings are not satisfied. Show the user a dialog to" +
+                        "upgrade location settings ");
+
+                try {
+                    // Show the dialog by calling startResolutionForResult(), and check the result
+                    // in onActivityResult().
+                    status.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException e) {
+                    Log.i(LOG_TAG, "PendingIntent unable to execute request.");
+                }
+                break;
+            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                Log.i(LOG_TAG, "Location settings are inadequate, and cannot be fixed here. Dialog " +
+                        "not created.");
+                break;
+        }
+    }
 }
