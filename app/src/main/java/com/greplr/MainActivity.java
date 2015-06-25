@@ -357,7 +357,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
                 mGoogleApiClient,
                 mLocationRequest,
                 this
-        );
+        ).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(Status status) {
+                mRequestingLocationUpdates = true;
+            }
+        });
     }
 
     protected void stopLocationUpdates() {
@@ -367,7 +372,12 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient,
                 this
-        );
+        ).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(Status status) {
+                mRequestingLocationUpdates = false;
+            }
+        });
     }
 
 
