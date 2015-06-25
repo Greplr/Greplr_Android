@@ -89,7 +89,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         apiHandler.getTravelFlights(
                 "DEL",
                 "BOM",
-                "20150627",
+                "20150710",
                 1,
                 new Callback<List<Flight>>() {
                     @Override

@@ -89,7 +89,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         apiHandler.getTravelBus(
                 "Delhi",
                 "Amritsar",
-                "20150625",
+                "20150710",
                 new Callback<List<Bus>>() {
                     @Override
                     public void success(List<Bus> buses, Response response) {
