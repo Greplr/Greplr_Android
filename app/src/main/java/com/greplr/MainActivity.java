@@ -64,8 +64,7 @@ import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity implements ConnectionCallbacks,
-        OnConnectionFailedListener,
+public class MainActivity extends AppCompatActivity implements
         com.google.android.gms.location.LocationListener,
         ResultCallback<LocationSettingsResult> {
 
@@ -78,10 +77,8 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     private Api apiHandler;
     private SearchBox search;
     private Toolbar toolbar;
-    private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
-    private Location mCurrentLocation;
     private Boolean mRequestingLocationUpdates;
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -113,10 +110,10 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
             finish();
         } else {
             mRequestingLocationUpdates = false;
-            buildGoogleApiClient();
             createLocationRequest();
             buildLocationSettingsRequest();
             checkLocationSettings();
+
             search = (SearchBox) findViewById(R.id.searchbox);
             search.enableVoiceRecognition(this);
             search.setLogoTextColor(getResources().getColor(android.R.color.white));
@@ -165,13 +162,13 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     protected void onStart() {
         super.onStart();
-        mGoogleApiClient.connect();
+        ((App) getApplication()).getGoogleApiClient().connect();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+        if (((App) getApplication()).getGoogleApiClient().isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
     }
@@ -179,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     protected void onPause() {
         super.onPause();
-        if (mGoogleApiClient.isConnected()) {
+        if (((App) getApplication()).getGoogleApiClient().isConnected()) {
             stopLocationUpdates();
         }
     }
@@ -187,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     @Override
     protected void onStop() {
         super.onStop();
-        mGoogleApiClient.disconnect();
+        ((App) getApplication()).getGoogleApiClient().disconnect();
     }
 
     @Override
@@ -316,14 +313,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         if (search.getSearchText().isEmpty()) toolbar.setTitle("Greplr");
     }
 
-    protected synchronized void buildGoogleApiClient() {
-        Log.i(LOG_TAG, "Building GoogleApiClient");
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
+    
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -346,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
     protected void checkLocationSettings() {
         PendingResult<LocationSettingsResult> result =
                 LocationServices.SettingsApi.checkLocationSettings(
-                        mGoogleApiClient,
+                        ((App) getApplication()).getGoogleApiClient(),
                         mLocationSettingsRequest
                 );
         result.setResultCallback(this);
@@ -354,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     protected void startLocationUpdates() {
         LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient,
+                ((App) getApplication()).getGoogleApiClient(),
                 mLocationRequest,
                 this
         ).setResultCallback(new ResultCallback<Status>() {
@@ -370,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
         LocationServices.FusedLocationApi.removeLocationUpdates(
-                mGoogleApiClient,
+                ((App) getApplication()).getGoogleApiClient(),
                 this
         ).setResultCallback(new ResultCallback<Status>() {
             @Override
@@ -383,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-        mCurrentLocation = location;
+        App.currentLocation = location;
         Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
         Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
         App.currentLatitude = location.getLatitude();
@@ -395,22 +385,7 @@ public class MainActivity extends AppCompatActivity implements ConnectionCallbac
         }
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {
-        if (mCurrentLocation == null) {
-            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        }
-    }
 
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
 
     @Override
     public void onResult(LocationSettingsResult locationSettingsResult) {
