@@ -27,4 +27,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bnc_app_key">"key_live_kgaC44saJgfWA81GLotalibmAwmmJfhz"</string>
+    <string name="facebook_app_id">437459549769491</string>
+    <string name="facebook_login_failed_toast">Facebook login failed</string>
+    <string name="twitter_login_failed_toast">Twitter login failed</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

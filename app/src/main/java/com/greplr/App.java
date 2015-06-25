@@ -24,6 +24,10 @@ package com.greplr;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
+
 /**
  * Created by championswimmer on 17/6/15.
  */
@@ -43,6 +47,9 @@ public class App extends Application {
         SharedPreferences sPref = getSharedPreferences("location", MODE_PRIVATE);
         currentLatitude = Double.valueOf(sPref.getString("lastLatitude", "28.6328"));
         currentLongitude = Double.valueOf(sPref.getString("lastLongitude", "77.2197"));
+        Parse.initialize(this, "tA24P8ZHIuY6T6GCePmlwS94r7DKYIl0DrYee41g", "1pJVaZcK43AXO6wAtDzqPs1GMkA1E3jHtXTNCzKc");
+        ParseFacebookUtils.initialize(this);
+        ParseTwitterUtils.initialize("PdLB1zaNjktVXpBqPddVMWENt", "ND4JkQj7lucz1uQO0URF3mBfQFORIzSKY2oHUPZGtJgbaDzZLY");
         super.onCreate();
 
     }
