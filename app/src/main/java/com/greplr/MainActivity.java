@@ -59,8 +59,6 @@ import com.greplr.api.Api;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseUser;
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchResult;
 
 import retrofit.RestAdapter;
 
@@ -75,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements
     String geoLocation;
     private RestAdapter restAdapter;
     private Api apiHandler;
-    private SearchBox search;
     private Toolbar toolbar;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
@@ -114,10 +111,6 @@ public class MainActivity extends AppCompatActivity implements
             buildLocationSettingsRequest();
             checkLocationSettings();
 
-            search = (SearchBox) findViewById(R.id.searchbox);
-            search.enableVoiceRecognition(this);
-            search.setLogoTextColor(getResources().getColor(android.R.color.white));
-
             fragmentManager = getSupportFragmentManager();
 
             if (App.locationInitialised) {
@@ -140,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    openSearch();
                     return true;
                 }
             });
@@ -248,73 +240,6 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-    public void openSearch() {
-        toolbar.setTitle("");
-        toolbar.hideOverflowMenu();
-        getSupportActionBar().hide();
-        search.revealFromMenuItem(R.id.action_search, this);
-        for (int x = 0; x < 5; x++) {
-            SearchResult option = new SearchResult("Result "
-                    + Integer.toString(x), getResources().getDrawable(
-                    R.drawable.ic_history));
-            search.addSearchable(option);
-        }
-        search.setMenuListener(new SearchBox.MenuListener() {
-
-            @Override
-            public void onMenuClick() {
-                // Hamburger has been clicked
-                Toast.makeText(MainActivity.this, "Menu click",
-                        Toast.LENGTH_LONG).show();
-            }
-
-        });
-        search.setSearchListener(new SearchBox.SearchListener() {
-
-            @Override
-            public void onSearchOpened() {
-                // Use this to tint the screen
-
-            }
-
-            @Override
-            public void onSearchClosed() {
-                // Use this to un-tint the screen
-                closeSearch();
-            }
-
-            @Override
-            public void onSearchTermChanged() {
-                // React to the search term changing
-                // Called after it has updated results
-            }
-
-            @Override
-            public void onSearch(String searchTerm) {
-                Toast.makeText(MainActivity.this, searchTerm + " Searched",
-                        Toast.LENGTH_LONG).show();
-                toolbar.setTitle(searchTerm);
-
-            }
-
-            @Override
-            public void onSearchCleared() {
-
-            }
-
-        });
-
-    }
-
-    protected void closeSearch() {
-        toolbar.showOverflowMenu();
-        getSupportActionBar().show();
-        search.hideCircularly(this);
-        if (search.getSearchText().isEmpty()) toolbar.setTitle("Greplr");
-    }
-
-    
-
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
 
@@ -373,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d(LOG_TAG, "onLocationChanged");
         App.currentLocation = location;
         Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
         Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");
