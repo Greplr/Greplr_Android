@@ -33,7 +33,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -193,7 +194,7 @@
             android:layout_gravity="top|right">
 
             <ImageButton
-                android:id="@+id/overflow_menu"
+                android:id="@+id/location_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|right"

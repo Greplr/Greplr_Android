@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialMenuView"><attr format="color" name="mm_color"/><attr format="integer" name="mm_scale"/><attr format="integer" name="mm_transformDuration"/><attr format="integer" name="mm_pressedDuration"/><attr format="integer" name="mm_strokeWidth"/><attr format="boolean" name="mm_rtlEnabled"/></declare-styleable>
+    <!-- From: file:/Users/raghav/MyProject/Greplr_Android/library/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="speak_now">Speak now</string>
+</resources>

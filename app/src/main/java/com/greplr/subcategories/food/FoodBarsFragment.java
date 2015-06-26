@@ -21,6 +21,8 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -30,6 +32,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -41,8 +44,11 @@ import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Bar;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.parse.ParseAnalytics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -99,11 +105,21 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "response " + response.getStatus());
                         barList = bars;
                         updateBars(barList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/bars/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/bars/search", params);
 
                     }
                 }
@@ -145,6 +161,14 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             viewHolder.restaurantName.setText(barList.get(i).getName());
             viewHolder.distance.setText(String.valueOf(barList.get(i).getDistance()) + " meter");
             viewHolder.address.setText(barList.get(i).getAddress());
+            viewHolder.location.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng()));
+                    startActivity(intent);
+                }
+            });
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
@@ -162,12 +186,13 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             TextView restaurantName;
             TextView distance;
             TextView address;
-
+            ImageButton location;
             public ViewHolder(CardView v) {
                 super(v);
                 restaurantName = (TextView) v.findViewById(R.id.bar_name);
                 distance = (TextView) v.findViewById(R.id.bar_distance);
                 address = (TextView) v.findViewById(R.id.bar_address);
+                location = (ImageButton) v.findViewById(R.id.location_bar);
             }
         }
     }
