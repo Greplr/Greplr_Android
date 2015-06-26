@@ -22,8 +22,10 @@
 package com.greplr;
 
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,7 @@ public class LoaderFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_loader, container, false);
 
         ImageView backgroundImage = (ImageView) rootView.findViewById(R.id.loader_container);
+        ImageView loaderIcon = (ImageView) rootView.findViewById(R.id.loader_image);
         int[] backImgs = {
                 R.drawable.main_background_1,
                 R.drawable.main_background_2,
@@ -63,6 +66,11 @@ public class LoaderFragment extends Fragment {
         Random rGen = new Random();
         int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
         Picasso.with(getActivity()).load(backImageResource).fit().centerCrop().into(backgroundImage);
+        AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(getActivity(),
+                R.drawable.loader_icon);
+        loaderIcon.setImageDrawable(ad);
+        ad.start();
+
 
         return rootView;
     }

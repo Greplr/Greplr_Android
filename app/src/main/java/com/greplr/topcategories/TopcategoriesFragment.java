@@ -25,6 +25,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,12 +77,14 @@ public class TopcategoriesFragment extends Fragment {
         //backgroundImage.setImageResource(backImageResource);
         Picasso.with(getActivity()).load(backImageResource).fit().centerInside().into(backgroundImage);
         categoryList.setHasFixedSize(true);
+
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
         int screenWidth = size.x;
         glm.setSpanCount(screenWidth / (getResources().getDimensionPixelOffset(R.dimen.column_width_main_recyclerview)));
         categoryList.setLayoutManager(glm);
+
         categoryList.setAdapter(new TopcategoriesAdapter(getActivity()));
         return rootView;
     }
