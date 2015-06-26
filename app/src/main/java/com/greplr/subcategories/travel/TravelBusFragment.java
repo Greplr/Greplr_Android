@@ -40,8 +40,11 @@ import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Bus;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.parse.ParseAnalytics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -56,7 +59,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private String arrivalLocation, departureLocation, travelDate;
     private List<Bus> busList;
 
     public static TravelBusFragment newInstance() {
@@ -82,26 +85,39 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelBusFragment onCreateView");
-
+        departureLocation = "Delhi";
+        arrivalLocation = "Amritsar";
+        travelDate = "20150710";
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
 
         Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
         apiHandler.getTravelBus(
-                "Delhi",
-                "Amritsar",
-                "20150710",
+                departureLocation,
+                arrivalLocation,
+                travelDate,
                 new Callback<List<Bus>>() {
                     @Override
                     public void success(List<Bus> buses, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
                         updateBus(busList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("departure", departureLocation);
+                        params.put("arrival", arrivalLocation);
+                        params.put("travelDate", travelDate);
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-
+                        Map<String, String> params = new HashMap<>();
+                        params.put("departure", departureLocation);
+                        params.put("arrival", arrivalLocation);
+                        params.put("travelDate", travelDate);
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
                 }
         );

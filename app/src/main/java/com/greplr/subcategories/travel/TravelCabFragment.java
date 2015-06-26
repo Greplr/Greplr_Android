@@ -112,7 +112,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "true");
-                        ParseAnalytics.trackEvent("travel/cabs/search", params);
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                     }
 
                     @Override
@@ -123,7 +123,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "false");
-                        ParseAnalytics.trackEvent("travel/cabs/search", params);
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                     }
                 }
         );

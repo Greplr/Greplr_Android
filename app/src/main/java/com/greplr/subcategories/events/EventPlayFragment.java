@@ -40,8 +40,11 @@ import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Plays;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.parse.ParseAnalytics;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -94,12 +97,17 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         playList = plays;
                         updatePlay(playList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/events/plays", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("travel/events/plays", params);
                     }
                 }
         );

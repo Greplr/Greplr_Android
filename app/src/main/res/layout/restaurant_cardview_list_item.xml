@@ -193,7 +193,7 @@
             android:layout_gravity="top|right">
 
             <ImageButton
-                android:id="@+id/overflow_menu"
+                android:id="@+id/location_restaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|right"
