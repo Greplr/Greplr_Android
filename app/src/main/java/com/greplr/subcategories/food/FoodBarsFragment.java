@@ -21,6 +21,7 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -164,9 +165,19 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                            Uri.parse("http://maps.google.com/maps?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng()));
-                    startActivity(intent);
+//                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+//                            Uri.parse("http://maps.google.com/maps?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng()));
+//                    startActivity(intent);
+                    try {
+                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                Uri.parse("geo:0,0?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng() + "(" + barList.get(i).getName() + ")"));
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + barList.get(i).getLat() + "," + barList.get(i).getLng()+"("+ barList.get(i).getName()  + ")&iwloc=A&hl=es")));
+                    }
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+barList.get(i).getLat()+","+barList.get(i).getLng()+"("+barList.get(i).getName()+")"));
+//                    startActivity(intent);
                 }
             });
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {

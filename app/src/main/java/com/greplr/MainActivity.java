@@ -41,12 +41,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -58,7 +53,11 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.greplr.api.Api;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
+import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit.RestAdapter;
 
@@ -155,6 +154,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         ((App) getApplication()).getGoogleApiClient().connect();
+        Map<String, String> params = new HashMap<>();
+        params.put("success", "true");
+        ParseAnalytics.trackEventInBackground("application open", params);
     }
 
     @Override
@@ -177,6 +179,9 @@ public class MainActivity extends AppCompatActivity implements
     protected void onStop() {
         super.onStop();
         ((App) getApplication()).getGoogleApiClient().disconnect();
+        Map<String, String> params = new HashMap<>();
+        params.put("success", "true");
+        ParseAnalytics.trackEventInBackground("application close", params);
     }
 
     @Override
