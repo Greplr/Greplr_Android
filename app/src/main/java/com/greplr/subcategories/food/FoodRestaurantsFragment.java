@@ -161,6 +161,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+ restaurantList.get(i).getLat()+","+ restaurantList.get(i).getLng()+"("+restaurantList.get(i).getName()+")"));
+
                     startActivity(intent);
                 }
             });

@@ -165,6 +165,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
 //                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
 //                            Uri.parse("http://maps.google.com/maps?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng()));
 //                    startActivity(intent);
@@ -178,6 +179,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                     }
 //                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+barList.get(i).getLat()+","+barList.get(i).getLng()+"("+barList.get(i).getName()+")"));
 //                    startActivity(intent);
+
                 }
             });
            /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {

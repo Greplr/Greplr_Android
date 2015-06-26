@@ -161,7 +161,9 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+cafeList.get(i).getLat()+","+cafeList.get(i).getLng()+"("+cafeList.get(i).getName()+")"));
+
                     startActivity(intent);
                 }
             });
