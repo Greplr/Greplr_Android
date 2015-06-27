@@ -160,8 +160,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                            Uri.parse("http://maps.google.com/maps?q=" + restaurantList.get(i).getLat() + "," + restaurantList.get(i).getLng()));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+ restaurantList.get(i).getLat()+","+ restaurantList.get(i).getLng()+"("+restaurantList.get(i).getName()+")"));
+
                     startActivity(intent);
                 }
             });

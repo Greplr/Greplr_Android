@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
     private void loginSuccess() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
