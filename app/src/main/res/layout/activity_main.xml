@@ -23,6 +23,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/main_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
@@ -58,13 +62,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@android:color/transparent"
             android:gravity="center|top"
+            android:orientation="vertical"
             android:padding="15dp">
-            <TextView
-                android:text="Feeds"
+            <android.support.v7.widget.CardView
+                android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="100dp"/>
+            <android.support.v7.widget.CardView
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+            <android.support.v7.widget.CardView
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </RelativeLayout>

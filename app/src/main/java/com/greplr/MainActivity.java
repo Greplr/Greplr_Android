@@ -41,7 +41,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
     private Boolean mRequestingLocationUpdates;
+    private KenBurnsView backgroundImage;
+
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
         if (addToBackStack) {
@@ -138,6 +142,12 @@ public class MainActivity extends AppCompatActivity implements
 
             getApiHandler();
         }
+
+        backgroundImage = (KenBurnsView) findViewById(R.id.main_background_image);
+    }
+
+    public KenBurnsView getBackgroundImage () {
+        return backgroundImage;
     }
 
     public Api getApiHandler() {

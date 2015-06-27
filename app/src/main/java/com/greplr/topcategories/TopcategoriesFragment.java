@@ -67,7 +67,8 @@ public class TopcategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
-        KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
+        //KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
+        KenBurnsView backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
         int[] backImgs = {
                 R.drawable.main_background_1,
                 R.drawable.main_background_2,
