@@ -83,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
         }
-
     }
 
     public static void goToTopFragment() {
@@ -98,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ParseUser parseUser = ParseUser.getCurrentUser();
         if ((parseUser == null)) {
             Intent i = new Intent(this, LoginActivity.class);
@@ -124,7 +122,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }, 5000);
             }
-
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -135,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements
                     return true;
                 }
             });
-
             getApiHandler();
         }
     }
@@ -156,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
         activityStartTime = System.currentTimeMillis();
+        params.put("Phone Model", Build.MANUFACTURER + " " + Build.MODEL);
         ParseAnalytics.trackEventInBackground("application open", params);
     }
 
@@ -187,16 +184,15 @@ public class MainActivity extends AppCompatActivity implements
     private static String timeFormat(long totalSeconds) {
         long minutes = 0, seconds = 0, hours = 0;
         if(totalSeconds > 60) {
-            seconds = (totalSeconds % 60) * 60;
             minutes = totalSeconds / 60;
+            seconds = totalSeconds - minutes*60;
             if(minutes > 60) {
                 hours = minutes / 60;
-                minutes = (minutes % 60) * 60;
+                minutes = totalSeconds - hours*60;
                 return String.valueOf(hours) + " hours" + String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
             } else
                 return String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
         }
-
         return String.valueOf(totalSeconds) + " seconds";
     }
 

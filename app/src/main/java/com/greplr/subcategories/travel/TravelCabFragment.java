@@ -26,6 +26,7 @@ import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -44,6 +45,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.google.gson.Gson;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -54,6 +56,10 @@ import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +78,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -96,39 +104,67 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        long time = sharedPref.getLong("travel/cabs/time", System.currentTimeMillis());
+        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+            apiHandler.getTravelCabs(
+                    String.valueOf(App.currentLatitude),
+                    String.valueOf(App.currentLongitude),
+                    new Callback<List<Cab>>() {
+                        @Override
+                        public void success(List<Cab> cabs, Response response) {
+                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                            Gson gson = new Gson();
+                            String json = gson.toJson(cabs);
+                            writeJSONFile(json);
+                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+                            editor.putLong("travel/cabs/time", System.currentTimeMillis());
+                            editor.commit();
+                            cabList = cabs;
+                            updateCabs(cabList);
+                            //Parse Analytics
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                        }
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getTravelCabs(
-                String.valueOf(App.currentLatitude),
-                String.valueOf(App.currentLongitude),
-                new Callback<List<Cab>>() {
-                    @Override
-                    public void success(List<Cab> cabs, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        cabList = cabs;
-                        updateCabs(cabList);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                            //Parse Analytics
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "false");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                        }
                     }
 
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                    }
-                }
-        );
+            );
+        } else {
+            Log.d("Raghav", "Show cached data");
+        }
 
         return rootView;
+    }
+
+    private void writeJSONFile(String jsonString) {
+        File jsonFile = new File(getActivity().getFilesDir(), "travelCabsJSON.json");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(jsonFile);
+            fos.write(jsonString.getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
