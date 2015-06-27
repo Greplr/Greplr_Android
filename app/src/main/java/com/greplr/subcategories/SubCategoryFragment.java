@@ -22,6 +22,7 @@
 package com.greplr.subcategories;
 
 
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,8 +33,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
+import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.flaviofaria.kenburnsview.Transition;
+import com.flaviofaria.kenburnsview.TransitionGenerator;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -76,7 +81,8 @@ public abstract class SubCategoryFragment extends Fragment {
         }
         mActionBar.setTitle("");
         mActionBar.hide();
-        backgroundImage = (ImageView) rootView.findViewById(R.id.subcategory_background);
+        //backgroundImage = (ImageView) rootView.findViewById(R.id.subcategory_background);
+        backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
 
         final SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
         matViewPager.getViewPager().setAdapter(pagerAdapter);

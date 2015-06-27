@@ -30,6 +30,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.greplr.MainActivity;
@@ -68,7 +69,7 @@ public class TopcategoriesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
         //KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
-        KenBurnsView backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
+        ImageView backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
         int[] backImgs = {
                 R.drawable.main_background_1,
                 R.drawable.main_background_2,
@@ -76,7 +77,7 @@ public class TopcategoriesFragment extends Fragment {
         Random rGen = new Random();
         int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
         //backgroundImage.setImageResource(backImageResource);
-        Picasso.with(getActivity()).load(backImageResource).fit().centerInside().into(backgroundImage);
+        Picasso.with(getActivity()).load(backImageResource).fit().centerCrop().into(backgroundImage);
         categoryList.setHasFixedSize(true);
 
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);

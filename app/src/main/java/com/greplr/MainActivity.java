@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
     private Boolean mRequestingLocationUpdates;
-    private KenBurnsView backgroundImage;
+    private ImageView backgroundImage;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements
             getApiHandler();
         }
 
-        backgroundImage = (KenBurnsView) findViewById(R.id.main_background_image);
+        backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
 
-    public KenBurnsView getBackgroundImage () {
+    public ImageView getBackgroundImage () {
         return backgroundImage;
     }
 
