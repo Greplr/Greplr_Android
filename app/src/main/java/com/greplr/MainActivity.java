@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements
         ResultCallback<LocationSettingsResult> {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
-
+    private long activityStartTime;
     private static FragmentManager fragmentManager;
     private final int REQUEST_CHECK_SETTINGS = 0x1;
     String geoLocation;
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements
         super.onStart();
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
-        params.put("success", "true");
+        activityStartTime = System.currentTimeMillis();
         ParseAnalytics.trackEventInBackground("application open", params);
     }
 
@@ -180,8 +180,24 @@ public class MainActivity extends AppCompatActivity implements
         super.onStop();
         ((App) getApplication()).getGoogleApiClient().disconnect();
         Map<String, String> params = new HashMap<>();
-        params.put("success", "true");
+        params.put("total time", timeFormat((System.currentTimeMillis()-activityStartTime)/1000));
         ParseAnalytics.trackEventInBackground("application close", params);
+    }
+
+    private static String timeFormat(long totalSeconds) {
+        long minutes = 0, seconds = 0, hours = 0;
+        if(totalSeconds > 60) {
+            seconds = (totalSeconds % 60) * 60;
+            minutes = totalSeconds / 60;
+            if(minutes > 60) {
+                hours = minutes / 60;
+                minutes = (minutes % 60) * 60;
+                return String.valueOf(hours) + " hours" + String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
+            } else
+                return String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
+        }
+
+        return String.valueOf(totalSeconds) + " seconds";
     }
 
     @Override
