@@ -46,6 +46,7 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -56,10 +57,16 @@ import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,7 +139,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                             ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         }
 
-
                         @Override
                         public void failure(RetrofitError error) {
                             Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
@@ -144,13 +150,49 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                             ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         }
                     }
-
             );
         } else {
-            Log.d("Raghav", "Show cached data");
+            Log.d(LOG_TAG, "Show cached data");
+            Gson gson = new Gson();
+            Log.d(LOG_TAG, readJSONFile());
+            Type collectionType = new TypeToken<Collection<Cab>>(){}.getType();
+            Collection<Cab> enums = gson.fromJson(readJSONFile(), collectionType);
+            List<Cab> list;
+            if (enums instanceof List)
+                list = (List)enums;
+            else
+                list = new ArrayList(enums);
+            cabList = list;
+            updateCabs(cabList);
+        }
+        return rootView;
+    }
+
+    private String readJSONFile(){
+        String ret = "";
+
+        try {
+            InputStream inputStream = getActivity().openFileInput("travelCabsJSON.json");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e(LOG_TAG, "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Can not read file: " + e.toString());
         }
 
-        return rootView;
+        return ret;
     }
 
     private void writeJSONFile(String jsonString) {
