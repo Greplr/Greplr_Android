@@ -20,12 +20,31 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <color name="main_toolbarColor">#77111111</color>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape>
+            <solid
+                android:color="#3e62ba" />
+            <stroke
+                android:width="1dp"
+                android:color="#2b3c56" />
+            <corners
+                android:radius="1dp" />
 
-    <color name="travel_cardColor">#88004d40</color>
-    <color name="food_cardColor">#88bf360c</color>
-    <color name="event_cardColor">#8801579b</color>
-  <color name="news_cardColor">#88c51162</color>
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#449def"
+                android:endColor="#2f6699"
+                android:angle="270" />
+            <stroke
+                android:width="1dp"
+                android:color="#2f6699" />
+            <corners
+                android:radius="1dp" />
 
-</resources>
+        </shape>
+    </item>
+</selector>
