@@ -153,7 +153,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             Log.d(LOG_TAG, readJSONFile());
             Type listType = new TypeToken<List<Bar>>() {}.getType();
             List<Bar> bars = new Gson().fromJson(readJSONFile(), listType);
-            Log.d(LOG_TAG,bars.get(0).getName());
+            Log.d(LOG_TAG,bars.get(bars.size()-1).getName());
             barList = bars;
 //            updateBars(bars);
         }

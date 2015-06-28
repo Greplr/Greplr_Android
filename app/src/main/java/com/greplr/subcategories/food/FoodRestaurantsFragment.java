@@ -150,7 +150,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             List<Restaurant> restaurants = new Gson().fromJson(readJSONFile(), listType);
             Log.d(LOG_TAG,restaurants.get(0).getName());
             restaurantList = restaurants;
-//            updateRestaurants(restaurantList);
+            updateRestaurants(restaurantList);
         }
 
         return rootView;

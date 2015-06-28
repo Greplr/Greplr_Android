@@ -155,8 +155,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             Type listType = new TypeToken<List<Cab>>() {}.getType();
             List<Cab> cabs = new Gson().fromJson(readJSONFile(), listType);
             Log.d(LOG_TAG,cabs.get(0).getDisplay_name());
-            cabList =cabs;
-//            updateCabs(cabs);
+            cabList = cabs;
+//            updateCabs(cabList);
         }
         return rootView;
     }
