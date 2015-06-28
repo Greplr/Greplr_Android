@@ -65,8 +65,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,17 +151,12 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             );
         } else {
             Log.d(LOG_TAG, "Show cached data");
-            Gson gson = new Gson();
             Log.d(LOG_TAG, readJSONFile());
-            Type collectionType = new TypeToken<Collection<Cab>>(){}.getType();
-            Collection<Cab> enums = gson.fromJson(readJSONFile(), collectionType);
-            List<Cab> list;
-            if (enums instanceof List)
-                list = (List)enums;
-            else
-                list = new ArrayList(enums);
-            cabList = list;
-//            updateCabs(cabList);
+            Type listType = new TypeToken<List<Cab>>() {}.getType();
+            List<Cab> cabs = new Gson().fromJson(readJSONFile(), listType);
+            Log.d(LOG_TAG,cabs.get(0).getDisplay_name());
+            cabList =cabs;
+//            updateCabs(cabs);
         }
         return rootView;
     }
