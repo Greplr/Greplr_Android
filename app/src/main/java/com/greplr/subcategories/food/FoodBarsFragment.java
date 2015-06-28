@@ -22,7 +22,9 @@
 package com.greplr.subcategories.food;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -38,6 +40,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.google.gson.Gson;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -47,6 +50,13 @@ import com.greplr.models.food.Bar;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,8 +74,9 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
     private List<Bar> barList;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public static FoodBarsFragment newInstance() {
         return new FoodBarsFragment();
@@ -92,41 +103,94 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodBarsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        long time = sharedPref.getLong("food/bars/time", System.currentTimeMillis());
+        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+            apiHandler.getFoodBars(
+                    String.valueOf(App.currentLatitude),
+                    String.valueOf(App.currentLongitude),
+                    new Callback<List<Bar>>() {
+                        @Override
+                        public void success(List<Bar> bars, Response response) {
+                            Log.d(LOG_TAG, "success" + response.getUrl());
+                            Log.d(LOG_TAG, "lat " + App.currentLatitude);
+                            Log.d(LOG_TAG, "lng " + App.currentLongitude);
+                            Log.d(LOG_TAG, "response " + response.getStatus());
+                            barList = bars;
+                            updateBars(barList);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(bars);
+                            writeJSONFile(json);
+                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+                            editor.putLong("food/bars/time", System.currentTimeMillis());
+                            editor.commit();
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("food/bars/search", params);
+                        }
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getFoodBars(
-                String.valueOf(App.currentLatitude),
-                String.valueOf(App.currentLongitude),
-                new Callback<List<Bar>>() {
-                    @Override
-                    public void success(List<Bar> bars, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl());
-                        Log.d(LOG_TAG,"lat " + App.currentLatitude);
-                        Log.d(LOG_TAG,"lng " + App.currentLongitude);
-                        Log.d(LOG_TAG, "response " + response.getStatus());
-                        barList = bars;
-                        updateBars(barList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("food/bars/search", params);
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("food/bars/search", params);
+
+                        }
                     }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("food/bars/search", params);
-
-                    }
-                }
-        );
+            );
+        } else {
+            //TODO show cached data
+        }
 
         return rootView;
+    }
+
+    private String readJSONFile(){
+        String ret = "";
+
+        try {
+            InputStream inputStream = getActivity().openFileInput("foodBarsJSON.json");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e(LOG_TAG, "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    private void writeJSONFile(String jsonString) {
+        File jsonFile = new File(getActivity().getFilesDir(), "foodBarsJSON.json");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(jsonFile);
+            fos.write(jsonString.getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

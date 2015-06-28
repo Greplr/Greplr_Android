@@ -21,7 +21,9 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +39,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.google.gson.Gson;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -46,6 +49,13 @@ import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +73,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private List<Restaurant> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
@@ -91,39 +102,90 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        long time = sharedPref.getLong("food/restaurants/time", System.currentTimeMillis());
+        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+            apiHandler.getFoodRestaurants(
+                    String.valueOf(App.currentLatitude),
+                    String.valueOf(App.currentLongitude),
+                    new Callback<List<Restaurant>>() {
+                        @Override
+                        public void success(List<Restaurant> restaurants, Response response) {
+                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                            restaurantList = restaurants;
+                            updateRestaurants(restaurantList);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(restaurants);
+                            writeJSONFile(json);
+                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+                            editor.putLong("food/restaurants/time", System.currentTimeMillis());
+                            editor.commit();
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
+                        }
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getFoodRestaurants(
-                String.valueOf(App.currentLatitude),
-                String.valueOf(App.currentLongitude),
-                new Callback<List<Restaurant>>() {
-                    @Override
-                    public void success(List<Restaurant> restaurants, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        restaurantList = restaurants;
-                        updateRestaurants(restaurantList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "false");
+                            ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
+                        }
                     }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
-                    }
-                }
-        );
+            );
+        } else {
+            //TODO show cached data
+        }
 
         return rootView;
     }
+    private String readJSONFile(){
+        String ret = "";
 
+        try {
+            InputStream inputStream = getActivity().openFileInput("foodRestaurantsJSON.json");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e(LOG_TAG, "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    private void writeJSONFile(String jsonString) {
+        File jsonFile = new File(getActivity().getFilesDir(), "foodRestaurantsJSON.json");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(jsonFile);
+            fos.write(jsonString.getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

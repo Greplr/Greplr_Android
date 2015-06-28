@@ -21,7 +21,9 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,6 +39,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.google.gson.Gson;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -46,6 +49,13 @@ import com.greplr.models.food.Cafe;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +73,8 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private List<Cafe> cafeList;
 
     public static FoodCafesFragment newInstance() {
@@ -91,38 +102,88 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodCafesFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_cafe, container, false);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        long time = sharedPref.getLong("food/cafes/time", System.currentTimeMillis());
+        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 30000) {
+            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+            apiHandler.getFoodCafes(
+                    String.valueOf(App.currentLatitude),
+                    String.valueOf(App.currentLongitude),
+                    new Callback<List<Cafe>>() {
+                        @Override
+                        public void success(List<Cafe> cafes, Response response) {
+                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                            cafeList = cafes;
+                            updateCafes(cafeList);
+                            Gson gson = new Gson();
+                            String json = gson.toJson(cafes);
+                            writeJSONFile(json);
+                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                            editor = sharedPref.edit();
+                            editor.putLong("food/cafes/time", System.currentTimeMillis());
+                            editor.commit();
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("food/cafes/search", params);
+                        }
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-        apiHandler.getFoodCafes(
-                String.valueOf(App.currentLatitude),
-                String.valueOf(App.currentLongitude),
-                new Callback<List<Cafe>>() {
-                    @Override
-                    public void success(List<Cafe> cafes, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        cafeList = cafes;
-                        updateCafes(cafeList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("food/cafes/search", params);
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "false");
+                            ParseAnalytics.trackEventInBackground("food/cafes/search", params);
+                        }
                     }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("food/cafes/search", params);
-                    }
-                }
-        );
-
-
+            );
+        } else {
+            //TODO show cached data
+        }
         return rootView;
+    }
+    private String readJSONFile(){
+        String ret = "";
+
+        try {
+            InputStream inputStream = getActivity().openFileInput("foodCafesJSON.json");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e(LOG_TAG, "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    private void writeJSONFile(String jsonString) {
+        File jsonFile = new File(getActivity().getFilesDir(), "foodCafesJSON.json");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(jsonFile);
+            fos.write(jsonString.getBytes());
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

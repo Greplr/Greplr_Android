@@ -85,7 +85,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    SharedPreferences sharedPref;
+    private SharedPreferences sharedPref;
     SharedPreferences.Editor editor;
 
     public static TravelCabFragment newInstance() {
@@ -163,7 +163,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             else
                 list = new ArrayList(enums);
             cabList = list;
-            updateCabs(cabList);
+//            updateCabs(cabList);
         }
         return rootView;
     }
