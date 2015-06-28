@@ -26,6 +26,9 @@ import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -202,8 +205,17 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog cabDialog = newCabHailDialog(getActivity(), cabList.get(i));
-                        cabDialog.show();
+                        PackageManager pm = getActivity().getPackageManager();
+                        try
+                        {
+                            pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                    "uber://?action=setPickup&pickup=my_location&product_id=" + cabList.get(i).getProduct_id())));
+                        }
+                        catch (PackageManager.NameNotFoundException e)
+                        {
+                            // No Uber app!
+                        }
                     }
                 });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
