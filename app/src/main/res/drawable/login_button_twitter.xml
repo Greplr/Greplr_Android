@@ -21,39 +21,40 @@
   -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <selector>
-            <item android:state_pressed="true" >
-                <shape>
-                    <solid
-                        android:color="#3e62ba" />
-                    <stroke
-                        android:width="1dp"
-                        android:color="#2b3c56" />
-                    <corners
-                        android:radius="1dp" />
+    <selector >
+        <item android:state_pressed="true" >
+            <shape>
+                <solid
+                    android:color="#5eb9ba" />
+                <stroke
+                    android:width="1dp"
+                    android:color="#67b3b0" />
+                <corners
+                    android:radius="1dp" />
 
-                </shape>
-            </item>
-            <item>
-                <shape>
-                    <gradient
-                        android:startColor="#3e62ba"
-                        android:endColor="#2b3c56"
-                        android:angle="270" />
-                    <stroke
-                        android:width="1dp"
-                        android:color="#2b3c56" />
-                    <corners
-                        android:radius="1dp" />
+            </shape>
+        </item>
+        <item>
+            <shape>
+                <gradient
+                    android:startColor="#5eb9ba"
+                    android:endColor="#67b3b0"
+                    android:angle="270" />
+                <stroke
+                    android:width="1dp"
+                    android:color="#67b3b0" />
+                <corners
+                    android:radius="1dp" />
 
-                </shape>
-            </item>
-        </selector>
+            </shape>
+        </item>
+
+    </selector>
     </item>
     <item
         android:top="0dp" android:left="10dp">
         <bitmap
-            android:src="@drawable/login_facebook"
+            android:src="@drawable/login_twitter"
             android:gravity="left" />
     </item>
 </layer-list>

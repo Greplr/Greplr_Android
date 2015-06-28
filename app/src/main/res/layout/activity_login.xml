@@ -13,27 +13,54 @@
         android:layout_height="wrap_content">
 
 
-    <Button
-        android:padding="10dp"
-        android:background="@drawable/login_button_facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:text="Login with Facebook"
-        android:id="@+id/facebook_login" />
+        <Button
+            android:layout_margin="10dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:gravity="left"
+            android:background="@drawable/login_button_facebook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Login with Facebook"
+            android:id="@+id/facebook_login" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:text="login with Twitter"
-        android:id="@+id/twitter_login" />
+        <Button
+            android:layout_margin="10dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:gravity="left"
+            android:background="@drawable/login_button_twitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Login with Twitter"
+            android:id="@+id/twitter_login" >
+        </Button>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/login_progress"
-        android:visibility="gone"
-        android:indeterminate="false" />
+        <Button
+            android:layout_margin="10dp"
+            android:paddingLeft="50dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:gravity="left"
+            android:background="@drawable/login_button_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="Login with Google"
+            android:id="@+id/google_login" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_progress"
+            android:visibility="gone"
+            android:indeterminate="false" />
     </LinearLayout>
 </RelativeLayout>
