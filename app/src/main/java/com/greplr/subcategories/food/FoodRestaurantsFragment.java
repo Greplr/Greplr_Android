@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -56,6 +57,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,6 +144,13 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             );
         } else {
             //TODO show cached data
+            Log.d(LOG_TAG, "Show cached data");
+            Log.d(LOG_TAG, readJSONFile());
+            Type listType = new TypeToken<List<Restaurant>>() {}.getType();
+            List<Restaurant> restaurants = new Gson().fromJson(readJSONFile(), listType);
+            Log.d(LOG_TAG,restaurants.get(0).getName());
+            restaurantList = restaurants;
+//            updateRestaurants(restaurantList);
         }
 
         return rootView;
