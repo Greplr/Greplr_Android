@@ -43,7 +43,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -79,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements
     private LocationSettingsRequest mLocationSettingsRequest;
     private Boolean mRequestingLocationUpdates;
     private ImageView backgroundImage;
+    private Boolean locationFix = false;
+    private Boolean isAtivityRunning = true;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -123,8 +124,10 @@ public class MainActivity extends AppCompatActivity implements
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        App.locationInitialised = true;
-                        fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                        if (!locationFix && isAtivityRunning) {
+                            App.locationInitialised = true;
+                            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                        }
                     }
                 }, 5000);
             }
@@ -146,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
 
-    public ImageView getBackgroundImage () {
+    public ImageView getBackgroundImage() {
         return backgroundImage;
     }
 
@@ -175,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
+        isAtivityRunning = true;
     }
 
     @Override
@@ -183,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected()) {
             stopLocationUpdates();
         }
+        isAtivityRunning = false;
     }
 
     @Override
@@ -322,10 +327,10 @@ public class MainActivity extends AppCompatActivity implements
 
         if (!App.locationInitialised) {
             App.locationInitialised = true;
+            locationFix = true;
             goToTopFragment();
         }
     }
-
 
 
     @Override
