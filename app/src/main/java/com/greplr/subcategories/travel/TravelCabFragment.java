@@ -215,6 +215,10 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         catch (PackageManager.NameNotFoundException e)
                         {
                             // No Uber app!
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setData(Uri.parse("market://details?id=" + "com.ubercab"));
+                            getActivity().startActivity(intent);
 
                         }
                     }
