@@ -118,6 +118,17 @@ public class MainActivity extends AppCompatActivity implements
             checkLocationSettings();
 
             fragmentManager = getSupportFragmentManager();
+            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    if (fragmentManager.getBackStackEntryCount() == 0){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+                        }
+                    }
+                }
+            });
 
             if (App.locationInitialised) {
                 goToTopFragment();
