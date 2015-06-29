@@ -44,19 +44,13 @@ import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -106,7 +100,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         long time = sharedPref.getLong("food/restaurants/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+        if (time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
             Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
             apiHandler.getFoodRestaurants(
                     String.valueOf(App.currentLatitude),
@@ -119,7 +113,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                             updateRestaurants(restaurantList);
                             Gson gson = new Gson();
                             String json = gson.toJson(restaurants);
-                            writeJSONFile(json);
+                            Utils.writeJSONFile(json, getActivity(), "foodRestaurantsJSON.json");
                             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
                             editor = sharedPref.edit();
                             editor.putLong("food/restaurants/time", System.currentTimeMillis());
@@ -145,56 +139,18 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         } else {
             //TODO show cached data
             Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, readJSONFile());
-            Type listType = new TypeToken<List<Restaurant>>() {}.getType();
-            List<Restaurant> restaurants = new Gson().fromJson(readJSONFile(), listType);
-            Log.d(LOG_TAG,restaurants.get(0).getName());
+            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"));
+            Type listType = new TypeToken<List<Restaurant>>() {
+            }.getType();
+            List<Restaurant> restaurants = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"), listType);
+            Log.d(LOG_TAG, restaurants.get(0).getName());
             restaurantList = restaurants;
             updateRestaurants(restaurantList);
         }
 
         return rootView;
     }
-    private String readJSONFile(){
-        String ret = "";
 
-        try {
-            InputStream inputStream = getActivity().openFileInput("foodRestaurantsJSON.json");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
-
-    private void writeJSONFile(String jsonString) {
-        File jsonFile = new File(getActivity().getFilesDir(), "foodRestaurantsJSON.json");
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(jsonFile);
-            fos.write(jsonString.getBytes());
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

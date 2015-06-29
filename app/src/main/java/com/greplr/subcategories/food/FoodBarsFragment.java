@@ -45,19 +45,13 @@ import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Bar;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
@@ -123,7 +117,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                             updateBars(barList);
                             Gson gson = new Gson();
                             String json = gson.toJson(bars);
-                            writeJSONFile(json);
+                            Utils.writeJSONFile(json, getActivity(), "foodBarsJSON.json");
                             sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
                             editor = sharedPref.edit();
                             editor.putLong("food/bars/time", System.currentTimeMillis());
@@ -150,57 +144,57 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         } else {
             //TODO show cached data
             Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, readJSONFile());
+            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodBarsJSON.json"));
             Type listType = new TypeToken<List<Bar>>() {}.getType();
-            List<Bar> bars = new Gson().fromJson(readJSONFile(), listType);
-            Log.d(LOG_TAG,bars.get(bars.size()-1).getName());
+            List<Bar> bars = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodBarsJSON.json"), listType);
+            Log.d(LOG_TAG, bars.get(bars.size()-1).getName());
             barList = bars;
 //            updateBars(bars);
         }
 
         return rootView;
     }
-
-    private String readJSONFile(){
-        String ret = "";
-
-        try {
-            InputStream inputStream = getActivity().openFileInput("foodBarsJSON.json");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Can not read file: " + e.toString());
-        }
-
-        return ret;
-    }
-
-    private void writeJSONFile(String jsonString) {
-        File jsonFile = new File(getActivity().getFilesDir(), "foodBarsJSON.json");
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(jsonFile);
-            fos.write(jsonString.getBytes());
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//
+//    private String readJSONFile(){
+//        String ret = "";
+//
+//        try {
+//            InputStream inputStream = getActivity().openFileInput("foodBarsJSON.json");
+//
+//            if ( inputStream != null ) {
+//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//                String receiveString = "";
+//                StringBuilder stringBuilder = new StringBuilder();
+//                while ( (receiveString = bufferedReader.readLine()) != null ) {
+//                    stringBuilder.append(receiveString);
+//                }
+//                inputStream.close();
+//                ret = stringBuilder.toString();
+//            }
+//        }
+//        catch (FileNotFoundException e) {
+//            Log.e(LOG_TAG, "File not found: " + e.toString());
+//        } catch (IOException e) {
+//            Log.e(LOG_TAG, "Can not read file: " + e.toString());
+//        }
+//
+//        return ret;
+//    }
+//
+//    private void writeJSONFile(String jsonString) {
+//        File jsonFile = new File(getActivity().getFilesDir(), "foodBarsJSON.json");
+//        FileOutputStream fos;
+//        try {
+//            fos = new FileOutputStream(jsonFile);
+//            fos.write(jsonString.getBytes());
+//            fos.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
