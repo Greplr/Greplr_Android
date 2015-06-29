@@ -4,6 +4,15 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    signingConfigs {
+        debug {
+            storeFile file('debug.jks')
+            storePassword "greplr"
+            keyAlias "greplr"
+            keyPassword "greplr"
+        }
+    }
+
     defaultConfig {
         applicationId "com.greplr"
         minSdkVersion 15
@@ -15,6 +24,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
