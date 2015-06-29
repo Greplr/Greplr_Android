@@ -134,8 +134,9 @@ public class MainActivity extends AppCompatActivity implements
 
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            }
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

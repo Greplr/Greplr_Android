@@ -23,6 +23,7 @@ package com.greplr.subcategories;
 
 
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -89,6 +90,10 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
         matViewPager.setColor(getResources().getColor(getToolbarColorResId()), 500);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setStatusBarColor(getResources().getColor(getToolbarColorResId()));
+            getActivity().getWindow().setNavigationBarColor(getResources().getColor(getToolbarColorResId()));
+        }
 
         headerLogo = (ImageView) matViewPager.findViewById(R.id.logoContainer).findViewById(R.id.subcategory_logo);
 
