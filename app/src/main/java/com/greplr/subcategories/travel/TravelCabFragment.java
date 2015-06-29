@@ -84,7 +84,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private SharedPreferences sharedPref;
-    SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -111,7 +111,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
         sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         long time = sharedPref.getLong("travel/cabs/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 10000) {
             Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
             apiHandler.getTravelCabs(
                     String.valueOf(App.currentLatitude),
