@@ -42,6 +42,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -64,7 +65,9 @@ import java.util.Map;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity
+        extends AppCompatActivity
+        implements FragmentManager.OnBackStackChangedListener,
         com.google.android.gms.location.LocationListener,
         ResultCallback<LocationSettingsResult> {
 
@@ -82,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements
     private Boolean mRequestingLocationUpdates;
     private ImageView backgroundImage;
     private Boolean locationFix = false;
-    private SlidingUpPanelLayout slidingUpPanelLayout;
+    private LinearLayout bottomSliderLayout;
+    private SlidingUpPanelLayout slideFrame;
     private Boolean isActivityRunning = true;
 
 
@@ -132,19 +136,7 @@ public class MainActivity extends AppCompatActivity implements
             });
 
             fragmentManager = getSupportFragmentManager();
-            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-                @Override
-                public void onBackStackChanged() {
-                    if (fragmentManager.getBackStackEntryCount() == 0){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-                            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
-                        }
-                        setSupportActionBar(toolbar);
-                        getSupportActionBar().show();
-                    }
-                }
-            });
+            fragmentManager.addOnBackStackChangedListener(this);
 
             if (App.locationInitialised) {
                 goToTopFragment();
@@ -162,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements
             }
 
 
-            slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+            bottomSliderLayout = (LinearLayout) findViewById(R.id.bottom_slider_layout);
+            slideFrame = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
             getApiHandler();
         }
@@ -171,11 +164,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void showSlidePanel () {
-        slidingUpPanelLayout.setVisibility(View.VISIBLE);
+        //bottomSliderLayout.setVisibility(View.VISIBLE);
+        slideFrame.setPanelHeight(getResources().getDimensionPixelOffset(R.dimen.sliding_panel_height));
     }
 
     public void hideSlidePanel() {
-        slidingUpPanelLayout.setVisibility(View.GONE);
+        //bottomSliderLayout.setVisibility(View.GONE);
+        slideFrame.setPanelHeight(0);
     }
 
     public ImageView getBackgroundImage() {
@@ -401,5 +396,20 @@ public class MainActivity extends AppCompatActivity implements
                         "not created.");
                 break;
         }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+
+        if (fragmentManager.getBackStackEntryCount() == 0){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+            }
+            setSupportActionBar(toolbar);
+            getSupportActionBar().show();
+            showSlidePanel();
+        }
+
     }
 }

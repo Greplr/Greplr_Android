@@ -21,6 +21,13 @@
 
 package com.greplr.subcategories.news;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategory;
@@ -55,7 +62,7 @@ public class NewsFragment extends SubCategoryFragment {
                                 R.drawable.cardicon_news_global)
                 ),
                 new UnderSubCategory(
-                        "Technology",
+                        "Tech",
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_technology,
                         NewsFeedFragment.newInstance("Technology",
@@ -92,5 +99,12 @@ public class NewsFragment extends SubCategoryFragment {
     @Override
     public int topCatNo() {
         return 3;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).hideSlidePanel();
+
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }
