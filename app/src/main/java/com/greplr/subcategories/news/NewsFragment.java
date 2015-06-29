@@ -43,7 +43,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_cab,
                         R.drawable.cardicon_news_india,
                         NewsFeedFragment.newInstance("India",
-                                R.drawable.background_travel_cab,
+                                R.drawable.background_news_india,
                                 R.drawable.cardicon_news_india)
                 ),
                 new UnderSubCategory(
@@ -51,7 +51,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_bus,
                         R.drawable.cardicon_news_global,
                         NewsFeedFragment.newInstance("Global",
-                                R.drawable.background_travel_bus,
+                                R.drawable.background_news_global,
                                 R.drawable.cardicon_news_global)
                 ),
                 new UnderSubCategory(
@@ -59,7 +59,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_technology,
                         NewsFeedFragment.newInstance("Technology",
-                                R.drawable.background_travel_flight,
+                                R.drawable.background_news_technology,
                                 R.drawable.cardicon_news_technology)
                 ),
                 new UnderSubCategory(
@@ -67,7 +67,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_sports,
                         NewsFeedFragment.newInstance("Sports",
-                                R.drawable.background_travel_flight,
+                                R.drawable.background_news_sports,
                                 R.drawable.cardicon_news_sports)
                 ),
                 new UnderSubCategory(
@@ -75,7 +75,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_entertainment,
                         NewsFeedFragment.newInstance("Entertainment",
-                                R.drawable.background_travel_flight,
+                                R.drawable.background_news_entertainment,
                                 R.drawable.cardicon_news_entertainment)
                 ),
                 new UnderSubCategory(
@@ -83,7 +83,7 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_business,
                         NewsFeedFragment.newInstance("Business",
-                                R.drawable.background_travel_flight,
+                                R.drawable.background_news_business,
                                 R.drawable.cardicon_news_business)
                 )
         };
