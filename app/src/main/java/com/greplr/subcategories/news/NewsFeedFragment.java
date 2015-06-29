@@ -23,21 +23,29 @@ package com.greplr.subcategories.news;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.MainActivity;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.NewsApi;
 import com.greplr.models.news.Feed;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -52,6 +60,7 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private ArrayList<Feed.FeedItem> feedList;
 
     public static NewsFeedFragment newInstance(String title, int background, int icon) {
         NewsFeedFragment fragment = new NewsFeedFragment();
@@ -94,13 +103,11 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_news);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
-        mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         NewsApi newsApiHandler = ((MainActivity) getActivity()).getNewsApiHandler();
         newsApiHandler.getNewsForTopic(
-                "topic/India",
+                "topic/" + getPageTitle(),
                 20,
                 null,
                 null,
@@ -108,17 +115,63 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
                     @Override
                     public void success(Feed feed, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        Log.d(LOG_TAG, feed.getId());
+                        feedList = new ArrayList<>();
+                        for (int i = 0; i < feed.getItems().size(); i++) {
+                            if (feed.getItems().get(i).getVisual() != null &&
+                                    feed.getItems().get(i).getSummary() != null) {
+                                feedList.add(feed.getItems().get(i));
+                            }
+                        }
+                        Log.d(LOG_TAG, feedList.toString());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FeedAdapter()));
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("news/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("news/search", params);
                     }
                 }
         );
+    }
 
+    public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_news_list_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            Picasso.with(getActivity()).load(feedList.get(i).getVisual().getUrl()).fit().centerCrop().into(viewHolder.newsVisual);
+            viewHolder.newsSummary.setText(feedList.get(i).getSummary().getContent());
+            viewHolder.newsHeadline.setText(feedList.get(i).getTitle());
+        }
+
+        @Override
+        public int getItemCount() {
+            return feedList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView newsHeadline;
+            TextView newsSummary;
+            ImageView newsVisual;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                newsHeadline = (TextView) v.findViewById(R.id.news_headline);
+                newsSummary = (TextView) v.findViewById(R.id.news_summary);
+                newsVisual = (ImageView) v.findViewById(R.id.news_image);
+            }
+        }
     }
 }

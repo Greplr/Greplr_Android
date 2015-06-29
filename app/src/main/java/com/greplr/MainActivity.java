@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity implements
     private Boolean mRequestingLocationUpdates;
     private ImageView backgroundImage;
     private Boolean locationFix = false;
-    private Boolean isAtivityRunning = true;
     private SlidingUpPanelLayout slidingUpPanelLayout;
+    private Boolean isActivityRunning = true;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -120,6 +120,17 @@ public class MainActivity extends AppCompatActivity implements
             checkLocationSettings();
 
             fragmentManager = getSupportFragmentManager();
+            fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+                @Override
+                public void onBackStackChanged() {
+                    if (fragmentManager.getBackStackEntryCount() == 0){
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                            getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+                        }
+                    }
+                }
+            });
 
             if (App.locationInitialised) {
                 goToTopFragment();
@@ -128,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (!locationFix && isAtivityRunning) {
+                        if (!locationFix && isActivityRunning) {
                             App.locationInitialised = true;
                             fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
                         }
@@ -202,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
-        isAtivityRunning = true;
+        isActivityRunning = true;
     }
 
     @Override
@@ -211,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected()) {
             stopLocationUpdates();
         }
-        isAtivityRunning = false;
+        isActivityRunning = false;
     }
 
     @Override
@@ -274,6 +285,11 @@ public class MainActivity extends AppCompatActivity implements
                                     geoLocation = location;
                                     Log.d("Location:", geoLocation + "");
                                     GeoCodingLocationData.fetchData(geoLocation);
+                                    if (!App.locationInitialised) {
+                                        App.locationInitialised = true;
+                                        locationFix = true;
+                                        goToTopFragment();
+                                    }
                                 }
                             }
                         });
