@@ -165,14 +165,14 @@ public class MainActivity extends AppCompatActivity implements
         }
         return apiHandler;
     }
-    public Api getNewsApiHandler() {
+    public NewsApi getNewsApiHandler() {
         if (newsApiHandler == null) {
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(NewsApi.BASE_URL)
                     .build();
             newsApiHandler = restAdapter.create(NewsApi.class);
         }
-        return apiHandler;
+        return newsApiHandler;
     }
 
     @Override

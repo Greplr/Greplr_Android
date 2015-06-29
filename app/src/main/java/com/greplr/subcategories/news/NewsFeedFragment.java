@@ -32,14 +32,23 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
+import com.greplr.api.NewsApi;
+import com.greplr.models.news.Feed;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by prempalsingh on 29/6/15.
  */
 public class NewsFeedFragment extends UnderSubCategoryFragment {
+
+    public static final String LOG_TAG = "Greplr/News";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -88,6 +97,28 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(10));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
+        NewsApi newsApiHandler = ((MainActivity) getActivity()).getNewsApiHandler();
+        newsApiHandler.getNewsForTopic(
+                "topic/India",
+                20,
+                null,
+                null,
+                new Callback<Feed>() {
+                    @Override
+                    public void success(Feed feed, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        Log.d(LOG_TAG, feed.getId());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+
+                    }
+                }
+        );
+
 
     }
 }

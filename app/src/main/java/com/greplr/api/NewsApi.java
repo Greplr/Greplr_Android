@@ -21,6 +21,8 @@
 
 package com.greplr.api;
 
+import android.support.annotation.Nullable;
+
 import com.greplr.models.news.Feed;
 
 import retrofit.Callback;
@@ -35,11 +37,11 @@ public interface NewsApi {
     String BASE_URL = "http://cloud.feedly.com/v3";
 
     @GET("/mixes/contents")
-    void getNewsFeed(
+    void getNewsForTopic(
             @Query("streamId") String streamId,
-            @Query("count") int count,
-            @Query("hour") int hour,
-            @Query("newerThan") long newerThan,
+            @Query("count") Integer count,
+            @Nullable @Query("hour") Integer hour,
+            @Nullable @Query("newerThan") Long newerThan,
             Callback<Feed> callback);
 
 }
