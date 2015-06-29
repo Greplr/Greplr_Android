@@ -26,6 +26,7 @@ import android.support.v4.app.Fragment;
 import com.greplr.R;
 import com.greplr.subcategories.events.EventFragment;
 import com.greplr.subcategories.food.FoodFragment;
+import com.greplr.subcategories.news.NewsFragment;
 import com.greplr.subcategories.travel.TravelFragment;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
  */
 public class Topcategories {
 
-    public static final int TOTAL_CATEGORIES = 3;
+    public static final int TOTAL_CATEGORIES = 4;
 
     private static ArrayList<Category> topCategories;
 
@@ -60,6 +61,12 @@ public class Topcategories {
                     R.drawable.topcategorycard_bg_events,
                     R.color.event_cardColor,
                     EventFragment.newInstance()));
+            topCategories.add(new Category(
+                    "News",
+                    R.drawable.cardicon_news,
+                    R.drawable.topcategorycard_bg_events,
+                    R.color.news_cardColor,
+                    NewsFragment.newInstance()));
         }
         return topCategories;
     }
