@@ -57,6 +57,7 @@ import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements
     private ImageView backgroundImage;
     private Boolean locationFix = false;
     private Boolean isAtivityRunning = true;
+    private SlidingUpPanelLayout slidingUpPanelLayout;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -146,10 +148,20 @@ public class MainActivity extends AppCompatActivity implements
                 }
             });
 
+            slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
             getApiHandler();
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
+    }
+
+    public void showSlidePanel () {
+        slidingUpPanelLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideSlidePanel() {
+        slidingUpPanelLayout.setVisibility(View.GONE);
     }
 
     public ImageView getBackgroundImage() {
