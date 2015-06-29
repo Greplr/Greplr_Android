@@ -37,7 +37,6 @@ dependencies {
     //compile 'com.android.support:design:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:cardview-v7:22.2.0'
-    compile 'com.flaviofaria:kenburnsview:1.0.6'
     compile('com.github.florent37:materialviewpager:1.0.5@aar') {
         transitive = true
     }
