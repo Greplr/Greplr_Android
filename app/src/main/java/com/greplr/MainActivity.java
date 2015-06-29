@@ -119,6 +119,18 @@ public class MainActivity extends AppCompatActivity implements
             buildLocationSettingsRequest();
             checkLocationSettings();
 
+            toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+            setSupportActionBar(toolbar);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            }
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return true;
+                }
+            });
+
             fragmentManager = getSupportFragmentManager();
             fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
                 @Override
@@ -128,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements
                             getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
                             getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
                         }
+                        setSupportActionBar(toolbar);
+                        getSupportActionBar().show();
                     }
                 }
             });
@@ -147,17 +161,6 @@ public class MainActivity extends AppCompatActivity implements
                 }, 5000);
             }
 
-            toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-            setSupportActionBar(toolbar);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-            }
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return true;
-                }
-            });
 
             slidingUpPanelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
