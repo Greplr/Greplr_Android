@@ -52,6 +52,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.greplr.api.Api;
+import com.greplr.api.NewsApi;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseAnalytics;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements
     String geoLocation;
     private RestAdapter restAdapter;
     private Api apiHandler;
+    private NewsApi newsApiHandler;
     private Toolbar toolbar;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
@@ -160,6 +162,15 @@ public class MainActivity extends AppCompatActivity implements
                     .setEndpoint(Api.BASE_URL)
                     .build();
             apiHandler = restAdapter.create(Api.class);
+        }
+        return apiHandler;
+    }
+    public Api getNewsApiHandler() {
+        if (newsApiHandler == null) {
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(NewsApi.BASE_URL)
+                    .build();
+            newsApiHandler = restAdapter.create(NewsApi.class);
         }
         return apiHandler;
     }
