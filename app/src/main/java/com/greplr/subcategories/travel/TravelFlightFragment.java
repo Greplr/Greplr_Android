@@ -106,26 +106,11 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         flightList = flights;
                         UpdateFlight(flightList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("numOfAdults", String.valueOf(numOfAdults));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/fights/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("numOfAdults", String.valueOf(numOfAdults));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/fights/search", params);
-
                     }
                 }
         );
@@ -181,22 +166,40 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                     okButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            departureLocation = orig.getText().toString().toUpperCase();
+                            arrivalLocation = dest.getText().toString().toUpperCase();
+                            travelDate = date.getText().toString();
+                            numOfAdults = 1;
                             apiHandler.getTravelFlights(
-                                    orig.getText().toString().toUpperCase(),
-                                    dest.getText().toString().toUpperCase(),
-                                    date.getText().toString(),
-                                    1,
+                                    departureLocation,
+                                    arrivalLocation,
+                                    travelDate,
+                                    numOfAdults,
                                     new Callback<List<Flight>>() {
                                         @Override
                                         public void success(List<Flight> flights, Response response) {
                                             Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                                             flightList = flights;
                                             UpdateFlight(flightList);
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("numOfAdults", String.valueOf(numOfAdults));
+                                            params.put("success", "true");
+                                            ParseAnalytics.trackEventInBackground("travel/fights/search", params);
                                         }
 
                                         @Override
                                         public void failure(RetrofitError error) {
                                             Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("numOfAdults", String.valueOf(numOfAdults));
+                                            params.put("success", "false");
+                                            ParseAnalytics.trackEventInBackground("travel/fights/search", params);
 
                                         }
                                     }

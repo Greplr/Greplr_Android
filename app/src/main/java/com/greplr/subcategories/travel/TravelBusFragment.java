@@ -30,6 +30,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -101,23 +103,23 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
                         updateBus(busList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put("departure", departureLocation);
+//                        params.put("arrival", arrivalLocation);
+//                        params.put("travelDate", travelDate);
+//                        params.put("success", "true");
+//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put("departure", departureLocation);
+//                        params.put("arrival", arrivalLocation);
+//                        params.put("travelDate", travelDate);
+//                        params.put("success", "false");
+//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
                 }
         );
@@ -170,6 +172,50 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 case TYPE_HEADER: {
                     v = (CardView) LayoutInflater.from(viewGroup.getContext())
                             .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
+                    Button okButton = (Button) v.findViewById(R.id.ok_button);
+                    final EditText orig = (EditText) v.findViewById(R.id.et_origin);
+                    final EditText dest = (EditText) v.findViewById(R.id.et_destination);
+                    final EditText date = (EditText) v.findViewById(R.id.et_date);
+                    okButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            departureLocation = orig.getText().toString();
+                            arrivalLocation = dest.getText().toString();
+                            travelDate = date.getText().toString();
+                            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                            apiHandler.getTravelBus(
+                                    departureLocation,
+                                    arrivalLocation,
+                                    travelDate,
+                                    new Callback<List<Bus>>() {
+                                        @Override
+                                        public void success(List<Bus> buses, Response response) {
+                                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                                            busList = buses;
+                                            updateBus(busList);
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("success", "true");
+                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError error) {
+                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("success", "false");
+                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                                        }
+                                    }
+                            );
+
+                        }
+                    });
                     return new ViewHolder(v);
                 }
                 case TYPE_CELL: {
