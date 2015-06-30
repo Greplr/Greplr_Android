@@ -26,6 +26,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,7 +153,9 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             Picasso.with(getActivity()).load(feedList.get(i).getVisual().getUrl()).fit().centerCrop().into(viewHolder.newsVisual);
-            viewHolder.newsSummary.setText(feedList.get(i).getSummary().getContent());
+            String htmlString = feedList.get(i).getSummary().getContent();
+            String htmlBody = htmlString.replaceAll("<img.+/(img)*>", "");
+            viewHolder.newsSummary.setText(Html.fromHtml(htmlBody));
             viewHolder.newsHeadline.setText(feedList.get(i).getTitle());
         }
 
