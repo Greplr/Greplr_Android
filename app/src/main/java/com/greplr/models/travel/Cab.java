@@ -32,6 +32,15 @@ public class Cab {
     private String price_per_km;
     private String provider;
     private String product_id;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getProduct_id() {
         return product_id;

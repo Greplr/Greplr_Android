@@ -215,11 +215,32 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         catch (PackageManager.NameNotFoundException e)
                         {
                             // No Uber app!
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setData(Uri.parse("market://details?id=" + "com.ubercab"));
+                            getActivity().startActivity(intent);
+
                         }
                     }
                 });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tfs.consumer");
+                        if(intent != null) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            getActivity().startActivity(intent);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setData(Uri.parse("market://details?id=" + "com.tfs.consumer"));
+                            getActivity().startActivity(intent);
+                        }
+
+                    }
+                });
             } else
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
             viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
