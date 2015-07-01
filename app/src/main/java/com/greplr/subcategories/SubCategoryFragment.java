@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.common.utils.ColorUtils;
 import com.greplr.topcategories.Topcategories;
 import com.squareup.picasso.Picasso;
 
@@ -84,7 +85,7 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getViewPager().setAdapter(pagerAdapter);
         matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
-        matViewPager.setColor(getResources().getColor(getToolbarColorResId()), 500);
+        matViewPager.setColor(ColorUtils.adjustAlpha(getResources().getColor(getToolbarColorResId()), 0.3f), 500);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getActivity().getWindow().setStatusBarColor(getResources().getColor(getToolbarColorResId()));
             getActivity().getWindow().setNavigationBarColor(getResources().getColor(getToolbarColorResId()));

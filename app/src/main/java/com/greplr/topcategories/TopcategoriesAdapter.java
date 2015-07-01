@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.common.utils.ColorUtils;
 
 import java.util.ArrayList;
 
@@ -72,8 +73,8 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
         holder.cardIcon.setImageDrawable(ad);
         ad.start();
         holder.cardIcon.setAdjustViewBounds(true);
-        //holder.cardContainer.setBackgroundResource(cat.drawable);
-        holder.cardView.setCardBackgroundColor(mContext.getResources().getColor(cat.cardColor));
+        int cardColor = mContext.getResources().getColor(cat.cardColor);
+        holder.cardView.setCardBackgroundColor(ColorUtils.adjustAlpha(cardColor, 0.5f));
         holder.cardContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
