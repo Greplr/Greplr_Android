@@ -27,6 +27,8 @@ import com.greplr.models.events.Plays;
 import com.greplr.models.food.Bar;
 import com.greplr.models.food.Cafe;
 import com.greplr.models.food.Restaurant;
+import com.greplr.models.shopping.Offers;
+import com.greplr.models.shopping.Search;
 import com.greplr.models.travel.Bus;
 import com.greplr.models.travel.Cab;
 import com.greplr.models.travel.Flight;
@@ -38,6 +40,7 @@ import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 
 /**
  * Created by championswimmer on 20/6/15.
@@ -113,5 +116,11 @@ public interface Api {
     void getEventCultural(
             //@Query("mid") String param1,
             Callback<List<Plays>> callback);
-
+    @GET("/api/shop/offers")
+    void getShoppingOffers(
+            Callback<List<Offers>> callback);
+    @GET("/api/shop/search")
+    void getShoppingResult(
+            @Query("search") String search,
+            Callback<List<Search>> callback);
 }
