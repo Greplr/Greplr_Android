@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.twitter.Twitter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private boolean destroyed = false;
     private Map<String, String> analyticsParams;
+    private ImageView backgroundImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         Button twitterLoginButton = (Button) findViewById(R.id.twitter_login);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
         analyticsParams = new HashMap<>();
+
+        backgroundImage = (ImageView) findViewById(R.id.login_background_image);
+        Picasso.with(this).load(R.drawable.main_background).fit().centerCrop().into(backgroundImage);
 
         facebookLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
