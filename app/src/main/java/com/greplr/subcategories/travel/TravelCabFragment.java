@@ -201,7 +201,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             viewHolder.prizePerKM.setText("₹" + cabList.get(i).getPrice_per_km() + " /Km");
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_uber);//;setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -224,7 +224,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                     }
                 });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_taxiforsure);
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
