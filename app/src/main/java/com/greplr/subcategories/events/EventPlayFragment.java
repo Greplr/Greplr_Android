@@ -99,7 +99,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         updatePlay(playList);
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/events/plays", params);
+                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
                     }
 
                     @Override
@@ -107,7 +107,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/events/plays", params);
+                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
                     }
                 }
         );
