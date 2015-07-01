@@ -7,7 +7,7 @@ public class Search {
 
     private ProductBaseInfo productBaseInfo;
     private ProductShippingBaseInfo productShippingBaseInfo;
-    private Object offset;
+    private String offset;
 
     public ProductBaseInfo getProductBaseInfo() {
         return productBaseInfo;
@@ -25,11 +25,11 @@ public class Search {
         this.productShippingBaseInfo = productShippingBaseInfo;
     }
 
-    public Object getOffset() {
+    public String getOffset() {
         return offset;
     }
 
-    public void setOffset(Object offset) {
+    public void setOffset(String offset) {
         this.offset = offset;
     }
 

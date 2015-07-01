@@ -5,14 +5,14 @@ package com.greplr.models.shopping.search;
  */
 public class SellingPrice {
 
-    private Integer amount;
+    private String amount;
     private String currency;
 
-    public Integer getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

@@ -5,13 +5,13 @@ package com.greplr.models.shopping.search;
  */
 public class ProductShippingBaseInfo {
 
-    private Object shippingOptions;
+    private String shippingOptions;
 
-    public Object getShippingOptions() {
+    public String getShippingOptions() {
         return shippingOptions;
     }
 
-    public void setShippingOptions(Object shippingOptions) {
+    public void setShippingOptions(String shippingOptions) {
         this.shippingOptions = shippingOptions;
     }
 }

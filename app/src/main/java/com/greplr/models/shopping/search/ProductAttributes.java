@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductAttributes {
 
     private String title;
-    private Object productDescription;
+    private String productDescription;
     private ImageUrls imageUrls;
     private MaximumRetailPrice maximumRetailPrice;
     private SellingPrice sellingPrice;
@@ -17,16 +17,16 @@ public class ProductAttributes {
     private String productBrand;
     private Boolean inStock;
     private Boolean codAvailable;
-    private Object emiAvailable;
-    private Integer discountPercentage;
-    private Object cashBack;
-    private List<Object> offers = new ArrayList<Object>();
-    private Object size;
+    private String emiAvailable;
+    private String discountPercentage;
+    private String cashBack;
+    private List<String> offers = new ArrayList<String>();
+    private String size;
     private String color;
     private String sizeUnit;
     private String sizeVariants;
-    private Object colorVariants;
-    private Object styleCode;
+    private String colorVariants;
+    private String styleCode;
 
     public String getTitle() {
         return title;
@@ -36,11 +36,11 @@ public class ProductAttributes {
         this.title = title;
     }
 
-    public Object getProductDescription() {
+    public String getProductDescription() {
         return productDescription;
     }
 
-    public void setProductDescription(Object productDescription) {
+    public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
 
@@ -100,43 +100,43 @@ public class ProductAttributes {
         this.codAvailable = codAvailable;
     }
 
-    public Object getEmiAvailable() {
+    public String getEmiAvailable() {
         return emiAvailable;
     }
 
-    public void setEmiAvailable(Object emiAvailable) {
+    public void setEmiAvailable(String emiAvailable) {
         this.emiAvailable = emiAvailable;
     }
 
-    public Integer getDiscountPercentage() {
+    public String getDiscountPercentage() {
         return discountPercentage;
     }
 
-    public void setDiscountPercentage(Integer discountPercentage) {
+    public void setDiscountPercentage(String discountPercentage) {
         this.discountPercentage = discountPercentage;
     }
 
-    public Object getCashBack() {
+    public String getCashBack() {
         return cashBack;
     }
 
-    public void setCashBack(Object cashBack) {
+    public void setCashBack(String cashBack) {
         this.cashBack = cashBack;
     }
 
-    public List<Object> getOffers() {
+    public List<String> getOffers() {
         return offers;
     }
 
-    public void setOffers(List<Object> offers) {
+    public void setOffers(List<String> offers) {
         this.offers = offers;
     }
 
-    public Object getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Object size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -164,19 +164,19 @@ public class ProductAttributes {
         this.sizeVariants = sizeVariants;
     }
 
-    public Object getColorVariants() {
+    public String getColorVariants() {
         return colorVariants;
     }
 
-    public void setColorVariants(Object colorVariants) {
+    public void setColorVariants(String colorVariants) {
         this.colorVariants = colorVariants;
     }
 
-    public Object getStyleCode() {
+    public String getStyleCode() {
         return styleCode;
     }
 
-    public void setStyleCode(Object styleCode) {
+    public void setStyleCode(String styleCode) {
         this.styleCode = styleCode;
     }
 }
