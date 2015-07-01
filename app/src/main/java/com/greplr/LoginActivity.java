@@ -14,6 +14,7 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.parse.LogInCallback;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
@@ -24,12 +25,15 @@ import com.parse.twitter.Twitter;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private boolean destroyed = false;
+    private Map<String, String> analyticsParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,12 @@ public class LoginActivity extends AppCompatActivity {
         Button facebookLoginButton = (Button) findViewById(R.id.facebook_login);
         Button twitterLoginButton = (Button) findViewById(R.id.twitter_login);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
+        analyticsParams = new HashMap<>();
 
         facebookLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                analyticsParams.put("account", "facebook");
                 List<String> permissions = Arrays.asList(
                         "public_profile", "email", "user_birthday", "user_location");
                 ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, permissions, new LogInCallback() {
@@ -54,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (parseUser == null) {
                             if (e != null) {
+                                analyticsParams.put("login", "failed");
+                                ParseAnalytics.trackEventInBackground("login", analyticsParams);
                                 Toast.makeText(getApplicationContext(), getString(R.string.facebook_login_failed_toast), Toast.LENGTH_SHORT).show();
                             }
                         } else if (parseUser.isNew()) {
@@ -69,15 +77,18 @@ public class LoginActivity extends AppCompatActivity {
                                                 parseUser.saveInBackground(new SaveCallback() {
                                                     @Override
                                                     public void done(ParseException e) {
+                                                        analyticsParams.put("newUser", "true");
                                                         loginSuccess();
                                                     }
                                                 });
                                             }
+                                            analyticsParams.put("newUser", "true");
                                             loginSuccess();
                                         }
                                     }
                             ).executeAsync();
                         } else {
+                            analyticsParams.put("newUser", "false");
                             loginSuccess();
                         }
                     }
@@ -89,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         twitterLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                analyticsParams.put("account", "twitter");
                 ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
                     @Override
                     public void done(ParseUser user, ParseException e) {
@@ -97,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         if (user == null) {
                             if (e != null) {
+                                analyticsParams.put("login", "failed");
+                                ParseAnalytics.trackEventInBackground("login", analyticsParams);
                                 Toast.makeText(getApplicationContext(), getString(R.string.twitter_login_failed_toast), Toast.LENGTH_SHORT).show();
                             }
                         } else if (user.isNew()) {
@@ -107,11 +121,13 @@ public class LoginActivity extends AppCompatActivity {
                                 user.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(ParseException e) {
+                                        analyticsParams.put("newUser", "true");
                                         loginSuccess();
                                     }
                                 });
                             }
                         } else {
+                            analyticsParams.put("newUser", "false");
                             loginSuccess();
                         }
                     }
@@ -147,6 +163,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginSuccess() {
+        analyticsParams.put("success", "true");
+        ParseAnalytics.trackEventInBackground("login", analyticsParams);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
