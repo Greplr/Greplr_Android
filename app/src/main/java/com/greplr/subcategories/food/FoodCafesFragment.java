@@ -38,7 +38,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
@@ -149,7 +148,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.cafe_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_cafe_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

@@ -59,7 +59,7 @@ public abstract class SubCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.subcategories_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_subcategories, container, false);
 
         ((MainActivity) getActivity()).getSupportActionBar().hide();
 
