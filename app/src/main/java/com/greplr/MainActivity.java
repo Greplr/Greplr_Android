@@ -31,6 +31,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +90,7 @@ public class MainActivity
     private LinearLayout bottomSliderLayout;
     private SlidingUpPanelLayout slideFrame;
     private Boolean isActivityRunning = true;
+    private long activityStartTime;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -201,8 +204,8 @@ public class MainActivity
         super.onStart();
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
-        params.put("success", "true");
-        ParseAnalytics.trackEventInBackground("application open", params);
+        activityStartTime = System.nanoTime();
+        ParseAnalytics.trackEventInBackground("mainactivity/open", params);
     }
 
     @Override
@@ -228,8 +231,11 @@ public class MainActivity
         super.onStop();
         ((App) getApplication()).getGoogleApiClient().disconnect();
         Map<String, String> params = new HashMap<>();
-        params.put("success", "true");
-        ParseAnalytics.trackEventInBackground("application close", params);
+        long timeElapsed = System.nanoTime() - activityStartTime;
+        timeElapsed = timeElapsed/1000000000;//Convert to seconds;
+        params.put("spent/min", String.valueOf((timeElapsed/60)));
+        params.put("spent/sec", String.valueOf((timeElapsed%60)));
+        ParseAnalytics.trackEventInBackground("mainactivity/close", params);
     }
 
     @Override
