@@ -35,8 +35,13 @@ import com.greplr.api.NewsApi;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
+import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.OkHttpClient;
+
+import java.util.concurrent.TimeUnit;
 
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * Created by championswimmer on 17/6/15.
@@ -58,6 +63,7 @@ public class App extends Application
     private Api apiHandler;
     private NewsApi newsApiHandler;
     private RestAdapter restAdapter;
+    private OkHttpClient ok;
 
 
 
@@ -116,11 +122,27 @@ public class App extends Application
 
     }
 
+    public OkHttpClient getOkHttpClient(){
+        if(ok == null){
+            ok = new OkHttpClient();
+            try {
+                Cache responseCache = new Cache(getCacheDir(), 1024 * 1024 * 10);
+                ok.setCache(responseCache);
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "Unable to set http cache", e);
+            }
+            ok.setReadTimeout(30, TimeUnit.SECONDS);
+            ok.setConnectTimeout(30, TimeUnit.SECONDS);
+        }
+        return ok;
+    }
+
     public Api getApiHandler() {
         //Make sure we just have one instance
         if (apiHandler == null) {
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(Api.BASE_URL)
+                    .setClient(new OkClient(getOkHttpClient()))
                     .build();
             apiHandler = restAdapter.create(Api.class);
         }
@@ -131,6 +153,7 @@ public class App extends Application
         if (newsApiHandler == null) {
             restAdapter = new RestAdapter.Builder()
                     .setEndpoint(NewsApi.BASE_URL)
+                    .setClient(new OkClient(getOkHttpClient()))
                     .build();
             newsApiHandler = restAdapter.create(NewsApi.class);
         }
