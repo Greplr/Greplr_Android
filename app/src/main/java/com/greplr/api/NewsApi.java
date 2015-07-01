@@ -36,7 +36,7 @@ public interface NewsApi {
 
     String BASE_URL = "http://cloud.feedly.com/v3";
 
-    @GET("/mixes/contents")
+    @GET("/mixes/contents?locale=IN")
     void getNewsForTopic(
             @Query("streamId") String streamId,
             @Query("count") Integer count,
