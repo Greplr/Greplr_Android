@@ -19,7 +19,7 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,9 +46,22 @@
         app:viewpager_hideLogoWithFade="true"
         app:viewpager_hideToolbarAndTitle="true"
         app:viewpager_enableToolbarElevation="true"
-        app:viewpager_parallaxHeaderFactor="1.5"
-        app:viewpager_headerAdditionalHeight="60dp"
+        app:viewpager_parallaxHeaderFactor="1.2"
+        app:viewpager_headerAdditionalHeight="30dp"
         app:viewpager_displayToolbarWhenSwipe="true"
         />
 
-</RelativeLayout>
+    <com.melnykov.fab.FloatingActionButton
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/search_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_search"
+        android:visibility="gone"
+        fab:fab_colorNormal="@color/travel_cardColor"
+        fab:fab_colorPressed="@color/travel_cardColor"
+        fab:fab_colorRipple="@color/travel_cardColor" />
+
+</FrameLayout>

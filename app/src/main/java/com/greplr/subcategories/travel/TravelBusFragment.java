@@ -42,7 +42,10 @@ import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Bus;
+import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 import com.parse.ParseAnalytics;
 
 import java.util.HashMap;
@@ -146,6 +149,19 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
     public void updateBus(List<Bus> cabs) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getParentFragment()!=null) {
+            if (isVisibleToUser) {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+            } else {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
+            }
+        }
     }
 
     public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {

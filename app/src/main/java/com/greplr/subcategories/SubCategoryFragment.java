@@ -30,6 +30,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.common.utils.ColorUtils;
 import com.greplr.topcategories.Topcategories;
+import com.melnykov.fab.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -47,14 +49,17 @@ import com.squareup.picasso.Picasso;
  */
 public abstract class SubCategoryFragment extends Fragment {
 
+    public static final String LOG_TAG = "Greplr/SubCategory";
+
     private ActionBar mActionBar;
     private ImageView backgroundImage;
     private ImageView headerLogo;
-
+    private FloatingActionButton searchFab;
 
     public SubCategoryFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +69,10 @@ public abstract class SubCategoryFragment extends Fragment {
 
         ((MainActivity) getActivity()).getSupportActionBar().hide();
 
-        final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
 
+
+        final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
+        searchFab = (FloatingActionButton) rootView.findViewById(R.id.search_fab);
         Toolbar toolbar = matViewPager.getToolbar();
 
         if (toolbar != null) {
@@ -96,7 +103,7 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                //Log.v(LOG_TAG, "position="+position+" positionOffset="+positionOffset);
             }
 
             @Override
@@ -109,7 +116,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                //Log.v(LOG_TAG, "state="+state);
             }
         });
 
@@ -161,5 +168,8 @@ public abstract class SubCategoryFragment extends Fragment {
         }
     }
 
+    public FloatingActionButton getSearchFab() {
+        return searchFab;
+    }
 
 }
