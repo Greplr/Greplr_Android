@@ -21,7 +21,6 @@
 
 package com.greplr.subcategories.news;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,23 +50,26 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.cardicon_news_india,
                         NewsFeedFragment.newInstance("India",
                                 R.drawable.background_news_india,
-                                R.drawable.cardicon_news_india)
+                                R.drawable.cardicon_news_india,
+                                "india")
                 ),
                 new UnderSubCategory(
-                        "Global",
+                        "World",
                         R.drawable.background_travel_bus,
-                        R.drawable.cardicon_news_global,
-                        NewsFeedFragment.newInstance("Global",
-                                R.drawable.background_news_global,
-                                R.drawable.cardicon_news_global)
+                        R.drawable.cardicon_news_world,
+                        NewsFeedFragment.newInstance("World",
+                                R.drawable.background_news_world,
+                                R.drawable.cardicon_news_world,
+                                "world")
                 ),
                 new UnderSubCategory(
-                        "Tech",
+                        "Technology",
                         R.drawable.background_travel_flight,
                         R.drawable.cardicon_news_technology,
                         NewsFeedFragment.newInstance("Technology",
                                 R.drawable.background_news_technology,
-                                R.drawable.cardicon_news_technology)
+                                R.drawable.cardicon_news_technology,
+                                "tech")
                 ),
                 new UnderSubCategory(
                         "Sports",
@@ -75,15 +77,17 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.cardicon_news_sports,
                         NewsFeedFragment.newInstance("Sports",
                                 R.drawable.background_news_sports,
-                                R.drawable.cardicon_news_sports)
+                                R.drawable.cardicon_news_sports,
+                                "sports")
                 ),
                 new UnderSubCategory(
-                        "Entertainment",
+                        "Bollywood",
                         R.drawable.background_travel_flight,
-                        R.drawable.cardicon_news_entertainment,
-                        NewsFeedFragment.newInstance("Entertainment",
-                                R.drawable.background_news_entertainment,
-                                R.drawable.cardicon_news_entertainment)
+                        R.drawable.cardicon_news_bollywood,
+                        NewsFeedFragment.newInstance("Bollywood",
+                                R.drawable.background_news_bollywood,
+                                R.drawable.cardicon_news_bollywood,
+                                "bollywood")
                 ),
                 new UnderSubCategory(
                         "Business",
@@ -91,7 +95,8 @@ public class NewsFragment extends SubCategoryFragment {
                         R.drawable.cardicon_news_business,
                         NewsFeedFragment.newInstance("Business",
                                 R.drawable.background_news_business,
-                                R.drawable.cardicon_news_business)
+                                R.drawable.cardicon_news_business,
+                                "business+finance")
                 )
         };
     }

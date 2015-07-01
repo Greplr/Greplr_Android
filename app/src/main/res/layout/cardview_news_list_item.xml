@@ -11,11 +11,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/news_image"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
             android:layout_width="100dp"
             android:layout_margin="10dp"
             android:adjustViewBounds="true" />
@@ -23,12 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="New \n Text"
             android:id="@+id/news_headline"
             android:ellipsize="end"
             android:ems="3"
-            android:maxLines="1"
-            android:singleLine="true"
+            android:maxLines="3"
+            android:minLines="1"
             android:textColor="@android:color/black"
             android:textSize="17sp"
             android:textStyle="bold"
@@ -42,14 +43,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Text"
+            android:text="N\ne\nw\ns\n \nT\ne"
             android:id="@+id/news_summary"
             android:textColor="@android:color/black"
             android:textSize="14sp"
-            android:layout_below="@+id/news_headline"
-            android:layout_alignLeft="@+id/news_headline"
-            android:layout_alignStart="@+id/news_headline"
-            android:layout_alignBottom="@+id/news_image"
+            android:maxLines="8"
+            android:layout_below="@+id/news_image"
+            android:layout_alignLeft="@+id/news_image"
+            android:layout_alignStart="@+id/news_image"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 

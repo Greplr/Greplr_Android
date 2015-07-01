@@ -59,16 +59,19 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/News";
 
+    private String newsTopics;
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<Feed.FeedItem> feedList;
 
-    public static NewsFeedFragment newInstance(String title, int background, int icon) {
+    public static NewsFeedFragment newInstance(String title, int background, int icon, String topics) {
         NewsFeedFragment fragment = new NewsFeedFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putInt("background", background);
         args.putInt("icon", icon);
+        args.putString("topics", topics);
         fragment.setArguments(args);
         return fragment;
     }
@@ -108,7 +111,7 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
 
         NewsApi newsApiHandler = ((MainActivity) getActivity()).getNewsApiHandler();
         newsApiHandler.getNewsForTopic(
-                "topic/" + getPageTitle(),
+                "topic/" + getArguments().getString("topics"),
                 20,
                 null,
                 null,
@@ -154,7 +157,7 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             Picasso.with(getActivity()).load(feedList.get(i).getVisual().getUrl()).fit().centerCrop().into(viewHolder.newsVisual);
             String htmlString = feedList.get(i).getSummary().getContent();
-            String htmlBody = htmlString.replaceAll("<img.+/(img)*>", "");
+            String htmlBody = htmlString.replaceAll("(<(/)img>)|(<img.+?>)", "");
             viewHolder.newsSummary.setText(Html.fromHtml(htmlBody));
             viewHolder.newsHeadline.setText(feedList.get(i).getTitle());
         }
