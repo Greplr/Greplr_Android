@@ -205,6 +205,8 @@ public class MainActivity
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
         activityStartTime = System.nanoTime();
+        params.put("device/brand", Build.BRAND);
+        params.put("device/model", Build.MODEL);
         ParseAnalytics.trackEventInBackground("mainactivity/open", params);
     }
 
