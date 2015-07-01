@@ -27,8 +27,8 @@ import com.greplr.models.events.Plays;
 import com.greplr.models.food.Bar;
 import com.greplr.models.food.Cafe;
 import com.greplr.models.food.Restaurant;
-import com.greplr.models.shopping.Offers;
 import com.greplr.models.shopping.Search;
+import com.greplr.models.shopping.offers.Offers;
 import com.greplr.models.travel.Bus;
 import com.greplr.models.travel.Cab;
 import com.greplr.models.travel.Flight;
@@ -119,8 +119,11 @@ public interface Api {
     @GET("/api/shop/offers")
     void getShoppingOffers(
             Callback<List<Offers>> callback);
+
     @GET("/api/shop/search")
     void getShoppingResult(
             @Query("search") String search,
             Callback<List<Search>> callback);
+
+
 }

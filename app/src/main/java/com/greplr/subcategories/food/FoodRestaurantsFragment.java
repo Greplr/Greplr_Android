@@ -40,7 +40,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -51,7 +50,6 @@ import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,9 +96,9 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        long time = sharedPref.getLong("food/restaurants/time", System.currentTimeMillis());
-        if (time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        long time = sharedPref.getLong("food/restaurants/time", System.currentTimeMillis());
+//        if (time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
             Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
             apiHandler.getFoodRestaurants(
                     String.valueOf(App.currentLatitude),
@@ -136,17 +134,17 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                         }
                     }
             );
-        } else {
-            //TODO show cached data
-            Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"));
-            Type listType = new TypeToken<List<Restaurant>>() {
-            }.getType();
-            List<Restaurant> restaurants = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"), listType);
-            Log.d(LOG_TAG, restaurants.get(0).getName());
-            restaurantList = restaurants;
-            updateRestaurants(restaurantList);
-        }
+//        } else {
+//            //TODO show cached data
+//            Log.d(LOG_TAG, "Show cached data");
+//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"));
+//            Type listType = new TypeToken<List<Restaurant>>() {
+//            }.getType();
+//            List<Restaurant> restaurants = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"), listType);
+//            Log.d(LOG_TAG, restaurants.get(0).getName());
+//            restaurantList = restaurants;
+//            updateRestaurants(restaurantList);
+//        }
 
         return rootView;
     }

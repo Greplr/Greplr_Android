@@ -16,7 +16,7 @@ import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
-import com.greplr.models.shopping.Offers;
+import com.greplr.models.shopping.offers.Offers;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
@@ -74,7 +74,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
 //                        updateOffers(offerList);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
-                        Log.d(LOG_TAG, offerList.get(0).url + "  " + offerList.get(0).availability + "  " + offerList.get(0).description + "  " + offerList.get(0).title + "  " + offerList.get(0).imageUrl);
+                        Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability()+ "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("shopping/offers", params);
                     }

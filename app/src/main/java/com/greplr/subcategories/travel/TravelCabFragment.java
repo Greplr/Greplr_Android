@@ -46,7 +46,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -58,7 +57,6 @@ import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,9 +101,9 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        long time = sharedPref.getLong("travel/cabs/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 10000) {
+//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        long time = sharedPref.getLong("travel/cabs/time", System.currentTimeMillis());
+//        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 10000) {
             Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
             apiHandler.getTravelCabs(
                     String.valueOf(App.currentLatitude),
@@ -143,58 +141,17 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         }
                     }
             );
-        } else {
-            Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "travelCabsJSON.json"));
-            Type listType = new TypeToken<List<Cab>>() {}.getType();
-            List<Cab> cabs = new Gson().fromJson(Utils.readJSONFile(getActivity(), "travelCabsJSON.json"), listType);
-            Log.d(LOG_TAG,cabs.get(0).getDisplay_name());
-            cabList = cabs;
-//            updateCabs(cabList);
-        }
+//        } else {
+//            Log.d(LOG_TAG, "Show cached data");
+//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "travelCabsJSON.json"));
+//            Type listType = new TypeToken<List<Cab>>() {}.getType();
+//            List<Cab> cabs = new Gson().fromJson(Utils.readJSONFile(getActivity(), "travelCabsJSON.json"), listType);
+//            Log.d(LOG_TAG,cabs.get(0).getDisplay_name());
+//            cabList = cabs;
+////            updateCabs(cabList);
+//        }
         return rootView;
     }
-//
-//    private String readJSONFile(){
-//        String ret = "";
-//
-//        try {
-//            InputStream inputStream = getActivity().openFileInput("travelCabsJSON.json");
-//
-//            if ( inputStream != null ) {
-//                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-//                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//                String receiveString = "";
-//                StringBuilder stringBuilder = new StringBuilder();
-//                while ( (receiveString = bufferedReader.readLine()) != null ) {
-//                    stringBuilder.append(receiveString);
-//                }
-//                inputStream.close();
-//                ret = stringBuilder.toString();
-//            }
-//        }
-//        catch (FileNotFoundException e) {
-//            Log.e(LOG_TAG, "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e(LOG_TAG, "Can not read file: " + e.toString());
-//        }
-//
-//        return ret;
-//    }
-//
-//    private void writeJSONFile(String jsonString) {
-//        File jsonFile = new File(getActivity().getFilesDir(), "travelCabsJSON.json");
-//        FileOutputStream fos;
-//        try {
-//            fos = new FileOutputStream(jsonFile);
-//            fos.write(jsonString.getBytes());
-//            fos.close();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

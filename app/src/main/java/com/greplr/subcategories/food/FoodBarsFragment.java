@@ -41,7 +41,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
@@ -52,7 +51,6 @@ import com.greplr.models.food.Bar;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +97,9 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodBarsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        long time = sharedPref.getLong("food/bars/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
+//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        long time = sharedPref.getLong("food/bars/time", System.currentTimeMillis());
+//        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
             Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
             apiHandler.getFoodBars(
                     String.valueOf(App.currentLatitude),
@@ -141,16 +139,16 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                         }
                     }
             );
-        } else {
-            //TODO show cached data
-            Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodBarsJSON.json"));
-            Type listType = new TypeToken<List<Bar>>() {}.getType();
-            List<Bar> bars = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodBarsJSON.json"), listType);
-            Log.d(LOG_TAG, bars.get(bars.size()-1).getName());
-            barList = bars;
-//            updateBars(bars);
-        }
+//        } else {
+//            //TODO show cached data
+//            Log.d(LOG_TAG, "Show cached data");
+//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodBarsJSON.json"));
+//            Type listType = new TypeToken<List<Bar>>() {}.getType();
+//            List<Bar> bars = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodBarsJSON.json"), listType);
+//            Log.d(LOG_TAG, bars.get(bars.size()-1).getName());
+//            barList = bars;
+////            updateBars(bars);
+//        }
 
         return rootView;
     }
