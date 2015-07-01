@@ -76,9 +76,6 @@ public class MainActivity
     private static FragmentManager fragmentManager;
     private final int REQUEST_CHECK_SETTINGS = 0x1;
     String geoLocation;
-    private RestAdapter restAdapter;
-    private Api apiHandler;
-    private NewsApi newsApiHandler;
     private Toolbar toolbar;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
@@ -158,7 +155,7 @@ public class MainActivity
             bottomSliderLayout = (LinearLayout) findViewById(R.id.bottom_slider_layout);
             slideFrame = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
-            getApiHandler();
+            ((App) getApplication()).getApiHandler();
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
@@ -178,24 +175,7 @@ public class MainActivity
         return backgroundImage;
     }
 
-    public Api getApiHandler() {
-        if (apiHandler == null) {
-            restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(Api.BASE_URL)
-                    .build();
-            apiHandler = restAdapter.create(Api.class);
-        }
-        return apiHandler;
-    }
-    public NewsApi getNewsApiHandler() {
-        if (newsApiHandler == null) {
-            restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(NewsApi.BASE_URL)
-                    .build();
-            newsApiHandler = restAdapter.create(NewsApi.class);
-        }
-        return newsApiHandler;
-    }
+
 
     @Override
     protected void onStart() {

@@ -36,6 +36,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
@@ -92,7 +93,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         travelDate = "20150710";
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelBus(
                 departureLocation,
                 arrivalLocation,
@@ -182,7 +183,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                             departureLocation = orig.getText().toString();
                             arrivalLocation = dest.getText().toString();
                             travelDate = date.getText().toString();
-                            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                             apiHandler.getTravelBus(
                                     departureLocation,
                                     arrivalLocation,

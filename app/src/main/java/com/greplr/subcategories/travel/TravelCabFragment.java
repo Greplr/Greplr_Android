@@ -100,7 +100,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelCabs(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
@@ -260,7 +260,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                                 locationEdTxt.setError("Please Enter");
                             } else {
                                 customDialog.dismiss();
-                                Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                                Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                                 apiHandler.giveFeedBack(
                                         userFeedback,
                                         "Travel",

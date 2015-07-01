@@ -92,7 +92,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_food_cafe, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodCafes(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),

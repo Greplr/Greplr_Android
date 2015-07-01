@@ -36,6 +36,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.api.NewsApi;
@@ -109,7 +110,7 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
         mRecyclerView.setLayoutManager(layoutManager);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
-        NewsApi newsApiHandler = ((MainActivity) getActivity()).getNewsApiHandler();
+        NewsApi newsApiHandler = ((App) getActivity().getApplication()).getNewsApiHandler();
         newsApiHandler.getNewsForTopic(
                 "topic/" + getArguments().getString("topics"),
                 20,

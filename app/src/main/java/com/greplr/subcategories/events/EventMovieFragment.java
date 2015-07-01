@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
@@ -88,7 +89,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_events_movies, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getEventMovies(
                 new Callback<List<Movies>>() {
 
