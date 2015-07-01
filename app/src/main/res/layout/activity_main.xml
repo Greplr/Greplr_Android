@@ -36,7 +36,7 @@
         android:gravity="bottom"
         sothree:umanoShadowHeight="0dp"
         sothree:umanoParalaxOffset="100dp"
-        sothree:umanoPanelHeight="@dimen/sliding_panel_height">
+        sothree:umanoPanelHeight="0dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"

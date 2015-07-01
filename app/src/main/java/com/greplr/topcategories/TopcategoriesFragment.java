@@ -55,6 +55,7 @@ public class TopcategoriesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().show();
+        ((MainActivity) getActivity()).showSlidePanel();
     }
 
     @Override
