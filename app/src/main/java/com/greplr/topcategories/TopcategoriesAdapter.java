@@ -67,8 +67,8 @@ public class TopcategoriesAdapter extends RecyclerView.Adapter<TopcategoriesHold
 //        try {
 
         AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(mContext, cat.cardIcon);
-        ad.setEnterFadeDuration(800);
-        ad.setExitFadeDuration(800);
+        ad.setEnterFadeDuration(1000);
+        ad.setExitFadeDuration(1000);
         holder.cardIcon.setImageDrawable(ad);
         ad.start();
         holder.cardIcon.setAdjustViewBounds(true);
