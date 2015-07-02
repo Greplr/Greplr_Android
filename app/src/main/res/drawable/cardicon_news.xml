@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_news_business" android:duration="2300" />
+    <item android:drawable="@drawable/cardicon_news_bollywood" android:duration="2300" />
+    <item android:drawable="@drawable/cardicon_news_world" android:duration="2300" />
+    <item android:drawable="@drawable/cardicon_news_india" android:duration="2300" />
+    <item android:drawable="@drawable/cardicon_news_sports" android:duration="2300" />
+    <item android:drawable="@drawable/cardicon_news_technology" android:duration="2300" />
+</animation-list>

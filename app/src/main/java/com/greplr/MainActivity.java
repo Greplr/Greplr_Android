@@ -41,6 +41,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -51,31 +53,39 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.greplr.api.Api;
+import com.greplr.api.NewsApi;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import retrofit.RestAdapter;
 
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity
+        extends AppCompatActivity
+        implements FragmentManager.OnBackStackChangedListener,
         com.google.android.gms.location.LocationListener,
         ResultCallback<LocationSettingsResult> {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
-    private long activityStartTime;
     private static FragmentManager fragmentManager;
     private final int REQUEST_CHECK_SETTINGS = 0x1;
     String geoLocation;
-    private RestAdapter restAdapter;
-    private Api apiHandler;
     private Toolbar toolbar;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
     private Boolean mRequestingLocationUpdates;
+    private ImageView backgroundImage;
+    private Boolean locationFix = false;
+    private LinearLayout bottomSliderLayout;
+    private SlidingUpPanelLayout slideFrame;
+    private Boolean isActivityRunning = true;
+    private long activityStartTime;
+
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
         if (addToBackStack) {
@@ -108,7 +118,20 @@ public class MainActivity extends AppCompatActivity implements
             buildLocationSettingsRequest();
             checkLocationSettings();
 
+            toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+            setSupportActionBar(toolbar);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            }
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return true;
+                }
+            });
+
             fragmentManager = getSupportFragmentManager();
+            fragmentManager.addOnBackStackChangedListener(this);
 
             if (App.locationInitialised) {
                 goToTopFragment();
@@ -117,11 +140,14 @@ public class MainActivity extends AppCompatActivity implements
                 new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        App.locationInitialised = true;
-                        fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                        if (!locationFix && isActivityRunning) {
+                            App.locationInitialised = true;
+                            fragmentManager.beginTransaction().replace(R.id.container, new TopcategoriesFragment()).commit();
+                        }
                     }
                 }, 5000);
             }
+
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -132,28 +158,44 @@ public class MainActivity extends AppCompatActivity implements
                     return true;
                 }
             });
-            getApiHandler();
+
+            bottomSliderLayout = (LinearLayout) findViewById(R.id.bottom_slider_layout);
+            slideFrame = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+
+            ((App) getApplication()).getApiHandler();
+
         }
+
+        backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
 
-    public Api getApiHandler() {
-        if (apiHandler == null) {
-            restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(Api.BASE_URL)
-                    .build();
-            apiHandler = restAdapter.create(Api.class);
-        }
-        return apiHandler;
+    public void showSlidePanel () {
+        //bottomSliderLayout.setVisibility(View.VISIBLE);
+        slideFrame.setPanelHeight(getResources().getDimensionPixelOffset(R.dimen.sliding_panel_height));
     }
+
+    public void hideSlidePanel() {
+        //bottomSliderLayout.setVisibility(View.GONE);
+        slideFrame.setPanelHeight(0);
+    }
+
+    public ImageView getBackgroundImage() {
+        return backgroundImage;
+    }
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
-        activityStartTime = System.currentTimeMillis();
-        params.put("Phone Model", Build.MANUFACTURER + " " + Build.MODEL);
-        ParseAnalytics.trackEventInBackground("application open", params);
+
+        activityStartTime = System.nanoTime();
+        params.put("device/brand", Build.BRAND);
+        params.put("device/model", Build.MODEL);
+        ParseAnalytics.trackEventInBackground("mainactivity/open", params);
+
     }
 
     @Override
@@ -162,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected() && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
+        isActivityRunning = true;
     }
 
     @Override
@@ -170,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements
         if (((App) getApplication()).getGoogleApiClient().isConnected()) {
             stopLocationUpdates();
         }
+        isActivityRunning = false;
     }
 
     @Override
@@ -177,8 +221,16 @@ public class MainActivity extends AppCompatActivity implements
         super.onStop();
         ((App) getApplication()).getGoogleApiClient().disconnect();
         Map<String, String> params = new HashMap<>();
-        params.put("total time", timeFormat((System.currentTimeMillis()-activityStartTime)/1000));
-        ParseAnalytics.trackEventInBackground("application close", params);
+//
+//        params.put("total time", timeFormat((System.currentTimeMillis()-activityStartTime)/1000));
+//        ParseAnalytics.trackEventInBackground("application close", params);
+
+        long timeElapsed = System.nanoTime() - activityStartTime;
+        timeElapsed = timeElapsed/1000000000;//Convert to seconds;
+        params.put("spent/min", String.valueOf((timeElapsed/60)));
+        params.put("spent/sec", String.valueOf((timeElapsed%60)));
+        ParseAnalytics.trackEventInBackground("mainactivity/close", params);
+
     }
 
     private static String timeFormat(long totalSeconds) {
@@ -247,6 +299,11 @@ public class MainActivity extends AppCompatActivity implements
                                     geoLocation = location;
                                     Log.d("Location:", geoLocation + "");
                                     GeoCodingLocationData.fetchData(geoLocation);
+                                    if (!App.locationInitialised) {
+                                        App.locationInitialised = true;
+                                        locationFix = true;
+                                        goToTopFragment();
+                                    }
                                 }
                             }
                         });
@@ -324,10 +381,10 @@ public class MainActivity extends AppCompatActivity implements
 
         if (!App.locationInitialised) {
             App.locationInitialised = true;
+            locationFix = true;
             goToTopFragment();
         }
     }
-
 
 
     @Override
@@ -355,5 +412,20 @@ public class MainActivity extends AppCompatActivity implements
                         "not created.");
                 break;
         }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+
+        if (fragmentManager.getBackStackEntryCount() == 0){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+                getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
+            }
+            setSupportActionBar(toolbar);
+            getSupportActionBar().show();
+            showSlidePanel();
+        }
+
     }
 }

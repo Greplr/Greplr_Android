@@ -41,7 +41,6 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.google.gson.Gson;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
@@ -96,56 +95,35 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
-//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//        long time = sharedPref.getLong("food/restaurants/time", System.currentTimeMillis());
-//        if (time == System.currentTimeMillis() || System.currentTimeMillis() - time > 300000) {
-            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-            apiHandler.getFoodRestaurants(
-                    String.valueOf(App.currentLatitude),
-                    String.valueOf(App.currentLongitude),
-                    new Callback<List<Restaurant>>() {
-                        @Override
-                        public void success(List<Restaurant> restaurants, Response response) {
-                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                            restaurantList = restaurants;
-                            updateRestaurants(restaurantList);
-                            Gson gson = new Gson();
-                            String json = gson.toJson(restaurants);
-                            Utils.writeJSONFile(json, getActivity(), "foodRestaurantsJSON.json");
-                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                            editor = sharedPref.edit();
-                            editor.putLong("food/restaurants/time", System.currentTimeMillis());
-                            editor.commit();
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "true");
-                            ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
-                        }
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getFoodRestaurants(
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
+                new Callback<List<Restaurant>>() {
+                    @Override
+                    public void success(List<Restaurant> restaurants, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        restaurantList = restaurants;
+                        updateRestaurants(restaurantList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
 
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "false");
-                            ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
-                        }
                     }
-            );
-//        } else {
-//            //TODO show cached data
-//            Log.d(LOG_TAG, "Show cached data");
-//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"));
-//            Type listType = new TypeToken<List<Restaurant>>() {
-//            }.getType();
-//            List<Restaurant> restaurants = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodRestaurantsJSON.json"), listType);
-//            Log.d(LOG_TAG, restaurants.get(0).getName());
-//            restaurantList = restaurants;
-//            updateRestaurants(restaurantList);
-//        }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
+                    }
+                }
+            );
         return rootView;
     }
 
@@ -173,7 +151,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.restaurant_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_restaurant_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

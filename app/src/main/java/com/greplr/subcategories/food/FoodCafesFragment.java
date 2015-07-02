@@ -21,7 +21,7 @@
 
 package com.greplr.subcategories.food;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -39,11 +39,8 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.google.gson.Gson;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
-import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Cafe;
@@ -67,8 +64,6 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
     private List<Cafe> cafeList;
 
     public static FoodCafesFragment newInstance() {
@@ -96,54 +91,36 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodCafesFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_cafe, container, false);
-//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//        long time = sharedPref.getLong("food/cafes/time", System.currentTimeMillis());
-//        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 30000) {
-            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-            apiHandler.getFoodCafes(
-                    String.valueOf(App.currentLatitude),
-                    String.valueOf(App.currentLongitude),
-                    new Callback<List<Cafe>>() {
-                        @Override
-                        public void success(List<Cafe> cafes, Response response) {
-                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                            cafeList = cafes;
-                            updateCafes(cafeList);
-                            Gson gson = new Gson();
-                            String json = gson.toJson(cafes);
-                            Utils.writeJSONFile(json, getActivity(), "foodCafesJSON.json");
-                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                            editor = sharedPref.edit();
-                            editor.putLong("food/cafes/time", System.currentTimeMillis());
-                            editor.commit();
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "true");
-                            ParseAnalytics.trackEventInBackground("food/cafes/search", params);
-                        }
 
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "false");
-                            ParseAnalytics.trackEventInBackground("food/cafes/search", params);
-                        }
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getFoodCafes(
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
+                new Callback<List<Cafe>>() {
+                    @Override
+                    public void success(List<Cafe> cafes, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        cafeList = cafes;
+                        updateCafes(cafeList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/cafes/search", params);
                     }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("food/cafes/search", params);
+
+                    }
+                }
             );
-//        } else {
-//            //TODO show cached data
-//            Log.d(LOG_TAG, "Show cached data");
-//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "foodCafesJSON.json"));
-//            Type listType = new TypeToken<List<Cafe>>() {}.getType();
-//            List<Cafe> cafes = new Gson().fromJson(Utils.readJSONFile(getActivity(), "foodCafesJSON.json"), listType);
-//            Log.d(LOG_TAG,cafes.get(0).getName());
-//            cafeList = cafes;
-//            updateCafes(cafes);
-//        }
         return rootView;
     }
 
@@ -171,7 +148,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.cafe_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_cafe_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

@@ -37,6 +37,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.App;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
@@ -94,7 +95,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         travelDate = "20150710";
         numOfAdults = 1;
 
-        apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelFlights(
                 departureLocation,
                 arrivalLocation,

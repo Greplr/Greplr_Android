@@ -25,4 +25,5 @@
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="padding_main_recyclerview">10dp</dimen>
     <dimen name="column_width_main_recyclerview">150dp</dimen>
+    <dimen name="sliding_panel_height">65dp</dimen>
 </resources>

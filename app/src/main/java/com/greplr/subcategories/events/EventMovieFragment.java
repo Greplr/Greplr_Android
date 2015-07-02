@@ -21,8 +21,6 @@
 
 package com.greplr.subcategories.events;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -36,11 +34,9 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.greplr.MainActivity;
+
+import com.greplr.App;
 import com.greplr.R;
-import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Movies;
@@ -66,8 +62,6 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Movies> movieList;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public static EventMovieFragment newInstance() {
         return new EventMovieFragment();
@@ -95,50 +89,30 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "EventMovieFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_events_movies, container, false);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        long time = sharedPref.getLong("food/bars/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 3000000) {
-            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-            apiHandler.getEventMovies(
-                    new Callback<List<Movies>>() {
 
-                        @Override
-                        public void success(List<Movies> movies, Response response) {
-                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                            movieList = movies;
-                            updateMovies(movieList);
-                            Map<String, String> params = new HashMap<>();
-                            Gson gson = new Gson();
-                            String json = gson.toJson(movies);
-                            Utils.writeJSONFile(json, getActivity(), "eventMoviesJSON.json");
-                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                            editor = sharedPref.edit();
-                            editor.putLong("event/movies/time", System.currentTimeMillis());
-                            editor.commit();
-                            params.put("success", "true");
-                            ParseAnalytics.trackEventInBackground("event/movies/search", params);
-                        }
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getEventMovies(
+                new Callback<List<Movies>>() {
 
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                            Map<String, String> params = new HashMap<>();
-                            params.put("success", "false");
-                            ParseAnalytics.trackEventInBackground("event/movies/search", params);
-                        }
+                    @Override
+                    public void success(List<Movies> movies, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        movieList = movies;
+                        updateMovies(movieList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
                     }
 
-            );
-        } else {
-            //TODO show cached data
-            Log.d(LOG_TAG, "Show cached data");
-            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "eventMoviesJSON.json"));
-            Type listType = new TypeToken<List<Movies>>() {}.getType();
-            List<Movies> movies = new Gson().fromJson(Utils.readJSONFile(getActivity(), "eventMoviesJSON.json"), listType);
-            Log.d(LOG_TAG,movies.get(0).getEventTitle());
-            movieList = movies;
-//            updateCafes(cafes);
-        }
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
+                    }
+                }
+        );
 
         return rootView;
 
@@ -167,7 +141,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.movies_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_movies_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

@@ -36,11 +36,12 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.greplr.MainActivity;
+import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Bus;
+import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
@@ -92,7 +93,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         travelDate = "20150710";
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelBus(
                 departureLocation,
                 arrivalLocation,
@@ -103,23 +104,11 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
                         updateBus(busList);
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("departure", departureLocation);
-//                        params.put("arrival", arrivalLocation);
-//                        params.put("travelDate", travelDate);
-//                        params.put("success", "true");
-//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("departure", departureLocation);
-//                        params.put("arrival", arrivalLocation);
-//                        params.put("travelDate", travelDate);
-//                        params.put("success", "false");
-//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
                 }
         );
@@ -145,6 +134,19 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
     public void updateBus(List<Bus> cabs) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getParentFragment()!=null) {
+            if (isVisibleToUser) {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+            } else {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
+            }
+        }
     }
 
     public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {
@@ -182,7 +184,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                             departureLocation = orig.getText().toString();
                             arrivalLocation = dest.getText().toString();
                             travelDate = date.getText().toString();
-                            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                             apiHandler.getTravelBus(
                                     departureLocation,
                                     arrivalLocation,

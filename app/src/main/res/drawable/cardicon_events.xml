@@ -22,8 +22,8 @@
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <item android:drawable="@drawable/cardicon_events_movies" android:duration="1400" />
-    <item android:drawable="@drawable/cardicon_events_others" android:duration="1400" />
-    <item android:drawable="@drawable/cardicon_events_plays" android:duration="1400" />
-    <item android:drawable="@drawable/cardicon_events_tickets" android:duration="1400" />
+    <item android:drawable="@drawable/cardicon_events_movies" android:duration="2100" />
+    <item android:drawable="@drawable/cardicon_events_others" android:duration="2100" />
+    <item android:drawable="@drawable/cardicon_events_plays" android:duration="2100" />
+    <item android:drawable="@drawable/cardicon_events_tickets" android:duration="2100" />
 </animation-list>

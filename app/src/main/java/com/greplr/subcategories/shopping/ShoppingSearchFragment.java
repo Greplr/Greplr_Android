@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.greplr.MainActivity;
+import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
@@ -64,9 +64,9 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
-                "Condom",
+                "Laptop",
                 new Callback<List<Search>>() {
                     @Override
                     public void success(List<Search> search, Response response) {

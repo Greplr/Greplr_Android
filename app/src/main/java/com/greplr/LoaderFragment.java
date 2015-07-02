@@ -59,13 +59,13 @@ public class LoaderFragment extends Fragment {
 
         ImageView backgroundImage = (ImageView) rootView.findViewById(R.id.loader_container);
         ImageView loaderIcon = (ImageView) rootView.findViewById(R.id.loader_image);
-        int[] backImgs = {
-                R.drawable.main_background_1,
-                R.drawable.main_background_2,
-        };
-        Random rGen = new Random();
-        int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
-        Picasso.with(getActivity()).load(backImageResource).fit().centerCrop().into(backgroundImage);
+//        int[] backImgs = {
+//                R.drawable.main_background_1,
+//                R.drawable.main_background_2,
+//        };
+//        Random rGen = new Random();
+//        int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
+        Picasso.with(getActivity()).load(R.drawable.main_background).fit().centerCrop().into(backgroundImage);
         AnimationDrawable ad = (AnimationDrawable) ContextCompat.getDrawable(getActivity(),
                 R.drawable.loader_icon);
         loaderIcon.setImageDrawable(ad);

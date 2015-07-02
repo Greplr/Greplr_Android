@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.greplr.MainActivity;
+import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
@@ -65,7 +65,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "ShoppingOffersFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
 
-        Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingOffers(
                 new Callback<List<Offers>>() {
                     @Override

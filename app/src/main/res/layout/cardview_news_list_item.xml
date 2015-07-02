@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.greplr.common.ui.GlassCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:foreground="?selectableItemBackground"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/news_image"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:layout_width="100dp"
+            android:layout_margin="10dp"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New \n Text"
+            android:id="@+id/news_headline"
+            android:ellipsize="end"
+            android:ems="3"
+            android:maxLines="3"
+            android:minLines="1"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/news_image"
+            android:layout_marginLeft="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_alignTop="@+id/news_image"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="N\ne\nw\ns\n \nT\ne"
+            android:id="@+id/news_summary"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:maxLines="8"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/news_image"
+            android:layout_alignLeft="@+id/news_image"
+            android:layout_alignStart="@+id/news_image"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+
+
+</com.greplr.common.ui.GlassCardView>

@@ -25,18 +25,15 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.greplr.MainActivity;
 import com.greplr.R;
 import com.squareup.picasso.Picasso;
-
-import java.util.Random;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -54,6 +51,7 @@ public class TopcategoriesFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) getActivity()).getSupportActionBar().show();
+        ((MainActivity) getActivity()).showSlidePanel();
     }
 
     @Override
@@ -67,15 +65,15 @@ public class TopcategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.topcategories_fragment, container, false);
         RecyclerView categoryList = (RecyclerView) rootView.findViewById(R.id.recyclerview_main_categories);
-        KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
-        int[] backImgs = {
-                R.drawable.main_background_1,
-                R.drawable.main_background_2,
-        };
-        Random rGen = new Random();
-        int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
-        //backgroundImage.setImageResource(backImageResource);
-        Picasso.with(getActivity()).load(backImageResource).fit().centerInside().into(backgroundImage);
+        //KenBurnsView backgroundImage = (KenBurnsView) rootView.findViewById(R.id.topcategories_background);
+        ImageView backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
+//        int[] backImgs = {
+//                R.drawable.main_background_1,
+//                R.drawable.main_background_2,
+//        };
+//        Random rGen = new Random();
+//        int backImageResource = backImgs[rGen.nextInt(backImgs.length)];
+        Picasso.with(getActivity()).load(R.drawable.main_background).fit().centerCrop().into(backgroundImage);
         categoryList.setHasFixedSize(true);
 
         GridLayoutManager glm = new GridLayoutManager(getActivity(), 2);

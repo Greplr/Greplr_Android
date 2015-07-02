@@ -36,18 +36,14 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.greplr.MainActivity;
+import com.greplr.App;
 import com.greplr.R;
-import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Plays;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,10 +91,9 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "EventPlaysFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_events_plays, container, false);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        long time = sharedPref.getLong("food/bars/time", System.currentTimeMillis());
-        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 3000000) {
-            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+
         apiHandler.getEventPlays(
                 new Callback<List<Plays>>() {
 
@@ -107,16 +102,10 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         playList = plays;
                         updatePlay(playList);
-                        Gson gson = new Gson();
-                        String json = gson.toJson(playList);
-                        Utils.writeJSONFile(json, getActivity(), "eventPlaysJSON.json");
-                        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                        editor = sharedPref.edit();
-                        editor.putLong("event/plays/time", System.currentTimeMillis());
-                        editor.commit();
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("event/plays/search", params);
+                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
+
                     }
 
                     @Override
@@ -124,23 +113,12 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("event/plays/search", params);
+
+                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
                     }
                 }
         );
-    } else {
-        //TODO show cached data
-        Log.d(LOG_TAG, "Show cached data");
-        Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "eventPlaysJSON.json"));
-        Type listType = new TypeToken<List<Plays>>() {}.getType();
-        List<Plays> plays= new Gson().fromJson(Utils.readJSONFile(getActivity(), "eventPlaysJSON.json"), listType);
-        Log.d(LOG_TAG,plays.get(0).getEventTitle());
-        playList = plays;
-//            updateCafes(cafes);
-    }
-
         return rootView;
-
     }
 
     @Override
@@ -164,7 +142,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.play_cardview_list_item, viewGroup, false);
+                    .inflate(R.layout.cardview_play_list_item, viewGroup, false);
             return new ViewHolder(v);
         }
 

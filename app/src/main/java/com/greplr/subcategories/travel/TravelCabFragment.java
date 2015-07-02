@@ -26,7 +26,9 @@ import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -45,11 +47,8 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.google.gson.Gson;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
-import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.Feedback;
@@ -75,8 +74,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -101,55 +98,37 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
-//        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//        long time = sharedPref.getLong("travel/cabs/time", System.currentTimeMillis());
-//        if(time == System.currentTimeMillis() || System.currentTimeMillis() - time > 10000) {
-            Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
-            apiHandler.getTravelCabs(
-                    String.valueOf(App.currentLatitude),
-                    String.valueOf(App.currentLongitude),
-                    new Callback<List<Cab>>() {
-                        @Override
-                        public void success(List<Cab> cabs, Response response) {
-                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                            Gson gson = new Gson();
-                            String json = gson.toJson(cabs);
-                            Utils.writeJSONFile(json, getActivity(), "travelCabsJSON.json");
-                            sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                            editor = sharedPref.edit();
-                            editor.putLong("travel/cabs/time", System.currentTimeMillis());
-                            editor.commit();
-                            cabList = cabs;
-                            updateCabs(cabList);
-                            //Parse Analytics
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "true");
-                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                            //Parse Analytics
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "false");
-                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                        }
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getTravelCabs(
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
+                new Callback<List<Cab>>() {
+                    @Override
+                    public void success(List<Cab> cabs, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        cabList = cabs;
+                        updateCabs(cabList);
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                     }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+
+                    }
+                }
             );
-//        } else {
-//            Log.d(LOG_TAG, "Show cached data");
-//            Log.d(LOG_TAG, Utils.readJSONFile(getActivity(), "travelCabsJSON.json"));
-//            Type listType = new TypeToken<List<Cab>>() {}.getType();
-//            List<Cab> cabs = new Gson().fromJson(Utils.readJSONFile(getActivity(), "travelCabsJSON.json"), listType);
-//            Log.d(LOG_TAG,cabs.get(0).getDisplay_name());
-//            cabList = cabs;
-////            updateCabs(cabList);
-//        }
         return rootView;
     }
 
@@ -220,16 +199,46 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             viewHolder.prizePerKM.setText("₹" + cabList.get(i).getPrice_per_km() + " /Km");
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_uber);//;setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog cabDialog = newCabHailDialog(getActivity(), cabList.get(i));
-                        cabDialog.show();
+                        PackageManager pm = getActivity().getPackageManager();
+                        try
+                        {
+                            pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                    "uber://?action=setPickup&pickup=my_location&product_id=" + cabList.get(i).getProduct_id())));
+                        }
+                        catch (PackageManager.NameNotFoundException e)
+                        {
+                            // No Uber app!
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setData(Uri.parse("market://details?id=" + "com.ubercab"));
+                            getActivity().startActivity(intent);
+
+                        }
                     }
                 });
             } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_taxiforsure);
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tfs.consumer");
+                        if(intent != null) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            getActivity().startActivity(intent);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setData(Uri.parse("market://details?id=" + "com.tfs.consumer"));
+                            getActivity().startActivity(intent);
+                        }
+
+                    }
+                });
             } else
                 viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
             viewHolder.view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -249,7 +258,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                                 locationEdTxt.setError("Please Enter");
                             } else {
                                 customDialog.dismiss();
-                                Api apiHandler = ((MainActivity) getActivity()).getApiHandler();
+                                Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                                 apiHandler.giveFeedBack(
                                         userFeedback,
                                         "Travel",

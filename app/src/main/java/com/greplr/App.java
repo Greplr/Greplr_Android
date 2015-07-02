@@ -30,9 +30,13 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.greplr.api.Api;
+import com.greplr.api.NewsApi;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
+
+import retrofit.RestAdapter;
 
 /**
  * Created by championswimmer on 17/6/15.
@@ -50,6 +54,11 @@ public class App extends Application
     public static Location currentLocation;
 
     private GoogleApiClient mGoogleApiClient;
+
+    private Api apiHandler;
+    private NewsApi newsApiHandler;
+    private RestAdapter restAdapter;
+
 
 
     public static boolean locationInitialised = false;
@@ -105,5 +114,26 @@ public class App extends Application
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
+    }
+
+    public Api getApiHandler() {
+        //Make sure we just have one instance
+        if (apiHandler == null) {
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(Api.BASE_URL)
+                    .build();
+            apiHandler = restAdapter.create(Api.class);
+        }
+        return apiHandler;
+    }
+    public NewsApi getNewsApiHandler() {
+        //Make sure we just have one instance
+        if (newsApiHandler == null) {
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(NewsApi.BASE_URL)
+                    .build();
+            newsApiHandler = restAdapter.create(NewsApi.class);
+        }
+        return newsApiHandler;
     }
 }
