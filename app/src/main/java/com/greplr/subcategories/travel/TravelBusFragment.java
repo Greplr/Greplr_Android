@@ -21,6 +21,7 @@
 
 package com.greplr.subcategories.travel;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -64,6 +65,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     private RecyclerView.Adapter mAdapter;
     private String arrivalLocation, departureLocation, travelDate;
     private List<Bus> busList;
+    private View.OnClickListener onSearchFABListener;
 
     public static TravelBusFragment newInstance() {
         return new TravelBusFragment();
@@ -129,12 +131,77 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+        onSearchFABListener = new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                final Dialog customDialog = new Dialog(getActivity());
+                customDialog.setContentView(R.layout.travel_bus_search_dialog);
+                customDialog.setTitle("Enter Your Details");
+                customDialog.setCancelable(true);
+                final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
+                final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
+                final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
+                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        departureLocation = origin.getText().toString();
+                        arrivalLocation = destination.getText().toString();
+                        travelDate = date.getText().toString();
+                        if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("")) {
+                            customDialog.dismiss();
+                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+                            apiHandler.getTravelBus(
+                                    departureLocation,
+                                    arrivalLocation,
+                                    travelDate,
+                                    new Callback<List<Bus>>() {
+                                        @Override
+                                        public void success(List<Bus> buses, Response response) {
+                                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                                            busList = buses;
+                                            updateBus(busList);
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("success", "true");
+                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError error) {
+                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("departure", departureLocation);
+                                            params.put("arrival", arrivalLocation);
+                                            params.put("travelDate", travelDate);
+                                            params.put("success", "false");
+                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                                        }
+                                    }
+                            );
+                        } else {
+                            if(departureLocation.equalsIgnoreCase(""))
+                                origin.setError("Enter Origin Location");
+                            if(arrivalLocation.equalsIgnoreCase(""))
+                                destination.setError("Enter Destination Location");
+                            if(travelDate.equalsIgnoreCase(""))
+                                date.setError("Enter Your Travel Date");
+                        }
+                    }
+                });
+                customDialog.show();
+            }
+        };
 
     }
 
     public void updateBus(List<Bus> cabs) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
+
     }
 
     @Override
@@ -143,6 +210,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         if(getParentFragment()!=null) {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
             } else {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
             }
