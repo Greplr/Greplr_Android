@@ -1,7 +1,7 @@
 package com.greplr.subcategories.shopping;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,17 +13,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.shopping.search.Search;
+import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 import com.squareup.picasso.Picasso;
@@ -45,9 +47,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     private List<Search> searchList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
-
+    private View.OnClickListener onSearchFABListener;
+    private String productName;
 
     public static ShoppingSearchFragment newInstance() {
         return new ShoppingSearchFragment();
@@ -73,7 +74,6 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_shopping_search, container, false);
-        ((MainActivity) getActivity()).getSupportActionBar().show();
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
@@ -109,20 +109,82 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_cab);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_cab);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
-
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
+        onSearchFABListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog customDialog = new Dialog(getActivity());
+                customDialog.setContentView(R.layout.shopping_search_dialog);
+                customDialog.setTitle("What are you looking for?");
+                customDialog.setCancelable(true);
+                final EditText product = (EditText) customDialog.findViewById(R.id.et_product_name);
+                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        productName = product.getText().toString();
+                        if (!productName.equalsIgnoreCase("")) {
+                            customDialog.dismiss();
+                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+                            apiHandler.getShoppingResult(
+                                    productName,
+                                    new Callback<List<Search>>() {
+                                        @Override
+                                        public void success(List<Search> search, Response response) {
+                                            searchList = search;
+                                            Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
+                                            updateShoppingSearch(searchList);
+                                            //Parse Analytics
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("success", "true");
+                                            params.put("product name", productName);
+                                            ParseAnalytics.trackEventInBackground("shopping/search", params);
+                                        }
+
+                                        @Override
+                                        public void failure(RetrofitError error) {
+                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                                            //Parse Analytics
+                                            Map<String, String> params = new HashMap<>();
+                                            params.put("success", "false");
+                                            params.put("product name", productName);
+                                            ParseAnalytics.trackEventInBackground("shopping/search", params);
+                                        }
+                                    }
+                            );
+                        } else {
+                            product.setError("Please Enter the Product Name");
+                        }
+                    }
+                });
+                customDialog.show();
+            }
+        };
 
     }
 
     public void updateShoppingSearch(List<Search> searchList){
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getParentFragment()!=null) {
+            if (isVisibleToUser) {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
+            } else {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
+            }
+        }
     }
 
     public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {
@@ -153,7 +215,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 viewHolder.cod.setText("COD Available : No");
 
             Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_400x400()).fit().centerCrop().into(viewHolder.icon);
-            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
+//            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
 
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
