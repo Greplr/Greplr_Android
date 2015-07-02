@@ -152,8 +152,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             else
                 viewHolder.cod.setText("COD Available : No");
 
-            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().getUnknown()).fit().centerCrop().into(viewHolder.icon);
-            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().getUnknown());
+            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_400x400()).fit().centerCrop().into(viewHolder.icon);
+            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
 
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
