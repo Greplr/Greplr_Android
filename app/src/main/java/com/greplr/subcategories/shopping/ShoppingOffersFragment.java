@@ -132,13 +132,13 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
             viewHolder.offerName.setText(offerList.get(i).getTitle());
             viewHolder.availability.setText(offerList.get(i).getAvailability());
             viewHolder.offerDescription.setText(offerList.get(i).getDescription());
+
 //            if(Boolean.valueOf(searchList.get(i).getCodAvailable()))
 //                viewHolder.cod.setText("COD Available : Yes");
 //            else
 //                viewHolder.cod.setText("COD Available : No");
 
             Picasso.with(getActivity()).load(offerList.get(i).getImageUrls().get(0).getUrl()).fit().centerCrop().into(viewHolder.icon);
-
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
