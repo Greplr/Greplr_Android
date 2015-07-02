@@ -103,7 +103,7 @@ public class NewsFragment extends SubCategoryFragment {
 
     @Override
     public int topCatNo() {
-        return 3;
+        return 4;
     }
 
     @Override

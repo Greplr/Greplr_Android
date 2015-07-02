@@ -21,14 +21,14 @@ public class ShoppingFragment extends SubCategoryFragment {
         return new UnderSubCategory[]{
                 new UnderSubCategory(
                         "Offers",
-                        R.drawable.background_travel_cab,
-                        R.drawable.cardicon_travel_taxi,
+                        R.drawable.background_shopping_offers,
+                        R.drawable.cardicon_shopping_offers,
                         ShoppingSearchFragment.newInstance()
                 ),
                 new UnderSubCategory(
                         "Search",
-                        R.drawable.background_travel_bus,
-                        R.drawable.cardicon_travel_bus,
+                        R.drawable.background_shopping_search,
+                        R.drawable.cardicon_shopping_search,
                         ShoppingOffersFragment.newInstance()
                 )
         };
@@ -36,6 +36,6 @@ public class ShoppingFragment extends SubCategoryFragment {
 
     @Override
     public int topCatNo() {
-        return 0;
+        return 3;
     }
 }

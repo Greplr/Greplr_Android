@@ -65,9 +65,9 @@ public class Topcategories {
             topCategories.add(new Category(
 
                     "Shopping",
-                    R.drawable.cardicon_events,
+                    R.drawable.cardicon_shopping,
                     R.drawable.topcategorycard_bg_events,
-                    R.color.event_cardColor,
+                    R.color.shopping_cardColor,
                     ShoppingFragment.newInstance()));
 
             topCategories.add(new Category(

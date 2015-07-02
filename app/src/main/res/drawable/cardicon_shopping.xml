@@ -20,13 +20,8 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
-    <color name="main_toolbarColor">#77111111</color>
-
-    <color name="travel_cardColor">#1b5e20</color>
-    <color name="food_cardColor">#ff6f00</color>
-    <color name="event_cardColor">#b71c1c</color>
-    <color name="news_cardColor">#2962ff</color>
-    <color name="shopping_cardColor">#4a148c</color>
-
-</resources>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_shopping_search" android:duration="2400" />
+    <item android:drawable="@drawable/cardicon_shopping_offers" android:duration="2400" />
+</animation-list>
