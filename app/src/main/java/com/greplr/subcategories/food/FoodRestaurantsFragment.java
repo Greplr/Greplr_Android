@@ -21,7 +21,9 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,8 +39,10 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.google.gson.Gson;
 import com.greplr.App;
 import com.greplr.R;
+import com.greplr.Utils;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Restaurant;
@@ -62,7 +66,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
     private List<Restaurant> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
@@ -90,7 +95,6 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
-
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodRestaurants(
                 String.valueOf(App.currentLatitude),
@@ -106,6 +110,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
+
                     }
 
                     @Override
@@ -114,12 +119,11 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
+                        params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
                     }
                 }
-        );
-
+            );
         return rootView;
     }
 

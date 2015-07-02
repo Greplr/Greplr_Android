@@ -21,6 +21,8 @@
 
 package com.greplr.subcategories.events;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -61,6 +63,8 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private List<Plays> playList;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public static EventPlayFragment newInstance() {
         return new EventPlayFragment();
@@ -89,6 +93,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         View rootView = inflater.inflate(R.layout.fragment_events_plays, container, false);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+
         apiHandler.getEventPlays(
                 new Callback<List<Plays>>() {
 
@@ -100,6 +105,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("events/plays/search", params);
+
                     }
 
                     @Override
@@ -107,13 +113,12 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
+
                         ParseAnalytics.trackEventInBackground("events/plays/search", params);
                     }
                 }
         );
-
         return rootView;
-
     }
 
     @Override

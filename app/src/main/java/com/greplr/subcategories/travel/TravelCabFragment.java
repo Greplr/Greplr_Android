@@ -48,7 +48,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
@@ -99,7 +98,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
-
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelCabs(
                 String.valueOf(App.currentLatitude),
@@ -127,10 +125,10 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "false");
                         ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+
                     }
                 }
-        );
-
+            );
         return rootView;
     }
 

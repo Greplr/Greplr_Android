@@ -21,7 +21,9 @@
 
 package com.greplr.subcategories.food;
 
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -62,7 +64,6 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
     private List<Cafe> cafeList;
 
     public static FoodCafesFragment newInstance() {
@@ -116,11 +117,10 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "false");
                         ParseAnalytics.trackEventInBackground("food/cafes/search", params);
+
                     }
                 }
-        );
-
-
+            );
         return rootView;
     }
 

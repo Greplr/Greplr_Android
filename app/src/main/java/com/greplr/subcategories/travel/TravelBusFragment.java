@@ -37,15 +37,12 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Bus;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ScrollDirectionListener;
 import com.parse.ParseAnalytics;
 
 import java.util.HashMap;
@@ -107,23 +104,11 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
                         updateBus(busList);
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("departure", departureLocation);
-//                        params.put("arrival", arrivalLocation);
-//                        params.put("travelDate", travelDate);
-//                        params.put("success", "true");
-//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-//                        Map<String, String> params = new HashMap<>();
-//                        params.put("departure", departureLocation);
-//                        params.put("arrival", arrivalLocation);
-//                        params.put("travelDate", travelDate);
-//                        params.put("success", "false");
-//                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
                     }
                 }
         );

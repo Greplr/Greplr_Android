@@ -34,6 +34,7 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+
 import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
@@ -42,6 +43,7 @@ import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

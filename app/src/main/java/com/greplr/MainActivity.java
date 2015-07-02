@@ -72,7 +72,6 @@ public class MainActivity
         ResultCallback<LocationSettingsResult> {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
-
     private static FragmentManager fragmentManager;
     private final int REQUEST_CHECK_SETTINGS = 0x1;
     String geoLocation;
@@ -94,7 +93,6 @@ public class MainActivity
         } else {
             fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
         }
-
     }
 
     public static void goToTopFragment() {
@@ -109,7 +107,6 @@ public class MainActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ParseUser parseUser = ParseUser.getCurrentUser();
         if ((parseUser == null)) {
             Intent i = new Intent(this, LoginActivity.class);
@@ -151,11 +148,22 @@ public class MainActivity
                 }, 5000);
             }
 
+            toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+            setSupportActionBar(toolbar);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    return true;
+                }
+            });
 
             bottomSliderLayout = (LinearLayout) findViewById(R.id.bottom_slider_layout);
             slideFrame = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
             ((App) getApplication()).getApiHandler();
+
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
@@ -182,10 +190,12 @@ public class MainActivity
         super.onStart();
         ((App) getApplication()).getGoogleApiClient().connect();
         Map<String, String> params = new HashMap<>();
+
         activityStartTime = System.nanoTime();
         params.put("device/brand", Build.BRAND);
         params.put("device/model", Build.MODEL);
         ParseAnalytics.trackEventInBackground("mainactivity/open", params);
+
     }
 
     @Override
@@ -211,11 +221,31 @@ public class MainActivity
         super.onStop();
         ((App) getApplication()).getGoogleApiClient().disconnect();
         Map<String, String> params = new HashMap<>();
+//
+//        params.put("total time", timeFormat((System.currentTimeMillis()-activityStartTime)/1000));
+//        ParseAnalytics.trackEventInBackground("application close", params);
+
         long timeElapsed = System.nanoTime() - activityStartTime;
         timeElapsed = timeElapsed/1000000000;//Convert to seconds;
         params.put("spent/min", String.valueOf((timeElapsed/60)));
         params.put("spent/sec", String.valueOf((timeElapsed%60)));
         ParseAnalytics.trackEventInBackground("mainactivity/close", params);
+
+    }
+
+    private static String timeFormat(long totalSeconds) {
+        long minutes = 0, seconds = 0, hours = 0;
+        if(totalSeconds > 60) {
+            minutes = totalSeconds / 60;
+            seconds = totalSeconds - minutes*60;
+            if(minutes > 60) {
+                hours = minutes / 60;
+                minutes = totalSeconds - hours*60;
+                return String.valueOf(hours) + " hours" + String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
+            } else
+                return String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
+        }
+        return String.valueOf(totalSeconds) + " seconds";
     }
 
     @Override

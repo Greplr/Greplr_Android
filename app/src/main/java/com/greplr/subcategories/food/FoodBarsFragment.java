@@ -22,7 +22,9 @@
 package com.greplr.subcategories.food;
 
 import android.content.ActivityNotFoundException;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,8 +65,9 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
     private List<Bar> barList;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public static FoodBarsFragment newInstance() {
         return new FoodBarsFragment();
@@ -91,7 +94,6 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "FoodBarsFragment onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
-
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodBars(
                 String.valueOf(App.currentLatitude),
@@ -121,9 +123,10 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("food/bars/search", params);
 
+
+                        }
                     }
-                }
-        );
+            );
 
         return rootView;
     }
