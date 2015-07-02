@@ -141,7 +141,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         try {
-            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity()));
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity(), "cities.json"));
             for(int i=0;i<jsonArray.length();i++){
                 cityList.add(jsonArray.getJSONObject(i).getString("name"));
             }

@@ -10,11 +10,11 @@ import java.io.InputStream;
  */
 public class Utils {
 
-    public static String loadJSONFromAsset(Context context) {
+    public static String loadJSONFromAsset(Context context, String filename) {
         String json = null;
         try {
 
-            InputStream is = context.getAssets().open("cities.json");
+            InputStream is = context.getAssets().open(filename);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

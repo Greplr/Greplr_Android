@@ -31,7 +31,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"/>
 
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -59,7 +59,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"/>
 
-            <EditText
+            <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -92,8 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:inputType="phone"
-                android:digits="0123456789"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/button_material_dark"
