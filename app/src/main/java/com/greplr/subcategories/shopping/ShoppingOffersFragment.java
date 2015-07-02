@@ -69,7 +69,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingOffersFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_shopping_offer, container, false);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingOffers(
@@ -103,7 +103,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_cab);
+                R.id.recyclerview_shopping_offer);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 

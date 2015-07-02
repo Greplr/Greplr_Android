@@ -109,7 +109,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_cab);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_shopping_search);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
