@@ -53,7 +53,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getFragmentIcon() {
-        return R.drawable.cardicon_travel_taxi;
+        return R.drawable.cardicon_shopping_offers;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_travel_cab;
+        return R.drawable.background_shopping_offers;
     }
 
     @Override
@@ -103,7 +103,8 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_shopping_offer);
+                R.id.recyclerview_offers);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 

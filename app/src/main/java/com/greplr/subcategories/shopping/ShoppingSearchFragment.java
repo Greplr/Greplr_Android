@@ -56,7 +56,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getFragmentIcon() {
-        return R.drawable.cardicon_travel_taxi;
+        return R.drawable.cardicon_shopping_search;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
     @Override
     public int getBackgroundResId() {
-        return R.drawable.background_travel_cab;
+        return R.drawable.background_shopping_search;
     }
 
 
@@ -109,7 +109,9 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_shopping_search);
+        mRecyclerView = (RecyclerView) view.findViewById(
+                R.id.recyclerview_shoppingsearch);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));

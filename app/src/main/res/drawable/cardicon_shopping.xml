@@ -20,10 +20,8 @@
   ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerview_shoppingsearch"
-    android:padding="@dimen/padding_main_recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <item android:drawable="@drawable/cardicon_shopping_search" android:duration="2400" />
+    <item android:drawable="@drawable/cardicon_shopping_offers" android:duration="2400" />
+</animation-list>

@@ -18,22 +18,22 @@ public class ShoppingFragment extends SubCategoryFragment {
     public UnderSubCategory[] getUnderSubCategories() {
         return new UnderSubCategory[]{
                 new UnderSubCategory(
-                        "Search",
-                        R.drawable.background_travel_bus,
-                        R.drawable.cardicon_travel_bus,
-                        ShoppingSearchFragment.newInstance()
+                        "Offers",
+                        R.drawable.background_shopping_offers,
+                        R.drawable.cardicon_shopping_offers,
+                        ShoppingOffersFragment.newInstance()
                 ),
                 new UnderSubCategory(
-                        "Offers",
-                        R.drawable.background_travel_cab,
-                        R.drawable.cardicon_travel_taxi,
-                        ShoppingOffersFragment.newInstance()
+                        "Search",
+                        R.drawable.background_shopping_search,
+                        R.drawable.cardicon_shopping_search,
+                        ShoppingSearchFragment.newInstance()
                 )
         };
     }
 
     @Override
     public int topCatNo() {
-        return 0;
+        return 3;
     }
 }
