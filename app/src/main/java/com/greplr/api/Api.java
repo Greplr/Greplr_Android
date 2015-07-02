@@ -122,7 +122,7 @@ public interface Api {
 
     @GET("/api/shop/search")
     void getShoppingResult(
-            @Query("search") String search,
+            @Query("q") String search,
             Callback<List<Search>> callback);
 
 
