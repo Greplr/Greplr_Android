@@ -219,100 +219,21 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
     public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {
 
-        static final int TYPE_HEADER = 0;
-        static final int TYPE_CELL = 1;
-
-        @Override
-        public int getItemViewType(int position) {
-            switch (position) {
-                case 0:
-                    return TYPE_HEADER;
-                default:
-                    return TYPE_CELL;
-            }
-        }
-
-
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
-            CardView v = null;
-
-            switch (i) {
-                case TYPE_HEADER: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
-                    Button okButton = (Button) v.findViewById(R.id.ok_button);
-                    final EditText orig = (EditText) v.findViewById(R.id.et_origin);
-                    final EditText dest = (EditText) v.findViewById(R.id.et_destination);
-                    final EditText date = (EditText) v.findViewById(R.id.et_date);
-                    okButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            departureLocation = orig.getText().toString();
-                            arrivalLocation = dest.getText().toString();
-                            travelDate = date.getText().toString();
-                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-                            apiHandler.getTravelBus(
-                                    departureLocation,
-                                    arrivalLocation,
-                                    travelDate,
-                                    new Callback<List<Bus>>() {
-                                        @Override
-                                        public void success(List<Bus> buses, Response response) {
-                                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                                            busList = buses;
-                                            updateBus(busList);
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("departure", departureLocation);
-                                            params.put("arrival", arrivalLocation);
-                                            params.put("travelDate", travelDate);
-                                            params.put("success", "true");
-                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
-                                        }
-
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("departure", departureLocation);
-                                            params.put("arrival", arrivalLocation);
-                                            params.put("travelDate", travelDate);
-                                            params.put("success", "false");
-                                            ParseAnalytics.trackEventInBackground("travel/bus/search", params);
-                                        }
-                                    }
-                            );
-
-                        }
-                    });
-                    return new ViewHolder(v);
-                }
-                case TYPE_CELL: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
-                    return new ViewHolder(v);
-                }
-            }
-            return null;
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
+            return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            switch (getItemViewType(i)) {
-                case TYPE_HEADER:
-                    break;
-                case TYPE_CELL:
-                    break;
-            }
-            if (getItemViewType(i) == TYPE_CELL) {
                 viewHolder.travelagency.setText(busList.get(i).getTravelagency());
                 viewHolder.bustype.setText(busList.get(i).getBustype());
                 viewHolder.seat.setText(busList.get(i).getSeat());
                 viewHolder.depdate.setText(busList.get(i).getDepdate());
                 viewHolder.arrdate.setText(busList.get(i).getArrdate());
                 viewHolder.fare.setText(busList.get(i).getFare());
-            }
         }
 
         @Override
