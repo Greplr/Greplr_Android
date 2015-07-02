@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 analyticsParams.put("account", "facebook");
                 List<String> permissions = Arrays.asList(
-                        "public_profile", "email", "user_birthday", "user_location");
+                        "public_profile", "email"/*, "user_birthday", "user_location"*/); //Use when we get reviewed
                 ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, permissions, new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
