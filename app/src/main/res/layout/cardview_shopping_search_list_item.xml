@@ -23,7 +23,7 @@
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view_cab_item"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@android:color/white"
     android:foreground="?selectableItemBackground">

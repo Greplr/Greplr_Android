@@ -68,7 +68,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_shopping_search, container, false);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
