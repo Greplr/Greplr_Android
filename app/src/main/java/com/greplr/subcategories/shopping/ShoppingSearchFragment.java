@@ -1,14 +1,19 @@
 package com.greplr.subcategories.shopping;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -19,6 +24,7 @@ import com.greplr.api.Api;
 import com.greplr.models.shopping.search.Search;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,16 +72,17 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
-                "Laptop",
+                "condom",
                 new Callback<List<Search>>() {
                     @Override
                     public void success(List<Search> search, Response response) {
                         searchList = search;
                         Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
-//                        updateOffers(offerList);
+                        updateShoppingSearch(searchList);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
+                        params.put("product name", "Laptop");
                         ParseAnalytics.trackEventInBackground("shopping/search", params);
                     }
 
@@ -85,6 +92,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
+                        params.put("product name", "Laptop");
                         ParseAnalytics.trackEventInBackground("shopping/search", params);
                     }
                 }
@@ -107,5 +115,68 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
+
+    public void updateShoppingSearch(List<Search> searchList){
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+    }
+
+    public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_shopping_search_list_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.productName.setText(searchList.get(i).getTitle());
+            viewHolder.minPrice.setText("Price : \u20b9" + searchList.get(i).getSellingPrice().getAmount());
+            viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
+            viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
+            if(Boolean.valueOf(searchList.get(i).getCodAvailable()))
+                viewHolder.cod.setText("COD Available : Yes");
+            else
+                viewHolder.cod.setText("COD Available : No");
+            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_400x400()).fit().centerCrop().into(viewHolder.icon);
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getProductUrl()));
+                    startActivity(browserIntent);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return searchList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView productName;
+            TextView minPrice;
+            TextView cod;
+            TextView mrp;
+            TextView productDescription;
+            ImageView icon;
+            View view;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                view = v;
+                productName = (TextView) v.findViewById(R.id.product_name);
+                minPrice = (TextView) v.findViewById(R.id.min_price);
+                cod = (TextView) v.findViewById(R.id.cod);
+                mrp = (TextView) v.findViewById(R.id.mrp);
+                productDescription = (TextView) v.findViewById(R.id.product_description);
+                icon = (ImageView) v.findViewById(R.id.app_icon);
+            }
+        }
+    }
+
+
 
 }
