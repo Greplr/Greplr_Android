@@ -21,6 +21,7 @@
 
 package com.greplr.subcategories.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -37,7 +38,6 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.api.NewsApi;
 import com.greplr.models.news.Feed;
@@ -123,7 +123,8 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
                         feedList = new ArrayList<>();
                         for (int i = 0; i < feed.getItems().size(); i++) {
                             if (feed.getItems().get(i).getVisual() != null &&
-                                    feed.getItems().get(i).getSummary() != null) {
+                                    feed.getItems().get(i).getSummary() != null &&
+                                    feed.getItems().get(i).getContent() != null) {
                                 feedList.add(feed.getItems().get(i));
                             }
                         }
@@ -161,6 +162,14 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
             String htmlBody = htmlString.replaceAll("(<(/)img>)|(<img.+?>)", "");
             viewHolder.newsSummary.setText(Html.fromHtml(htmlBody));
             viewHolder.newsHeadline.setText(feedList.get(i).getTitle());
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
+                    intent.putExtra("news", feedList.get(i).getContent().getContent());
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -172,9 +181,11 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
             TextView newsHeadline;
             TextView newsSummary;
             ImageView newsVisual;
+            View view;
 
             public ViewHolder(CardView v) {
                 super(v);
+                view = v;
                 newsHeadline = (TextView) v.findViewById(R.id.news_headline);
                 newsSummary = (TextView) v.findViewById(R.id.news_summary);
                 newsVisual = (ImageView) v.findViewById(R.id.news_image);

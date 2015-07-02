@@ -33,4 +33,5 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_uber">UberActivity</string>
+    <string name="title_activity_news_detail">NewsDetailActivity</string>
 </resources>

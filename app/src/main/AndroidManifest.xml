@@ -92,6 +92,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.greplr.AccountActivity" />
         </activity>
+        <activity
+            android:name=".subcategories.news.NewsDetailActivity"
+            android:label="@string/title_activity_news_detail"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greplr.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
