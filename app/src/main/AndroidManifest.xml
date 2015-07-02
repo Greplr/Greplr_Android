@@ -39,18 +39,22 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT"/>
+
+                <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <data
                     android:host="greplr.com"
                     android:scheme="http" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
+
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
             </intent-filter>
@@ -72,6 +76,30 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".AccountActivity"
+            android:label="@string/title_activity_account"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greplr.MainActivity" />
+        </activity>
+        <activity
+            android:name=".UberActivity"
+            android:label="@string/title_activity_uber"
+            android:parentActivityName=".AccountActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greplr.AccountActivity" />
+        </activity>
+        <activity
+            android:name=".subcategories.news.NewsDetailActivity"
+            android:label="@string/title_activity_news_detail"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.greplr.MainActivity" />
         </activity>
     </application>
 

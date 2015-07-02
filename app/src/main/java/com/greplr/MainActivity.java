@@ -52,8 +52,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.greplr.api.Api;
-import com.greplr.api.NewsApi;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseAnalytics;
@@ -62,8 +60,6 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit.RestAdapter;
 
 public class MainActivity
         extends AppCompatActivity
