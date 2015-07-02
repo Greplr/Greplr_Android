@@ -21,6 +21,7 @@
 
 package com.greplr.subcategories.travel;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -38,11 +39,11 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
-import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.travel.Flight;
+import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
@@ -64,8 +65,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private String arrivalLocation, departureLocation, travelDate;
-    private int numOfAdults;
+    private String arrivalLocation, departureLocation, travelDate, numOfAdults;
+    private View.OnClickListener onSearchFABListener;
 
     public static TravelFlightFragment newInstance() {
         return new TravelFlightFragment();
@@ -93,20 +94,20 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         departureLocation = "DEL";
         arrivalLocation = "BOM";
         travelDate = "20150710";
-        numOfAdults = 1;
+        numOfAdults = "1";
 
         apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelFlights(
                 departureLocation,
                 arrivalLocation,
                 travelDate,
-                numOfAdults,
+                Integer.valueOf(numOfAdults),
                 new Callback<List<Flight>>() {
                     @Override
                     public void success(List<Flight> flights, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         flightList = flights;
-                        UpdateFlight(flightList);
+                        updateFlight(flightList);
                     }
 
                     @Override
@@ -131,64 +132,46 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
-    }
-
-    public void UpdateFlight(List<Flight> flights) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
-    }
-
-    public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder> {
-
-        static final int TYPE_HEADER = 0;
-        static final int TYPE_CELL = 1;
-
-        @Override
-        public int getItemViewType(int position) {
-            switch (position) {
-                case 0:
-                    return TYPE_HEADER;
-                default:
-                    return TYPE_CELL;
-            }
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            CardView v = null;
-
-            switch (i) {
-                case TYPE_HEADER: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
-                    Button okButton = (Button) v.findViewById(R.id.ok_button);
-                    final EditText orig = (EditText) v.findViewById(R.id.et_origin);
-                    final EditText dest = (EditText) v.findViewById(R.id.et_destination);
-                    final EditText date = (EditText) v.findViewById(R.id.et_date);
-                    okButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            departureLocation = orig.getText().toString().toUpperCase();
-                            arrivalLocation = dest.getText().toString().toUpperCase();
-                            travelDate = date.getText().toString();
-                            numOfAdults = 1;
+        onSearchFABListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog customDialog = new Dialog(getActivity());
+                customDialog.setContentView(R.layout.travel_flight_search_dialog);
+                customDialog.setTitle("Enter Your Details");
+                customDialog.setCancelable(true);
+                final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
+                final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
+                final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
+                final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
+                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        departureLocation = origin.getText().toString();
+                        arrivalLocation = destination.getText().toString();
+                        travelDate = date.getText().toString();
+                        numOfAdults = adults.getText().toString();
+                        if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {
+                            customDialog.dismiss();
+                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                             apiHandler.getTravelFlights(
                                     departureLocation,
                                     arrivalLocation,
                                     travelDate,
-                                    numOfAdults,
+                                    Integer.valueOf(numOfAdults),
                                     new Callback<List<Flight>>() {
                                         @Override
                                         public void success(List<Flight> flights, Response response) {
                                             Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                                             flightList = flights;
-                                            UpdateFlight(flightList);
+                                            updateFlight(flightList);
                                             Map<String, String> params = new HashMap<>();
                                             params.put("departure", departureLocation);
                                             params.put("arrival", arrivalLocation);
                                             params.put("travelDate", travelDate);
-                                            params.put("numOfAdults", String.valueOf(numOfAdults));
+                                            params.put("numberOfAdults", numOfAdults);
                                             params.put("success", "true");
-                                            ParseAnalytics.trackEventInBackground("travel/fights/search", params);
+                                            ParseAnalytics.trackEventInBackground("travel/flight/search", params);
                                         }
 
                                         @Override
@@ -198,56 +181,80 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                                             params.put("departure", departureLocation);
                                             params.put("arrival", arrivalLocation);
                                             params.put("travelDate", travelDate);
-                                            params.put("numOfAdults", String.valueOf(numOfAdults));
+                                            params.put("numberOfAdults", numOfAdults);
                                             params.put("success", "false");
-                                            ParseAnalytics.trackEventInBackground("travel/fights/search", params);
-
+                                            ParseAnalytics.trackEventInBackground("travel/flight/search", params);
                                         }
                                     }
                             );
+                        } else {
+                            if(departureLocation.equalsIgnoreCase(""))
+                                origin.setError("Enter Origin Location");
+                            if(arrivalLocation.equalsIgnoreCase(""))
+                                destination.setError("Enter Destination Location");
+                            if(travelDate.equalsIgnoreCase(""))
+                                date.setError("Enter Your Travel Date");
+                            if(numOfAdults.equalsIgnoreCase(""))
+                                adults.setError("Enter The Number of adults");
                         }
-                    });
-                    return new ViewHolder(v);
-                }
-                case TYPE_CELL: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.cardview_flight_list_item, viewGroup, false);
-                    return new ViewHolder(v);
-                }
+                    }
+                });
+                customDialog.show();
             }
-            return null;
+        };
+
+    }
+
+    public void updateFlight(List<Flight> flights) {
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getParentFragment()!=null) {
+            if (isVisibleToUser) {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
+            } else {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.ViewHolder> {
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_flight_list_item, viewGroup, false);
+            return new ViewHolder(v);
+
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            switch (getItemViewType(i)) {
-                case TYPE_HEADER:
-                    break;
-                case TYPE_CELL:
-                    break;
-            }
-            if (getItemViewType(i) == TYPE_CELL) {
-                viewHolder.airline.setText(flightList.get(i).getAirline());
-                viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
-                viewHolder.depdate.setText(flightList.get(i).getDepdate());
-                viewHolder.arrdate.setText(flightList.get(i).getArrdate());
-                viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
-                viewHolder.flight_fare.setText("₹" + flightList.get(i).getFare());
 
-                if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
-                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
-                }
-                if (viewHolder.airline.getText().toString().equalsIgnoreCase("IndiGo")) {
-                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_indigo);
-                }
-                if (viewHolder.airline.getText().toString().equalsIgnoreCase("Vistara")) {
-                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_vistara);
-                }
-                if (viewHolder.airline.getText().toString().equalsIgnoreCase("Jet Airways")) {
-                    viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_jet_airways);
-                }
-            }
+            viewHolder.airline.setText(flightList.get(i).getAirline());
+            viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
+            viewHolder.depdate.setText(flightList.get(i).getDepdate());
+            viewHolder.arrdate.setText(flightList.get(i).getArrdate());
+            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
+            viewHolder.flight_fare.setText("₹" + flightList.get(i).getFare());
 
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("IndiGo")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_indigo);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Vistara")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_vistara);
+            }
+            if (viewHolder.airline.getText().toString().equalsIgnoreCase("Jet Airways")) {
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_jet_airways);
+            }
         }
 
         @Override

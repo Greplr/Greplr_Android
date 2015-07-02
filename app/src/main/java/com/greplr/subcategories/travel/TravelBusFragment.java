@@ -21,6 +21,7 @@
 
 package com.greplr.subcategories.travel;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -64,6 +65,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     private RecyclerView.Adapter mAdapter;
     private String arrivalLocation, departureLocation, travelDate;
     private List<Bus> busList;
+    private View.OnClickListener onSearchFABListener;
 
     public static TravelBusFragment newInstance() {
         return new TravelBusFragment();
@@ -129,61 +131,26 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+        onSearchFABListener = new View.OnClickListener(){
 
-    }
-
-    public void updateBus(List<Bus> cabs) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
-        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(getParentFragment()!=null) {
-            if (isVisibleToUser) {
-                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
-            } else {
-                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
-            }
-        }
-    }
-
-    public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {
-
-        static final int TYPE_HEADER = 0;
-        static final int TYPE_CELL = 1;
-
-        @Override
-        public int getItemViewType(int position) {
-            switch (position) {
-                case 0:
-                    return TYPE_HEADER;
-                default:
-                    return TYPE_CELL;
-            }
-        }
-
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
-            CardView v = null;
-
-            switch (i) {
-                case TYPE_HEADER: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
-                    Button okButton = (Button) v.findViewById(R.id.ok_button);
-                    final EditText orig = (EditText) v.findViewById(R.id.et_origin);
-                    final EditText dest = (EditText) v.findViewById(R.id.et_destination);
-                    final EditText date = (EditText) v.findViewById(R.id.et_date);
-                    okButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            departureLocation = orig.getText().toString();
-                            arrivalLocation = dest.getText().toString();
-                            travelDate = date.getText().toString();
+            @Override
+            public void onClick(View v) {
+                final Dialog customDialog = new Dialog(getActivity());
+                customDialog.setContentView(R.layout.travel_bus_search_dialog);
+                customDialog.setTitle("Enter Your Details");
+                customDialog.setCancelable(true);
+                final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
+                final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
+                final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
+                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        departureLocation = origin.getText().toString();
+                        arrivalLocation = destination.getText().toString();
+                        travelDate = date.getText().toString();
+                        if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("")) {
+                            customDialog.dismiss();
                             Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
                             apiHandler.getTravelBus(
                                     departureLocation,
@@ -215,36 +182,58 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                                         }
                                     }
                             );
-
+                        } else {
+                            if(departureLocation.equalsIgnoreCase(""))
+                                origin.setError("Enter Origin Location");
+                            if(arrivalLocation.equalsIgnoreCase(""))
+                                destination.setError("Enter Destination Location");
+                            if(travelDate.equalsIgnoreCase(""))
+                                date.setError("Enter Your Travel Date");
                         }
-                    });
-                    return new ViewHolder(v);
-                }
-                case TYPE_CELL: {
-                    v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                            .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
-                    return new ViewHolder(v);
-                }
+                    }
+                });
+                customDialog.show();
             }
-            return null;
+        };
+
+    }
+
+    public void updateBus(List<Bus> bus) {
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getParentFragment()!=null) {
+            if (isVisibleToUser) {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
+            } else {
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
+            }
+        }
+    }
+
+    public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_bus_list_item, viewGroup, false);
+            return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            switch (getItemViewType(i)) {
-                case TYPE_HEADER:
-                    break;
-                case TYPE_CELL:
-                    break;
-            }
-            if (getItemViewType(i) == TYPE_CELL) {
                 viewHolder.travelagency.setText(busList.get(i).getTravelagency());
                 viewHolder.bustype.setText(busList.get(i).getBustype());
                 viewHolder.seat.setText(busList.get(i).getSeat());
                 viewHolder.depdate.setText(busList.get(i).getDepdate());
                 viewHolder.arrdate.setText(busList.get(i).getArrdate());
                 viewHolder.fare.setText(busList.get(i).getFare());
-            }
         }
 
         @Override
