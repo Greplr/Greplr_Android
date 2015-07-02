@@ -22,8 +22,10 @@
 package com.greplr.subcategories.travel;
 
 import android.app.Dialog;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -131,18 +133,21 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
+        // Attach search dialog to search FAB
         onSearchFABListener = new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                final Dialog customDialog = new Dialog(getActivity());
+                final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
                 customDialog.setContentView(R.layout.travel_bus_search_dialog);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
                 final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
                 final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
-                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
