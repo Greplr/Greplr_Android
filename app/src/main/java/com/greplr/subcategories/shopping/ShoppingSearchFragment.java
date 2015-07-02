@@ -2,6 +2,7 @@ package com.greplr.subcategories.shopping;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
@@ -46,6 +48,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
+
     public static ShoppingSearchFragment newInstance() {
         return new ShoppingSearchFragment();
     }
@@ -65,10 +68,12 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         return R.drawable.background_travel_cab;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_shopping_search, container, false);
+        ((MainActivity) getActivity()).getSupportActionBar().show();
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
@@ -135,6 +140,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             viewHolder.productName.setText(searchList.get(i).getTitle());
             viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice().getAmount());
             viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
+            viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             if(searchList.get(i).getProductDescription() == null)
                 viewHolder.productDescription.setText(searchList.get(i).getColor());
@@ -151,6 +157,10 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("success", "true");
+                    params.put("product name clicked", searchList.get(i).getTitle());
+                    ParseAnalytics.trackEventInBackground("shopping/search clicked", params);
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getProductUrl()));
                     startActivity(browserIntent);
                 }
