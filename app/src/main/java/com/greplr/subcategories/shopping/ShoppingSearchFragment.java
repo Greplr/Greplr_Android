@@ -72,7 +72,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingResult(
-                "condom",
+                "Laptop",
                 new Callback<List<Search>>() {
                     @Override
                     public void success(List<Search> search, Response response) {
@@ -133,14 +133,21 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.productName.setText(searchList.get(i).getTitle());
-            viewHolder.minPrice.setText("Price : \u20b9" + searchList.get(i).getSellingPrice().getAmount());
+            viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice().getAmount());
             viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
-            viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
+
+            if(searchList.get(i).getProductDescription() == null)
+                viewHolder.productDescription.setText(searchList.get(i).getColor());
+            else
+                viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
+
             if(Boolean.valueOf(searchList.get(i).getCodAvailable()))
                 viewHolder.cod.setText("COD Available : Yes");
             else
                 viewHolder.cod.setText("COD Available : No");
-            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_400x400()).fit().centerCrop().into(viewHolder.icon);
+
+            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_100x100()).fit().centerCrop().into(viewHolder.icon);
+
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
