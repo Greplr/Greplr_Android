@@ -227,57 +227,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
-
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.tools_list_item_card_big_app, viewGroup, false);
-            Button okButton = (Button) v.findViewById(R.id.ok_button);
-            final EditText orig = (EditText) v.findViewById(R.id.et_origin);
-            final EditText dest = (EditText) v.findViewById(R.id.et_destination);
-            final EditText date = (EditText) v.findViewById(R.id.et_date);
-            okButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    departureLocation = orig.getText().toString().toUpperCase();
-                    arrivalLocation = dest.getText().toString().toUpperCase();
-                    travelDate = date.getText().toString();
-                    numOfAdults = "1";
-                    apiHandler.getTravelFlights(
-                            departureLocation,
-                            arrivalLocation,
-                            travelDate,
-                            Integer.valueOf(numOfAdults),
-                            new Callback<List<Flight>>() {
-                                @Override
-                                public void success(List<Flight> flights, Response response) {
-                                    Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                                    flightList = flights;
-                                    updateFlight(flightList);
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("departure", departureLocation);
-                                    params.put("arrival", arrivalLocation);
-                                    params.put("travelDate", travelDate);
-                                    params.put("numOfAdults", String.valueOf(numOfAdults));
-                                    params.put("success", "true");
-                                    ParseAnalytics.trackEventInBackground("travel/fights/search", params);
-                                }
-
-                                @Override
-                                public void failure(RetrofitError error) {
-                                    Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("departure", departureLocation);
-                                    params.put("arrival", arrivalLocation);
-                                    params.put("travelDate", travelDate);
-                                    params.put("numOfAdults", String.valueOf(numOfAdults));
-                                    params.put("success", "false");
-                                    ParseAnalytics.trackEventInBackground("travel/fights/search", params);
-
-                                }
-                            }
-                    );
-                }
-            });
+                    .inflate(R.layout.cardview_flight_list_item, viewGroup, false);
             return new ViewHolder(v);
 
         }

@@ -198,7 +198,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
     }
 
-    public void updateBus(List<Bus> cabs) {
+    public void updateBus(List<Bus> bus) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
 
