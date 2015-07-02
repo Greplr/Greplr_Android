@@ -32,6 +32,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.greplr.api.Api;
 import com.greplr.api.NewsApi;
+import com.greplr.api.UberApi;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseTwitterUtils;
@@ -62,6 +63,7 @@ public class App extends Application
 
     private Api apiHandler;
     private NewsApi newsApiHandler;
+    private UberApi uberApiHandler;
     private RestAdapter restAdapter;
     private OkHttpClient ok;
 
@@ -158,5 +160,17 @@ public class App extends Application
             newsApiHandler = restAdapter.create(NewsApi.class);
         }
         return newsApiHandler;
+    }
+
+    public UberApi getUberApiHandler(){
+        //Make sure we just have one instance
+        if(uberApiHandler == null){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(UberApi.BASE_URL)
+                    .setClient(new OkClient(getOkHttpClient()))
+                    .build();
+            uberApiHandler = restAdapter.create(UberApi.class);
+        }
+        return uberApiHandler;
     }
 }
