@@ -31,4 +31,6 @@
     <string name="facebook_login_failed_toast">Facebook login failed</string>
     <string name="twitter_login_failed_toast">Twitter login failed</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_uber">UberActivity</string>
 </resources>
