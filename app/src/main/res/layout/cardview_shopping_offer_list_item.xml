@@ -199,7 +199,8 @@
                         android:paddingBottom="6dp"
                         android:text="Offer Available"
                         android:textColor="#212121"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        />
 
                 </LinearLayout>
             </LinearLayout>

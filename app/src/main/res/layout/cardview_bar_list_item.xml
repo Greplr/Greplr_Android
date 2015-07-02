@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         >
 
@@ -82,7 +82,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Cafe name"
+                        android:text="Bar name"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:minLines="1"
                         android:textColor="#F4743B"
                         android:textStyle="bold"
                         android:gravity="center_vertical"
@@ -177,6 +180,7 @@
                         android:layout_gravity="center_vertical"
                         android:text="Address"
                         android:textColor="#212121"
+                        android:paddingBottom="6dp"
                         android:textStyle="normal"
                         android:gravity="center_vertical"/>
                 </LinearLayout>

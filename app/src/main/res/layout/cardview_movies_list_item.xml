@@ -241,7 +241,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text="Fare"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:minLines="1"
                         android:textColor="#424242"
+                        android:paddingBottom="6dp"
                         android:textStyle="italic"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
