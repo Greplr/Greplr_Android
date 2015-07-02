@@ -98,31 +98,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelBusFragment onCreateView");
-        departureLocation = "Delhi";
-        arrivalLocation = "Amritsar";
-        travelDate = "20150710";
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
-
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getTravelBus(
-                departureLocation,
-                arrivalLocation,
-                travelDate,
-                new Callback<List<Bus>>() {
-                    @Override
-                    public void success(List<Bus> buses, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        busList = buses;
-                        updateBus(busList);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                    }
-                }
-        );
-
         cityList = new ArrayList<>();
 
         return rootView;

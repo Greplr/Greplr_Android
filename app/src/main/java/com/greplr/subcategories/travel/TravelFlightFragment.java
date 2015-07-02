@@ -99,32 +99,6 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelFlightFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_flight, container, false);
-        departureLocation = "DEL";
-        arrivalLocation = "BOM";
-        travelDate = "20150710";
-        numOfAdults = "1";
-
-        apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getTravelFlights(
-                departureLocation,
-                arrivalLocation,
-                travelDate,
-                Integer.valueOf(numOfAdults),
-                new Callback<List<Flight>>() {
-                    @Override
-                    public void success(List<Flight> flights, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        flightList = flights;
-                        updateFlight(flightList);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                    }
-                }
-        );
-
         airportList = new ArrayList<>();
 
         return rootView;
