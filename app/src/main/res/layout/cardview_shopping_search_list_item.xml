@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.greplr.common.ui.GlassCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view_bus_item"
+<!--
+  ~ Greplr : A super-aggregator. One app to rule them all.
+  ~     Copyright (C) 2015  Greplr Team
+  ~     Where Greplr Team consists of :
+  ~       Arnav Gupta, Abhinv Sinha, Raghav Apoorv,
+  ~       Shubham Dokania, Yogesh Balan
+  ~
+  ~     This program is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     This program is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view_cab_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -17,6 +37,41 @@
 
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                card_view:elevation="3dp"
+                card_view:cardPreventCornerOverlap="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                card_view:cardCornerRadius="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <ImageView
+                        android:id="@+id/app_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop" />
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
@@ -26,23 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:padding="2dp">
-
-                    <!--<ImageView
-                        android:id="@+id/item_image"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/track_driver"
-                        android:scaleType="centerCrop" />-->
-                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -57,15 +95,16 @@
 
 
                     <TextView
-                        android:id="@+id/event_title"
+                        android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:paddingBottom="4dp"
-                        android:singleLine="true"
-                        android:ellipsize="marquee"
-                        android:text="Movie name"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:text="Product Name"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:textSize="15dp"
                         android:textColor="#483C46"
                         android:textStyle="bold" />
 
@@ -84,14 +123,70 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/th5"
+                        android:id="@+id/th"
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_star"
+                        android:background="@drawable/wallet_profile"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toEndOf="@+id/item_image"
+                    android:layout_toRightOf="@+id/item_image"
+                    android:orientation="horizontal"
+                    android:paddingLeft="4dp">
+
+                    <TextView
+                        android:id="@+id/min_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingBottom="6dp"
+                        android:text="Min Prize"
+                        android:textColor="#212121"
+                        android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/mrp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MRP"
+                        android:textColor="#212121"
+                        android:textStyle="normal"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:id="@+id/th1"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_history"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -103,103 +198,20 @@
                     android:layout_toEndOf="@+id/item_image"
                     android:layout_toRightOf="@+id/item_image"
                     android:orientation="vertical"
-                    android:paddingLeft="4dp"
-                    android:gravity="center">
+                    android:paddingLeft="4dp">
 
                     <TextView
-                        android:id="@+id/rating"
+                        android:id="@+id/cod"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Fare"
+                        android:paddingBottom="6dp"
+                        android:text="COD Available"
                         android:textColor="#212121"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:layout_gravity="center"
-                android:layout_margin="5dp">
-
-                <LinearLayout
-                    android:id="@+id/l3"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_toEndOf="@+id/item_image"
-                    android:layout_toRightOf="@+id/item_image"
-                    android:orientation="vertical"
-                    android:paddingLeft="4dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Language :"
-                        android:textColor="#0d47a1"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="5dp"/>
-
-                    <TextView
-                        android:id="@+id/language"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="NA"
-                        android:maxLines="2"
-                        android:ellipsize="marquee"
-                        android:textColor="#212121"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toEndOf="@+id/item_image"
-                    android:layout_toRightOf="@+id/item_image"
-                    android:orientation="vertical"
-                    android:paddingLeft="4dp">
-
-                    <LinearLayout
-                        android:id="@+id/l2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Length :"
-                            android:textColor="#0d47a1"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="5dp"/>
-
-                        <TextView
-                            android:id="@+id/length"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NA"
-                            android:maxLines="2"
-                            android:ellipsize="marquee"
-                            android:textColor="#212121"/>
-
-                    </LinearLayout>
+                        android:textStyle="normal" />
 
                 </LinearLayout>
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -220,7 +232,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_actors"
+                        android:background="@drawable/wallet_profile"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -232,22 +244,20 @@
                     android:layout_toEndOf="@+id/item_image"
                     android:layout_toRightOf="@+id/item_image"
                     android:orientation="vertical"
-                    android:paddingLeft="4dp"
-                    android:gravity="center">
+                    android:paddingLeft="4dp">
 
                     <TextView
-                        android:id="@+id/actors"
+                        android:id="@+id/product_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Fare"
+                        android:paddingBottom="6dp"
                         android:ellipsize="end"
                         android:maxLines="3"
                         android:minLines="1"
-                        android:textColor="#424242"
-                        android:paddingBottom="6dp"
-                        android:textStyle="italic"
-                        android:gravity="center_vertical"/>
+                        android:text="Product Description"
+                        android:textColor="#212121"
+                        android:textStyle="normal" />
                 </LinearLayout>
             </LinearLayout>
 

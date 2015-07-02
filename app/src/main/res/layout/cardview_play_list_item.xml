@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view_bus_item"
     android:layout_width="match_parent"
-    android:layout_height="225dp"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@android:color/white"
     android:foreground="?selectableItemBackground">
@@ -277,6 +277,10 @@
                         android:text="Fare"
                         android:textColor="#424242"
                         android:textStyle="italic"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:minLines="1"
+                        android:paddingBottom="6dp"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
             </LinearLayout>

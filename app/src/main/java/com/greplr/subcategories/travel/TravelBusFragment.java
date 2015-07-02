@@ -117,9 +117,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 }
         );
 
-
         return rootView;
-
     }
 
     @Override
@@ -233,12 +231,12 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-                viewHolder.travelagency.setText(busList.get(i).getTravelagency());
-                viewHolder.bustype.setText(busList.get(i).getBustype());
-                viewHolder.seat.setText(busList.get(i).getSeat());
-                viewHolder.depdate.setText(busList.get(i).getDepdate());
-                viewHolder.arrdate.setText(busList.get(i).getArrdate());
-                viewHolder.fare.setText(busList.get(i).getFare());
+            viewHolder.travelagency.setText(busList.get(i).getTravelagency());
+            viewHolder.bustype.setText(busList.get(i).getBustype());
+            viewHolder.seat.setText(busList.get(i).getSeat());
+            viewHolder.depdate.setText(busList.get(i).getDepdate());
+            viewHolder.arrdate.setText(busList.get(i).getArrdate());
+            viewHolder.fare.setText(busList.get(i).getFare());
         }
 
         @Override
