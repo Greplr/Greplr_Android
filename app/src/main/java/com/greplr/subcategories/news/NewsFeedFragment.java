@@ -38,6 +38,7 @@ import android.widget.TextView;
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
+import com.greplr.MainActivity;
 import com.greplr.R;
 import com.greplr.api.NewsApi;
 import com.greplr.models.news.Feed;
@@ -103,6 +104,9 @@ public class NewsFeedFragment extends UnderSubCategoryFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ((MainActivity) getActivity()).hideSlidePanel();
+
 
         mRecyclerView = (RecyclerView) view.findViewById(
                 R.id.recyclerview_news);
