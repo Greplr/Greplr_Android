@@ -21,7 +21,6 @@
 
 package com.greplr.api;
 
-import com.greplr.models.Feedback;
 import com.greplr.models.events.Movies;
 import com.greplr.models.events.Plays;
 import com.greplr.models.food.Bar;
@@ -93,14 +92,6 @@ public interface Api {
             @Field("lat") String latitude,
             @Field("lng") String longitude,
             Callback<List<Bar>> callback);
-
-    @FormUrlEncoded
-    @POST("/api/feedback")
-    void giveFeedBack(
-            @Field("feedback") String feedback,
-            @Field("field") String field,
-            Callback<List<Feedback>> callback);
-
 
     @GET("/api/events/movies")
     void getEventMovies(
