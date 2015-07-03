@@ -36,7 +36,6 @@ import retrofit.http.Query;
  * Created by raghav on 20/06/15.
  */
 public interface GeoCoding {
-    @FormUrlEncoded
     @GET("/geo")
     void findLocation(
             @Query("location") String location,

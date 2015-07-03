@@ -49,14 +49,12 @@ public interface Api {
 
     String BASE_URL = "http://128.199.128.227:8080";
 
-    @FormUrlEncoded
     @GET("/api/travel/cabs")
     void getTravelCabs(
             @Query("lat") String latitude,
             @Query("lng") String longitude,
             Callback<List<Cab>> cabs);
 
-    @FormUrlEncoded
     @GET("/api/travel/flight")
     void getTravelFlights(
             @Query("src") String src,
@@ -65,7 +63,6 @@ public interface Api {
             @Query("adults") int adults,
             Callback<List<Flight>> callback);
 
-    @FormUrlEncoded
     @GET("/api/travel/bus")
     void getTravelBus(
             @Query("src") String source,
@@ -73,21 +70,18 @@ public interface Api {
             @Query("date") String date,
             Callback<List<Bus>> callback);
 
-    @FormUrlEncoded
     @GET("/api/food/restaurants")
     void getFoodRestaurants(
             @Query("lat") String latitude,
             @Query("lng") String longitude,
             Callback<List<Restaurant>> callback);
 
-    @FormUrlEncoded
     @GET("/api/food/cafe")
     void getFoodCafes(
             @Query("lat") String latitude,
             @Query("lng") String longitude,
             Callback<List<Cafe>> callback);
 
-    @FormUrlEncoded
     @GET("/api/food/bar")
     void getFoodBars(
             @Query("lat") String latitude,
