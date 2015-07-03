@@ -15,6 +15,12 @@
         android:layout_height="match_parent"
         android:background="#aa263238">
 
+        <com.greplr.common.ui.CircularRevealView
+            android:id="@+id/reveal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"

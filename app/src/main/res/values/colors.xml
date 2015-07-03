@@ -32,6 +32,10 @@
     <color name="greplr_primary_dark_login">#263238</color>
     <color name="greplr_accent_login">#01579B</color>
 
+    <color name="facebook_main">#3b5998</color>
+    <color name="google_main">#db4437</color>
+    <color name="twitter_main">#55acee</color>
+
     <color name="text_light">@android:color/white</color>
     <color name="text_dark">#616161</color>
 
