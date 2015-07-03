@@ -21,8 +21,8 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,8 +63,6 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
     private List<Restaurant> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
@@ -154,23 +152,22 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.restaurantName.setText(restaurantList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(restaurantList.get(i).getDistance()) + " meter");
-            viewHolder.address.setText(restaurantList.get(i).getAddress());
+            viewHolder.restaurantName.setText(restaurantList.get(i).getItems().getName());
+            viewHolder.distance.setText(restaurantList.get(i).getItems().getDistance_friendly());
+            viewHolder.address.setText(restaurantList.get(i).getItems().getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+ restaurantList.get(i).getLat()+","+ restaurantList.get(i).getLng()+"("+restaurantList.get(i).getName()+")"));
-
-                    startActivity(intent);
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("geo:0,0?q=" + restaurantList.get(i).getItems().getLatitude() + "," + restaurantList.get(i).getItems().getLongitude() + "(" + restaurantList.get(i).getItems().getName() + ")"));
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + restaurantList.get(i).getItems().getLatitude() + "," + restaurantList.get(i).getItems().getLongitude()+"("+ restaurantList.get(i).getItems().getName()  + ")&iwloc=A&hl=es")));
+                    }
                 }
             });
-           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
-            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
-            } else
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
         }
 
         @Override

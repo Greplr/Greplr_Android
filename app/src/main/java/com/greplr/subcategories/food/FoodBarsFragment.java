@@ -24,7 +24,6 @@ package com.greplr.subcategories.food;
 import android.content.ActivityNotFoundException;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,7 +43,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
-import com.greplr.models.food.Bar;
+import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
@@ -65,9 +64,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<Bar> barList;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
+    private List<Restaurant> barList;
 
     public static FoodBarsFragment newInstance() {
         return new FoodBarsFragment();
@@ -95,16 +92,19 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
         View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getFoodBars(
+        apiHandler.getFoodRestaurants(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
-                new Callback<List<Bar>>() {
+                new Callback<List<Restaurant>>() {
                     @Override
-                    public void success(List<Bar> bars, Response response) {
+                    public void success(List<Restaurant> bars, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl());
-                        Log.d(LOG_TAG,"lat " + App.currentLatitude);
-                        Log.d(LOG_TAG,"lng " + App.currentLongitude);
                         Log.d(LOG_TAG, "response " + response.getStatus());
+//                        for(int i=0;i<bars.size();i++){
+//                            if(bars.get(i).getItems().getHas_bar().equals("1")){
+//                                barList.add(bars.get(i));
+//                            }
+//                        }
                         barList = bars;
                         updateBars(barList);
                         Map<String, String> params = new HashMap<>();
@@ -122,11 +122,9 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("food/bars/search", params);
-
-
-                        }
                     }
-            );
+                }
+        );
 
         return rootView;
     }
@@ -145,7 +143,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     }
 
-    public void updateBars(List<Bar> bars) {
+    public void updateBars(List<Restaurant> bars) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BarAdapter()));
     }
 
@@ -161,35 +159,22 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.restaurantName.setText(barList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(barList.get(i).getDistance()) + " meter");
-            viewHolder.address.setText(barList.get(i).getAddress());
+            viewHolder.restaurantName.setText(barList.get(i).getItems().getName());
+            viewHolder.distance.setText(barList.get(i).getItems().getDistance_friendly());
+            viewHolder.address.setText(barList.get(i).getItems().getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-//                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-//                            Uri.parse("http://maps.google.com/maps?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng()));
-//                    startActivity(intent);
                     try {
                         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                                Uri.parse("geo:0,0?q=" + barList.get(i).getLat() + "," + barList.get(i).getLng() + "(" + barList.get(i).getName() + ")"));
+                                Uri.parse("geo:0,0?q=" + barList.get(i).getItems().getLatitude() + "," + barList.get(i).getItems().getLongitude() + "(" + barList.get(i).getItems().getName() + ")"));
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?q=loc:" + barList.get(i).getLat() + "," + barList.get(i).getLng()+"("+ barList.get(i).getName()  + ")&iwloc=A&hl=es")));
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + barList.get(i).getItems().getLatitude() + "," + barList.get(i).getItems().getLongitude()+"("+ barList.get(i).getItems().getName()  + ")&iwloc=A&hl=es")));
                     }
-//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q="+barList.get(i).getLat()+","+barList.get(i).getLng()+"("+barList.get(i).getName()+")"));
-//                    startActivity(intent);
-
                 }
             });
-           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
-            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
-            } else
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
         }
 
         @Override

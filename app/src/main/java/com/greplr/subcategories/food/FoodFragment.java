@@ -50,12 +50,6 @@ public class FoodFragment extends SubCategoryFragment {
                         FoodRestaurantsFragment.newInstance()
                 ),
                 new UnderSubCategory(
-                        "Cafes",
-                        R.drawable.background_food_cafe,
-                        R.drawable.cardicon_food_cafe,
-                        FoodCafesFragment.newInstance()
-                ),
-                new UnderSubCategory(
                         "Bars",
                         R.drawable.background_food_bar,
                         R.drawable.cardicon_food_bar,

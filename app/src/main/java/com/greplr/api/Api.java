@@ -23,8 +23,6 @@ package com.greplr.api;
 
 import com.greplr.models.events.Movies;
 import com.greplr.models.events.Plays;
-import com.greplr.models.food.Bar;
-import com.greplr.models.food.Cafe;
 import com.greplr.models.food.Restaurant;
 import com.greplr.models.shopping.offers.Offers;
 import com.greplr.models.shopping.search.Search;
@@ -72,26 +70,11 @@ public interface Api {
             @Field("date") String date,
             Callback<List<Bus>> callback);
 
-    @FormUrlEncoded
-    @POST("/api/food/restaurants")
+    @GET("/api/foodmmx/nearme")
     void getFoodRestaurants(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
+            @Query("lat") String latitude,
+            @Query("lng") String longitude,
             Callback<List<Restaurant>> callback);
-
-    @FormUrlEncoded
-    @POST("/api/food/cafe")
-    void getFoodCafes(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
-            Callback<List<Cafe>> callback);
-
-    @FormUrlEncoded
-    @POST("/api/food/bar")
-    void getFoodBars(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
-            Callback<List<Bar>> callback);
 
     @GET("/api/events/movies")
     void getEventMovies(
