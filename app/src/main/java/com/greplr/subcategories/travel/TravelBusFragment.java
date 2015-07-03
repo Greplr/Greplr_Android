@@ -131,7 +131,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             @Override
             public void onClick(View v) {
                 final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
-                customDialog.setContentView(R.layout.travel_bus_search_dialog);
+                customDialog.setContentView(R.layout.searchdialog_travel_bus);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 

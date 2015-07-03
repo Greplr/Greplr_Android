@@ -24,6 +24,7 @@ package com.greplr.subcategories.travel;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -131,8 +131,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         onSearchFABListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog customDialog = new Dialog(getActivity());
-                customDialog.setContentView(R.layout.travel_flight_search_dialog);
+                final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
+                customDialog.setContentView(R.layout.searchdialog_travel_flight);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 
@@ -146,7 +146,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 destination.setAdapter(adapter);
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
                 final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
-                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
