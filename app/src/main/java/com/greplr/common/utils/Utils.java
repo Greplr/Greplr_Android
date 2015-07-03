@@ -1,10 +1,12 @@
 package com.greplr.common.utils;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Build;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 
 /**
  * Created by prempal on 3/7/15.
@@ -35,6 +37,13 @@ public class Utils {
         }
         else
             return false;
+    }
+
+    public static Location adjustLocationDecimalPrecision (Location loc) {
+        DecimalFormat df = new DecimalFormat("#.####");
+        loc.setLatitude(Double.parseDouble(df.format(loc.getLatitude())));
+        loc.setLongitude(Double.parseDouble(df.format(loc.getLongitude())));
+        return loc;
     }
 
 }
