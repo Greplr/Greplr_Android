@@ -2,11 +2,14 @@ package com.greplr;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.greplr.common.utils.Utils;
 import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -37,14 +41,18 @@ public class LoginActivity extends AppCompatActivity {
     private boolean destroyed = false;
     private Map<String, String> analyticsParams;
     private ImageView backgroundImage;
+    private FrameLayout mLoginFrameLayout;
+    private Button googleLoginButton, facebookLoginButton, twitterLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button facebookLoginButton = (Button) findViewById(R.id.facebook_login);
-        Button twitterLoginButton = (Button) findViewById(R.id.twitter_login);
+        facebookLoginButton = (Button) findViewById(R.id.facebook_login);
+        twitterLoginButton = (Button) findViewById(R.id.twitter_login);
+        googleLoginButton = (Button) findViewById(R.id.google_login);
+        mLoginFrameLayout = (FrameLayout) findViewById(R.id.login_framelayout);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
         analyticsParams = new HashMap<>();
 
@@ -54,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         facebookLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mLoginFrameLayout.setBackgroundColor(Color.parseColor("#3e62ba"));
                 analyticsParams.put("account", "facebook");
                 List<String> permissions = Arrays.asList(
                         "public_profile", "email"/*, "user_birthday", "user_location"*/); //Use when we get reviewed
@@ -106,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         twitterLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mLoginFrameLayout.setBackgroundColor(Color.parseColor("#55acee"));
                 analyticsParams.put("account", "twitter");
                 ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
                     @Override
@@ -138,6 +148,38 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLoginFrameLayout.setBackgroundColor(Color.parseColor("#db4437"));
+            }
+        });
+
+        ChangeColorOnTouch(facebookLoginButton, Color.parseColor("#3e62ba"), Color.parseColor("#aa263238"));
+        ChangeColorOnTouch(twitterLoginButton, Color.parseColor("#55acee"), Color.parseColor("#aa263238"));
+        ChangeColorOnTouch(googleLoginButton, Color.parseColor("#db4437"), Color.parseColor("#aa263238"));
+    }
+
+    public void ChangeColorOnTouch(final Button button, final int primary, final int secondary){
+        button.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mLoginFrameLayout.setBackgroundColor(primary);
+                        if(Utils.hasL())
+                            button.setElevation(15f);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mLoginFrameLayout.setBackgroundColor(secondary);
+                        if(Utils.hasL())
+                            button.setElevation(0f);
+                        break;
+                }
+                return false;
             }
         });
     }

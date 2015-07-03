@@ -21,7 +21,19 @@
   -->
 
 <resources>
-    <color name="main_toolbarColor">#77111111</color>
+    <color name="main_toolbarColor">#776B6570</color>
+
+    <color name="greplr_primary">#6B6570</color>
+    <color name="greplr_primary_dark">#6B6570</color>
+    <color name="greplr_blank">#424242</color>
+    <color name="greplr_accent">#3F51B5</color>
+
+    <color name="greplr_primary_login">#455A64</color>
+    <color name="greplr_primary_dark_login">#263238</color>
+    <color name="greplr_accent_login">#01579B</color>
+
+    <color name="text_light">@android:color/white</color>
+    <color name="text_dark">#616161</color>
 
     <color name="travel_cardColor">#1b5e20</color>
     <color name="food_cardColor">#ff6f00</color>

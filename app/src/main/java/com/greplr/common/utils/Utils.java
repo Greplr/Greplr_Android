@@ -1,6 +1,7 @@
 package com.greplr.common.utils;
 
 import android.content.Context;
+import android.os.Build;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +27,14 @@ public class Utils {
             return null;
         }
         return json;
+    }
+
+    public static boolean hasL(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        else
+            return false;
     }
 
 }
