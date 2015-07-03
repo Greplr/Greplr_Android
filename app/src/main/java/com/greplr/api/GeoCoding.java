@@ -28,13 +28,17 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
+import retrofit.http.Query;
 
 /**
  * Created by raghav on 20/06/15.
  */
 public interface GeoCoding {
     @FormUrlEncoded
-    @POST("/geo")
-    void findLocation(@Field("location") String location, Callback<List<GeoCodingLocation>> geoCodingLocation);
+    @GET("/geo")
+    void findLocation(
+            @Query("location") String location,
+            Callback<List<GeoCodingLocation>> geoCodingLocation);
 }
