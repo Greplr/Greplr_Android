@@ -74,7 +74,7 @@ public interface Api {
     void getFoodRestaurants(
             @Query("lat") String latitude,
             @Query("lng") String longitude,
-            Callback<List<Restaurant>> callback);
+            Callback<Restaurant> callback);
 
     @GET("/api/events/movies")
     void getEventMovies(

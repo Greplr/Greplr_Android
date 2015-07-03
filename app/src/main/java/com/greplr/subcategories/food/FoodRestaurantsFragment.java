@@ -94,12 +94,12 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         apiHandler.getFoodRestaurants(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
-                new Callback<List<Restaurant>>() {
+                new Callback<Restaurant>() {
                     @Override
-                    public void success(List<Restaurant> restaurants, Response response) {
+                    public void success(Restaurant restaurants, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        restaurantList = restaurants;
-                        updateRestaurants(restaurantList);
+//                        restaurantList = restaurants;
+//                        updateRestaurants(restaurantList);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -151,7 +151,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {/*
             viewHolder.restaurantName.setText(restaurantList.get(i).getItems().getName());
             viewHolder.distance.setText(restaurantList.get(i).getItems().getDistance_friendly());
             viewHolder.address.setText(restaurantList.get(i).getItems().getAddress());
@@ -168,7 +168,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                     }
                 }
             });
-        }
+        */}
 
         @Override
         public int getItemCount() {

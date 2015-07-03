@@ -95,9 +95,9 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         apiHandler.getFoodRestaurants(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
-                new Callback<List<Restaurant>>() {
+                new Callback<Restaurant>() {
                     @Override
-                    public void success(List<Restaurant> bars, Response response) {
+                    public void success(Restaurant bars, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl());
                         Log.d(LOG_TAG, "response " + response.getStatus());
 //                        for(int i=0;i<bars.size();i++){
@@ -105,8 +105,8 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 //                                barList.add(bars.get(i));
 //                            }
 //                        }
-                        barList = bars;
-                        updateBars(barList);
+//                        barList = bars;
+//                        updateBars(barList);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -158,7 +158,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {/*
             viewHolder.restaurantName.setText(barList.get(i).getItems().getName());
             viewHolder.distance.setText(barList.get(i).getItems().getDistance_friendly());
             viewHolder.address.setText(barList.get(i).getItems().getAddress());
@@ -175,7 +175,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                     }
                 }
             });
-        }
+        */}
 
         @Override
         public int getItemCount() {
