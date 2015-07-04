@@ -25,6 +25,7 @@ package com.greplr.subcategories;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -67,7 +68,11 @@ public abstract class SubCategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_subcategories, container, false);
 
-        ((MainActivity) getActivity()).getSupportActionBar().hide();
+        try {
+            ((MainActivity) getActivity()).getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
         searchFab = (FloatingActionButton) rootView.findViewById(R.id.search_fab);
@@ -78,14 +83,17 @@ public abstract class SubCategoryFragment extends Fragment {
 
         if (toolbar != null) {
             ((MainActivity) getActivity()).setSupportActionBar(toolbar);
-
-            mActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        }
+        mActionBar = ((MainActivity) getActivity()).getSupportActionBar();
+        if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(false);
             mActionBar.setDisplayUseLogoEnabled(false);
             mActionBar.setHomeButtonEnabled(false);
+
+            mActionBar.setTitle("");
+            mActionBar.hide();
         }
-        mActionBar.setTitle("");
-        mActionBar.hide();
+
         //backgroundImage = (ImageView) rootView.findViewById(R.id.subcategory_background);
         backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
 
