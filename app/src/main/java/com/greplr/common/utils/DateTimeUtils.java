@@ -49,16 +49,25 @@ public class DateTimeUtils {
      * @return
      * @throws ParseException
      */
-    public static Calendar iso8601toCalendar (final String iso8601string)
+    public static Calendar busTimeToCalendar (final String iso8601string)
             throws ParseException {
         Calendar calendar = GregorianCalendar.getInstance();
-        String s = iso8601string.replace("Z", "+00:00");
+        String s = iso8601string.toUpperCase().replace("Z", "+00:00");
         try {
             s = s.substring(0, 27) + s.substring(28);  // to get rid of the ":"
         } catch (IndexOutOfBoundsException e) {
             throw new ParseException("Invalid length", 0);
         }
         Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s);
+        calendar.setTime(date);
+
+        return calendar;
+    }
+
+    public static Calendar flightTimeToCalendar (final String iso8601string)
+            throws ParseException {
+        Calendar calendar = GregorianCalendar.getInstance();
+        Date date = new SimpleDateFormat("yyyy-MM-dd't'HHmm").parse(iso8601string);
         calendar.setTime(date);
 
         return calendar;
