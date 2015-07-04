@@ -22,7 +22,6 @@
 package com.greplr.subcategories.travel;
 
 import android.app.Dialog;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -33,7 +32,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -43,11 +43,16 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Bus;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +73,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     private String arrivalLocation, departureLocation, travelDate;
     private List<Bus> busList;
     private View.OnClickListener onSearchFABListener;
+    private ArrayList<String> cityList;
 
     public static TravelBusFragment newInstance() {
         return new TravelBusFragment();
@@ -92,30 +98,8 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelBusFragment onCreateView");
-        departureLocation = "Delhi";
-        arrivalLocation = "Amritsar";
-        travelDate = "20150710";
         View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
-
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getTravelBus(
-                departureLocation,
-                arrivalLocation,
-                travelDate,
-                new Callback<List<Bus>>() {
-                    @Override
-                    public void success(List<Bus> buses, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        busList = buses;
-                        updateBus(busList);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                    }
-                }
-        );
+        cityList = new ArrayList<>();
 
         return rootView;
     }
@@ -132,17 +116,34 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
+        try {
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity(), "cities.json"));
+            for(int i=0;i<jsonArray.length();i++){
+                cityList.add(jsonArray.getJSONObject(i).getString("name"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         // Attach search dialog to search FAB
         onSearchFABListener = new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
-                customDialog.setContentView(R.layout.travel_bus_search_dialog);
+                customDialog.setContentView(R.layout.searchdialog_travel_bus);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
-                final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
-                final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, cityList);
+                final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
+                final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
+                origin.setThreshold(1);
+                destination.setThreshold(1);
+                origin.setAdapter(adapter);
+                destination.setAdapter(adapter);
+
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
                 buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));

@@ -108,8 +108,12 @@ public class NewsFragment extends SubCategoryFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).hideSlidePanel();
-
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) getActivity()).hideSlidePanel();
     }
 }

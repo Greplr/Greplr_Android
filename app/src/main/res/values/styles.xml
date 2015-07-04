@@ -26,6 +26,21 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Greplr" parent="Greplr.Base">
+    </style>
+
+    <style name="Greplr.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/greplr_primary</item>
+        <item name="colorPrimaryDark">@color/greplr_primary_dark</item>
+        <item name="colorAccent">@color/greplr_accent</item>
+    </style>
+
+    <style name="Greplr.Base.Login" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/greplr_primary_login</item>
+        <item name="colorPrimaryDark">@color/greplr_primary_dark_login</item>
+        <item name="colorAccent">@color/greplr_accent_login</item>
+    </style>
+
 
     <style name="AppTheme.LightCards">
         <!-- Customize your theme here. -->

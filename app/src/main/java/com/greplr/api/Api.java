@@ -49,49 +49,43 @@ public interface Api {
 
     String BASE_URL = "http://128.199.128.227:8080";
 
-    @FormUrlEncoded
-    @POST("/api/travel/cabs")
+    @GET("/api/travel/cabs")
     void getTravelCabs(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
+            @Query("lat") String latitude,
+            @Query("lng") String longitude,
             Callback<List<Cab>> cabs);
 
-    @FormUrlEncoded
-    @POST("/api/travel/flight")
+    @GET("/api/travel/flight")
     void getTravelFlights(
-            @Field("src") String src,
-            @Field("dest") String dest,
-            @Field("date") String date,
-            @Field("adults") int adults,
+            @Query("src") String src,
+            @Query("dest") String dest,
+            @Query("date") String date,
+            @Query("adults") int adults,
             Callback<List<Flight>> callback);
 
-    @FormUrlEncoded
-    @POST("/api/travel/bus")
+    @GET("/api/travel/bus")
     void getTravelBus(
-            @Field("src") String source,
-            @Field("dest") String destination,
-            @Field("date") String date,
+            @Query("src") String source,
+            @Query("dest") String destination,
+            @Query("date") String date,
             Callback<List<Bus>> callback);
 
-    @FormUrlEncoded
-    @POST("/api/food/restaurants")
+    @GET("/api/food/restaurants")
     void getFoodRestaurants(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
+            @Query("lat") String latitude,
+            @Query("lng") String longitude,
             Callback<List<Restaurant>> callback);
 
-    @FormUrlEncoded
-    @POST("/api/food/cafe")
+    @GET("/api/food/cafe")
     void getFoodCafes(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
+            @Query("lat") String latitude,
+            @Query("lng") String longitude,
             Callback<List<Cafe>> callback);
 
-    @FormUrlEncoded
-    @POST("/api/food/bar")
+    @GET("/api/food/bar")
     void getFoodBars(
-            @Field("lat") String latitude,
-            @Field("lng") String longitude,
+            @Query("lat") String latitude,
+            @Query("lng") String longitude,
             Callback<List<Bar>> callback);
 
     @FormUrlEncoded

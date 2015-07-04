@@ -24,6 +24,7 @@ package com.greplr.subcategories.travel;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +32,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,11 +44,16 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Flight;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +74,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     private RecyclerView.Adapter mAdapter;
     private String arrivalLocation, departureLocation, travelDate, numOfAdults;
     private View.OnClickListener onSearchFABListener;
+    private ArrayList<String> airportList;
 
     public static TravelFlightFragment newInstance() {
         return new TravelFlightFragment();
@@ -91,31 +99,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelFlightFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_travel_flight, container, false);
-        departureLocation = "DEL";
-        arrivalLocation = "BOM";
-        travelDate = "20150710";
-        numOfAdults = "1";
-
-        apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getTravelFlights(
-                departureLocation,
-                arrivalLocation,
-                travelDate,
-                Integer.valueOf(numOfAdults),
-                new Callback<List<Flight>>() {
-                    @Override
-                    public void success(List<Flight> flights, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        flightList = flights;
-                        updateFlight(flightList);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                    }
-                }
-        );
+        airportList = new ArrayList<>();
 
         return rootView;
     }
@@ -132,23 +116,45 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
+        try {
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity(), "airports.json"));
+            for(int i=0;i<jsonArray.length();i++){
+                airportList.add(jsonArray.getJSONObject(i).getString("city") + "," +
+                        jsonArray.getJSONObject(i).getString("country") + " - " +
+                        jsonArray.getJSONObject(i).getString("code"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         onSearchFABListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog customDialog = new Dialog(getActivity());
-                customDialog.setContentView(R.layout.travel_flight_search_dialog);
+                final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
+                customDialog.setContentView(R.layout.searchdialog_travel_flight);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
-                final EditText origin = (EditText) customDialog.findViewById(R.id.et_origin);
-                final EditText destination = (EditText) customDialog.findViewById(R.id.et_destination);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                        (getActivity(), android.R.layout.select_dialog_item, airportList);
+                final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
+                final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
+                origin.setThreshold(1);
+                destination.setThreshold(1);
+                origin.setAdapter(adapter);
+                destination.setAdapter(adapter);
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
                 final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
-                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        departureLocation = origin.getText().toString();
-                        arrivalLocation = destination.getText().toString();
+                        Log.d(LOG_TAG, origin.getText().toString().split("-")[1].trim());
+                        Log.d(LOG_TAG, destination.getText().toString().split("-")[1].trim());
+                        departureLocation = origin.getText().toString().split("-")[1].trim();
+                        arrivalLocation = destination.getText().toString().split("-")[1].trim();
                         travelDate = date.getText().toString();
                         numOfAdults = adults.getText().toString();
                         if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {

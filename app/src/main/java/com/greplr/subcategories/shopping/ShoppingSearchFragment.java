@@ -172,8 +172,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     }
 
     public void updateShoppingSearch(List<Search> searchList){
-        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
 
     }
     @Override

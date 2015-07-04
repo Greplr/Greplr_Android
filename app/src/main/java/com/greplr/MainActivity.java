@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
 import com.parse.ParseAnalytics;
@@ -116,6 +118,7 @@ public class MainActivity
 
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.main_toolbarColor)));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             }
@@ -367,8 +370,9 @@ public class MainActivity
 
 
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(Location loc) {
         Log.d(LOG_TAG, "onLocationChanged");
+        Location location = Utils.adjustLocationDecimalPrecision(loc);
         App.currentLocation = location;
         Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
         Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");

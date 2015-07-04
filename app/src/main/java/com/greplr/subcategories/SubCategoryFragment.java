@@ -22,6 +22,7 @@
 package com.greplr.subcategories;
 
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,10 +69,11 @@ public abstract class SubCategoryFragment extends Fragment {
 
         ((MainActivity) getActivity()).getSupportActionBar().hide();
 
-
-
         final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
         searchFab = (FloatingActionButton) rootView.findViewById(R.id.search_fab);
+        searchFab.setColorNormal(getCategoryColor());
+        searchFab.setColorPressed(getCategoryColor());
+        searchFab.setColorRipple(Color.GRAY);
         Toolbar toolbar = matViewPager.getToolbar();
 
         if (toolbar != null) {
@@ -91,10 +93,10 @@ public abstract class SubCategoryFragment extends Fragment {
         matViewPager.getViewPager().setAdapter(pagerAdapter);
         matViewPager.getViewPager().setOffscreenPageLimit(matViewPager.getViewPager().getAdapter().getCount());
         matViewPager.getPagerTitleStrip().setViewPager(matViewPager.getViewPager());
-        matViewPager.setColor(ColorUtils.adjustAlpha(getResources().getColor(getToolbarColorResId()), 0.3f), 500);
+        matViewPager.setColor(ColorUtils.adjustAlpha(getCategoryColor(), 0.3f), 500);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getActivity().getWindow().setStatusBarColor(getResources().getColor(getToolbarColorResId()));
-            getActivity().getWindow().setNavigationBarColor(getResources().getColor(getToolbarColorResId()));
+            getActivity().getWindow().setStatusBarColor(getCategoryColor());
+            getActivity().getWindow().setNavigationBarColor(getCategoryColor());
         }
 
         headerLogo = (ImageView) matViewPager.findViewById(R.id.logoContainer).findViewById(R.id.subcategory_logo);
@@ -133,8 +135,9 @@ public abstract class SubCategoryFragment extends Fragment {
 
     public abstract int topCatNo();
 
-    public int getToolbarColorResId() {
-        return Topcategories.getTopCategories().get(topCatNo()).cardColor;
+
+    public int getCategoryColor() {
+        return getResources().getColor(Topcategories.getTopCategories().get(topCatNo()).cardColor);
     }
 
     public int getUnderSubFragCount() {

@@ -25,10 +25,7 @@
         <item android:state_pressed="true" >
             <shape>
                 <solid
-                    android:color="#67b3b0" />
-                <stroke
-                    android:width="1dp"
-                    android:color="#3e62ba" />
+                    android:color="#aa55acee" />
                 <corners
                     android:radius="3dp" />
 
@@ -37,10 +34,7 @@
         <item>
             <shape>
                 <solid
-                    android:color="#21baba" />
-                <stroke
-                    android:width="1dp"
-                    android:color="#3182ad" />
+                    android:color="#55acee" />
                 <corners
                     android:radius="3dp" />
 
@@ -50,7 +44,7 @@
     </selector>
     </item>
     <item
-        android:top="0dp" android:left="10dp">
+        android:top="5dp" android:left="10dp" android:bottom="3dp">
         <bitmap
             android:src="@drawable/login_twitter"
             android:gravity="left" />
