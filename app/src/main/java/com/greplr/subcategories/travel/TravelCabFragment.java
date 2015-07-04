@@ -188,11 +188,15 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.cardview_cab_list_item, viewGroup, false);
+//            v.setBackgroundColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+//            viewHolder.minPrice.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
+//            viewHolder.prizePerKM.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
+//            viewHolder.timeOfArrival.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
             viewHolder.minPrice.setText("Minimum price : \u20b9" + cabList.get(i).getMin_price());
             viewHolder.timeOfArrival.setText("ETA :  " + cabList.get(i).getTime_of_arrival() + " min");
