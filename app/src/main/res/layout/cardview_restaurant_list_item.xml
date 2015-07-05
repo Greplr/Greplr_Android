@@ -146,7 +146,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Distance"
-                            android:textColor="#212121"
+                            android:textColor="@color/food_cardColor_textview"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
@@ -193,7 +193,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Address"
-                            android:textColor="#212121"
+                            android:textColor="@color/food_cardColor_textview"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>

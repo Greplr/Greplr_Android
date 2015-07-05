@@ -37,7 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/food_cardColor">
+            android:background="@color/events_cardColor_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_local_bar"
+                        android:background="@drawable/ic_movie"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -71,12 +71,12 @@
                     android:paddingLeft="20dp">
 
                     <TextView
-                        android:id="@+id/bar_name"
+                        android:id="@+id/movie_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="sans-serif"
-                        android:text="Bar Name"
+                        android:text="Movie Name"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
@@ -94,14 +94,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="4">
+            android:weightSum="4"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_gravity="center"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/l3"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@+id/item_image"
+                        android:layout_toRightOf="@+id/item_image"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Language :"
+                            android:textColor="@color/events_cardColor_textview"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="5dp"/>
+
+                        <TextView
+                            android:id="@+id/language"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NA"
+                            android:textColor="#212121"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toEndOf="@+id/item_image"
+                        android:layout_toRightOf="@+id/item_image"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <LinearLayout
+                            android:id="@+id/l2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_toEndOf="@+id/item_image"
+                            android:layout_toRightOf="@+id/item_image"
+                            android:orientation="vertical"
+                            android:paddingLeft="4dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Length :"
+                                android:textColor="@color/events_cardColor_textview"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="5dp"/>
+
+                            <TextView
+                                android:id="@+id/length"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="NA"
+                                android:textColor="#212121"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -115,14 +196,14 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th2"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:id="@+id/th5"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_distance"
+                            android:background="@drawable/ic_star"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -133,22 +214,21 @@
                         android:layout_gravity="center_vertical"
                         android:layout_toEndOf="@+id/item_image"
                         android:layout_toRightOf="@+id/item_image"
-                        android:gravity="center"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:paddingLeft="4dp"
+                        android:gravity="center">
 
                         <TextView
-                            android:id="@+id/bar_distance"
+                            android:id="@+id/rating"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="Distance"
+                            android:text="Star"
                             android:textColor="#212121"
-                            android:textStyle="normal" />
+                            android:textStyle="italic"
+                            android:gravity="center_vertical"/>
                     </LinearLayout>
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -163,13 +243,13 @@
 
                         <ImageView
                             android:id="@+id/th3"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_map"
+                            android:background="@drawable/ic_actor"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -180,25 +260,30 @@
                         android:layout_gravity="center_vertical"
                         android:layout_toEndOf="@+id/item_image"
                         android:layout_toRightOf="@+id/item_image"
-                        android:gravity="center"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:paddingLeft="4dp"
+                        android:gravity="center">
 
                         <TextView
-                            android:id="@+id/bar_address"
+                            android:id="@+id/actors"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
+                            android:text="Fare"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:minLines="1"
+                            android:textColor="#424242"
                             android:paddingBottom="6dp"
-                            android:text="Address"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
+                            android:textStyle="italic"
+                            android:gravity="center_vertical"/>
                     </LinearLayout>
                 </LinearLayout>
 
+
             </LinearLayout>
 
+<!--
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -256,6 +341,7 @@
 
 
             </LinearLayout>
+-->
 
 
         </LinearLayout>

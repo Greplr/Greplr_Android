@@ -51,4 +51,7 @@
     <color name="food_cardColor_light">#F4743B</color>
     <color name="food_cardColor_textview">#550F0F</color>
 
+    <color name="events_cardColor_light">#EF4640</color>
+    <color name="events_cardColor_textview">#7B0000</color>
+
 </resources>
