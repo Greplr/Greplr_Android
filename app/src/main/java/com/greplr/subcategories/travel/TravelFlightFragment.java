@@ -246,7 +246,14 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
             viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
             viewHolder.depdate.setText(flightList.get(i).getDepdate());
             viewHolder.arrdate.setText(flightList.get(i).getArrdate());
-            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
+            if (flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("e")){
+                viewHolder.seatingclass.setText("Travel Class : Economy");
+            } else if(flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("b")){
+                viewHolder.seatingclass.setText("Travel Class : Business");
+            } else {
+                viewHolder.seatingclass.setText("Travel Class : Economy");
+            }
+//            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
             viewHolder.flight_fare.setText("₹" + flightList.get(i).getFare());
 
             if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {

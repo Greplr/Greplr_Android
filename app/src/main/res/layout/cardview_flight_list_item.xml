@@ -274,8 +274,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Seating Class type"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
+                            android:textColor="#424242"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
                     </LinearLayout>
                 </LinearLayout>
 
