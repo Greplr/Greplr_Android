@@ -35,12 +35,13 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:id="@+id/et_origin"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/button_material_dark"
-                android:textSize="14sp" />
+                android:textColor="@color/travel_fab_color"
+                android:textSize="14sp"
+                android:background="@drawable/edittext_background_rounded"/>
 
         </LinearLayout>
 
@@ -63,12 +64,13 @@
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:id="@+id/et_destination"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/button_material_dark"
-                android:textSize="14sp" />
+                android:textColor="@color/travel_fab_color"
+                android:textSize="14sp"
+                android:background="@drawable/edittext_background_rounded"/>
 
         </LinearLayout>
 
@@ -92,12 +94,13 @@
                 android:id="@+id/et_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:padding="5dp"
                 android:inputType="date"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/button_material_dark"
-                android:textSize="14sp" />
+                android:textColor="@color/travel_fab_color"
+                android:textSize="14sp"
+                android:background="@drawable/edittext_background_rounded"/>
 
         </LinearLayout>
         <LinearLayout
@@ -120,20 +123,20 @@
                 android:id="@+id/et_adults"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:padding="5dp"
                 android:inputType="phone"
                 android:singleLine="true"
                 android:digits="0123456789"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/button_material_dark"
-                android:textSize="14sp" />
+                android:textColor="@color/travel_fab_color"
+                android:textSize="14sp"
+                android:background="@drawable/edittext_background_rounded"/>
 
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:text="OK"
             android:textColor="@android:color/white"
             android:id="@+id/ok_button"/>

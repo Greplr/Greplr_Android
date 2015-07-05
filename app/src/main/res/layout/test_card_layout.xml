@@ -59,7 +59,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_directions_car"
+                        android:background="@drawable/ic_flight_white"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -239,6 +239,52 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:id="@+id/th5"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/ic_work"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toEndOf="@+id/item_image"
+                        android:layout_toRightOf="@+id/item_image"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:id="@+id/seating_class"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingBottom="6dp"
+                            android:text="Seating Class type"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:orientation="horizontal"
                     android:padding="2dp">
 
@@ -254,7 +300,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_distance"
+                            android:background="@drawable/wallet_profile"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -266,13 +312,13 @@
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/price_per_km"
+                            android:id="@+id/flight_fare"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:paddingBottom="6dp"
-                            android:text="Prize per km"
-                            android:textColor="#424242"
+                            android:text="Prize"
+                            android:textColor="#F44336"
                             android:textSize="12sp"
                             android:textStyle="italic" />
                     </LinearLayout>
