@@ -37,7 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#558B2F">
+            android:background="@color/food_cardColor">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -70,61 +70,17 @@
                     android:orientation="vertical"
                     android:paddingLeft="20dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/rest_name"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp">
-
-                        <LinearLayout
-                            android:id="@+id/l3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-
-                            <TextView
-                                android:id="@+id/dept_time_flight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NA"
-                                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="normal"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-                            <LinearLayout
-                                android:id="@+id/l2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingLeft="4dp">
-
-                                <TextView
-                                    android:id="@+id/arr_time_flight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="NA"
-                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="17sp"
-                                    android:textStyle="normal"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="sans-serif"
+                        android:text="Cab Name"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
 
                 </LinearLayout>
 
@@ -151,89 +107,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
+                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:id="@+id/th2"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_flight"
+                            android:background="@drawable/ic_distance"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
+                        android:layout_toEndOf="@+id/item_image"
+                        android:layout_toRightOf="@+id/item_image"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/airline"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Airline"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="#212121"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/th1"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_history"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/flight_no"
+                            android:id="@+id/rest_distance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:paddingBottom="6dp"
-                            android:text="Flight No. : "
-                            android:textColor="#424242"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
-
+                            android:gravity="center_vertical"
+                            android:text="Distance"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -247,14 +162,14 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th5"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:id="@+id/th3"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_work"
+                            android:background="@drawable/ic_map"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -265,62 +180,20 @@
                         android:layout_gravity="center_vertical"
                         android:layout_toEndOf="@+id/item_image"
                         android:layout_toRightOf="@+id/item_image"
+                        android:gravity="center"
                         android:orientation="vertical"
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/seating_class"
+                            android:id="@+id/rest_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
                             android:paddingBottom="6dp"
-                            android:text="Seating Class type"
+                            android:text="Address"
                             android:textColor="#212121"
                             android:textStyle="normal" />
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/th3"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/wallet_profile"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/flight_fare"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="6dp"
-                            android:text="Prize"
-                            android:textColor="#F44336"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -346,12 +219,13 @@
 
 
                         <ImageView
-                            android:id="@+id/app_icon"
+                            android:id="@+id/location_restaurant"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
                             android:scaleType="centerCrop"
-                            android:background="@drawable/ic_flight"/>
+                            android:src="@drawable/ic_location" />
 
 
                     </LinearLayout>
