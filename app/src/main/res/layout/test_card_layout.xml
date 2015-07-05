@@ -59,7 +59,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_flight_white"
+                        android:background="@drawable/ic_local_bar"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -71,12 +71,12 @@
                     android:paddingLeft="20dp">
 
                     <TextView
-                        android:id="@+id/rest_name"
+                        android:id="@+id/bar_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="sans-serif"
-                        android:text="Cab Name"
+                        android:text="Bar Name"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
@@ -138,7 +138,7 @@
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/rest_distance"
+                            android:id="@+id/bar_distance"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -185,7 +185,7 @@
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/rest_address"
+                            android:id="@+id/bar_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -218,8 +218,8 @@
                         android:orientation="vertical">
 
 
-                        <ImageView
-                            android:id="@+id/location_restaurant"
+                        <ImageButton
+                            android:id="@+id/location_bar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
