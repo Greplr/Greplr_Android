@@ -232,20 +232,6 @@ public class MainActivity
 
     }
 
-    private static String timeFormat(long totalSeconds) {
-        long minutes = 0, seconds = 0, hours = 0;
-        if(totalSeconds > 60) {
-            minutes = totalSeconds / 60;
-            seconds = totalSeconds - minutes*60;
-            if(minutes > 60) {
-                hours = minutes / 60;
-                minutes = totalSeconds - hours*60;
-                return String.valueOf(hours) + " hours" + String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
-            } else
-                return String.valueOf(minutes) + " minutes" + String.valueOf(seconds) + " seconds";
-        }
-        return String.valueOf(totalSeconds) + " seconds";
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -423,7 +409,11 @@ public class MainActivity
                 getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
             }
             setSupportActionBar(toolbar);
-            getSupportActionBar().show();
+            try {
+                getSupportActionBar().show();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
             showSlidePanel();
         }
 

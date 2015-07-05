@@ -184,22 +184,25 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.cardview_cab_list_item, viewGroup, false);
-//            v.setBackgroundColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
             return new ViewHolder(v);
         }
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-//            viewHolder.minPrice.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
-//            viewHolder.prizePerKM.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
-//            viewHolder.timeOfArrival.setTextColor(getActivity().getResources().getColor(R.color.travel_cardColor_Sec));
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
+            if(viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo")||viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")){
+                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_hatchback));
+            }else if(viewHolder.displayName.getText().toString().equalsIgnoreCase("uberx")||viewHolder.displayName.getText().toString().equalsIgnoreCase("sedan")){
+                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_sedan));
+            }else if(viewHolder.displayName.getText().toString().equalsIgnoreCase("uberblack")){
+                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_minivan));
+            }
             viewHolder.minPrice.setText("Minimum price : \u20b9" + cabList.get(i).getMin_price());
             viewHolder.timeOfArrival.setText("ETA :  " + cabList.get(i).getTime_of_arrival() + " min");
             viewHolder.prizePerKM.setText("₹" + cabList.get(i).getPrice_per_km() + " /Km");
             viewHolder.provider.setText(cabList.get(i).getProvider());
             if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_uber);//;setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+                viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_uber);
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -255,6 +258,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
             TextView prizePerKM;
             TextView provider;
             ImageView icon;
+            ImageView cabType;
             View view;
 
             public ViewHolder(CardView v) {
@@ -266,6 +270,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 prizePerKM = (TextView) v.findViewById(R.id.price_per_km);
                 provider = (TextView) v.findViewById(R.id.provider);
                 icon = (ImageView) v.findViewById(R.id.app_icon);
+                cabType = (ImageView) v.findViewById(R.id.cab_type);
             }
         }
     }

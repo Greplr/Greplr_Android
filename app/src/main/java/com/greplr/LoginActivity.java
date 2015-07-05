@@ -175,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Use to Circular Reveal Show and collapse on touch
+    //Not being used right now
     public void ChangeColorOnTouch(final Button button, final int primary, final int secondary){
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override

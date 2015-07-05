@@ -145,6 +145,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 destination.setAdapter(adapter);
 
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
+                Utils.dateFormater(date);
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
                 buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
@@ -215,6 +216,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setColorNormal(getActivity().getResources().getColor(R.color.travel_fab_color));
             } else {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
             }

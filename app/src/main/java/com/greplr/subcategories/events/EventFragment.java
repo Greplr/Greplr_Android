@@ -27,6 +27,8 @@ import com.greplr.subcategories.UnderSubCategory;
 
 /**
  * Created by raghav on 21/06/15.
+ *
+ * The parent fragment of Events (Plays, Movies etc)
  */
 public class EventFragment extends SubCategoryFragment {
 
