@@ -54,4 +54,7 @@
     <color name="events_cardColor_light">#EF4640</color>
     <color name="events_cardColor_textview">#7B0000</color>
 
+    <color name="shopping_cardColor_light">#7F2CCB</color>
+    <color name="shopping_cardColor_textview">#210B2C</color>
+
 </resources>
