@@ -37,12 +37,12 @@ public class FoodFragment extends SubCategoryFragment {
     @Override
     public UnderSubCategory[] getUnderSubCategories() {
         return new UnderSubCategory[]{
-                new UnderSubCategory(
-                        "Order",
-                        R.drawable.background_food_order,
-                        R.drawable.cardicon_food_order,
-                        FoodOrderingFragment.newInstance()
-                ),
+//                new UnderSubCategory(
+//                        "Order",
+//                        R.drawable.background_food_order,
+//                        R.drawable.cardicon_food_order,
+//                        FoodOrderingFragment.newInstance()
+//                ),
                 new UnderSubCategory(
                         "Restaurants",
                         R.drawable.background_food_restaurant,
