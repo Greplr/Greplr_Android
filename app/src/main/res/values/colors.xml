@@ -45,4 +45,7 @@
     <color name="news_cardColor">#2962ff</color>
     <color name="shopping_cardColor">#4a148c</color>
 
+    <color name="travel_cardColor_Sec">#4CAF50</color>
+    <color name="travel_fab_color">#558B2F</color>
+
 </resources>

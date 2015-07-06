@@ -56,12 +56,12 @@
         android:id="@+id/search_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
+        android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/ic_search"
         android:visibility="gone"
-        fab:fab_colorNormal="@color/travel_cardColor"
-        fab:fab_colorPressed="@color/travel_cardColor"
+        fab:fab_colorNormal="@color/travel_fab_color"
+        fab:fab_colorPressed="@color/travel_fab_color"
         fab:fab_colorRipple="@color/travel_cardColor" />
 
 </FrameLayout>

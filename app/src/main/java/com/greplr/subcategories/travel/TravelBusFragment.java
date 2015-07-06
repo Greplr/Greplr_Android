@@ -216,6 +216,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().setColorNormal(getActivity().getResources().getColor(R.color.travel_fab_color));
             } else {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
             }

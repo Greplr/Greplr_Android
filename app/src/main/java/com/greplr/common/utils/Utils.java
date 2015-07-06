@@ -35,11 +35,9 @@ public class Utils {
         return json;
     }
 
-    public static boolean hasL() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return true;
-        } else
-            return false;
+
+    public static boolean hasL(){
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     public static Location adjustLocationDecimalPrecision(Location loc) {
