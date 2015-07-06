@@ -43,6 +43,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.DateTimeUtils;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Bus;
 import com.greplr.subcategories.SubCategoryFragment;
@@ -52,7 +53,9 @@ import com.parse.ParseAnalytics;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -234,9 +237,27 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+
+            Calendar depdate = null;
+            Calendar arrdate = null;
+
+            try {
+                depdate = DateTimeUtils.busTimeToCalendar(busList.get(i).getDepdate());
+                arrdate = DateTimeUtils.busTimeToCalendar(busList.get(i).getArrdate());
+                int arrHour = depdate.get(Calendar.HOUR);
+                int arrMin = depdate.get(Calendar.MINUTE);
+                Log.d("time", String.valueOf(arrHour));
+                Log.d("time", String.valueOf(arrMin));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
             viewHolder.travelagency.setText(busList.get(i).getTravelagency());
             viewHolder.bustype.setText(busList.get(i).getBustype());
-            viewHolder.seat.setText(busList.get(i).getSeat());
+//            viewHolder.seat.setText(busList.get(i).getSeat());
+//            viewHolder.depdate.setText(String.valueOf(depdate.get(Calendar.HOUR) + " : " + depdate.get(Calendar.MINUTE)));
+//            viewHolder.arrdate.setText(String.valueOf(arrdate.get(Calendar.HOUR) + " : " + arrdate.get(Calendar.MINUTE)));
             viewHolder.depdate.setText(busList.get(i).getDepdate());
             viewHolder.arrdate.setText(busList.get(i).getArrdate());
             viewHolder.fare.setText(busList.get(i).getFare());
@@ -260,7 +281,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 super(v);
                 travelagency = (TextView) v.findViewById(R.id.travel_agency_name);
                 bustype = (TextView) v.findViewById(R.id.bus_type);
-                seat = (TextView) v.findViewById(R.id.seat_type);
+//                seat = (TextView) v.findViewById(R.id.seat_type);
                 depdate = (TextView) v.findViewById(R.id.dept_time);
                 arrdate = (TextView) v.findViewById(R.id.arr_time);
                 fare = (TextView) v.findViewById(R.id.fare);

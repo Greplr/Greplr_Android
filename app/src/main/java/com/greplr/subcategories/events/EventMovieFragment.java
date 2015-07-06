@@ -169,7 +169,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
             public ViewHolder(CardView v) {
                 super(v);
-                EventTitle = (TextView) v.findViewById(R.id.event_title);
+                EventTitle = (TextView) v.findViewById(R.id.movie_title);
                 Ratings = (TextView) v.findViewById(R.id.rating);
                 Language = (TextView) v.findViewById(R.id.language);
                 Length = (TextView) v.findViewById(R.id.length);
