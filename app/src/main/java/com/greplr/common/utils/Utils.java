@@ -47,7 +47,7 @@ public class Utils {
         return loc;
     }
 
-    public static void dateFormater(final EditText editText) {
+    public static void dateFormatter(final EditText editText) {
 
         editText.addTextChangedListener(new TextWatcher() {
             private String current = "";
@@ -55,7 +55,6 @@ public class Utils {
             private Calendar cal = Calendar.getInstance();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -104,7 +103,6 @@ public class Utils {
                     editText.setText(current);
                     editText.setSelection(sel < current.length() ? sel : current.length());
                 }
-
             }
 
             @Override

@@ -32,17 +32,31 @@ import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
+import com.greplr.api.Api;
+import com.greplr.models.food.Order;
 import com.greplr.subcategories.UnderSubCategoryFragment;
+import com.parse.ParseAnalytics;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by championswimmer on 15/6/15.
  */
 public class FoodOrderingFragment extends UnderSubCategoryFragment {
 
+    public static final String LOG_TAG = "Greplr/Food/Order";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private List<Order> orderList;
 
     public static FoodOrderingFragment newInstance() {
         return new FoodOrderingFragment();
@@ -69,7 +83,36 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         Log.d("Greplr", "FoodOrderingFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_food_order, container, false);
 
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getOrderFood(
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
+                new Callback<List<Order>>() {
+                    @Override
+                    public void success(List<Order> orders, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        orderList = orders;
+//                        updateOrders(orderList);
+                        Log.d(LOG_TAG, orderList.get(0).getAddress() + "  " + orderList.get(0).getAddressLine2() + "  " + orderList.get(0).getCode() + "  " + orderList.get(0).getCustomerPhone() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getDescription() + "  " + orderList.get(0).getId() + "  " + orderList.get(0).getLatitude() + "  " + orderList.get(0).getLogo() + "  " + orderList.get(0).getLongitude() + "  " + orderList.get(0).getMetadata() + "  " + orderList.get(0).getMinimumDeliveryFee() + "  " + orderList.get(0).getMinimumDeliveryTime() + "  " + orderList.get(0).getMinimumOrderAmount() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getChain().getName());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
+                    }
 
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
+
+                    }
+                }
+        );
         return rootView;
 
     }
@@ -87,4 +130,5 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
+
 }
