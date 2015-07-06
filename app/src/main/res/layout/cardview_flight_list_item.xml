@@ -312,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Prize"
-                            android:textColor="#F44336"
+                            android:textColor="@color/prize_textview"
                             android:textSize="12sp"
                             android:textStyle="italic" />
                     </LinearLayout>

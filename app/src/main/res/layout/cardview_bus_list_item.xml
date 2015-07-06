@@ -266,7 +266,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Prize"
-                            android:textColor="#F44336"
+                            android:textColor="@color/prize_textview"
                             android:textStyle="italic"
                             android:textSize="12sp"/>
                     </LinearLayout>

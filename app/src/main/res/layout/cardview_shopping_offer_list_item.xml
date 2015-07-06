@@ -214,7 +214,7 @@
                         android:orientation="vertical">
 
 
-                        <ImageButton
+                        <ImageView
                             android:id="@+id/app_icon"
                             android:layout_width="72dp"
                             android:layout_height="72dp"

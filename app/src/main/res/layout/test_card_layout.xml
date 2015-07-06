@@ -29,6 +29,7 @@
     android:foreground="?selectableItemBackground">
 
 
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,12 +71,12 @@
                     android:paddingLeft="20dp">
 
                     <TextView
-                        android:id="@+id/offer_name"
+                        android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="sans-serif"
-                        android:text="Play Name"
+                        android:text="Product Name"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
@@ -122,7 +123,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_tonality"
+                            android:background="@drawable/wallet_profile"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -130,19 +131,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/offer_description"
+                            android:id="@+id/min_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="Description"
-                            android:textColor="@color/shopping_cardColor_textview"
+                            android:paddingBottom="6dp"
+                            android:text="Min Prize"
+                            android:textColor="#212121"
                             android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/mrp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="10dp"
+                            android:text="MRP"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -164,7 +175,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_actor"
+                            android:background="@drawable/ic_history"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
@@ -172,22 +183,62 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
                         android:orientation="vertical"
                         android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/availability"
+                            android:id="@+id/cod"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingBottom="6dp"
+                            android:text="COD Available"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/ic_work"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:id="@+id/product_description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:ellipsize="end"
-                            android:gravity="center_vertical"
                             android:maxLines="3"
                             android:minLines="1"
                             android:paddingBottom="6dp"
-                            android:text="Offer Available"
-                            android:textColor="@color/shopping_cardColor_textview"
+                            android:text="Product Description"
+                            android:textColor="#212121"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
@@ -216,8 +267,8 @@
 
                         <ImageButton
                             android:id="@+id/app_icon"
-                            android:layout_width="72dp"
-                            android:layout_height="72dp"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:scaleType="centerCrop" />
@@ -255,5 +306,6 @@
         </LinearLayout>
 
     </LinearLayout>
+-->
 
 </com.greplr.common.ui.GlassCardView>
