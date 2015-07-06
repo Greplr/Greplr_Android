@@ -175,8 +175,4 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
             }
         }
     }
-
-
-
-
 }
