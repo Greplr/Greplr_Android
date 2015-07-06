@@ -95,7 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:inputType="date"
+                android:inputType="phone"
+                android:digits="0123456789-"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/travel_fab_color"
@@ -108,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="OK"
+            android:text="SEARCH"
             android:textColor="@android:color/white"
             android:id="@+id/ok_button"/>
 

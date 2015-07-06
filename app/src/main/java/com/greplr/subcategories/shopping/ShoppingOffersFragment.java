@@ -104,6 +104,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(
                 R.id.recyclerview_offers);
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
