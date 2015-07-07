@@ -38,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/food_cardColor">
+            android:background="@color/food_color_primary">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Distance"
-                            android:textColor="@color/food_cardColor_textview"
+                            android:textColor="@color/food_color_dark"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
@@ -193,7 +193,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Address"
-                            android:textColor="@color/food_cardColor_textview"
+                            android:textColor="@color/food_color_dark"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>

@@ -39,7 +39,7 @@
                 android:singleLine="true"
                 android:id="@+id/et_origin"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/travel_fab_color"
+                android:textColor="@color/travel_color_dark"
                 android:textSize="14sp"
                 android:background="@drawable/edittext_background_rounded"/>
 
@@ -68,7 +68,7 @@
                 android:singleLine="true"
                 android:id="@+id/et_destination"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/travel_fab_color"
+                android:textColor="@color/travel_color_dark"
                 android:textSize="14sp"
                 android:background="@drawable/edittext_background_rounded"/>
 
@@ -99,7 +99,7 @@
                 android:digits="0123456789"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/travel_fab_color"
+                android:textColor="@color/travel_color_dark"
                 android:textSize="14sp"
                 android:background="@drawable/edittext_background_rounded"/>
 

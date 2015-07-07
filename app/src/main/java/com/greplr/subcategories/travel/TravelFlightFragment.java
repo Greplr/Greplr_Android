@@ -148,7 +148,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 Utils.dateFormatter(date);
                 final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
-                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_cardColor));
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_color_primary));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/events_cardColor_light">
+            android:background="@color/events_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Length :"
-                            android:textColor="@color/events_cardColor_textview"
+                            android:textColor="@color/events_color_dark"
                             android:textStyle="bold"
                             android:layout_marginBottom="5dp"/>
 
@@ -139,7 +139,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Director :"
-                                android:textColor="@color/events_cardColor_textview"
+                                android:textColor="@color/events_color_dark"
                                 android:textStyle="bold"
                                 android:layout_marginBottom="5dp"/>
 

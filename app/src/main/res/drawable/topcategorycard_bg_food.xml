@@ -23,13 +23,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/food_cardColor" />
+            <solid android:color="@color/food_color_primary" />
         </shape>
     </item>
 
     <item>
         <shape>
-            <solid android:color="@color/food_cardColor" />
+            <solid android:color="@color/food_color_primary" />
         </shape>
     </item>
 </selector>
