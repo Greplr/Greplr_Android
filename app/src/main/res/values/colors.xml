@@ -49,13 +49,10 @@
     <color name="events_color_dark">#7B0000</color>
 
     <color name="news_color_primary">#2962ff</color>
+
     <color name="shopping_color_primary">#4a148c</color>
-
-
-
-
-    <color name="shopping_cardColor_light">#7F2CCB</color>
-    <color name="shopping_cardColor_textview">#210B2C</color>
+    <color name="shopping_color_light">#7F2CCB</color>
+    <color name="shopping_color_dark">#210B2C</color>
 
     <color name="prize_textview">#F44336</color>
 

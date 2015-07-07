@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/shopping_cardColor_light">
+            android:background="@color/shopping_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="Description"
-                            android:textColor="@color/shopping_cardColor_textview"
+                            android:textColor="@color/shopping_color_dark"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
@@ -184,7 +184,7 @@
                             android:minLines="1"
                             android:paddingBottom="6dp"
                             android:text="Offer Available"
-                            android:textColor="@color/shopping_cardColor_textview"
+                            android:textColor="@color/shopping_color_dark"
                             android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
