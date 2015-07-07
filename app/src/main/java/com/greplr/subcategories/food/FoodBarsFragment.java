@@ -22,7 +22,6 @@
 package com.greplr.subcategories.food;
 
 import android.content.ActivityNotFoundException;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +46,7 @@ import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +64,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<Restaurant> barList;
+    private List<Restaurant.RestaurantResult.RestaurantItem> barList;
 
     public static FoodBarsFragment newInstance() {
         return new FoodBarsFragment();
@@ -90,6 +90,8 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodBarsFragment onCreateView");
 
+        barList = new ArrayList<>();
+
         View rootView = inflater.inflate(R.layout.fragment_food_bar, container, false);
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodRestaurants(
@@ -100,13 +102,12 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                     public void success(Restaurant bars, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl());
                         Log.d(LOG_TAG, "response " + response.getStatus());
-//                        for(int i=0;i<bars.size();i++){
-//                            if(bars.get(i).getItems().getHas_bar().equals("1")){
-//                                barList.add(bars.get(i));
-//                            }
-//                        }
-//                        barList = bars;
-//                        updateBars(barList);
+                        for(int i=0;i<bars.getResults().size();i++){
+                            if(bars.getResults().get(i).getResult().getHas_bar().equals("1")){
+                                barList.add(bars.getResults().get(i).getResult());
+                            }
+                        }
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BarAdapter()));
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -143,10 +144,6 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
 
     }
 
-    public void updateBars(List<Restaurant> bars) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BarAdapter()));
-    }
-
     public class BarAdapter extends RecyclerView.Adapter<BarAdapter.ViewHolder> {
 
 
@@ -158,24 +155,24 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {/*
-            viewHolder.restaurantName.setText(barList.get(i).getItems().getName());
-            viewHolder.distance.setText(barList.get(i).getItems().getDistance_friendly());
-            viewHolder.address.setText(barList.get(i).getItems().getAddress());
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.restaurantName.setText(barList.get(i).getName());
+            viewHolder.distance.setText(barList.get(i).getDistance_friendly());
+            viewHolder.address.setText(barList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
                         Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                                Uri.parse("geo:0,0?q=" + barList.get(i).getItems().getLatitude() + "," + barList.get(i).getItems().getLongitude() + "(" + barList.get(i).getItems().getName() + ")"));
+                                Uri.parse("geo:0,0?q=" + barList.get(i).getLatitude() + "," + barList.get(i).getLongitude() + "(" + barList.get(i).getName() + ")"));
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?q=loc:" + barList.get(i).getItems().getLatitude() + "," + barList.get(i).getItems().getLongitude()+"("+ barList.get(i).getItems().getName()  + ")&iwloc=A&hl=es")));
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + barList.get(i).getLatitude() + "," + barList.get(i).getLongitude()+"("+ barList.get(i).getName()  + ")&iwloc=A&hl=es")));
                     }
                 }
             });
-        */}
+        }
 
         @Override
         public int getItemCount() {

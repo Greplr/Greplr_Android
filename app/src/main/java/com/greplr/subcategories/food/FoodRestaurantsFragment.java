@@ -46,6 +46,7 @@ import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<Restaurant> restaurantList;
+    private List<Restaurant.RestaurantResult.RestaurantItem> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
         return new FoodRestaurantsFragment();
@@ -89,6 +90,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
 
+        restaurantList = new ArrayList<>();
+
         View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodRestaurants(
@@ -98,8 +101,10 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                     @Override
                     public void success(Restaurant restaurants, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-//                        restaurantList = restaurants;
-//                        updateRestaurants(restaurantList);
+                        for(int i=0;i<restaurants.getResults().size();i++){
+                            restaurantList.add(restaurants.getResults().get(i).getResult());
+                        }
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RestaurantAdapter()));
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -136,10 +141,6 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
     }
 
-    public void updateRestaurants(List<Restaurant> restaurants) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RestaurantAdapter()));
-    }
-
     public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
 
@@ -151,24 +152,24 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {/*
-            viewHolder.restaurantName.setText(restaurantList.get(i).getItems().getName());
-            viewHolder.distance.setText(restaurantList.get(i).getItems().getDistance_friendly());
-            viewHolder.address.setText(restaurantList.get(i).getItems().getAddress());
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.restaurantName.setText(restaurantList.get(i).getName());
+            viewHolder.distance.setText(restaurantList.get(i).getDistance_friendly());
+            viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     try {
                         Intent intent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("geo:0,0?q=" + restaurantList.get(i).getItems().getLatitude() + "," + restaurantList.get(i).getItems().getLongitude() + "(" + restaurantList.get(i).getItems().getName() + ")"));
+                                Uri.parse("geo:0,0?q=" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude() + "(" + restaurantList.get(i).getName() + ")"));
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?q=loc:" + restaurantList.get(i).getItems().getLatitude() + "," + restaurantList.get(i).getItems().getLongitude()+"("+ restaurantList.get(i).getItems().getName()  + ")&iwloc=A&hl=es")));
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude()+"("+ restaurantList.get(i).getName()  + ")&iwloc=A&hl=es")));
                     }
                 }
             });
-        */}
+        }
 
         @Override
         public int getItemCount() {
