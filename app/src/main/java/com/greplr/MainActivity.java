@@ -170,7 +170,10 @@ public class MainActivity
 
     public void showSlidePanel () {
         //bottomSliderLayout.setVisibility(View.VISIBLE);
-        slideFrame.setPanelHeight(getResources().getDimensionPixelOffset(R.dimen.sliding_panel_height));
+        //slideFrame.setPanelHeight(getResources().getDimensionPixelOffset(R.dimen.sliding_panel_height));
+
+        // For now always hide
+        hideSlidePanel();
     }
 
     public void hideSlidePanel() {
