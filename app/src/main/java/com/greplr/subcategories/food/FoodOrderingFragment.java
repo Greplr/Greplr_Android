@@ -56,7 +56,8 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Food/Order";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<Order> orderList;
+    private List<Order.OrderRestaurants> restaurantList;
+    private String area_id;
 
     public static FoodOrderingFragment newInstance() {
         return new FoodOrderingFragment();
@@ -87,13 +88,14 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         apiHandler.getOrderFood(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
-                new Callback<List<Order>>() {
+                new Callback<Order>() {
                     @Override
-                    public void success(List<Order> orders, Response response) {
+                    public void success(Order orders, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        orderList = orders;
-//                        updateOrders(orderList);
-                        Log.d(LOG_TAG, orderList.get(0).getAddress() + "  " + orderList.get(0).getAddressLine2() + "  " + orderList.get(0).getCode() + "  " + orderList.get(0).getCustomerPhone() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getDescription() + "  " + orderList.get(0).getId() + "  " + orderList.get(0).getLatitude() + "  " + orderList.get(0).getLogo() + "  " + orderList.get(0).getLongitude() + "  " + orderList.get(0).getMetadata() + "  " + orderList.get(0).getMinimumDeliveryFee() + "  " + orderList.get(0).getMinimumDeliveryTime() + "  " + orderList.get(0).getMinimumOrderAmount() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getChain().getName());
+                        area_id = orders.getArea_id();
+                        restaurantList = orders.getRestaurants();
+//                      updateOrders(restaurantList);
+                        Log.d(LOG_TAG, restaurantList.get(0).getAddress() + "  " + restaurantList.get(0).getAddressLine2() + "  " + restaurantList.get(0).getCode() + "  " + restaurantList.get(0).getCustomerPhone() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getMinimumDeliveryFee() + "  " + restaurantList.get(0).getMinimumDeliveryTime() + "  " + restaurantList.get(0).getMinimumOrderAmount() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getChain().getName());
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));

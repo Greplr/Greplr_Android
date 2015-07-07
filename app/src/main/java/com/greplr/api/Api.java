@@ -124,7 +124,5 @@ public interface Api {
     void getOrderFood(
             @Query("lat") String latitude,
             @Query("lng") String longitude,
-            Callback<List<Order>> callback);
-
-
+            Callback<Order> callback);
 }
