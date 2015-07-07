@@ -38,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#558B2F">
+            android:background="@color/travel_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -53,7 +53,6 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/cab_type"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_alignParentLeft="true"
@@ -160,7 +159,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -204,7 +202,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th1"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -247,7 +244,6 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th5"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -293,7 +289,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th3"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -317,7 +312,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Prize"
-                            android:textColor="#F44336"
+                            android:textColor="@color/prize_textview"
                             android:textSize="12sp"
                             android:textStyle="italic" />
                     </LinearLayout>

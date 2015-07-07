@@ -32,7 +32,6 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/cab_type"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_alignParentLeft="true"
@@ -95,7 +94,6 @@
                     >
 
                     <LinearLayout
-                        android:id="@+id/l3"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
@@ -129,7 +127,6 @@
                         android:paddingRight="4dp">
 
                         <LinearLayout
-                            android:id="@+id/l2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -168,7 +165,6 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th5"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -182,10 +178,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
                         android:orientation="vertical"
                         android:paddingLeft="4dp"
                         android:gravity="center">
@@ -214,7 +207,6 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th3"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -228,10 +220,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
                         android:orientation="vertical"
                         android:paddingLeft="4dp"
                         android:gravity="center">

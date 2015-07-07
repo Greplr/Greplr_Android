@@ -37,7 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#558B2F">
+            android:background="@color/travel_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -114,7 +114,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -157,7 +156,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th1"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"

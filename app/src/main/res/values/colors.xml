@@ -57,4 +57,9 @@
 
 
 
+    <color name="shopping_cardColor_light">#7F2CCB</color>
+    <color name="shopping_cardColor_textview">#210B2C</color>
+
+    <color name="prize_textview">#F44336</color>
+
 </resources>
