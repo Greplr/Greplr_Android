@@ -20,6 +20,20 @@ android {
         versionCode 8
         versionName "0.4.4"
     }
+
+    productFlavors {
+        mmx {
+            applicationId "com.greplr"
+            versionCode 8
+            versionName '0.4.4'
+        }
+        playstore {
+            applicationId "com.greplr"
+            versionCode 8
+            versionName '0.4.4'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

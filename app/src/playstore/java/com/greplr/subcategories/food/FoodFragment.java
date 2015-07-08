@@ -21,6 +21,7 @@ package com.greplr.subcategories.food;
 import com.greplr.R;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategory;
+import com.greplr.subcategories.food.FoodCafesFragment;
 
 /**
  * Created by championswimmer on 10/6/15.
