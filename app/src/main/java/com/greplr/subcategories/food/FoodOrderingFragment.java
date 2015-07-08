@@ -2,21 +2,18 @@
  * Greplr : A super-aggregator. One app to rule them all.
  *     Copyright (C) 2015  Greplr Team
  *     Where Greplr Team consists of :
- *       Arnav Gupta, Abhinv Sinha, Raghav Apoorv,
- *       Shubham Dokania, Yogesh Balan
+ *       1. Arnav Gupta
+ *       2. Abhinav Sinha
+ *       3. Prempal Singh
+ *       4. Raghav Apoorv
+ *       5. Shubham Dokania
+ *       6. Yogesh Balan
  *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ *     The source code of this program is confidential and proprietary. If you are not part of the
+ *     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
  *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *     You should immediately close your copy of code, and destory the file. You are not authorised to
+ *     be in possession of this code or view or modify it or use it in any capacity.
  */
 
 package com.greplr.subcategories.food;
@@ -56,7 +53,8 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Food/Order";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    private List<Order> orderList;
+    private List<Order.OrderRestaurants> restaurantList;
+    private String area_id;
 
     public static FoodOrderingFragment newInstance() {
         return new FoodOrderingFragment();
@@ -87,13 +85,14 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         apiHandler.getOrderFood(
                 String.valueOf(App.currentLatitude),
                 String.valueOf(App.currentLongitude),
-                new Callback<List<Order>>() {
+                new Callback<Order>() {
                     @Override
-                    public void success(List<Order> orders, Response response) {
+                    public void success(Order orders, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        orderList = orders;
-//                        updateOrders(orderList);
-                        Log.d(LOG_TAG, orderList.get(0).getAddress() + "  " + orderList.get(0).getAddressLine2() + "  " + orderList.get(0).getCode() + "  " + orderList.get(0).getCustomerPhone() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getDescription() + "  " + orderList.get(0).getId() + "  " + orderList.get(0).getLatitude() + "  " + orderList.get(0).getLogo() + "  " + orderList.get(0).getLongitude() + "  " + orderList.get(0).getMetadata() + "  " + orderList.get(0).getMinimumDeliveryFee() + "  " + orderList.get(0).getMinimumDeliveryTime() + "  " + orderList.get(0).getMinimumOrderAmount() + "  " + orderList.get(0).getCustomLocationUrl() + "  " + orderList.get(0).getChain().getName());
+                        area_id = orders.getArea_id();
+                        restaurantList = orders.getRestaurants();
+//                      updateOrders(restaurantList);
+                        Log.d(LOG_TAG, restaurantList.get(0).getAddress() + "  " + restaurantList.get(0).getAddressLine2() + "  " + restaurantList.get(0).getCode() + "  " + restaurantList.get(0).getCustomerPhone() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getMinimumDeliveryFee() + "  " + restaurantList.get(0).getMinimumDeliveryTime() + "  " + restaurantList.get(0).getMinimumOrderAmount() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getChain().getName());
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));

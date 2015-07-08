@@ -3,21 +3,18 @@
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
-  ~       Arnav Gupta, Abhinv Sinha, Raghav Apoorv,
-  ~       Shubham Dokania, Yogesh Balan
+  ~       1. Arnav Gupta
+  ~       2. Abhinav Sinha
+  ~       3. Prempal Singh
+  ~       4. Raghav Apoorv
+  ~       5. Shubham Dokania
+  ~       6. Yogesh Balan
   ~
-  ~     This program is free software: you can redistribute it and/or modify
-  ~     it under the terms of the GNU General Public License as published by
-  ~     the Free Software Foundation, either version 3 of the License, or
-  ~     (at your option) any later version.
+  ~     The source code of this program is confidential and proprietary. If you are not part of the
+  ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     This program is distributed in the hope that it will be useful,
-  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~     GNU General Public License for more details.
-  ~
-  ~     You should have received a copy of the GNU General Public License
-  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
 <com.greplr.common.ui.GlassCardView
@@ -38,7 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#558B2F">
+            android:background="@color/travel_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -159,7 +156,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -202,7 +198,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th1"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -245,7 +240,6 @@
                         android:layout_height="wrap_content">
 
                         <ImageView
-                            android:id="@+id/th3"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -269,7 +263,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:text="Prize"
-                            android:textColor="#F44336"
+                            android:textColor="@color/prize_textview"
                             android:textStyle="italic"
                             android:textSize="12sp"/>
                     </LinearLayout>

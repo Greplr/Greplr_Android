@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Greplr : A super-aggregator. One app to rule them all.
+  ~     Copyright (C) 2015  Greplr Team
+  ~     Where Greplr Team consists of :
+  ~       1. Arnav Gupta
+  ~       2. Abhinav Sinha
+  ~       3. Prempal Singh
+  ~       4. Raghav Apoorv
+  ~       5. Shubham Dokania
+  ~       6. Yogesh Balan
+  ~
+  ~     The source code of this program is confidential and proprietary. If you are not part of the
+  ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
+  ~
+  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     be in possession of this code or view or modify it or use it in any capacity.
+  -->
+
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_focused="true">
         <shape>
             <solid android:color="@android:color/background_light" />
-            <stroke android:width="2dp" android:color="@color/travel_cardColor" />
+            <stroke android:width="2dp" android:color="@color/travel_color_primary" />
             <corners android:radius="3dp" />
         </shape>
     </item>
     <item android:state_enabled="false">
         <shape>
             <solid android:color="@color/greplr_accent" />
-            <stroke android:width="1dp" android:color="@color/travel_cardColor" />
+            <stroke android:width="1dp" android:color="@color/travel_color_primary" />
             <corners android:radius="3dp" />
         </shape>
     </item>
@@ -19,7 +37,7 @@
     <item>
         <shape android:shape="rectangle">
             <solid android:color="@android:color/background_light" />
-            <stroke android:width="1dp" android:color="@color/travel_fab_color" />
+            <stroke android:width="1dp" android:color="@color/travel_color_dark" />
             <corners android:radius="3dp" />
         </shape>
     </item>

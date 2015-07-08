@@ -2,21 +2,18 @@
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
-  ~       Arnav Gupta, Abhinv Sinha, Raghav Apoorv,
-  ~       Shubham Dokania, Yogesh Balan
+  ~       1. Arnav Gupta
+  ~       2. Abhinav Sinha
+  ~       3. Prempal Singh
+  ~       4. Raghav Apoorv
+  ~       5. Shubham Dokania
+  ~       6. Yogesh Balan
   ~
-  ~     This program is free software: you can redistribute it and/or modify
-  ~     it under the terms of the GNU General Public License as published by
-  ~     the Free Software Foundation, either version 3 of the License, or
-  ~     (at your option) any later version.
+  ~     The source code of this program is confidential and proprietary. If you are not part of the
+  ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     This program is distributed in the hope that it will be useful,
-  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~     GNU General Public License for more details.
-  ~
-  ~     You should have received a copy of the GNU General Public License
-  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,6 +26,7 @@
     android:foreground="?selectableItemBackground">
 
 
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/events_cardColor_light">
+            android:background="@color/events_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -52,14 +50,13 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/cab_type"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
-                        android:background="@drawable/ic_local_play"
+                        android:background="@drawable/ic_local_offer"
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
@@ -71,12 +68,12 @@
                     android:paddingLeft="20dp">
 
                     <TextView
-                        android:id="@+id/play_name"
+                        android:id="@+id/product_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="sans-serif"
-                        android:text="Play Name"
+                        android:text="Product Name"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
@@ -93,32 +90,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
-                android:layout_weight="4"
+                android:layout_weight="3"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:layout_gravity="center"
-                    >
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/l3"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+<<<<<<< HEAD
                         android:orientation="vertical"
                         android:paddingLeft="4dp">
 
@@ -126,7 +119,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Length :"
-                            android:textColor="@color/events_cardColor_textview"
+                            android:textColor="@color/events_color_dark"
                             android:textStyle="bold"
                             android:layout_marginBottom="5dp"/>
 
@@ -136,21 +129,43 @@
                             android:layout_height="wrap_content"
                             android:text="NA"
                             android:textColor="#212121"/>
+=======
+                        android:padding="2dp">
+>>>>>>> origin/yogesh
 
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/wallet_profile"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:paddingLeft="4dp">
 
-                        <LinearLayout
-                            android:id="@+id/l2"
+                        <TextView
+                            android:id="@+id/min_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingBottom="6dp"
+                            android:text="Min Prize"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/mrp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+<<<<<<< HEAD
                             android:orientation="vertical"
                             android:paddingLeft="4dp">
 
@@ -158,7 +173,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Director :"
-                                android:textColor="@color/events_cardColor_textview"
+                                android:textColor="@color/events_color_dark"
                                 android:textStyle="bold"
                                 android:layout_marginBottom="5dp"/>
 
@@ -170,54 +185,14 @@
                                 android:textColor="#212121"/>
 
                         </LinearLayout>
+=======
+                            android:paddingBottom="6dp"
+                            android:paddingLeft="10dp"
+                            android:text="MRP"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+>>>>>>> origin/yogesh
 
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:id="@+id/th5"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_star"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/play_rating"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Star"
-                            android:textColor="#F8BA07"
-                            android:textStyle="normal"
-                            android:gravity="center_vertical"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -233,110 +208,143 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th3"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
-                            android:background="@drawable/ic_actor"
+                            android:background="@drawable/ic_history"
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
+                        android:paddingLeft="4dp">
 
                         <TextView
-                            android:id="@+id/play_actors"
+                            android:id="@+id/cod"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="actors"
+                            android:paddingBottom="6dp"
+                            android:text="COD Available"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/ic_work"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:id="@+id/product_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:ellipsize="end"
                             android:maxLines="3"
                             android:minLines="1"
-                            android:textColor="#424242"
                             android:paddingBottom="6dp"
-                            android:textStyle="normal"
-                            android:gravity="center_vertical"/>
+                            android:text="Product Description"
+                            android:textColor="#212121"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
 
 
             </LinearLayout>
 
-            <!--
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:orientation="vertical">
-
-
-                                    <ImageButton
-                                        android:id="@+id/location_bar"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:adjustViewBounds="true"
-                                        android:background="@android:color/transparent"
-                                        android:scaleType="centerCrop"
-                                        android:src="@drawable/ic_location" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
 
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-
-                                    <TextView
-                                        android:id="@+id/provider"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:layout_margin="4dp"
-                                        android:gravity="center"
-                                        android:paddingBottom="2dp"
-                                        android:text="provider"
-                                        android:textColor="#BDBDBD"
-                                        android:textSize="10sp"
-                                        android:textStyle="italic" />
-                                </LinearLayout>
-
-                            </LinearLayout>
+                        <ImageButton
+                            android:id="@+id/app_icon"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop" />
 
 
-                        </LinearLayout>
-            -->
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/provider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:gravity="center"
+                            android:paddingBottom="2dp"
+                            android:text="provider"
+                            android:textColor="#BDBDBD"
+                            android:textSize="10sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
+-->
 
 </com.greplr.common.ui.GlassCardView>

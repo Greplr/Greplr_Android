@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Greplr : A super-aggregator. One app to rule them all.
+  ~     Copyright (C) 2015  Greplr Team
+  ~     Where Greplr Team consists of :
+  ~       1. Arnav Gupta
+  ~       2. Abhinav Sinha
+  ~       3. Prempal Singh
+  ~       4. Raghav Apoorv
+  ~       5. Shubham Dokania
+  ~       6. Yogesh Balan
+  ~
+  ~     The source code of this program is confidential and proprietary. If you are not part of the
+  ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
+  ~
+  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     be in possession of this code or view or modify it or use it in any capacity.
+  -->
+
 <com.greplr.common.ui.GlassCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view_bus_item"
@@ -17,7 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/events_cardColor_light">
+            android:background="@color/events_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -32,7 +50,6 @@
                     android:padding="2dp">
 
                     <ImageView
-                        android:id="@+id/cab_type"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_alignParentLeft="true"
@@ -106,7 +123,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Language :"
-                            android:textColor="@color/events_cardColor_textview"
+                            android:textColor="@color/events_color_dark"
                             android:textStyle="bold"
                             android:layout_marginBottom="5dp"/>
 
@@ -129,7 +146,6 @@
                         android:paddingRight="4dp">
 
                         <LinearLayout
-                            android:id="@+id/l2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
@@ -139,7 +155,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Length :"
-                                android:textColor="@color/events_cardColor_textview"
+                                android:textColor="@color/events_color_dark"
                                 android:textStyle="bold"
                                 android:layout_marginBottom="5dp"/>
 
@@ -168,7 +184,6 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th5"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -214,7 +229,6 @@
                         android:padding="2dp">
 
                         <ImageView
-                            android:id="@+id/th3"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -228,10 +242,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
                         android:orientation="vertical"
                         android:paddingLeft="4dp"
                         android:gravity="center">

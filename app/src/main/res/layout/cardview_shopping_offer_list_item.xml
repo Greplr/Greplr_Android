@@ -1,23 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
-  ~       Arnav Gupta, Abhinv Sinha, Raghav Apoorv,
-  ~       Shubham Dokania, Yogesh Balan
+  ~       1. Arnav Gupta
+  ~       2. Abhinav Sinha
+  ~       3. Prempal Singh
+  ~       4. Raghav Apoorv
+  ~       5. Shubham Dokania
+  ~       6. Yogesh Balan
   ~
-  ~     This program is free software: you can redistribute it and/or modify
-  ~     it under the terms of the GNU General Public License as published by
-  ~     the Free Software Foundation, either version 3 of the License, or
-  ~     (at your option) any later version.
+  ~     The source code of this program is confidential and proprietary. If you are not part of the
+  ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     This program is distributed in the hope that it will be useful,
-  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~     GNU General Public License for more details.
-  ~
-  ~     You should have received a copy of the GNU General Public License
-  ~     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,178 +27,225 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                card_view:elevation="3dp"
-                card_view:cardPreventCornerOverlap="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                card_view:cardCornerRadius="0dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-
-                    <ImageView
-                        android:id="@+id/app_icon"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop" />
-
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-
-        </LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:elevation="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:background="@color/shopping_color_light">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toEndOf="@+id/item_image"
-                    android:layout_toRightOf="@+id/item_image"
-                    android:orientation="vertical"
-                    android:paddingLeft="4dp">
+                    android:padding="2dp">
 
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_local_offer"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp">
 
                     <TextView
                         android:id="@+id/offer_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingBottom="4dp"
-                        android:text="Offer Name"
-                        android:ellipsize="end"
-                        android:maxLines="3"
-                        android:minLines="1"
-                        android:textSize="15dp"
-                        android:textColor="#483C46"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
-                    <ImageView
-                        android:id="@+id/th"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/wallet_profile"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toEndOf="@+id/item_image"
-                    android:layout_toRightOf="@+id/item_image"
-                    android:orientation="horizontal"
-                    android:paddingLeft="4dp">
-
-                    <TextView
-                        android:id="@+id/offer_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingBottom="6dp"
-                        android:text="Descroption"
-                        android:textColor="#212121"
+                        android:fontFamily="sans-serif"
+                        android:text="Play Name"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textColor="#FFFFFF"
+                        android:textSize="17sp"
                         android:textStyle="normal" />
 
                 </LinearLayout>
+
+
             </LinearLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
-                    <ImageView
-                        android:id="@+id/th1"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_history"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="3dp"
+                android:layout_weight="3"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_toEndOf="@+id/item_image"
-                    android:layout_toRightOf="@+id/item_image"
-                    android:orientation="vertical"
-                    android:paddingLeft="4dp">
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/availability"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/ic_tonality"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingBottom="6dp"
-                        android:text="Offer Available"
-                        android:textColor="#212121"
-                        android:textStyle="normal"
-                        />
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:id="@+id/offer_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="Description"
+                            android:textColor="@color/shopping_color_dark"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/ic_history"
+                            android:scaleType="centerCrop" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingLeft="4dp">
+
+                        <TextView
+                            android:id="@+id/availability"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:maxLines="3"
+                            android:minLines="1"
+                            android:paddingBottom="6dp"
+                            android:text="Offer Available"
+                            android:textColor="@color/shopping_color_dark"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/app_icon"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:adjustViewBounds="true"
+                            android:background="@android:color/transparent"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/provider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:gravity="center"
+                            android:paddingBottom="2dp"
+                            android:text="provider"
+                            android:textColor="#BDBDBD"
+                            android:textSize="10sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
 
                 </LinearLayout>
+
+
             </LinearLayout>
 
         </LinearLayout>

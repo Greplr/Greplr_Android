@@ -1,22 +1,22 @@
-package com.greplr.common.ui;
-
-
 /*
- * Copyright (C) 2013 The Android Open Source Project
+ * Greplr : A super-aggregator. One app to rule them all.
+ *     Copyright (C) 2015  Greplr Team
+ *     Where Greplr Team consists of :
+ *       1. Arnav Gupta
+ *       2. Abhinav Sinha
+ *       3. Prempal Singh
+ *       4. Raghav Apoorv
+ *       5. Shubham Dokania
+ *       6. Yogesh Balan
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *     The source code of this program is confidential and proprietary. If you are not part of the
+ *     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *     You should immediately close your copy of code, and destory the file. You are not authorised to
+ *     be in possession of this code or view or modify it or use it in any capacity.
  */
 
+package com.greplr.common.ui;
 
 
 import android.view.animation.Interpolator;
