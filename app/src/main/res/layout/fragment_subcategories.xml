@@ -18,7 +18,8 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.greplr.subcategories.SubCategoryFragment">
 
@@ -39,6 +40,7 @@
         app:viewpager_color="@android:color/transparent"
         app:viewpager_headerHeight="200dp"
         android:alpha="1"
+        app:elevation="5dp"
         app:viewpager_headerAlpha="0"
         app:viewpager_hideLogoWithFade="true"
         app:viewpager_hideToolbarAndTitle="true"
