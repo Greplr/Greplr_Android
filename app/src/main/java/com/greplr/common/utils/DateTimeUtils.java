@@ -18,16 +18,21 @@
 
 package com.greplr.common.utils;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by championswimmer on 4/7/15.
  */
 public class DateTimeUtils {
+
+    public static final String LOG_TAG = "Greplr/DateTimeUtils";
 
     /**
      * This method returns Calendar object from a ISO8601 string.
@@ -49,13 +54,10 @@ public class DateTimeUtils {
     public static Calendar busTimeToCalendar (final String iso8601string)
             throws ParseException {
         Calendar calendar = GregorianCalendar.getInstance();
-        String s = iso8601string.toUpperCase().replace("Z", "+00:00");
-        try {
-            s = s.substring(0, 27) + s.substring(28);  // to get rid of the ":"
-        } catch (IndexOutOfBoundsException e) {
-            throw new ParseException("Invalid length", 0);
-        }
-        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s);
+        String s = iso8601string.toUpperCase().replace("Z", "+0000");
+        Log.v(LOG_TAG, s);
+
+        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault()).parse(s);
         calendar.setTime(date);
 
         return calendar;
@@ -70,4 +72,22 @@ public class DateTimeUtils {
         return calendar;
     }
 
+
+    public static String intToHrString (int hr, boolean twentyFourHrs) {
+        if (!twentyFourHrs && hr > 12) {
+            hr -= 12;
+        }
+        if (hr<10)
+            return "0"+hr;
+        else
+            return String.valueOf(hr);
+    }
+
+    public static String intToMinString (int min) {
+
+        if (min<10)
+            return "0"+min;
+        else
+            return String.valueOf(min);
+    }
 }
