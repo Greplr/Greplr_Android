@@ -16,11 +16,23 @@
   ~     You should immediately close your copy of code, and destory the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
-
-<android.support.v7.widget.RecyclerView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recyclerview_cab"
-    android:padding="@dimen/padding_main_recyclerview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
+     android:layout_height="match_parent"
+     android:layout_width="match_parent">
+
+    <include layout="@layout/cardview_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerview_cab"
+        android:padding="@dimen/padding_main_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>

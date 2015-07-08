@@ -37,14 +37,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.ui.GlassCardView;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -67,6 +70,9 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    private GlassCardView cardView;
+    private ProgressBar progressBar;
+    private RelativeLayout noInternet;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -90,39 +96,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelCabFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_travel_cab, container, false);
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getTravelCabs(
-                String.valueOf(App.currentLatitude),
-                String.valueOf(App.currentLongitude),
-                new Callback<List<Cab>>() {
-                    @Override
-                    public void success(List<Cab> cabs, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        cabList = cabs;
-                        updateCabs(cabList);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-
-                    }
-                }
-            );
-        return rootView;
+        return inflater.inflate(R.layout.fragment_travel_cab, container, false);
     }
 
     @Override
@@ -134,10 +108,47 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+        cardView = (GlassCardView) view.findViewById(R.id.cardview_progress);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noInternet = (RelativeLayout) view.findViewById(R.id.noInternet);
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        if(Utils.isOnline()){
+            apiHandler.getTravelCabs(
+                    String.valueOf(App.currentLatitude),
+                    String.valueOf(App.currentLongitude),
+                    new Callback<List<Cab>>() {
+                        @Override
+                        public void success(List<Cab> cabs, Response response) {
+                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                            cabList = cabs;
+                            cardView.setVisibility(View.GONE);
+                            updateCabs(cabList);
+                            //Parse Analytics
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                            //Parse Analytics
+                            Map<String, String> params = new HashMap<>();
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("success", "false");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+
+                        }
+                    }
+            );
+        }else{
+            progressBar.setVisibility(View.GONE);
+            noInternet.setVisibility(View.VISIBLE);
+        }
 
     }
 
