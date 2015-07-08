@@ -48,7 +48,7 @@
                 android:padding="0dp">
 
                 <ImageView
-                    android:id="@+id/cab_type"
+                    android:id="@+id/logo_bus_type"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_margin="6dp"
@@ -105,38 +105,24 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
-                    <RelativeLayout
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_bus_agency"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/travel_agency_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_bus_agency"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/travel_agency_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Travel Agency Name"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="#212121"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:text="Travel Agency Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#212121"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
                 </LinearLayout>
 
 
@@ -147,39 +133,24 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_history"
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_history"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/bus_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/bus_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Bus Type"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="#424242"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
+                        android:text="Bus Type"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#424242"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,98 +160,26 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/wallet_profile"
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/wallet_profile"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/fare"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/fare"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Prize"
-                            android:textColor="@color/prize_textview"
-                            android:textStyle="italic"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
+                        android:text="Prize"
+                        android:textColor="@color/prize_textview"
+                        android:textStyle="italic"
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-
-                        <ImageView
-                            android:id="@+id/app_icon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/provider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="4dp"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:text="provider"
-                            android:textColor="#BDBDBD"
-                            android:textSize="10sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
 
         </LinearLayout>
 
