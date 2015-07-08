@@ -20,7 +20,7 @@
 <com.greplr.common.ui.GlassCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view_bus_item"
+    android:id="@+id/card_view_cafe_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -47,87 +47,38 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/cab_type"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_directions_bus"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/dept_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="2dp">
+                    android:text="00:00"
+                    android:layout_marginRight="3dp"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="normal"/>
 
-                    <ImageView
-                        android:id="@+id/cab_type"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_directions_bus"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/arr_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp">
-
-                        <LinearLayout
-                            android:id="@+id/l3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-
-                            <TextView
-                                android:id="@+id/dept_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NA"
-                                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="normal"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-                            <LinearLayout
-                                android:id="@+id/l2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingLeft="4dp">
-
-                                <TextView
-                                    android:id="@+id/arr_time"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="NA"
-                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="17sp"
-                                    android:textStyle="normal"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:layout_marginLeft="3dp"
+                    android:text="11:11"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="normal"/>
 
             </LinearLayout>
 
