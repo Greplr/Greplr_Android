@@ -22,7 +22,6 @@ package com.greplr.subcategories;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -129,7 +128,6 @@ public abstract class SubCategoryFragment extends Fragment {
         //Set the first under-sub fragment's background image by default
         int backImgRes = ((UnderSubCategoryFragment) pagerAdapter.getItem(0)).getBackgroundResId();
         Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
-
         headerLogo.setImageResource(((UnderSubCategoryFragment) pagerAdapter.getItem(0)).getFragmentIcon());
 
 

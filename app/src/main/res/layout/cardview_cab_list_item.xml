@@ -22,8 +22,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?selectableItemBackground"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false">
 
 
     <LinearLayout
