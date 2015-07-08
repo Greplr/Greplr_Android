@@ -21,20 +21,16 @@ android {
         applicationId "com.greplr"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 8
-        versionName "0.4.4"
+        versionCode 9
+        versionName "0.4.5"
     }
 
     productFlavors {
         mmx {
-            applicationId "com.greplr"
-            versionCode 8
-            versionName '0.4.4'
+
         }
         playstore {
-            applicationId "com.greplr"
-            versionCode 8
-            versionName '0.4.4'
+
         }
     }
 
