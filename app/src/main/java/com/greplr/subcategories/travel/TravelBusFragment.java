@@ -236,8 +236,8 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            Calendar depdate = Calendar.getInstance();
-            Calendar arrdate = Calendar.getInstance();
+            Calendar depdate = null;
+            Calendar arrdate = null;
             try {
                 depdate = DateTimeUtils.busTimeToCalendar(busList.get(i).getDepdate());
                 arrdate = DateTimeUtils.busTimeToCalendar(busList.get(i).getArrdate());
@@ -251,16 +251,27 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             viewHolder.travelagency.setText(busList.get(i).getTravelagency());
             viewHolder.bustype.setText(busList.get(i).getBustype());
 //            viewHolder.seat.setText(busList.get(i).getSeat());
-            viewHolder.depdate.setText(
-                            DateTimeUtils.intToHrString(depdate.get(Calendar.HOUR), true)
-                            + ":"
-                            + DateTimeUtils.intToMinString(depdate.get(Calendar.MINUTE)));
-            viewHolder.depdate.setTypeface(null, Typeface.BOLD_ITALIC);
-            viewHolder.arrdate.setText(
-                    DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR), true)
-                            + ":"
-                            + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
-            viewHolder.arrdate.setTypeface(null, Typeface.ITALIC);
+            if (depdate != null) {
+                viewHolder.depdate.setText(
+                        DateTimeUtils.intToHrString(depdate.get(Calendar.HOUR_OF_DAY), true)
+                                + ":"
+                                + DateTimeUtils.intToMinString(depdate.get(Calendar.MINUTE)));
+                viewHolder.depdate.setTypeface(null, Typeface.BOLD_ITALIC);
+            } else {
+                viewHolder.depdate.setText("");
+            }
+
+            if (arrdate != null) {
+                viewHolder.arrdate.setText(
+                        DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
+                                + ":"
+                                + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
+                viewHolder.arrdate.setTypeface(null, Typeface.ITALIC);
+            } else {
+                viewHolder.arrdate.setText("");
+            }
+
+
             viewHolder.fare.setText(busList.get(i).getFare());
         }
 

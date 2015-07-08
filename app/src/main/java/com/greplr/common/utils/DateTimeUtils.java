@@ -53,11 +53,15 @@ public class DateTimeUtils {
      */
     public static Calendar busTimeToCalendar (final String iso8601string)
             throws ParseException {
+        if (iso8601string == null || iso8601string.length() < 19){
+            return null;
+        }
         Calendar calendar = GregorianCalendar.getInstance();
-        String s = iso8601string.toUpperCase().replace("Z", "+0000");
-        Log.v(LOG_TAG, s);
+        String s = iso8601string.toUpperCase().replace("Z", "+0530");
+        if (s.length() == 19) s+="+0530";
+        Log.v(LOG_TAG, s + " len=" + s.length());
 
-        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault()).parse(s);
+        Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(s);
         calendar.setTime(date);
 
         return calendar;
