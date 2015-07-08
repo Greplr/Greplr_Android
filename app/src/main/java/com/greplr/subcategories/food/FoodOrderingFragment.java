@@ -18,14 +18,20 @@
 
 package com.greplr.subcategories.food;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -36,6 +42,7 @@ import com.greplr.api.Api;
 import com.greplr.models.food.Order;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -91,7 +98,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         area_id = orders.getArea_id();
                         restaurantList = orders.getRestaurants();
-//                      updateOrders(restaurantList);
+                        updateOrders(restaurantList);
                         Log.d(LOG_TAG, restaurantList.get(0).getAddress() + "  " + restaurantList.get(0).getAddressLine2() + "  " + restaurantList.get(0).getCode() + "  " + restaurantList.get(0).getCustomerPhone() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getMinimumDeliveryFee() + "  " + restaurantList.get(0).getMinimumDeliveryTime() + "  " + restaurantList.get(0).getMinimumOrderAmount() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getChain().getName());
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
@@ -128,6 +135,65 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         mRecyclerView.setAdapter(mAdapter);
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
+    }
+    public void updateOrders(List<Order.OrderRestaurants> restaurantList){
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new OrderAdapter()));
+    }
+
+    public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+            CardView v = (CardView) LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.cardview_order_item, viewGroup, false);
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            viewHolder.restaurantName.setText(restaurantList.get(i).getName());
+            viewHolder.rating.setText(restaurantList.get(i).getRating() +"/5");
+            viewHolder.address.setText(restaurantList.get(i).getAddress() + " " + restaurantList.get(i).getAddressLine2());
+            viewHolder.location.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q=" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude() + "(" + restaurantList.get(i).getName() + ")"));
+                    startActivity(intent);
+                }
+            });
+            Picasso.with(getActivity()).load(restaurantList.get(i).getLogo()).fit().centerCrop().into(viewHolder.logo);
+           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
+            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
+            } else
+                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
+        }
+
+        @Override
+        public int getItemCount() {
+            return restaurantList.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            TextView restaurantName;
+            TextView rating;
+            TextView address;
+            ImageButton location;
+            TextView minOrder;
+            ImageView logo;
+
+            public ViewHolder(CardView v) {
+                super(v);
+                restaurantName = (TextView) v.findViewById(R.id.restaurant_order_name);
+                rating = (TextView) v.findViewById(R.id.restaurant_order_rating);
+                address = (TextView) v.findViewById(R.id.restaurant_order_address);
+                location = (ImageButton) v.findViewById(R.id.location_restaurant_order);
+                minOrder = (TextView) v.findViewById(R.id.restaurant_order_min_order);
+                logo = (ImageView) v.findViewById(R.id.logo_restaurant_order);
+            }
+        }
     }
 
 }
