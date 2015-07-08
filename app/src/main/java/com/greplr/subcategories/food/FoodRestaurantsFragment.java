@@ -101,7 +101,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                     @Override
                     public void success(Restaurant restaurants, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        for(int i=0;i<restaurants.getResults().size();i++){
+                        for (int i = 0; i < restaurants.getResults().size(); i++) {
                             restaurantList.add(restaurants.getResults().get(i).getResult());
                         }
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RestaurantAdapter()));
@@ -123,7 +123,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                         ParseAnalytics.trackEventInBackground("food/restaurants/search", params);
                     }
                 }
-            );
+        );
         return rootView;
     }
 
@@ -156,6 +156,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             viewHolder.restaurantName.setText(restaurantList.get(i).getName());
             viewHolder.distance.setText(restaurantList.get(i).getDistance_friendly());
             viewHolder.address.setText(restaurantList.get(i).getAddress());
+            viewHolder.price.setText("\u20B9 " + restaurantList.get(i).getCost_for_two() + " for two");
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -180,6 +181,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             TextView restaurantName;
             TextView distance;
             TextView address;
+            TextView price;
             ImageButton location;
 
             public ViewHolder(CardView v) {
@@ -188,6 +190,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                 distance = (TextView) v.findViewById(R.id.rest_distance);
                 address = (TextView) v.findViewById(R.id.rest_address);
                 location = (ImageButton) v.findViewById(R.id.location_restaurant);
+                price = (TextView) v.findViewById(R.id.rest_price);
             }
         }
     }

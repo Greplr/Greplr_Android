@@ -185,6 +185,15 @@
             </LinearLayout>
         </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:id="@+id/rest_price"
+                android:textColor="#212121"
+                android:textStyle="normal"
+                />
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"

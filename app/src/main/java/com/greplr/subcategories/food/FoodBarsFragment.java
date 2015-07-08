@@ -159,6 +159,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             viewHolder.restaurantName.setText(barList.get(i).getName());
             viewHolder.distance.setText(barList.get(i).getDistance_friendly());
             viewHolder.address.setText(barList.get(i).getAddress());
+            viewHolder.price.setText("\u20B9 " + barList.get(i).getCost_for_two() + " for two");
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -183,6 +184,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
             TextView restaurantName;
             TextView distance;
             TextView address;
+            TextView price;
             ImageButton location;
             public ViewHolder(CardView v) {
                 super(v);
@@ -190,6 +192,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                 distance = (TextView) v.findViewById(R.id.bar_distance);
                 address = (TextView) v.findViewById(R.id.bar_address);
                 location = (ImageButton) v.findViewById(R.id.location_bar);
+                price = (TextView) v.findViewById(R.id.rest_price);
             }
         }
     }
