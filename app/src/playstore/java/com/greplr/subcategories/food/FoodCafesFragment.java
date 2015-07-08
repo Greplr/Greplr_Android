@@ -20,8 +20,7 @@ package com.greplr.subcategories.food;
 
 
 import android.content.Intent;
-import androi
-.net.Uri;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
