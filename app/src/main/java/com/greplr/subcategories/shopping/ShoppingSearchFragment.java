@@ -140,7 +140,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             @Override
             public void onClick(View v) {
                 final Dialog customDialog = new Dialog(getActivity());
-                customDialog.setContentView(R.layout.shopping_search_dialog);
+                customDialog.setContentView(R.layout.searchdialog_shopping_search);
                 customDialog.setTitle("What are you looking for?");
                 customDialog.setCancelable(true);
                 final EditText product = (EditText) customDialog.findViewById(R.id.et_product_name);
