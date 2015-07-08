@@ -99,7 +99,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                         area_id = orders.getArea_id();
                         restaurantList = orders.getRestaurants();
                         updateOrders(restaurantList);
-                        Log.d(LOG_TAG, restaurantList.get(0).getAddress() + "  " + restaurantList.get(0).getAddressLine2() + "  " + restaurantList.get(0).getCode() + "  " + restaurantList.get(0).getCustomerPhone() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getMinimumDeliveryFee() + "  " + restaurantList.get(0).getMinimumDeliveryTime() + "  " + restaurantList.get(0).getMinimumOrderAmount() + "  " + restaurantList.get(0).getCustomLocationUrl() + "  " + restaurantList.get(0).getChain().getName());
+                        Log.d(LOG_TAG, restaurantList.get(0).getAddress()  + "  " + restaurantList.get(0).getCode()  + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getChain().getName());
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -154,7 +154,8 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(restaurantList.get(i).getName());
             viewHolder.rating.setText(restaurantList.get(i).getRating() +"/5");
-            viewHolder.address.setText(restaurantList.get(i).getAddress() + " " + restaurantList.get(i).getAddressLine2());
+            viewHolder.minOrder.setText("Minimum Order : \u20b9"+restaurantList.get(i).getMinimum_order_amount());
+            viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

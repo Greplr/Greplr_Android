@@ -47,60 +47,67 @@ public class Order {
     }
 
 
-
     public class OrderRestaurants {
+
         private String rating;
         private String code;
         private Chain chain;
-        private String reviewNumber;
-        private Boolean isDeliveryEnabled;
-        private List<String> foodCharacteristics = new ArrayList<>();
-        private String webPath;
-        private Boolean isTest;
-        private String minimumOrderAmount;
+        private String review_number;
+        private Boolean is_delivery_enabled;
+        private List<String> food_characteristics = new ArrayList<>();
+        private String web_path;
+        private Boolean is_test;
+        private String minimum_order_amount;
         private String logo;
-        private String urlKey;
+        private String url_key;
         private String id;
-        private String addressLine2;
+        private String address_line2;
         private City city;
-        private Boolean isServiceTaxVisible;
-        private String vatPercentageAmount;
+        private Boolean is_service_tax_visible;
+        private String vat_percentage_amount;
+        private Boolean is_preorder_enabled;
+        private String custom_location_url;
+        private Boolean is_vat_visible;
+        private String minimum_delivery_fee;
+        private String post_code;
+        private Boolean is_vat_included_in_product_price;
+        private String minimum_pickup_time;
+        private String customer_phone;
+        private Boolean is_replacement_dish_enabled;
+        private String redirection_url;
+        private Boolean is_vat_disabled;
+        private Boolean is_pickup_enabled;
+        private String service_tax_percentage_amount;
+        private Boolean is_checkout_comment_enabled;
+        private String customer_type;
+        private Boolean is_service_tax_enabled;
+        private Boolean is_voucher_enabled;
+        private String minimum_delivery_time;
+        private Boolean is_service_fee_enabled;
+        private String service_fee_percentage_amount;
         private List<String> menus = new ArrayList<>();
         private List<String> schedules = new ArrayList<>();
-        private Boolean isPreorderEnabled;
-        private List<Discount> discounts = new ArrayList<Discount>();
-        private String customLocationUrl;
         private List<String> cuisines = new ArrayList<>();
         private String latitude;
-        private List<String> specialDays = new ArrayList<>();
+        private List<String> special_days = new ArrayList<>();
         private String metadata;
         private String website;
-        private Boolean isVatVisible;
-        private String minimumDeliveryFee;
-        private String postCode;
         private String description;
-        private Boolean isVatIncludedInProductPrice;
-        private String minimumPickupTime;
-        private String customerPhone;
-        private Boolean isReplacementDishEnabled;
-        private String redirectionUrl;
-        private Boolean isVatDisabled;
-        private List<String> paymentTypes = new ArrayList<>();
+        private List<String> payment_types = new ArrayList<>();
         private String address;
-        private Boolean isPickupEnabled;
-        private Integer serviceTaxPercentageAmount;
         private String name;
         private String longitude;
-        private Boolean isCheckoutCommentEnabled;
-        private String customerType;
-        private Boolean isServiceTaxEnabled;
-        private Boolean isVoucherEnabled;
-        private String minimumDeliveryTime;
-        private Boolean isServiceFeeEnabled;
-        private String serviceFeePercentageAmount;
 
         public String getRating() {
             return rating;
+        }
+
+        public List<String> getSpecial_days() {
+            return special_days;
+        }
+
+        public void setSpecial_days(List<String> special_days) {
+            this.special_days = special_days;
         }
 
         public void setRating(String rating) {
@@ -123,52 +130,52 @@ public class Order {
             this.chain = chain;
         }
 
-        public String getReviewNumber() {
-            return reviewNumber;
+        public String getReview_number() {
+            return review_number;
         }
 
-        public void setReviewNumber(String reviewNumber) {
-            this.reviewNumber = reviewNumber;
+        public void setReview_number(String review_number) {
+            this.review_number = review_number;
         }
 
-        public Boolean getIsDeliveryEnabled() {
-            return isDeliveryEnabled;
+        public Boolean getIs_delivery_enabled() {
+            return is_delivery_enabled;
         }
 
-        public void setIsDeliveryEnabled(Boolean isDeliveryEnabled) {
-            this.isDeliveryEnabled = isDeliveryEnabled;
+        public void setIs_delivery_enabled(Boolean is_delivery_enabled) {
+            this.is_delivery_enabled = is_delivery_enabled;
         }
 
-        public List<String> getFoodCharacteristics() {
-            return foodCharacteristics;
+        public List<String> getFood_characteristics() {
+            return food_characteristics;
         }
 
-        public void setFoodCharacteristics(List<String> foodCharacteristics) {
-            this.foodCharacteristics = foodCharacteristics;
+        public void setFood_characteristics(List<String> food_characteristics) {
+            this.food_characteristics = food_characteristics;
         }
 
-        public String getWebPath() {
-            return webPath;
+        public String getWeb_path() {
+            return web_path;
         }
 
-        public void setWebPath(String webPath) {
-            this.webPath = webPath;
+        public void setWeb_path(String web_path) {
+            this.web_path = web_path;
         }
 
-        public Boolean getIsTest() {
-            return isTest;
+        public Boolean getIs_test() {
+            return is_test;
         }
 
-        public void setIsTest(Boolean isTest) {
-            this.isTest = isTest;
+        public void setIs_test(Boolean is_test) {
+            this.is_test = is_test;
         }
 
-        public String getMinimumOrderAmount() {
-            return minimumOrderAmount;
+        public String getMinimum_order_amount() {
+            return minimum_order_amount;
         }
 
-        public void setMinimumOrderAmount(String minimumOrderAmount) {
-            this.minimumOrderAmount = minimumOrderAmount;
+        public void setMinimum_order_amount(String minimum_order_amount) {
+            this.minimum_order_amount = minimum_order_amount;
         }
 
         public String getLogo() {
@@ -179,12 +186,12 @@ public class Order {
             this.logo = logo;
         }
 
-        public String getUrlKey() {
-            return urlKey;
+        public String getUrl_key() {
+            return url_key;
         }
 
-        public void setUrlKey(String urlKey) {
-            this.urlKey = urlKey;
+        public void setUrl_key(String url_key) {
+            this.url_key = url_key;
         }
 
         public String getId() {
@@ -195,12 +202,12 @@ public class Order {
             this.id = id;
         }
 
-        public String getAddressLine2() {
-            return addressLine2;
+        public String getAddress_line2() {
+            return address_line2;
         }
 
-        public void setAddressLine2(String addressLine2) {
-            this.addressLine2 = addressLine2;
+        public void setAddress_line2(String address_line2) {
+            this.address_line2 = address_line2;
         }
 
         public City getCity() {
@@ -211,20 +218,181 @@ public class Order {
             this.city = city;
         }
 
-        public Boolean getIsServiceTaxVisible() {
-            return isServiceTaxVisible;
+        public Boolean getIs_service_tax_visible() {
+            return is_service_tax_visible;
         }
 
-        public void setIsServiceTaxVisible(Boolean isServiceTaxVisible) {
-            this.isServiceTaxVisible = isServiceTaxVisible;
+        public void setIs_service_tax_visible(Boolean is_service_tax_visible) {
+            this.is_service_tax_visible = is_service_tax_visible;
         }
 
-        public String getVatPercentageAmount() {
-            return vatPercentageAmount;
+        public String getVat_percentage_amount() {
+            return vat_percentage_amount;
         }
 
-        public void setVatPercentageAmount(String vatPercentageAmount) {
-            this.vatPercentageAmount = vatPercentageAmount;
+        public void setVat_percentage_amount(String vat_percentage_amount) {
+            this.vat_percentage_amount = vat_percentage_amount;
+        }
+
+        public Boolean getIs_preorder_enabled() {
+            return is_preorder_enabled;
+        }
+
+        public void setIs_preorder_enabled(Boolean is_preorder_enabled) {
+            this.is_preorder_enabled = is_preorder_enabled;
+        }
+
+        public String getCustom_location_url() {
+            return custom_location_url;
+        }
+
+        public void setCustom_location_url(String custom_location_url) {
+            this.custom_location_url = custom_location_url;
+        }
+
+
+        public Boolean getIs_vat_visible() {
+            return is_vat_visible;
+        }
+
+        public void setIs_vat_visible(Boolean is_vat_visible) {
+            this.is_vat_visible = is_vat_visible;
+        }
+
+        public String getMinimum_delivery_fee() {
+            return minimum_delivery_fee;
+        }
+
+        public void setMinimum_delivery_fee(String minimum_delivery_fee) {
+            this.minimum_delivery_fee = minimum_delivery_fee;
+        }
+
+        public String getPost_code() {
+            return post_code;
+        }
+
+        public void setPost_code(String post_code) {
+            this.post_code = post_code;
+        }
+
+        public Boolean getIs_vat_included_in_product_price() {
+            return is_vat_included_in_product_price;
+        }
+
+        public void setIs_vat_included_in_product_price(Boolean is_vat_included_in_product_price) {
+            this.is_vat_included_in_product_price = is_vat_included_in_product_price;
+        }
+
+        public String getMinimum_pickup_time() {
+            return minimum_pickup_time;
+        }
+
+        public void setMinimum_pickup_time(String minimum_pickup_time) {
+            this.minimum_pickup_time = minimum_pickup_time;
+        }
+
+        public String getCustomer_phone() {
+            return customer_phone;
+        }
+
+        public void setCustomer_phone(String customer_phone) {
+            this.customer_phone = customer_phone;
+        }
+
+        public Boolean getIs_replacement_dish_enabled() {
+            return is_replacement_dish_enabled;
+        }
+
+        public void setIs_replacement_dish_enabled(Boolean is_replacement_dish_enabled) {
+            this.is_replacement_dish_enabled = is_replacement_dish_enabled;
+        }
+
+        public String getRedirection_url() {
+            return redirection_url;
+        }
+
+        public void setRedirection_url(String redirection_url) {
+            this.redirection_url = redirection_url;
+        }
+
+        public Boolean getIs_vat_disabled() {
+            return is_vat_disabled;
+        }
+
+        public void setIs_vat_disabled(Boolean is_vat_disabled) {
+            this.is_vat_disabled = is_vat_disabled;
+        }
+
+        public Boolean getIs_pickup_enabled() {
+            return is_pickup_enabled;
+        }
+
+        public void setIs_pickup_enabled(Boolean is_pickup_enabled) {
+            this.is_pickup_enabled = is_pickup_enabled;
+        }
+
+        public String getService_tax_percentage_amount() {
+            return service_tax_percentage_amount;
+        }
+
+        public void setService_tax_percentage_amount(String service_tax_percentage_amount) {
+            this.service_tax_percentage_amount = service_tax_percentage_amount;
+        }
+
+        public Boolean getIs_checkout_comment_enabled() {
+            return is_checkout_comment_enabled;
+        }
+
+        public void setIs_checkout_comment_enabled(Boolean is_checkout_comment_enabled) {
+            this.is_checkout_comment_enabled = is_checkout_comment_enabled;
+        }
+
+        public String getCustomer_type() {
+            return customer_type;
+        }
+
+        public void setCustomer_type(String customer_type) {
+            this.customer_type = customer_type;
+        }
+
+        public Boolean getIs_service_tax_enabled() {
+            return is_service_tax_enabled;
+        }
+
+        public void setIs_service_tax_enabled(Boolean is_service_tax_enabled) {
+            this.is_service_tax_enabled = is_service_tax_enabled;
+        }
+
+        public Boolean getIs_voucher_enabled() {
+            return is_voucher_enabled;
+        }
+
+        public void setIs_voucher_enabled(Boolean is_voucher_enabled) {
+            this.is_voucher_enabled = is_voucher_enabled;
+        }
+
+        public String getMinimum_delivery_time() {
+            return minimum_delivery_time;
+        }
+
+        public void setMinimum_delivery_time(String minimum_delivery_time) {
+            this.minimum_delivery_time = minimum_delivery_time;
+        }
+
+        public Boolean getIs_service_fee_enabled() {
+            return is_service_fee_enabled;
+        }
+
+        public void setIs_service_fee_enabled(Boolean is_service_fee_enabled) {
+            this.is_service_fee_enabled = is_service_fee_enabled;
+        }
+
+        public String getService_fee_percentage_amount() {
+            return service_fee_percentage_amount;
+        }
+
+        public void setService_fee_percentage_amount(String service_fee_percentage_amount) {
+            this.service_fee_percentage_amount = service_fee_percentage_amount;
         }
 
         public List<String> getMenus() {
@@ -241,30 +409,6 @@ public class Order {
 
         public void setSchedules(List<String> schedules) {
             this.schedules = schedules;
-        }
-
-        public Boolean getIsPreorderEnabled() {
-            return isPreorderEnabled;
-        }
-
-        public void setIsPreorderEnabled(Boolean isPreorderEnabled) {
-            this.isPreorderEnabled = isPreorderEnabled;
-        }
-
-        public List<Discount> getDiscounts() {
-            return discounts;
-        }
-
-        public void setDiscounts(List<Discount> discounts) {
-            this.discounts = discounts;
-        }
-
-        public String getCustomLocationUrl() {
-            return customLocationUrl;
-        }
-
-        public void setCustomLocationUrl(String customLocationUrl) {
-            this.customLocationUrl = customLocationUrl;
         }
 
         public List<String> getCuisines() {
@@ -284,11 +428,11 @@ public class Order {
         }
 
         public List<String> getSpecialDays() {
-            return specialDays;
+            return special_days;
         }
 
-        public void setSpecialDays(List<String> specialDays) {
-            this.specialDays = specialDays;
+        public void setSpecialDays(List<String> special_days) {
+            this.special_days = special_days;
         }
 
         public String getMetadata() {
@@ -307,30 +451,6 @@ public class Order {
             this.website = website;
         }
 
-        public Boolean getIsVatVisible() {
-            return isVatVisible;
-        }
-
-        public void setIsVatVisible(Boolean isVatVisible) {
-            this.isVatVisible = isVatVisible;
-        }
-
-        public String getMinimumDeliveryFee() {
-            return minimumDeliveryFee;
-        }
-
-        public void setMinimumDeliveryFee(String minimumDeliveryFee) {
-            this.minimumDeliveryFee = minimumDeliveryFee;
-        }
-
-        public String getPostCode() {
-            return postCode;
-        }
-
-        public void setPostCode(String postCode) {
-            this.postCode = postCode;
-        }
-
         public String getDescription() {
             return description;
         }
@@ -339,60 +459,12 @@ public class Order {
             this.description = description;
         }
 
-        public Boolean getIsVatIncludedInProductPrice() {
-            return isVatIncludedInProductPrice;
+        public List<String> getPayment_types() {
+            return payment_types;
         }
 
-        public void setIsVatIncludedInProductPrice(Boolean isVatIncludedInProductPrice) {
-            this.isVatIncludedInProductPrice = isVatIncludedInProductPrice;
-        }
-
-        public String getMinimumPickupTime() {
-            return minimumPickupTime;
-        }
-
-        public void setMinimumPickupTime(String minimumPickupTime) {
-            this.minimumPickupTime = minimumPickupTime;
-        }
-
-        public String getCustomerPhone() {
-            return customerPhone;
-        }
-
-        public void setCustomerPhone(String customerPhone) {
-            this.customerPhone = customerPhone;
-        }
-
-        public Boolean getIsReplacementDishEnabled() {
-            return isReplacementDishEnabled;
-        }
-
-        public void setIsReplacementDishEnabled(Boolean isReplacementDishEnabled) {
-            this.isReplacementDishEnabled = isReplacementDishEnabled;
-        }
-
-        public String getRedirectionUrl() {
-            return redirectionUrl;
-        }
-
-        public void setRedirectionUrl(String redirectionUrl) {
-            this.redirectionUrl = redirectionUrl;
-        }
-
-        public Boolean getIsVatDisabled() {
-            return isVatDisabled;
-        }
-
-        public void setIsVatDisabled(Boolean isVatDisabled) {
-            this.isVatDisabled = isVatDisabled;
-        }
-
-        public List<String> getPaymentTypes() {
-            return paymentTypes;
-        }
-
-        public void setPaymentTypes(List<String> paymentTypes) {
-            this.paymentTypes = paymentTypes;
+        public void setPayment_types(List<String> payment_types) {
+            this.payment_types = payment_types;
         }
 
         public String getAddress() {
@@ -401,22 +473,6 @@ public class Order {
 
         public void setAddress(String address) {
             this.address = address;
-        }
-
-        public Boolean getIsPickupEnabled() {
-            return isPickupEnabled;
-        }
-
-        public void setIsPickupEnabled(Boolean isPickupEnabled) {
-            this.isPickupEnabled = isPickupEnabled;
-        }
-
-        public Integer getServiceTaxPercentageAmount() {
-            return serviceTaxPercentageAmount;
-        }
-
-        public void setServiceTaxPercentageAmount(Integer serviceTaxPercentageAmount) {
-            this.serviceTaxPercentageAmount = serviceTaxPercentageAmount;
         }
 
         public String getName() {
@@ -433,62 +489,6 @@ public class Order {
 
         public void setLongitude(String longitude) {
             this.longitude = longitude;
-        }
-
-        public Boolean getIsCheckoutCommentEnabled() {
-            return isCheckoutCommentEnabled;
-        }
-
-        public void setIsCheckoutCommentEnabled(Boolean isCheckoutCommentEnabled) {
-            this.isCheckoutCommentEnabled = isCheckoutCommentEnabled;
-        }
-
-        public String getCustomerType() {
-            return customerType;
-        }
-
-        public void setCustomerType(String customerType) {
-            this.customerType = customerType;
-        }
-
-        public Boolean getIsServiceTaxEnabled() {
-            return isServiceTaxEnabled;
-        }
-
-        public void setIsServiceTaxEnabled(Boolean isServiceTaxEnabled) {
-            this.isServiceTaxEnabled = isServiceTaxEnabled;
-        }
-
-        public Boolean getIsVoucherEnabled() {
-            return isVoucherEnabled;
-        }
-
-        public void setIsVoucherEnabled(Boolean isVoucherEnabled) {
-            this.isVoucherEnabled = isVoucherEnabled;
-        }
-
-        public String getMinimumDeliveryTime() {
-            return minimumDeliveryTime;
-        }
-
-        public void setMinimumDeliveryTime(String minimumDeliveryTime) {
-            this.minimumDeliveryTime = minimumDeliveryTime;
-        }
-
-        public Boolean getIsServiceFeeEnabled() {
-            return isServiceFeeEnabled;
-        }
-
-        public void setIsServiceFeeEnabled(Boolean isServiceFeeEnabled) {
-            this.isServiceFeeEnabled = isServiceFeeEnabled;
-        }
-
-        public String getServiceFeePercentageAmount() {
-            return serviceFeePercentageAmount;
-        }
-
-        public void setServiceFeePercentageAmount(String serviceFeePercentageAmount) {
-            this.serviceFeePercentageAmount = serviceFeePercentageAmount;
         }
 
         public class Chain {
@@ -511,182 +511,27 @@ public class Order {
                 this.name = name;
             }
         }
+
         public class City {
-            private Object isTopCity;
-            private String urlKey;
-            private Integer id;
-            private String name;
-
-            public Object getIsTopCity() {
-                return isTopCity;
-            }
-
-            public void setIsTopCity(Object isTopCity) {
-                this.isTopCity = isTopCity;
-            }
-
-            public String getUrlKey() {
-                return urlKey;
-            }
-
-            public void setUrlKey(String urlKey) {
-                this.urlKey = urlKey;
-            }
-
-            public Integer getId() {
-                return id;
-            }
-
-            public void setId(Integer id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-        }
-        public class Discount {
-            private String description;
-            private String endDate;
-            private List<String> bogoProductBlocks = new ArrayList<>();
-            private String promotionalLimit;
-            private String discountAmount;
-            private String vendorId;
-            private String startDate;
-            private String fileName;
-            private String discountType;
-            private String bogoDiscountUnit;
-            private String conditionType;
-            private String closingTime;
-            private String openingTime;
-            private String minimumOrderValue;
-            private String conditionObject;
+            private String is_top_city;
+            private String url_key;
             private String id;
-            private String discountText;
             private String name;
 
-            public String getDescription() {
-                return description;
+            public String getIs_top_city() {
+                return is_top_city;
             }
 
-            public void setDescription(String description) {
-                this.description = description;
+            public void setIs_top_city(String is_top_city) {
+                this.is_top_city = is_top_city;
             }
 
-            public String getEndDate() {
-                return endDate;
+            public String getUrl_key() {
+                return url_key;
             }
 
-            public void setEndDate(String endDate) {
-                this.endDate = endDate;
-            }
-
-            public List<String> getBogoProductBlocks() {
-                return bogoProductBlocks;
-            }
-
-            public void setBogoProductBlocks(List<String> bogoProductBlocks) {
-                this.bogoProductBlocks = bogoProductBlocks;
-            }
-
-            public String getPromotionalLimit() {
-                return promotionalLimit;
-            }
-
-            public void setPromotionalLimit(String promotionalLimit) {
-                this.promotionalLimit = promotionalLimit;
-            }
-
-            public String getDiscountAmount() {
-                return discountAmount;
-            }
-
-            public void setDiscountAmount(String discountAmount) {
-                this.discountAmount = discountAmount;
-            }
-
-            public String getVendorId() {
-                return vendorId;
-            }
-
-            public void setVendorId(String vendorId) {
-                this.vendorId = vendorId;
-            }
-
-            public String getStartDate() {
-                return startDate;
-            }
-
-            public void setStartDate(String startDate) {
-                this.startDate = startDate;
-            }
-
-            public String getFileName() {
-                return fileName;
-            }
-
-            public void setFileName(String fileName) {
-                this.fileName = fileName;
-            }
-
-            public String getDiscountType() {
-                return discountType;
-            }
-
-            public void setDiscountType(String discountType) {
-                this.discountType = discountType;
-            }
-
-            public String getBogoDiscountUnit() {
-                return bogoDiscountUnit;
-            }
-
-            public void setBogoDiscountUnit(String bogoDiscountUnit) {
-                this.bogoDiscountUnit = bogoDiscountUnit;
-            }
-
-            public String getConditionType() {
-                return conditionType;
-            }
-
-            public void setConditionType(String conditionType) {
-                this.conditionType = conditionType;
-            }
-
-            public String getClosingTime() {
-                return closingTime;
-            }
-
-            public void setClosingTime(String closingTime) {
-                this.closingTime = closingTime;
-            }
-
-            public String getOpeningTime() {
-                return openingTime;
-            }
-
-            public void setOpeningTime(String openingTime) {
-                this.openingTime = openingTime;
-            }
-
-            public String getMinimumOrderValue() {
-                return minimumOrderValue;
-            }
-
-            public void setMinimumOrderValue(String minimumOrderValue) {
-                this.minimumOrderValue = minimumOrderValue;
-            }
-
-            public String getConditionObject() {
-                return conditionObject;
-            }
-
-            public void setConditionObject(String conditionObject) {
-                this.conditionObject = conditionObject;
+            public void setUrl_key(String url_key) {
+                this.url_key = url_key;
             }
 
             public String getId() {
@@ -697,14 +542,6 @@ public class Order {
                 this.id = id;
             }
 
-            public String getDiscountText() {
-                return discountText;
-            }
-
-            public void setDiscountText(String discountText) {
-                this.discountText = discountText;
-            }
-
             public String getName() {
                 return name;
             }
@@ -713,6 +550,6 @@ public class Order {
                 this.name = name;
             }
         }
-    }
 
+    }
 }
