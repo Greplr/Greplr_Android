@@ -38,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/events_color_light">
+            android:background="@color/events_color_primary">
 
             <LinearLayout
                 android:layout_width="wrap_content"

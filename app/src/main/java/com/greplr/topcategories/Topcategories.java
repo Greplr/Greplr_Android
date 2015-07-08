@@ -45,26 +45,26 @@ public class Topcategories {
                     "Travel",
                     R.drawable.cardicon_travel,
                     R.drawable.topcategorycard_bg_travel,
-                    R.color.travel_color_primary,
+                    R.color.travel_color_dark,
                     TravelFragment.newInstance()));
             topCategories.add(new Category(
                     "Food",
                     R.drawable.cardicon_food,
                     R.drawable.topcategorycard_bg_food,
-                    R.color.food_color_primary,
+                    R.color.food_color_dark,
                     FoodFragment.newInstance()));
             topCategories.add(new Category(
                     "Events",
                     R.drawable.cardicon_events,
                     R.drawable.topcategorycard_bg_events,
-                    R.color.event_color_primary,
+                    R.color.events_color_dark,
                     EventFragment.newInstance()));
             topCategories.add(new Category(
 
                     "Shopping",
                     R.drawable.cardicon_shopping,
                     R.drawable.topcategorycard_bg_events,
-                    R.color.shopping_color_primary,
+                    R.color.shopping_color_dark,
                     ShoppingFragment.newInstance()));
 
             topCategories.add(new Category(

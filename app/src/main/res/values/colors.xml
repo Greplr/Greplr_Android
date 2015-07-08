@@ -36,23 +36,23 @@
     <color name="text_light">@android:color/white</color>
     <color name="text_dark">#616161</color>
 
-    <color name="travel_color_primary">#1b5e20</color>
-    <color name="travel_color_light">#4CAF50</color>
-    <color name="travel_color_dark">#558B2F</color>
+    <color name="travel_color_primary">#388e3c</color>
+    <color name="travel_color_light">#00e676</color>
+    <color name="travel_color_dark">#1b5e20</color>
 
-    <color name="food_color_primary">#ff6f00</color>
-    <color name="food_color_light">#F4743B</color>
-    <color name="food_color_dark">#550F0F</color>
+    <color name="food_color_primary">#e64a19</color>
+    <color name="food_color_light">#ff6e40</color>
+    <color name="food_color_dark">#bf360c</color>
 
-    <color name="event_color_primary">#b71c1c</color>
-    <color name="events_color_light">#EF4640</color>
-    <color name="events_color_dark">#7B0000</color>
+    <color name="events_color_primary">#d32f2f</color>
+    <color name="events_color_light">#ff5252</color>
+    <color name="events_color_dark">#b71c1c</color>
 
     <color name="news_color_primary">#2962ff</color>
 
-    <color name="shopping_color_primary">#4a148c</color>
-    <color name="shopping_color_light">#7F2CCB</color>
-    <color name="shopping_color_dark">#210B2C</color>
+    <color name="shopping_color_primary">#512da8</color>
+    <color name="shopping_color_light">#7c4dff</color>
+    <color name="shopping_color_dark">#311b92</color>
 
     <color name="prize_textview">#F44336</color>
 

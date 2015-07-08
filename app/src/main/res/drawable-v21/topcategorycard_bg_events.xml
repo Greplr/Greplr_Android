@@ -21,13 +21,13 @@
     android:color="@color/travel_color_primary">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/event_color_primary" />
+            <solid android:color="@color/events_color_primary" />
         </shape>
     </item>
 
     <item>
         <shape>
-            <solid android:color="@color/event_color_primary" />
+            <solid android:color="@color/events_color_primary" />
         </shape>
     </item>
 </ripple>
