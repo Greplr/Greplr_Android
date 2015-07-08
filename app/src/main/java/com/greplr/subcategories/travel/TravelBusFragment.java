@@ -19,6 +19,7 @@
 package com.greplr.subcategories.travel;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -252,12 +253,14 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 //            viewHolder.seat.setText(busList.get(i).getSeat());
             viewHolder.depdate.setText(
                             DateTimeUtils.intToHrString(depdate.get(Calendar.HOUR), true)
-                            + " : "
+                            + ":"
                             + DateTimeUtils.intToMinString(depdate.get(Calendar.MINUTE)));
+            viewHolder.depdate.setTypeface(null, Typeface.BOLD_ITALIC);
             viewHolder.arrdate.setText(
                     DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR), true)
-                            + " : "
+                            + ":"
                             + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
+            viewHolder.arrdate.setTypeface(null, Typeface.ITALIC);
             viewHolder.fare.setText(busList.get(i).getFare());
         }
 
