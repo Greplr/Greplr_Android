@@ -19,6 +19,7 @@
 package com.greplr.subcategories.travel;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -26,9 +27,12 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -65,7 +69,6 @@ import retrofit.client.Response;
 public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/Travel/Flight";
-    Api apiHandler;
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -133,7 +136,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                ArrayAdapter<String> adapter = new ArrayAdapter<>
                         (getActivity(), android.R.layout.select_dialog_item, airportList);
                 final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
                 final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
@@ -144,53 +147,55 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
                 Utils.dateFormatter(date);
                 final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
+
+                adults.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId,
+                                                  KeyEvent event) {
+                        boolean handled = false;
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            departureLocation = origin.getText().toString();
+                            arrivalLocation = destination.getText().toString();
+                            travelDate = date.getText().toString();
+                            numOfAdults = adults.getText().toString();
+                            if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {
+                                departureLocation = origin.getText().toString().split("-")[1].trim();
+                                arrivalLocation = destination.getText().toString().split("-")[1].trim();
+                                customDialog.dismiss();
+                                fetchFlights();
+                                in.hideSoftInputFromWindow(date
+                                                .getApplicationWindowToken(),
+                                        InputMethodManager.HIDE_NOT_ALWAYS);
+                                handled = true;
+                            } else {
+                                if(departureLocation.equalsIgnoreCase(""))
+                                    origin.setError("Enter Origin Location");
+                                if(arrivalLocation.equalsIgnoreCase(""))
+                                    destination.setError("Enter Destination Location");
+                                if(travelDate.equalsIgnoreCase(""))
+                                    date.setError("Enter Your Travel Date");
+                                if(numOfAdults.equalsIgnoreCase(""))
+                                    adults.setError("Enter The Number of adults");
+                            }
+                        }
+                        return handled;
+                    }
+                });
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
                 buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_color_primary));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(LOG_TAG, origin.getText().toString().split("-")[1].trim());
-                        Log.d(LOG_TAG, destination.getText().toString().split("-")[1].trim());
-                        departureLocation = origin.getText().toString().split("-")[1].trim();
-                        arrivalLocation = destination.getText().toString().split("-")[1].trim();
+                        departureLocation = origin.getText().toString();
+                        arrivalLocation = destination.getText().toString();
                         travelDate = date.getText().toString();
                         numOfAdults = adults.getText().toString();
                         if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {
+                            departureLocation = origin.getText().toString().split("-")[1].trim();
+                            arrivalLocation = destination.getText().toString().split("-")[1].trim();
                             customDialog.dismiss();
-                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-                            apiHandler.getTravelFlights(
-                                    departureLocation,
-                                    arrivalLocation,
-                                    travelDate,
-                                    Integer.valueOf(numOfAdults),
-                                    new Callback<List<Flight>>() {
-                                        @Override
-                                        public void success(List<Flight> flights, Response response) {
-                                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                                            flightList = flights;
-                                            updateFlight(flightList);
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("departure", departureLocation);
-                                            params.put("arrival", arrivalLocation);
-                                            params.put("travelDate", travelDate);
-                                            params.put("numberOfAdults", numOfAdults);
-                                            params.put("success", "true");
-                                            ParseAnalytics.trackEventInBackground("travel/flight/search", params);
-                                        }
-
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("departure", departureLocation);
-                                            params.put("arrival", arrivalLocation);
-                                            params.put("travelDate", travelDate);
-                                            params.put("numberOfAdults", numOfAdults);
-                                            params.put("success", "false");
-                                            ParseAnalytics.trackEventInBackground("travel/flight/search", params);
-                                        }
-                                    }
-                            );
+                            fetchFlights();
                         } else {
                             if(departureLocation.equalsIgnoreCase(""))
                                 origin.setError("Enter Origin Location");
@@ -209,6 +214,42 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     }
 
+    private void fetchFlights() {
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getTravelFlights(
+                departureLocation,
+                arrivalLocation,
+                travelDate,
+                Integer.valueOf(numOfAdults),
+                new Callback<List<Flight>>() {
+                    @Override
+                    public void success(List<Flight> flights, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        flightList = flights;
+                        updateFlight(flightList);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("departure", departureLocation);
+                        params.put("arrival", arrivalLocation);
+                        params.put("travelDate", travelDate);
+                        params.put("numberOfAdults", numOfAdults);
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/flight/search", params);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        Map<String, String> params = new HashMap<>();
+                        params.put("departure", departureLocation);
+                        params.put("arrival", arrivalLocation);
+                        params.put("travelDate", travelDate);
+                        params.put("numberOfAdults", numOfAdults);
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("travel/flight/search", params);
+                    }
+                }
+        );
+    }
     public void updateFlight(List<Flight> flights) {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);

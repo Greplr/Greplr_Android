@@ -19,6 +19,7 @@
 package com.greplr.subcategories.food;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
@@ -164,7 +166,43 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                 }
             });
             Picasso.with(getActivity()).load(restaurantList.get(i).getLogo()).fit().centerCrop().into(viewHolder.logo);
-
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("lat", String.valueOf(App.currentLatitude));
+                    params.put("lng", String.valueOf(App.currentLongitude));
+                    params.put("food/order restaurant searched", restaurantList.get(i).getName());
+                    params.put("success", "true");
+                    ParseAnalytics.trackEventInBackground("food/orders/search", params);
+                    PackageManager pm = getActivity().getPackageManager();
+                    try
+                    {
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("foodpanda app found", "true");
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
+                        pm.getPackageInfo("com.global.foodpanda.android", PackageManager.GET_ACTIVITIES);
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                "foodpanda://?&c=IN&s=c&a="+area_id+"&v="+restaurantList.get(i).getId())));
+                        Toast.makeText(getActivity(), "Make sure you use Panda50", Toast.LENGTH_SHORT).show();
+                    }
+                    catch (PackageManager.NameNotFoundException e)
+                    {
+                        // No Foodpanda app!
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("foodpanda app found", "false");
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setData(Uri.parse("market://details?id=" + "com.global.foodpanda.android"));
+                        getActivity().startActivity(intent);
+                    }
+                }
+            });
         }
 
         @Override
@@ -179,9 +217,11 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
             ImageButton location;
             TextView minOrder;
             ImageView logo;
+            View view;
 
             public ViewHolder(CardView v) {
                 super(v);
+                view = v;
                 restaurantName = (TextView) v.findViewById(R.id.restaurant_order_name);
                 rating = (TextView) v.findViewById(R.id.restaurant_order_rating);
                 address = (TextView) v.findViewById(R.id.restaurant_order_address);

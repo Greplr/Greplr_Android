@@ -214,9 +214,20 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("travel/cab cab searched", cabList.get(i).getDisplay_name());
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         PackageManager pm = getActivity().getPackageManager();
                         try
                         {
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("Uber app found", "true");
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                             pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
                                     "uber://?action=setPickup&pickup=my_location&product_id=" + cabList.get(i).getProduct_id())));
@@ -224,6 +235,11 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         catch (PackageManager.NameNotFoundException e)
                         {
                             // No Uber app!
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("Uber app found", "false");
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                             Intent intent = new Intent(Intent.ACTION_VIEW);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setData(Uri.parse("market://details?id=" + "com.ubercab"));
@@ -237,11 +253,27 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("travel/cab cab searched", cabList.get(i).getDisplay_name());
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tfs.consumer");
                         if(intent != null) {
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("TFS app found", "true");
+                            params.put("success", "true");
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getActivity().startActivity(intent);
                         } else {
+                            //No TFS App
+                            params.put("lat", String.valueOf(App.currentLatitude));
+                            params.put("lng", String.valueOf(App.currentLongitude));
+                            params.put("TFS app found", "false");
+                            params.put("success", "true");
+                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                             intent = new Intent(Intent.ACTION_VIEW);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setData(Uri.parse("market://details?id=" + "com.tfs.consumer"));
