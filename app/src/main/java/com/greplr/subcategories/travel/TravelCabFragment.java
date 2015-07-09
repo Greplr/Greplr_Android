@@ -47,7 +47,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.api.Api;
 import com.greplr.common.ui.GlassCardView;
-import com.greplr.common.utils.Utils;
+import com.greplr.common.utils.IsOnlineTask;
 import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -108,52 +108,57 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
         cardView = (GlassCardView) view.findViewById(R.id.cardview_progress);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         noInternet = (RelativeLayout) view.findViewById(R.id.noInternet);
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        if(Utils.isOnline()){
-            apiHandler.getTravelCabs(
-                    String.valueOf(App.currentLatitude),
-                    String.valueOf(App.currentLongitude),
-                    new Callback<List<Cab>>() {
-                        @Override
-                        public void success(List<Cab> cabs, Response response) {
-                            Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                            cabList = cabs;
-                            cardView.setVisibility(View.GONE);
-                            updateCabs(cabList);
-                            //Parse Analytics
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "true");
-                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                        }
+        final Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        new IsOnlineTask() {
+            @Override
+            protected void onPostExecute(Boolean value) {
+                if (value) {
+                    apiHandler.getTravelCabs(
+                            String.valueOf(App.currentLatitude),
+                            String.valueOf(App.currentLongitude),
+                            new Callback<List<Cab>>() {
+                                @Override
+                                public void success(List<Cab> cabs, Response response) {
+                                    Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                                    cabList = cabs;
+                                    cardView.setVisibility(View.GONE);
+                                    updateCabs();
+                                    //Parse Analytics
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("lat", String.valueOf(App.currentLatitude));
+                                    params.put("lng", String.valueOf(App.currentLongitude));
+                                    params.put("success", "true");
+                                    ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                                }
 
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                            //Parse Analytics
-                            Map<String, String> params = new HashMap<>();
-                            params.put("lat", String.valueOf(App.currentLatitude));
-                            params.put("lng", String.valueOf(App.currentLongitude));
-                            params.put("success", "false");
-                            ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                                    //Parse Analytics
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("lat", String.valueOf(App.currentLatitude));
+                                    params.put("lng", String.valueOf(App.currentLongitude));
+                                    params.put("success", "false");
+                                    ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
 
-                        }
-                    }
-            );
-        }else{
-            progressBar.setVisibility(View.GONE);
-            noInternet.setVisibility(View.VISIBLE);
-        }
+                                }
+                            }
+                    );
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    noInternet.setVisibility(View.VISIBLE);
+                }
+            }
+        }.execute();
 
     }
 
-    public void updateCabs(List<Cab> cabs) {
+    public void updateCabs() {
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CabAdapter()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
     }
 
     public AlertDialog newCabHailDialog(final Context c, final Cab cab) {
@@ -198,11 +203,11 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
-            if(viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo")||viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")){
+            if (viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo") || viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")) {
                 viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_hatchback));
-            }else if(viewHolder.displayName.getText().toString().equalsIgnoreCase("uberx")||viewHolder.displayName.getText().toString().equalsIgnoreCase("sedan")){
+            } else if (viewHolder.displayName.getText().toString().equalsIgnoreCase("uberx") || viewHolder.displayName.getText().toString().equalsIgnoreCase("sedan")) {
                 viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_sedan));
-            }else if(viewHolder.displayName.getText().toString().equalsIgnoreCase("uberblack")){
+            } else if (viewHolder.displayName.getText().toString().equalsIgnoreCase("uberblack")) {
                 viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_minivan));
             }
             viewHolder.minPrice.setText("Minimum price : \u20b9" + cabList.get(i).getMin_price());
@@ -221,8 +226,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         PackageManager pm = getActivity().getPackageManager();
-                        try
-                        {
+                        try {
                             params.put("lat", String.valueOf(App.currentLatitude));
                             params.put("lng", String.valueOf(App.currentLongitude));
                             params.put("Uber app found", "true");
@@ -231,9 +235,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                             pm.getPackageInfo("com.ubercab", PackageManager.GET_ACTIVITIES);
                             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
                                     "uber://?action=setPickup&pickup=my_location&product_id=" + cabList.get(i).getProduct_id())));
-                        }
-                        catch (PackageManager.NameNotFoundException e)
-                        {
+                        } catch (PackageManager.NameNotFoundException e) {
                             // No Uber app!
                             params.put("lat", String.valueOf(App.currentLatitude));
                             params.put("lng", String.valueOf(App.currentLongitude));
@@ -260,7 +262,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
                         Intent intent = getActivity().getPackageManager().getLaunchIntentForPackage("com.tfs.consumer");
-                        if(intent != null) {
+                        if (intent != null) {
                             params.put("lat", String.valueOf(App.currentLatitude));
                             params.put("lng", String.valueOf(App.currentLongitude));
                             params.put("TFS app found", "true");

@@ -54,7 +54,7 @@ public class Utils {
     }
 
 
-    public static boolean hasL(){
+    public static boolean hasL() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
@@ -71,6 +71,7 @@ public class Utils {
             private String current = "";
             private String ddmmyyyy = "DDMMYYYY";
             private Calendar cal = Calendar.getInstance();
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -91,25 +92,25 @@ public class Utils {
                     if (clean.equals(cleanC))
                         sel--;
 
-                    if (clean.length() < 8){
+                    if (clean.length() < 8) {
                         clean = clean + ddmmyyyy.substring(clean.length());
-                    }else{
+                    } else {
 
-                        int day  = Integer.parseInt(clean.substring(0,2));
-                        int mon  = Integer.parseInt(clean.substring(2,4));
-                        int year = Integer.parseInt(clean.substring(4,8));
+                        int day = Integer.parseInt(clean.substring(0, 2));
+                        int mon = Integer.parseInt(clean.substring(2, 4));
+                        int year = Integer.parseInt(clean.substring(4, 8));
 
-                        if(mon > 12)
+                        if (mon > 12)
                             mon = 12;
-                        cal.set(Calendar.MONTH, mon-1);
-                        if(year < 1900)
+                        cal.set(Calendar.MONTH, mon - 1);
+                        if (year < 1900)
                             year = 1900;
-                        if(year > 2100)
+                        if (year > 2100)
                             year = 2100;
                         cal.set(Calendar.YEAR, year);
 
-                        day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
-                        clean = String.format("%02d%02d%02d",day, mon, year);
+                        day = (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
+                        clean = String.format("%02d%02d%02d", day, mon, year);
                     }
 
                     clean = String.format("%s-%s-%s", clean.substring(0, 2),
@@ -130,14 +131,4 @@ public class Utils {
         });
     }
 
-    public static boolean isOnline() {
-        try {
-            Process process = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
-            int returnVal = process.waitFor();
-            return returnVal==0;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 }
