@@ -256,7 +256,6 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         DateTimeUtils.intToHrString(depdate.get(Calendar.HOUR_OF_DAY), true)
                                 + ":"
                                 + DateTimeUtils.intToMinString(depdate.get(Calendar.MINUTE)));
-                viewHolder.depdate.setTypeface(null, Typeface.BOLD_ITALIC);
             } else {
                 viewHolder.depdate.setText("");
             }
@@ -266,13 +265,12 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
                                 + ":"
                                 + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
-                viewHolder.arrdate.setTypeface(null, Typeface.ITALIC);
             } else {
                 viewHolder.arrdate.setText("");
             }
 
 
-            viewHolder.fare.setText(busList.get(i).getFare());
+            viewHolder.fare.setText("\u20B9" + busList.get(i).getFare());
         }
 
         @Override
@@ -296,7 +294,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
 //                seat = (TextView) v.findViewById(R.id.seat_type);
                 depdate = (TextView) v.findViewById(R.id.dept_time);
                 arrdate = (TextView) v.findViewById(R.id.arr_time);
-                fare = (TextView) v.findViewById(R.id.fare);
+                fare = (TextView) v.findViewById(R.id.bus_fare);
             }
         }
     }

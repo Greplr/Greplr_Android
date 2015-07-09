@@ -23,10 +23,11 @@
     android:id="@+id/card_view_cafe_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="2dp"
     android:foreground="?selectableItemBackground"
+    card_view:cardElevation="2dp"
     card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true"
+    card_view:cardUseCompatPadding="false"
     card_view:cardPreventCornerOverlap="false">
 
 
@@ -62,10 +63,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
-                    android:layout_marginRight="3dp"
+                    android:layout_marginRight="2dp"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="-"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="19sp"
                     android:textStyle="normal"/>
 
                 <TextView
@@ -79,6 +91,23 @@
                     android:textColor="#FFFFFF"
                     android:textSize="19sp"
                     android:textStyle="normal"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/bus_fare"
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:text="\u20B9999"
+                        android:textColor="#FFFFFF"
+                        android:textSize="19sp"
+                        android:textStyle="italic"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -151,32 +180,6 @@
                         android:textColor="#424242"
                         android:textSize="13sp"
                         android:textStyle="normal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
-
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/wallet_profile"
-                        android:scaleType="centerCrop" />
-
-                    <TextView
-                        android:id="@+id/fare"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Prize"
-                        android:textColor="@color/prize_textview"
-                        android:textStyle="italic"
-                        android:textSize="12sp"/>
                 </LinearLayout>
 
             </LinearLayout>
