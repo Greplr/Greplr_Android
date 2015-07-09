@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -17,8 +16,7 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<com.greplr.common.ui.GlassCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_flight_item"
     android:layout_width="match_parent"
@@ -26,14 +24,15 @@
     android:layout_margin="5dp"
     android:foreground="?selectableItemBackground"
     card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false">
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="?selectableItemBackgroundBorderless">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,90 +43,68 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:padding="0dp">
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/logo_bus_type"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_flight_white"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/dept_time_flight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:layout_marginRight="2dp"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="-"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="19sp"
+                    android:textStyle="normal"/>
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/arr_time_flight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:text="11:11"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="19sp"
+                    android:textStyle="normal"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
+                    android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_flight_white"
-                        android:scaleType="centerCrop" />
+                    <TextView
+                        android:id="@+id/flight_fare"
+                        android:layout_marginRight="15dp"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:text="\u20B9999"
+                        android:textColor="#FFFFFF"
+                        android:textSize="19sp"
+                        android:textStyle="italic"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp">
-
-                        <LinearLayout
-                            android:id="@+id/l3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-
-                            <TextView
-                                android:id="@+id/dept_time_flight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NA"
-                                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                android:textColor="#FFFFFF"
-                                android:textSize="17sp"
-                                android:textStyle="normal"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-                            <LinearLayout
-                                android:id="@+id/l2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingLeft="4dp">
-
-                                <TextView
-                                    android:id="@+id/arr_time_flight"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="NA"
-                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                                    android:textColor="#FFFFFF"
-                                    android:textSize="17sp"
-                                    android:textStyle="normal"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-
 
             </LinearLayout>
 
@@ -154,39 +131,25 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_flight"
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_flight"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/airline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:layout_gravity="center"
+                        android:paddingLeft="4dp"
+                        android:text="Airline"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#212121"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/airline"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Airline"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="#212121"
-                            android:textSize="13sp"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -197,39 +160,25 @@
                     android:orientation="horizontal"
                     android:padding="2dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_history"
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_history"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/flight_no"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="4dp"
+                        android:text="Flight No. : "
+                        android:textColor="#424242"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
 
-                        <TextView
-                            android:id="@+id/flight_no"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Flight No. : "
-                            android:textColor="#424242"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -238,85 +187,25 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_work"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/seating_class"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_work"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/seating_class"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Seating Class type"
-                            android:textColor="#424242"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
+                        android:paddingLeft="4dp"
+                        android:text="Seating Class type"
+                        android:textColor="#424242"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
                 </LinearLayout>
 
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal"
-                    android:padding="2dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/wallet_profile"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/flight_fare"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Prize"
-                            android:textColor="@color/prize_textview"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -326,54 +215,15 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:id="@+id/app_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:background="@drawable/ic_flight"/>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/provider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="4dp"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:text="provider"
-                            android:textColor="#BDBDBD"
-                            android:textSize="10sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                <ImageView
+                    android:id="@+id/app_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center|center_vertical"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/ic_flight"
+                    android:scaleType="centerCrop" />
 
             </LinearLayout>
 

@@ -69,6 +69,11 @@ public class Utils {
         return loc;
     }
 
+    public static String adjustFlightFarePrecision(String fare) {
+        DecimalFormat df = new DecimalFormat("#");
+        return df.format(Double.valueOf(fare));
+    }
+
     public static void dateFormatter(final MaterialEditText editText) {
 
         editText.addTextChangedListener(new TextWatcher() {

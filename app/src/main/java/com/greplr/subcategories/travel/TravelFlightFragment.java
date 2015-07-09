@@ -331,7 +331,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 viewHolder.seatingclass.setText("Travel Class : Economy");
             }
 //            viewHolder.seatingclass.setText(flightList.get(i).getSeatingclass());
-            viewHolder.flight_fare.setText("₹" + flightList.get(i).getFare());
+            viewHolder.flight_fare.setText("₹ " + Utils.adjustFlightFarePrecision(flightList.get(i).getFare()));
 
             if (viewHolder.airline.getText().toString().equalsIgnoreCase("spicejet")) {
                 viewHolder.icon.setBackgroundResource(R.drawable.ic_brand_spicejet);
