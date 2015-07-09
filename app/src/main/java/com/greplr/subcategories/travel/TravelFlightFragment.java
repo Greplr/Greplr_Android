@@ -46,6 +46,9 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.ui.MaterialAutoCompleteTextView;
+import com.greplr.common.ui.MaterialEditText;
+import com.greplr.common.utils.ColorUtils;
 import com.greplr.common.utils.DateTimeUtils;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Flight;
@@ -140,17 +143,21 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<>
-                        (getActivity(), android.R.layout.select_dialog_item, airportList);
-                final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
-                final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item, airportList);
+
+                CardView busCardView = (CardView) customDialog.findViewById(R.id.travel_flight_card_dialog);
+                busCardView.setCardBackgroundColor(ColorUtils.getDarkerColor(getResources().getColor(R.color.travel_dialog_backgroundColor)));
+                        
+                final MaterialAutoCompleteTextView origin = (MaterialAutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
+                final MaterialAutoCompleteTextView destination = (MaterialAutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
                 origin.setThreshold(1);
                 destination.setThreshold(1);
                 origin.setAdapter(adapter);
                 destination.setAdapter(adapter);
-                final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
-                //Utils.dateFormatter(date);
-                final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
+
+                final MaterialEditText date = (MaterialEditText) customDialog.findViewById(R.id.et_date);
+                Utils.dateFormatter(date);
+                final MaterialEditText adults = (MaterialEditText) customDialog.findViewById(R.id.et_adults);
 
                 adults.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
@@ -187,7 +194,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                     }
                 });
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
-                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(R.color.travel_color_primary));
+                buttonDone.setTextColor(ColorUtils.getDarkerColor(getResources().getColor(R.color.travel_dialog_backgroundColor)));
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(android.R.color.white));
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

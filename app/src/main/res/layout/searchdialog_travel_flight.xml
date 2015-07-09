@@ -22,6 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <android.support.v7.widget.CardView
+        android:id="@+id/travel_flight_card_dialog"
         android:minWidth="300dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,17 +43,8 @@
                 android:orientation="vertical"
                 android:layout_margin="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Origin"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
 
-                <AutoCompleteTextView
+                <com.greplr.common.ui.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -62,7 +54,16 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/travel_color_dark"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Origin"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Origin"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
@@ -72,17 +73,7 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Destination"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
-
-                <AutoCompleteTextView
+                <com.greplr.common.ui.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -92,70 +83,76 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/travel_color_dark"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Destination"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Destination"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_margin="5dp"
-                android:orientation="vertical">
+                android:weightSum="2">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Date"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
 
-                <EditText
+                <com.greplr.common.ui.MaterialEditText
                     android:id="@+id/et_date"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:imeOptions="actionNext"
+                    android:layout_marginRight="4dp"
                     android:inputType="phone"
                     android:digits="0123456789"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/travel_color_dark"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Date (DD-MM-YYYY)"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Date"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Number of Adults"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
-
-                <EditText
+                <com.greplr.common.ui.MaterialEditText
                     android:id="@+id/et_adults"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:imeOptions="actionSearch"
+                    android:layout_marginLeft="4dp"
                     android:inputType="phone"
                     android:singleLine="true"
                     android:digits="0123456789"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/travel_color_dark"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Number of Adults"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Number of Adults"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
