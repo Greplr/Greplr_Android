@@ -139,7 +139,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                ArrayAdapter<String> adapter = new ArrayAdapter<>
                         (getActivity(), android.R.layout.select_dialog_item, cityList);
                 final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
                 final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
