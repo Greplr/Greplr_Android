@@ -209,7 +209,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         };
     }
 
-    public void fetchBus(){
+    private void fetchBus(){
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelBus(
                 departureLocation,

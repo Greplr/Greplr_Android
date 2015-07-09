@@ -69,7 +69,6 @@ import retrofit.client.Response;
 public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/Travel/Flight";
-    Api apiHandler;
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -137,7 +136,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                ArrayAdapter<String> adapter = new ArrayAdapter<>
                         (getActivity(), android.R.layout.select_dialog_item, airportList);
                 final AutoCompleteTextView origin = (AutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
                 final AutoCompleteTextView destination = (AutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
@@ -156,8 +155,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                         boolean handled = false;
                         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                             InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            departureLocation = origin.getText().toString();//.split("-")[1].trim();
-                            arrivalLocation = destination.getText().toString();//.split("-")[1].trim();
+                            departureLocation = origin.getText().toString();
+                            arrivalLocation = destination.getText().toString();
                             travelDate = date.getText().toString();
                             numOfAdults = adults.getText().toString();
                             if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {
@@ -188,8 +187,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        departureLocation = origin.getText().toString();//.split("-")[1].trim();
-                        arrivalLocation = destination.getText().toString();//.split("-")[1].trim();
+                        departureLocation = origin.getText().toString();
+                        arrivalLocation = destination.getText().toString();
                         travelDate = date.getText().toString();
                         numOfAdults = adults.getText().toString();
                         if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("") && !numOfAdults.equalsIgnoreCase("")) {
@@ -215,7 +214,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
     }
 
-    public void fetchFlights() {
+    private void fetchFlights() {
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelFlights(
                 departureLocation,

@@ -19,6 +19,7 @@
 package com.greplr.subcategories.shopping;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -28,9 +29,12 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -93,43 +97,13 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_shopping_search, container, false);
 
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getShoppingResult(
-                "Laptop",
-                new Callback<List<Search>>() {
-                    @Override
-                    public void success(List<Search> search, Response response) {
-                        searchList = search;
-                        Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
-                        updateShoppingSearch(searchList);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "true");
-                        params.put("product name", "Laptop");
-                        ParseAnalytics.trackEventInBackground("shopping/search", params);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        params.put("product name", "Laptop");
-                        ParseAnalytics.trackEventInBackground("shopping/search", params);
-                    }
-                }
-        );
-
         return rootView;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mRecyclerView = (RecyclerView) view.findViewById(
                 R.id.recyclerview_shoppingsearch);
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
@@ -145,39 +119,34 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 customDialog.setCancelable(true);
                 final EditText product = (EditText) customDialog.findViewById(R.id.et_product_name);
                 Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+                product.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId,
+                                                  KeyEvent event) {
+                        boolean handled = false;
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            InputMethodManager in = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            productName = product.getText().toString();
+                            if (!productName.equalsIgnoreCase("")) {
+                                customDialog.dismiss();
+                                fetchSearch();
+                                handled = true;
+                            } else {
+                                product.setError("Please Enter the Product Name");
+                                handled = false;
+                            }
+                        }
+                        return handled;
+                    }
+                });
                 buttonDone.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         productName = product.getText().toString();
                         if (!productName.equalsIgnoreCase("")) {
                             customDialog.dismiss();
-                            Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-                            apiHandler.getShoppingResult(
-                                    productName,
-                                    new Callback<List<Search>>() {
-                                        @Override
-                                        public void success(List<Search> search, Response response) {
-                                            searchList = search;
-                                            Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
-                                            updateShoppingSearch(searchList);
-                                            //Parse Analytics
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("success", "true");
-                                            params.put("product name", productName);
-                                            ParseAnalytics.trackEventInBackground("shopping/search", params);
-                                        }
-
-                                        @Override
-                                        public void failure(RetrofitError error) {
-                                            Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                                            //Parse Analytics
-                                            Map<String, String> params = new HashMap<>();
-                                            params.put("success", "false");
-                                            params.put("product name", productName);
-                                            ParseAnalytics.trackEventInBackground("shopping/search", params);
-                                        }
-                                    }
-                            );
+                            fetchSearch();
                         } else {
                             product.setError("Please Enter the Product Name");
                         }
@@ -189,6 +158,35 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
     }
 
+    private void fetchSearch() {
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getShoppingResult(
+                productName,
+                new Callback<List<Search>>() {
+                    @Override
+                    public void success(List<Search> search, Response response) {
+                        searchList = search;
+                        Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
+                        updateShoppingSearch(searchList);
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "true");
+                        params.put("product name", productName);
+                        ParseAnalytics.trackEventInBackground("shopping/search", params);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "false");
+                        params.put("product name", productName);
+                        ParseAnalytics.trackEventInBackground("shopping/search", params);
+                    }
+                }
+        );
+    }
     public void updateShoppingSearch(List<Search> searchList){
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
