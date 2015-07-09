@@ -39,6 +39,8 @@
     <color name="travel_color_primary">#388e3c</color>
     <color name="travel_color_light">#00e676</color>
     <color name="travel_color_dark">#1b5e20</color>
+    <color name="travel_edittext_light">#FFFFFF</color>
+    <color name="travel_dialog_backgroundColor">#2A6041</color>
 
     <color name="food_color_primary">#e64a19</color>
     <color name="food_color_light">#ff6e40</color>
@@ -55,5 +57,6 @@
     <color name="shopping_color_dark">#311b92</color>
 
     <color name="prize_textview">#F44336</color>
+    <color name="edittext_error_color_primary">#EF9A9A</color>
 
 </resources>

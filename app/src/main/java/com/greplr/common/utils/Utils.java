@@ -19,11 +19,15 @@
 package com.greplr.common.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.widget.EditText;
+
+import com.greplr.common.ui.MaterialEditText;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,7 +69,7 @@ public class Utils {
         return loc;
     }
 
-    public static void dateFormatter(final EditText editText) {
+    public static void dateFormatter(final MaterialEditText editText) {
 
         editText.addTextChangedListener(new TextWatcher() {
             private String current = "";
@@ -129,6 +133,13 @@ public class Utils {
 
             }
         });
+    }
+
+
+    public static int dp2px(Context context, float dp) {
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+        return Math.round(px);
     }
 
 }

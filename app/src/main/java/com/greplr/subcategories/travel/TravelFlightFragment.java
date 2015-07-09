@@ -149,7 +149,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 origin.setAdapter(adapter);
                 destination.setAdapter(adapter);
                 final EditText date = (EditText) customDialog.findViewById(R.id.et_date);
-                Utils.dateFormatter(date);
+                //Utils.dateFormatter(date);
                 final EditText adults = (EditText) customDialog.findViewById(R.id.et_adults);
 
                 adults.setOnEditorActionListener(new TextView.OnEditorActionListener() {

@@ -23,12 +23,14 @@
     android:layout_height="wrap_content" >
 
     <android.support.v7.widget.CardView
+        android:id="@+id/travel_bus_card_dialog"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:minWidth="300dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false">
+        card_view:cardCornerRadius="2dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:cardBackgroundColor="@color/travel_dialog_backgroundColor">
 
         <LinearLayout
             android:minWidth="300dp"
@@ -43,17 +45,17 @@
                 android:orientation="vertical"
                 android:layout_margin="5dp">
 
-                <TextView
+<!--                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="Origin"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
+                    android:textColor="#1B5E20"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"/>-->
 
-                <AutoCompleteTextView
+                <com.greplr.common.ui.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -61,9 +63,18 @@
                     android:imeOptions="actionNext"
                     android:id="@+id/et_origin"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/travel_color_dark"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Origin"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Origin"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
@@ -73,17 +84,17 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
-                <TextView
+<!--                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="Destination"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
+                    android:textColor="#1B5E20"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"/>-->
 
-                <AutoCompleteTextView
+                <com.greplr.common.ui.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
@@ -91,9 +102,18 @@
                     android:singleLine="true"
                     android:id="@+id/et_destination"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/travel_color_dark"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Enter Destination"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Destination"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
@@ -103,17 +123,17 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
-                <TextView
+<!--                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="Date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#263238"
+                    android:textColor="#1B5E20"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"/>-->
 
-                <EditText
+                <com.greplr.common.ui.MaterialEditText
                     android:id="@+id/et_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -123,9 +143,18 @@
                     android:digits="0123456789"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/travel_color_dark"
+                    android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:background="@drawable/edittext_background_rounded"/>
+                    android:hint="Date (DD-MM-YYYY)"
+                    android:textColorHint="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelText="Date"
+                    app:met_baseColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_floatingLabelAnimating="true"/>
 
             </LinearLayout>
 
@@ -134,8 +163,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="SEARCH"
-                android:textColor="@android:color/white"
-                android:id="@+id/ok_button"/>
+                android:textColor="@color/travel_color_dark"
+                android:id="@+id/ok_button" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -32,4 +32,19 @@ public class ColorUtils {
         int blue = Color.blue(color);
         return Color.argb(alpha, red, green, blue);
     }
+
+    public static int getDarkerColor(int color) {
+        int alpha = Color.alpha(color);
+        int red = Math.round(Color.red(color) * 0.625f);
+        int green = Math.round(Color.green(color) * 0.625f);
+        int blue = Math.round(Color.blue(color) * 0.625f);
+        return Color.argb(alpha, red, green, blue);
+    }
+    public static boolean isLight(int color) {
+        return Math.sqrt(
+                Color.red(color) * Color.red(color) * .241 +
+                        Color.green(color) * Color.green(color) * .691 +
+                        Color.blue(color) * Color.blue(color) * .068) > 130;
+    }
+
 }
