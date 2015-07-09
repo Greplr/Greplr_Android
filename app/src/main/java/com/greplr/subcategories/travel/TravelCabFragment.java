@@ -204,11 +204,11 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
             if (viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo") || viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")) {
-                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_hatchback));
+                viewHolder.cabType.setImageResource(R.drawable.ic_cab_hatchback);
             } else if (viewHolder.displayName.getText().toString().equalsIgnoreCase("uberx") || viewHolder.displayName.getText().toString().equalsIgnoreCase("sedan")) {
-                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_sedan));
+                viewHolder.cabType.setImageResource(R.drawable.ic_cab_sedan);
             } else if (viewHolder.displayName.getText().toString().equalsIgnoreCase("uberblack")) {
-                viewHolder.cabType.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.ic_cab_minivan));
+                viewHolder.cabType.setImageResource(R.drawable.ic_cab_minivan);
             }
             viewHolder.minPrice.setText("Minimum price : \u20b9" + cabList.get(i).getMin_price());
             viewHolder.timeOfArrival.setText("ETA :  " + cabList.get(i).getTime_of_arrival() + " min");
@@ -285,7 +285,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                     }
                 });
             } else
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));
+                viewHolder.icon.setImageResource(R.drawable.placeholder_cab);
         }
 
         @Override
