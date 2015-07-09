@@ -29,22 +29,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardPreventCornerOverlap="false"
-    android:layout_margin="5dp">
+    android:layout_margin="7dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/topcategories_card_container"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="175dp">
 
         <ImageView
-            android:padding="35dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="30dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
             android:id="@+id/topcategories_card_icon"
             android:scaleType="centerInside"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:layout_alignParentBottom="true"
             android:padding="3dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white"
@@ -54,6 +57,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -40,7 +40,8 @@ public class DateTimeUtils {
      * To get each object like year, month etc from the Calendar object, use this
      *
      * Calendar cal = DateTimeUtils.toCalendar(dateString);
-     * int year = now.get(Calendar.YEAR);
+     * int year = now.get(Calendar.YEAR);            android:paddingTop="30dp"
+
      * int month = now.get(Calendar.MONTH); // Note: zero based! Jan = 0
      * int day = now.get(Calendar.DAY_OF_MONTH);
      * int hour = now.get(Calendar.HOUR_OF_DAY);
@@ -57,6 +58,7 @@ public class DateTimeUtils {
             return null;
         }
         Calendar calendar = GregorianCalendar.getInstance();
+        //FIXME: This should account for current locale
         String s = iso8601string.toUpperCase().replace("Z", "+0530");
         if (s.length() == 19) s+="+0530";
         Log.v(LOG_TAG, s + " len=" + s.length());

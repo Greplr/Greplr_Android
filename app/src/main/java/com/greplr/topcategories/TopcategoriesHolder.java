@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.greplr.R;
@@ -32,7 +33,7 @@ import com.greplr.R;
  */
 public class TopcategoriesHolder extends RecyclerView.ViewHolder {
 
-    protected LinearLayout cardContainer;
+    protected RelativeLayout cardContainer;
     protected ImageView cardIcon;
     protected TextView cardTitle;
     protected CardView cardView;
@@ -41,7 +42,7 @@ public class TopcategoriesHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         cardView = (CardView) itemView.findViewById(R.id.topcategories_card_view);
-        cardContainer = (LinearLayout) itemView.findViewById(R.id.topcategories_card_container);
+        cardContainer = (RelativeLayout) itemView.findViewById(R.id.topcategories_card_container);
         cardIcon = (ImageView) itemView.findViewById(R.id.topcategories_card_icon);
         cardTitle = (TextView) itemView.findViewById(R.id.topcategories_card_title);
 

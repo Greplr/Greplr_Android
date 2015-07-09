@@ -29,7 +29,6 @@
 
     <!--<com.greplr.common.ui.AutofitRecyclerView-->
     <android.support.v7.widget.RecyclerView
-        android:paddingTop="?attr/actionBarSize"
         android:id="@+id/recyclerview_main_categories"
         android:padding="@dimen/padding_main_recyclerview"
         android:layout_marginTop="?attr/actionBarSize"
