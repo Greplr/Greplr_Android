@@ -164,12 +164,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                 }
             });
             Picasso.with(getActivity()).load(restaurantList.get(i).getLogo()).fit().centerCrop().into(viewHolder.logo);
-           /* if (viewHolder.provider.getText().toString().equalsIgnoreCase("uber")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_uber));
-            } else if (viewHolder.provider.getText().toString().equalsIgnoreCase("taxiforsure")) {
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_brand_taxiforsure));
-            } else
-                viewHolder.icon.setBackgroundDrawable(getResources().getDrawable(R.drawable.placeholder_cab));*/
+
         }
 
         @Override

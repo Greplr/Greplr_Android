@@ -36,55 +36,30 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:paddingLeft="10dp"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/food_color_primary">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="6dp"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/restaurant_order_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:padding="0dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
-
-                    <TextView
-                        android:id="@+id/restaurant_order_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="sans-serif"
-                        android:text="Restaurant Name"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                        android:textColor="#FFFFFF"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="sans-serif"
+                android:text="Restaurant Name"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:textStyle="normal" />
 
 
         </LinearLayout>
