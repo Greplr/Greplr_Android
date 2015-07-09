@@ -21,8 +21,8 @@ android {
         applicationId "com.greplr"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 10
-        versionName "0.4.6"
+        versionCode 11
+        versionName "0.4.7"
     }
 
     productFlavors {
@@ -36,7 +36,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
