@@ -20,6 +20,7 @@ package com.greplr.subcategories.travel;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -45,6 +46,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.DateTimeUtils;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Flight;
 import com.greplr.subcategories.SubCategoryFragment;
@@ -54,7 +56,9 @@ import com.parse.ParseAnalytics;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -280,11 +284,37 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            Calendar depdate = null;
+            Calendar arrdate = null;
+            try {
+                depdate = DateTimeUtils.flightTimeToCalendar(flightList.get(i).getDepdate());
+                arrdate = DateTimeUtils.flightTimeToCalendar(flightList.get(i).getArrdate());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if (depdate != null) {
+                viewHolder.depdate.setText(
+                        DateTimeUtils.intToHrString(depdate.get(Calendar.HOUR_OF_DAY), true)
+                                + ":"
+                                + DateTimeUtils.intToMinString(depdate.get(Calendar.MINUTE)));
+                viewHolder.depdate.setTypeface(null, Typeface.BOLD_ITALIC);
+            } else {
+                viewHolder.depdate.setText("");
+            }
+
+            if (arrdate != null) {
+                viewHolder.arrdate.setText(
+                        DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
+                                + ":"
+                                + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
+                viewHolder.arrdate.setTypeface(null, Typeface.ITALIC);
+            } else {
+                viewHolder.arrdate.setText("");
+            }
 
             viewHolder.airline.setText(flightList.get(i).getAirline());
             viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
-            viewHolder.depdate.setText(flightList.get(i).getDepdate());
-            viewHolder.arrdate.setText(flightList.get(i).getArrdate());
             if (flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("e")){
                 viewHolder.seatingclass.setText("Travel Class : Economy");
             } else if(flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("b")){
