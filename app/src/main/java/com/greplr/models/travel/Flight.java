@@ -23,16 +23,16 @@ package com.greplr.models.travel;
  */
 public class Flight {
 
-    public String origin;
-    public String fare;
-    public String flightnum;
-    public String warnings;
-    public String destination;
-    public String duration;
-    public String airline;
-    public String seatingclass;
-    public String depdate;
-    public String arrdate;
+    private String origin;
+    private String fare;
+    private String flightnum;
+    private String warnings;
+    private String destination;
+    private String duration;
+    private String airline;
+    private String seatingclass;
+    private String depdate;
+    private String arrdate;
 
     public String getOrigin() {
         return origin;

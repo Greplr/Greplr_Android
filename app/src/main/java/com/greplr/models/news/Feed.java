@@ -24,8 +24,8 @@ import java.util.List;
  * Created by championswimmer on 29/6/15.
  */
 public class Feed {
-    String id;
-    List<FeedItem> items;
+    private String id;
+    private List<FeedItem> items;
 
     public String getId() {
         return id;
