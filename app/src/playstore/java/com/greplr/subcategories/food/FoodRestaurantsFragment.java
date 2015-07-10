@@ -177,10 +177,10 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
             public ViewHolder(CardView v) {
                 super(v);
-                restaurantName = (TextView) v.findViewById(R.id.rest_name);
+                restaurantName = (TextView) v.findViewById(R.id.restaurant_name);
                 distance = (TextView) v.findViewById(R.id.rest_distance);
                 address = (TextView) v.findViewById(R.id.rest_address);
-                location = (ImageButton) v.findViewById(R.id.location_restaurant);
+                location = (ImageButton) v.findViewById(R.id.restaurant_location);
             }
         }
     }

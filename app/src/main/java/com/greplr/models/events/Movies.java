@@ -29,6 +29,15 @@ public class Movies {
     private String Length;
     private String EventTitle;
     private String EventCensor;
+    private String BannerURL;
+
+    public String getBannerURL() {
+        return BannerURL;
+    }
+
+    public void setBannerURL(String bannerURL) {
+        BannerURL = bannerURL;
+    }
 
     public String getActors() {
         return Actors;
