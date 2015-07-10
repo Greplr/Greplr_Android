@@ -47,11 +47,6 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -61,7 +56,6 @@
                         android:layout_margin="6dp"
                         android:background="@drawable/ic_movie"
                         android:scaleType="centerCrop" />
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,7 +78,6 @@
 
                 </LinearLayout>
 
-
             </LinearLayout>
 
 
@@ -95,15 +88,22 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="4"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginTop="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
                 android:layout_weight="4"
                 android:orientation="vertical">
+
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:background="@android:color/white"
+                    android:src="@drawable/ic_local_movies_red"
+                    android:layout_marginBottom="8dp"
+                    android:scaleType="fitCenter"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -115,7 +115,6 @@
                     >
 
                     <LinearLayout
-                        android:id="@+id/l3"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
