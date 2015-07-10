@@ -34,13 +34,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.food.Restaurant;
 import com.greplr.subcategories.UnderSubCategoryFragment;
@@ -63,7 +65,6 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Food/Restaurants";
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private List<Restaurant.RestaurantResult.RestaurantItem> restaurantList;
 
     public static FoodRestaurantsFragment newInstance() {
@@ -89,10 +90,21 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "FoodRestaurantsFragment onCreateView");
+        return inflater.inflate(R.layout.fragment_food_restaurant, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         restaurantList = new ArrayList<>();
 
-        View rootView = inflater.inflate(R.layout.fragment_food_restaurant, container, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_food_restaurant);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getFoodRestaurants(
                 String.valueOf(App.currentLatitude),
@@ -105,6 +117,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                             restaurantList.add(restaurants.getResults().get(i).getResult());
                         }
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RestaurantAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -116,6 +129,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -124,20 +139,6 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                     }
                 }
         );
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_food_restaurant);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
 
@@ -153,10 +154,19 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.restaurantName.setText(restaurantList.get(i).getName());
+            viewHolder.name.setText(restaurantList.get(i).getName());
             viewHolder.distance.setText(restaurantList.get(i).getDistance_friendly());
             viewHolder.address.setText(restaurantList.get(i).getAddress());
-            //viewHolder.price.setText("\u20B9 " + restaurantList.get(i).getCost_for_two() + " for two");
+            viewHolder.cuisines.setText(restaurantList.get(i).getCuisines());
+            viewHolder.costForTwo.setText("\u20B9 " + restaurantList.get(i).getCost_for_two() + " for two");
+            if (restaurantList.get(i).getAccepts_credit_card().equals("0"))
+                viewHolder.credit.setVisibility(View.GONE);
+            if (restaurantList.get(i).getHas_delivery().equals("0"))
+                viewHolder.delivery.setVisibility(View.GONE);
+            if (restaurantList.get(i).getIs_pure_veg().equals("0"))
+                viewHolder.vegetarian.setImageResource(R.drawable.ic_action_nonveg);
+            if (restaurantList.get(i).getHas_bar().equals("0"))
+                viewHolder.bar.setVisibility(View.GONE);
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -166,7 +176,7 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
                         startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("http://maps.google.com/maps?q=loc:" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude()+"("+ restaurantList.get(i).getName()  + ")&iwloc=A&hl=es")));
+                                Uri.parse("http://maps.google.com/maps?q=loc:" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude() + "(" + restaurantList.get(i).getName() + ")&iwloc=A&hl=es")));
                     }
                 }
             });
@@ -178,19 +188,29 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView restaurantName;
+            TextView name;
             TextView distance;
             TextView address;
-            TextView price;
+            TextView cuisines;
+            TextView costForTwo;
             ImageButton location;
+            ImageView delivery;
+            ImageView vegetarian;
+            ImageView credit;
+            ImageView bar;
 
             public ViewHolder(CardView v) {
                 super(v);
-                restaurantName = (TextView) v.findViewById(R.id.rest_name);
+                name = (TextView) v.findViewById(R.id.restaurant_name);
                 distance = (TextView) v.findViewById(R.id.restaurant_friendly_distance);
-                address = (TextView) v.findViewById(R.id.restaurant_locals);
-                location = (ImageButton) v.findViewById(R.id.location_restaurant);
-                //price = (TextView) v.findViewById(R.id.rest_price);
+                address = (TextView) v.findViewById(R.id.restaurant_address);
+                location = (ImageButton) v.findViewById(R.id.restaurant_location);
+                cuisines = (TextView) v.findViewById(R.id.restaurant_cuisine);
+                costForTwo = (TextView) v.findViewById(R.id.restaurant_cost_for_two);
+                delivery = (ImageView) v.findViewById(R.id.restaurant_delivery);
+                vegetarian = (ImageView) v.findViewById(R.id.restaurant_vegetarian);
+                credit = (ImageView) v.findViewById(R.id.restaurant_credit);
+                bar = (ImageView) v.findViewById(R.id.restaurant_bar);
             }
         }
     }
