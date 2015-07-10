@@ -18,8 +18,6 @@
 
 package com.greplr.subcategories.events;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -35,7 +33,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Plays;
 import com.greplr.subcategories.UnderSubCategoryFragment;
@@ -58,10 +57,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
 
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private List<Plays> playList;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public static EventPlayFragment newInstance() {
         return new EventPlayFragment();
@@ -86,11 +82,19 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "EventPlaysFragment onCreateView");
+        return inflater.inflate(R.layout.fragment_events_plays, container, false);
+    }
 
-        View rootView = inflater.inflate(R.layout.fragment_events_plays, container, false);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_plays);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-
         apiHandler.getEventPlays(
                 new Callback<List<Plays>>() {
 
@@ -98,7 +102,8 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                     public void success(List<Plays> plays, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         playList = plays;
-                        updatePlay(playList);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new PlayAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("events/plays/search", params);
@@ -108,32 +113,17 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
-
                         ParseAnalytics.trackEventInBackground("events/plays/search", params);
                     }
                 }
         );
-        return rootView;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_plays);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-    }
-
-    public void updatePlay(List<Plays> plays) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new PLayAdapter()));
-    }
-
-    public class PLayAdapter extends RecyclerView.Adapter<PLayAdapter.ViewHolder> {
+    public class PlayAdapter extends RecyclerView.Adapter<PlayAdapter.ViewHolder> {
 
 
         @Override
@@ -145,11 +135,11 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.EventTitle.setText(playList.get(i).getEventTitle());
-            viewHolder.Ratings.setText(playList.get(i).getRatings() + "/10");
-            viewHolder.Director.setText(playList.get(i).getDirector());
-            viewHolder.Length.setText(playList.get(i).getLength());
-            viewHolder.Actors.setText(playList.get(i).getActors());
+            viewHolder.eventTitle.setText(playList.get(i).getEventTitle());
+            viewHolder.ratings.setText(playList.get(i).getRatings() + "/10");
+            viewHolder.director.setText(playList.get(i).getDirector());
+            viewHolder.length.setText(playList.get(i).getLength());
+            viewHolder.actors.setText(playList.get(i).getActors());
 
         }
 
@@ -159,19 +149,19 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView EventTitle;
-            TextView Ratings;
-            TextView Director;
-            TextView Length;
-            TextView Actors;
+            TextView eventTitle;
+            TextView ratings;
+            TextView director;
+            TextView length;
+            TextView actors;
 
             public ViewHolder(CardView v) {
                 super(v);
-                EventTitle = (TextView) v.findViewById(R.id.play_name);
-                Ratings = (TextView) v.findViewById(R.id.play_rating);
-                Director = (TextView) v.findViewById(R.id.Director_name);
-                Length = (TextView) v.findViewById(R.id.play_length);
-                Actors = (TextView) v.findViewById(R.id.play_actors);
+                eventTitle = (TextView) v.findViewById(R.id.play_name);
+                ratings = (TextView) v.findViewById(R.id.play_rating);
+                director = (TextView) v.findViewById(R.id.Director_name);
+                length = (TextView) v.findViewById(R.id.play_length);
+                actors = (TextView) v.findViewById(R.id.play_actors);
             }
         }
     }

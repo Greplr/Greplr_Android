@@ -103,6 +103,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+
         final Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelCabs(
                 String.valueOf(App.currentLatitude),
