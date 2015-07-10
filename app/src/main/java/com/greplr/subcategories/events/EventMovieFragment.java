@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -39,6 +40,7 @@ import com.greplr.api.Api;
 import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -134,12 +136,18 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.EventTitle.setText(movieList.get(i).getEventTitle());
-            viewHolder.Ratings.setText(movieList.get(i).getRatings() + "/10");
-            viewHolder.Language.setText(movieList.get(i).getLanguage());
-            viewHolder.Length.setText(movieList.get(i).getLength());
-            viewHolder.Actors.setText(movieList.get(i).getActors());
-
+            viewHolder.movieTitle.setText(movieList.get(i).getEventTitle());
+            viewHolder.rating.setText(movieList.get(i).getRatings() + "/10");
+            viewHolder.language.setText(movieList.get(i).getLanguage());
+            viewHolder.length.setText(movieList.get(i).getLength());
+            if (movieList.get(i).getActors().equals("")) {
+                viewHolder.actorsImage.setVisibility(View.GONE);
+                viewHolder.actors.setVisibility(View.GONE);
+            } else {
+                viewHolder.actors.setText(movieList.get(i).getActors());
+            }
+            Picasso.with(getActivity()).load(movieList.get(i).getBannerURL()).
+                    fit().centerCrop().into(viewHolder.banner);
         }
 
         @Override
@@ -148,19 +156,23 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView EventTitle;
-            TextView Ratings;
-            TextView Language;
-            TextView Length;
-            TextView Actors;
+            TextView movieTitle;
+            TextView rating;
+            TextView language;
+            TextView length;
+            TextView actors;
+            ImageView banner;
+            ImageView actorsImage;
 
             public ViewHolder(CardView v) {
                 super(v);
-                EventTitle = (TextView) v.findViewById(R.id.movie_title);
-                Ratings = (TextView) v.findViewById(R.id.rating);
-                Language = (TextView) v.findViewById(R.id.language);
-                Length = (TextView) v.findViewById(R.id.length);
-                Actors = (TextView) v.findViewById(R.id.actors);
+                movieTitle = (TextView) v.findViewById(R.id.movie_title);
+                rating = (TextView) v.findViewById(R.id.rating);
+                language = (TextView) v.findViewById(R.id.language);
+                length = (TextView) v.findViewById(R.id.length);
+                actors = (TextView) v.findViewById(R.id.actors);
+                banner = (ImageView) v.findViewById(R.id.banner);
+                actorsImage = (ImageView) v.findViewById(R.id.actors_image);
             }
         }
     }

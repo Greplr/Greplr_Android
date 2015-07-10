@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -17,8 +16,7 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<com.greplr.common.ui.GlassCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_bus_item"
     android:layout_width="match_parent"
@@ -26,8 +24,8 @@
     android:layout_margin="5dp"
     android:foreground="?selectableItemBackground"
     card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false">
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout
@@ -47,15 +45,15 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_movie"
-                        android:scaleType="centerCrop" />
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_movie"
+                    android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,8 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="4"
-            android:layout_marginTop="5dp">
+            android:weightSum="4">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -98,51 +95,51 @@
 
 
                 <ImageView
+                    android:id="@+id/banner"
                     android:layout_width="fill_parent"
                     android:layout_height="150dp"
-                    android:background="@android:color/white"
-                    android:src="@drawable/ic_local_movies_red"
                     android:layout_marginBottom="8dp"
-                    android:scaleType="fitCenter"/>
+                    android:background="@android:color/white"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_local_movies_red" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="28dp"
                     android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:layout_gravity="center"
-                    >
+                    android:weightSum="2">
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:paddingLeft="4dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
                             android:text="Language :"
                             android:textColor="@color/events_color_dark"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="5dp"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/language"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="NA"
-                            android:textColor="#212121"/>
+                            android:textColor="#212121" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="0.95"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="0.95"
                         android:orientation="vertical"
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp">
@@ -156,17 +153,17 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
                                 android:text="Length :"
                                 android:textColor="@color/events_color_dark"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="5dp"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/length"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="NA"
-                                android:textColor="#212121"/>
+                                android:textColor="#212121" />
 
                         </LinearLayout>
 
@@ -203,19 +200,19 @@
                         android:layout_gravity="center_vertical"
                         android:layout_toEndOf="@+id/item_image"
                         android:layout_toRightOf="@+id/item_image"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
+                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/rating"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
                             android:text="Star"
                             android:textColor="#F8BA07"
-                            android:textStyle="normal"
-                            android:gravity="center_vertical"/>
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -231,6 +228,7 @@
                         android:padding="2dp">
 
                         <ImageView
+                            android:id="@+id/actors_image"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_alignParentLeft="true"
@@ -245,23 +243,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
+                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/actors"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="Fare"
                             android:ellipsize="end"
+                            android:gravity="center_vertical"
                             android:maxLines="3"
                             android:minLines="1"
-                            android:textColor="#424242"
                             android:paddingBottom="6dp"
-                            android:textStyle="normal"
-                            android:gravity="center_vertical"/>
+                            android:text="Fare"
+                            android:textColor="#424242"
+                            android:textStyle="normal" />
                     </LinearLayout>
                 </LinearLayout>
 
