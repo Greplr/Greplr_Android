@@ -47,11 +47,6 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
@@ -61,14 +56,6 @@
                         android:layout_margin="6dp"
                         android:background="@drawable/ic_local_restaurant"
                         android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
 
                     <TextView
                         android:id="@+id/rest_name"
@@ -80,9 +67,8 @@
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
+                        android:textStyle="normal"
+                        android:paddingLeft="20dp"/>
 
 
             </LinearLayout>
@@ -110,10 +96,6 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -124,15 +106,7 @@
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_distance"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/rest_distance"
@@ -142,8 +116,8 @@
                             android:gravity="center_vertical"
                             android:text="Distance"
                             android:textColor="@color/food_color_dark"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="4dp"/>
                 </LinearLayout>
 
 
@@ -152,11 +126,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -167,15 +136,7 @@
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_map"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/rest_address"
@@ -185,8 +146,8 @@
                             android:gravity="center_vertical"
                             android:text="Address"
                             android:textColor="@color/food_color_dark"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="4dp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -195,20 +156,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:background="?selectableItemBackground">
+                android:gravity="center"
+                android:orientation="vertical">
 
 
                         <ImageButton
@@ -218,34 +167,8 @@
                             android:adjustViewBounds="true"
                             android:background="@android:color/transparent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_location" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/provider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="4dp"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:text="provider"
-                            android:textColor="#BDBDBD"
-                            android:textSize="10sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                            android:src="@drawable/ic_location"
+                            android:gravity="center"/>
 
 
             </LinearLayout>
