@@ -50,9 +50,6 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
                         android:background="@drawable/ic_local_restaurant"
                         android:scaleType="centerCrop" />
@@ -68,7 +65,7 @@
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
                         android:textStyle="normal"
-                        android:paddingLeft="20dp"/>
+                        android:paddingLeft="10dp"/>
 
 
             </LinearLayout>
@@ -91,63 +88,67 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_distance"
-                            android:scaleType="centerCrop" />
+                    android:layout_marginLeft="25dp"
+                    android:orientation="vertical">
 
 
                         <TextView
-                            android:id="@+id/rest_distance"
+                            android:id="@+id/restaurant_locals"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="Distance"
-                            android:textColor="@color/food_color_dark"
-                            android:textStyle="normal"
-                            android:paddingLeft="4dp"/>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_map"
-                            android:scaleType="centerCrop" />
-
+                            android:text="Locals"
+                            android:textColor="@color/textview_dark"
+                            android:textStyle="bold"
+                            android:paddingLeft="8dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="4dp"/>
 
                         <TextView
-                            android:id="@+id/rest_address"
+                            android:id="@+id/restaurant_cuisine"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
-                            android:text="Address"
-                            android:textColor="@color/food_color_dark"
+                            android:text="Cuisine"
+                            android:textColor="@color/textview_dark"
                             android:textStyle="normal"
-                            android:paddingLeft="4dp"/>
+                            android:paddingLeft="8dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/restaurant_cost_for_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="Rs ### for 2 people"
+                        android:textColor="@color/textview_light"
+                        android:textStyle="italic"
+                        android:paddingLeft="8dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="4dp"/>
+
+
+                    <TextView
+                        android:id="@+id/restaurant_friendly_distance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="About ### m away from here"
+                        android:textColor="@color/textview_light"
+                        android:textStyle="italic"
+                        android:paddingLeft="8dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="4dp"/>
+
+
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -175,6 +176,45 @@
 
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp">
+
+            <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_action_delivery_motorbike"
+                    android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/ic_action_veg"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/ic_credit_card"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="6dp"
+                android:background="@drawable/ic_local_bar_grey"
+                android:scaleType="centerCrop" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 </com.greplr.common.ui.GlassCardView>
