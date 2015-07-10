@@ -27,8 +27,10 @@ import com.greplr.subcategories.UnderSubCategory;
  */
 public class ShoppingFragment extends SubCategoryFragment {
 
-    public static ShoppingFragment newInstance() {
-        return new ShoppingFragment();
+    public static ShoppingFragment newInstance(int num) {
+        ShoppingFragment sf = new ShoppingFragment();
+        sf.topCatNo = num;
+        return sf;
     }
 
 
@@ -48,11 +50,6 @@ public class ShoppingFragment extends SubCategoryFragment {
                         ShoppingSearchFragment.newInstance()
                 )
         };
-    }
-
-    @Override
-    public int topCatNo() {
-        return 3;
     }
 
 }

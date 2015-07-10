@@ -33,8 +33,10 @@ import com.greplr.subcategories.UnderSubCategory;
  */
 public class NewsFragment extends SubCategoryFragment {
 
-    public static NewsFragment newInstance() {
-        return new NewsFragment();
+    public static NewsFragment newInstance(int num) {
+        NewsFragment nf = new NewsFragment();
+        nf.topCatNo = num;
+        return nf;
     }
 
 
@@ -96,11 +98,6 @@ public class NewsFragment extends SubCategoryFragment {
                                 "business+finance")
                 )
         };
-    }
-
-    @Override
-    public int topCatNo() {
-        return 4;
     }
 
     @Override

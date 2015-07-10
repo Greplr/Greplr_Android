@@ -29,8 +29,11 @@ import com.greplr.subcategories.UnderSubCategory;
  */
 public class EventFragment extends SubCategoryFragment {
 
-    public static EventFragment newInstance() {
-        return new EventFragment();
+
+    public static EventFragment newInstance(int num) {
+        EventFragment ef = new EventFragment();
+        ef.topCatNo = num;
+        return ef;
     }
 
 
@@ -52,8 +55,4 @@ public class EventFragment extends SubCategoryFragment {
         };
     }
 
-    @Override
-    public int topCatNo() {
-        return 2;
-    }
 }

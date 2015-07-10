@@ -28,8 +28,10 @@ import com.greplr.subcategories.food.FoodCafesFragment;
  */
 public class FoodFragment extends SubCategoryFragment {
 
-    public static FoodFragment newInstance() {
-        return new FoodFragment();
+    public static FoodFragment newInstance(int num) {
+        FoodFragment ff = new FoodFragment();
+        ff.topCatNo = num;
+        return ff;
     }
 
     @Override
@@ -60,10 +62,5 @@ public class FoodFragment extends SubCategoryFragment {
                         FoodBarsFragment.newInstance()
                 )
         };
-    }
-
-    @Override
-    public int topCatNo() {
-        return 1;
     }
 }

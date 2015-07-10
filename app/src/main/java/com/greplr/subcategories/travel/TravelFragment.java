@@ -27,8 +27,10 @@ import com.greplr.subcategories.UnderSubCategory;
  */
 public class TravelFragment extends SubCategoryFragment {
 
-    public static TravelFragment newInstance() {
-        return new TravelFragment();
+    public static TravelFragment newInstance(int num) {
+        TravelFragment tf = new TravelFragment();
+        tf.topCatNo = num;
+        return tf;
     }
 
 
@@ -56,8 +58,4 @@ public class TravelFragment extends SubCategoryFragment {
         };
     }
 
-    @Override
-    public int topCatNo() {
-        return 0;
-    }
 }

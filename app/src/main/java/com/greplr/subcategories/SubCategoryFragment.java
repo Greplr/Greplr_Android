@@ -48,6 +48,8 @@ public abstract class SubCategoryFragment extends Fragment {
 
     public static final String LOG_TAG = "Greplr/SubCategory";
 
+    public int topCatNo = 0;
+
     private ActionBar mActionBar;
     private ImageView backgroundImage;
     private ImageView headerLogo;
@@ -136,11 +138,13 @@ public abstract class SubCategoryFragment extends Fragment {
 
     public abstract UnderSubCategory[] getUnderSubCategories();
 
-    public abstract int topCatNo();
+    public int getCatNum() {
+        return topCatNo;
+    }
 
 
     public int getCategoryColor() {
-        return getResources().getColor(Topcategories.getTopCategories().get(topCatNo()).cardColor);
+        return getResources().getColor(Topcategories.getTopCategories().get(getCatNum()).cardColor);
     }
 
     public int getUnderSubFragCount() {
