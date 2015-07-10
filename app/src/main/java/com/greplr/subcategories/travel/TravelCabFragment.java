@@ -37,17 +37,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
-import com.greplr.common.ui.GlassCardView;
-import com.greplr.common.utils.IsOnlineTask;
 import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -69,10 +67,6 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
     private List<Cab> cabList;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private GlassCardView cardView;
-    private ProgressBar progressBar;
-    private RelativeLayout noInternet;
 
     public static TravelCabFragment newInstance() {
         return new TravelCabFragment();
@@ -107,58 +101,42 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_cab);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-
-        cardView = (GlassCardView) view.findViewById(R.id.cardview_progress);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        noInternet = (RelativeLayout) view.findViewById(R.id.noInternet);
-        final Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        new IsOnlineTask() {
-            @Override
-            protected void onPostExecute(Boolean value) {
-                if (value) {
-                    apiHandler.getTravelCabs(
-                            String.valueOf(App.currentLatitude),
-                            String.valueOf(App.currentLongitude),
-                            new Callback<List<Cab>>() {
-                                @Override
-                                public void success(List<Cab> cabs, Response response) {
-                                    Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                                    cabList = cabs;
-                                    cardView.setVisibility(View.GONE);
-                                    updateCabs();
-                                    //Parse Analytics
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("lat", String.valueOf(App.currentLatitude));
-                                    params.put("lng", String.valueOf(App.currentLongitude));
-                                    params.put("success", "true");
-                                    ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-                                }
-
-                                @Override
-                                public void failure(RetrofitError error) {
-                                    Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                                    //Parse Analytics
-                                    Map<String, String> params = new HashMap<>();
-                                    params.put("lat", String.valueOf(App.currentLatitude));
-                                    params.put("lng", String.valueOf(App.currentLongitude));
-                                    params.put("success", "false");
-                                    ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-
-                                }
-                            }
-                    );
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    noInternet.setVisibility(View.VISIBLE);
-                }
-            }
-        }.execute();
-
-    }
-
-    public void updateCabs() {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CabAdapter()));
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+        final Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getTravelCabs(
+                String.valueOf(App.currentLatitude),
+                String.valueOf(App.currentLongitude),
+                new Callback<List<Cab>>() {
+                    @Override
+                    public void success(List<Cab> cabs, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        cabList = cabs;
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CabAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        //Parse Analytics
+                        Map<String, String> params = new HashMap<>();
+                        params.put("lat", String.valueOf(App.currentLatitude));
+                        params.put("lng", String.valueOf(App.currentLongitude));
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+
+                    }
+                }
+        );
     }
 
     public AlertDialog newCabHailDialog(final Context c, final Cab cab) {
