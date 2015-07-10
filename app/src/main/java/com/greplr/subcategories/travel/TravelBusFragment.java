@@ -34,15 +34,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.ui.MaterialAutoCompleteTextView;
 import com.greplr.common.ui.MaterialEditText;
@@ -76,7 +75,6 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Travel/Bus";
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private String arrivalLocation, departureLocation, travelDate;
     private List<Bus> busList;
     private View.OnClickListener onSearchFABListener;
@@ -119,13 +117,10 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_bus);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         try {
             JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity(), "cities.json"));
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 cityList.add(jsonArray.getJSONObject(i).getString("name"));
             }
         } catch (JSONException e) {
@@ -133,7 +128,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         }
 
         // Attach search dialog to search FAB
-        onSearchFABListener = new View.OnClickListener(){
+        onSearchFABListener = new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -141,7 +136,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 customDialog.setContentView(R.layout.searchdialog_travel_bus);
                 customDialog.setTitle("Enter Your Details");
                 customDialog.setCancelable(true);
-                
+
                 CardView busCardView = (CardView) customDialog.findViewById(R.id.travel_bus_card_dialog);
                 busCardView.setCardBackgroundColor(ColorUtils.getDarkerColor(getResources().getColor(R.color.travel_dialog_backgroundColor)));
 
@@ -169,17 +164,19 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                             travelDate = date.getText().toString();
                             if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("")) {
                                 customDialog.dismiss();
+                                mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                                 fetchBus();
                                 in.hideSoftInputFromWindow(date
                                                 .getApplicationWindowToken(),
                                         InputMethodManager.HIDE_NOT_ALWAYS);
                                 handled = true;
                             } else {
-                                if(departureLocation.equalsIgnoreCase(""))
+                                if (departureLocation.equalsIgnoreCase(""))
                                     origin.setError("Enter Origin Location");
-                                if(arrivalLocation.equalsIgnoreCase(""))
+                                if (arrivalLocation.equalsIgnoreCase(""))
                                     destination.setError("Enter Destination Location");
-                                if(travelDate.equalsIgnoreCase(""))
+                                if (travelDate.equalsIgnoreCase(""))
                                     date.setError("Enter Your Travel Date");
                                 handled = false;
                             }
@@ -200,13 +197,15 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         travelDate = date.getText().toString();
                         if (!departureLocation.equalsIgnoreCase("") && !arrivalLocation.equals("") && !travelDate.equalsIgnoreCase("")) {
                             customDialog.dismiss();
+                            mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                            MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                             fetchBus();
                         } else {
-                            if(departureLocation.equalsIgnoreCase(""))
+                            if (departureLocation.equalsIgnoreCase(""))
                                 origin.setError("Enter Origin Location");
-                            if(arrivalLocation.equalsIgnoreCase(""))
+                            if (arrivalLocation.equalsIgnoreCase(""))
                                 destination.setError("Enter Destination Location");
-                            if(travelDate.equalsIgnoreCase(""))
+                            if (travelDate.equalsIgnoreCase(""))
                                 date.setError("Enter Your Travel Date");
                         }
                     }
@@ -216,7 +215,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
         };
     }
 
-    private void fetchBus(){
+    private void fetchBus() {
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getTravelBus(
                 departureLocation,
@@ -227,7 +226,9 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                     public void success(List<Bus> buses, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         busList = buses;
-                        updateBus(busList);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
                         Map<String, String> params = new HashMap<>();
                         params.put("departure", departureLocation);
                         params.put("arrival", arrivalLocation);
@@ -239,6 +240,8 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("departure", departureLocation);
                         params.put("arrival", arrivalLocation);
@@ -249,16 +252,11 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 }
         );
     }
-    public void updateBus(List<Bus> bus) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
-        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
-
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getParentFragment()!=null) {
+        if (getParentFragment() != null) {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);

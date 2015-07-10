@@ -35,8 +35,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +42,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.ui.MaterialAutoCompleteTextView;
 import com.greplr.common.ui.MaterialEditText;
@@ -78,7 +77,6 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Travel/Flight";
     private List<Flight> flightList;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private String arrivalLocation, departureLocation, travelDate, numOfAdults;
     private View.OnClickListener onSearchFABListener;
     private ArrayList<String> airportList;
@@ -119,13 +117,10 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_flight);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         try {
             JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity(), "airports.json"));
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 airportList.add(jsonArray.getJSONObject(i).getString("city") + "," +
                         jsonArray.getJSONObject(i).getString("country") + " - " +
                         jsonArray.getJSONObject(i).getString("code"));
@@ -147,7 +142,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
                 CardView busCardView = (CardView) customDialog.findViewById(R.id.travel_flight_card_dialog);
                 busCardView.setCardBackgroundColor(ColorUtils.getDarkerColor(getResources().getColor(R.color.travel_dialog_backgroundColor)));
-                        
+
                 final MaterialAutoCompleteTextView origin = (MaterialAutoCompleteTextView) customDialog.findViewById(R.id.et_origin);
                 final MaterialAutoCompleteTextView destination = (MaterialAutoCompleteTextView) customDialog.findViewById(R.id.et_destination);
                 origin.setThreshold(1);
@@ -174,19 +169,21 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                                 departureLocation = origin.getText().toString().split("-")[1].trim();
                                 arrivalLocation = destination.getText().toString().split("-")[1].trim();
                                 customDialog.dismiss();
+                                mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                                 fetchFlights();
                                 in.hideSoftInputFromWindow(date
                                                 .getApplicationWindowToken(),
                                         InputMethodManager.HIDE_NOT_ALWAYS);
                                 handled = true;
                             } else {
-                                if(departureLocation.equalsIgnoreCase(""))
+                                if (departureLocation.equalsIgnoreCase(""))
                                     origin.setError("Enter Origin Location");
-                                if(arrivalLocation.equalsIgnoreCase(""))
+                                if (arrivalLocation.equalsIgnoreCase(""))
                                     destination.setError("Enter Destination Location");
-                                if(travelDate.equalsIgnoreCase(""))
+                                if (travelDate.equalsIgnoreCase(""))
                                     date.setError("Enter Your Travel Date");
-                                if(numOfAdults.equalsIgnoreCase(""))
+                                if (numOfAdults.equalsIgnoreCase(""))
                                     adults.setError("Enter The Number of adults");
                             }
                         }
@@ -207,15 +204,17 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                             departureLocation = origin.getText().toString().split("-")[1].trim();
                             arrivalLocation = destination.getText().toString().split("-")[1].trim();
                             customDialog.dismiss();
+                            mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                            MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                             fetchFlights();
                         } else {
-                            if(departureLocation.equalsIgnoreCase(""))
+                            if (departureLocation.equalsIgnoreCase(""))
                                 origin.setError("Enter Origin Location");
-                            if(arrivalLocation.equalsIgnoreCase(""))
+                            if (arrivalLocation.equalsIgnoreCase(""))
                                 destination.setError("Enter Destination Location");
-                            if(travelDate.equalsIgnoreCase(""))
+                            if (travelDate.equalsIgnoreCase(""))
                                 date.setError("Enter Your Travel Date");
-                            if(numOfAdults.equalsIgnoreCase(""))
+                            if (numOfAdults.equalsIgnoreCase(""))
                                 adults.setError("Enter The Number of adults");
                         }
                     }
@@ -238,7 +237,9 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                     public void success(List<Flight> flights, Response response) {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         flightList = flights;
-                        updateFlight(flightList);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
                         Map<String, String> params = new HashMap<>();
                         params.put("departure", departureLocation);
                         params.put("arrival", arrivalLocation);
@@ -251,6 +252,8 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("departure", departureLocation);
                         params.put("arrival", arrivalLocation);
@@ -262,15 +265,11 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
                 }
         );
     }
-    public void updateFlight(List<Flight> flights) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new FlightAdapter()));
-        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getParentFragment()!=null) {
+        if (getParentFragment() != null) {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
@@ -323,9 +322,9 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
 
             viewHolder.airline.setText(flightList.get(i).getAirline());
             viewHolder.flightnum.setText("Flight No. : " + flightList.get(i).getFlightnum());
-            if (flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("e")){
+            if (flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("e")) {
                 viewHolder.seatingclass.setText("Travel Class : Economy");
-            } else if(flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("b")){
+            } else if (flightList.get(i).getSeatingclass().toString().equalsIgnoreCase("b")) {
                 viewHolder.seatingclass.setText("Travel Class : Business");
             } else {
                 viewHolder.seatingclass.setText("Travel Class : Economy");
