@@ -31,16 +31,15 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,7 +56,6 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Event/Movie";
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private List<Movies> movieList;
 
     public static EventMovieFragment newInstance() {
@@ -82,37 +80,8 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         Log.d(LOG_TAG, "EventMovieFragment onCreateView");
-
-        View rootView = inflater.inflate(R.layout.fragment_events_movies, container, false);
-
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getEventMovies(
-                new Callback<List<Movies>>() {
-
-                    @Override
-                    public void success(List<Movies> movies, Response response) {
-                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
-                        movieList = movies;
-                        updateMovies(movieList);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
-                    }
-                }
-        );
-
-        return rootView;
-
+        return inflater.inflate(R.layout.fragment_events_movies, container, false);
     }
 
     @Override
@@ -122,14 +91,35 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_movies);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
-    }
+        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
+        apiHandler.getEventMovies(
+                new Callback<List<Movies>>() {
 
-    public void updateMovies(List<Movies> movies) {
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new MoviesAdapter()));
+                    @Override
+                    public void success(List<Movies> movies, Response response) {
+                        Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
+                        movieList = movies;
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new MoviesAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "true");
+                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        Map<String, String> params = new HashMap<>();
+                        params.put("success", "false");
+                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
+                    }
+                }
+        );
     }
 
     public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {

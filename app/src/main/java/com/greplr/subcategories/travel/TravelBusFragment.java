@@ -303,12 +303,12 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             }
 
             if (arrdate != null) {
-                viewHolder.arrdate.setText(
-                        DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
-                                + ":"
-                                + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
+                viewHolder.arrdate.setText(String.valueOf(Utils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
+//                        DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
+//                                + ":"
+//                                + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
             } else {
-                viewHolder.arrdate.setText("");
+                viewHolder.arrdate.setText(String.valueOf(Utils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
             }
 
 

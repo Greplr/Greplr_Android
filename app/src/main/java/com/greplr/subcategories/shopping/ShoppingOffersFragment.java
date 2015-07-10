@@ -19,7 +19,6 @@
 package com.greplr.subcategories.shopping;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,7 +36,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.models.shopping.offers.Offers;
 import com.greplr.subcategories.UnderSubCategoryFragment;
@@ -61,9 +61,6 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
 
     private List<Offers> offerList;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
 
     public static ShoppingOffersFragment newInstance() {
         return new ShoppingOffersFragment();
@@ -87,7 +84,18 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingOffersFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_shopping_offer, container, false);
+        return inflater.inflate(R.layout.fragment_shopping_offer, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_offers);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getShoppingOffers(
@@ -95,10 +103,11 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                     @Override
                     public void success(List<Offers> offers, Response response) {
                         offerList = offers;
-                        updateOffers(offerList);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
-                        Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability()+ "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
+                        Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability() + "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
                         params.put("success", "true");
                         ParseAnalytics.trackEventInBackground("shopping/offers", params);
                     }
@@ -106,6 +115,8 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
@@ -114,26 +125,6 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                 }
         );
 
-        return rootView;
-    }
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_offers);
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-
-    }
-    public void updateOffers(List<Offers> offersList){
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
     }
 
     public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {

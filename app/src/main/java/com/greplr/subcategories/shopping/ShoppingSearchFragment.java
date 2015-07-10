@@ -36,8 +36,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,7 +43,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.ui.MaterialEditText;
 import com.greplr.common.utils.ColorUtils;
@@ -71,7 +70,6 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
     private List<Search> searchList;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private View.OnClickListener onSearchFABListener;
     private String productName;
 
@@ -98,20 +96,15 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "ShoppingSearchFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_shopping_search, container, false);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_shopping_search, container, false);
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_shoppingsearch);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_shoppingsearch);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         onSearchFABListener = new View.OnClickListener() {
             @Override
@@ -138,6 +131,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                             productName = product.getText().toString();
                             if (!productName.equalsIgnoreCase("")) {
                                 customDialog.dismiss();
+                                mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                                MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                                 fetchSearch();
                                 handled = true;
                             } else {
@@ -154,6 +149,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                         productName = product.getText().toString();
                         if (!productName.equalsIgnoreCase("")) {
                             customDialog.dismiss();
+                            mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+                            MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                             fetchSearch();
                         } else {
                             product.setError("Please Enter the Product Name");
@@ -175,7 +172,9 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                     public void success(List<Search> search, Response response) {
                         searchList = search;
                         Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
-                        updateShoppingSearch(searchList);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "true");
@@ -186,6 +185,8 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         //Parse Analytics
                         Map<String, String> params = new HashMap<>();
                         params.put("success", "false");
@@ -195,15 +196,11 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 }
         );
     }
-    public void updateShoppingSearch(List<Search> searchList){
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
-        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
 
-    }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getParentFragment()!=null) {
+        if (getParentFragment() != null) {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
@@ -230,12 +227,12 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
             viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            if(searchList.get(i).getProductDescription() == null)
+            if (searchList.get(i).getProductDescription() == null)
                 viewHolder.productDescription.setText(searchList.get(i).getColor());
             else
                 viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
 
-            if(Boolean.valueOf(searchList.get(i).getCodAvailable()))
+            if (Boolean.valueOf(searchList.get(i).getCodAvailable()))
                 viewHolder.cod.setText("COD Available : Yes");
             else
                 viewHolder.cod.setText("COD Available : No");
@@ -282,7 +279,5 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             }
         }
     }
-
-
 
 }

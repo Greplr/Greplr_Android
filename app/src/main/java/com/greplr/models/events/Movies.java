@@ -23,12 +23,12 @@ package com.greplr.models.events;
  */
 public class Movies {
 
-    public String Ratings;
-    public String Actors;
-    public String Language;
-    public String Length;
-    public String EventTitle;
-    public String EventCensor;
+    private String Ratings;
+    private String Actors;
+    private String Language;
+    private String Length;
+    private String EventTitle;
+    private String EventCensor;
 
     public String getActors() {
         return Actors;
