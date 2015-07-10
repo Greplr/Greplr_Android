@@ -41,6 +41,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.food.Order;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -57,6 +58,7 @@ import retrofit.client.Response;
 /**
  * Created by championswimmer on 15/6/15.
  */
+
 public class FoodOrderingFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/Food/Order";
@@ -159,13 +161,16 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
             viewHolder.minOrder.setText("Minimum Order : \u20b9"+restaurantList.get(i).getMinimum_order_amount());
             viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q=" + restaurantList.get(i).getLatitude() + "," + restaurantList.get(i).getLongitude() + "(" + restaurantList.get(i).getName() + ")"));
                     startActivity(intent);
                 }
             });
-            Picasso.with(getActivity()).load(restaurantList.get(i).getLogo()).fit().centerCrop().into(viewHolder.logo);
+
+            Picasso.with(getActivity()).load(Utils.editOrderLogoUrl(restaurantList.get(i).getLogo())).fit().centerCrop().into(viewHolder.logo);
+            Log.d("URL", Utils.editOrderLogoUrl(restaurantList.get(i).getLogo()));
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
