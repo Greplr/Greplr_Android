@@ -187,8 +187,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             public ViewHolder(CardView v) {
                 super(v);
                 restaurantName = (TextView) v.findViewById(R.id.rest_name);
-                distance = (TextView) v.findViewById(R.id.rest_distance);
-                address = (TextView) v.findViewById(R.id.rest_address);
+                distance = (TextView) v.findViewById(R.id.restaurant_friendly_distance);
+                address = (TextView) v.findViewById(R.id.restaurant_locals);
                 location = (ImageButton) v.findViewById(R.id.location_restaurant);
                 //price = (TextView) v.findViewById(R.id.rest_price);
             }

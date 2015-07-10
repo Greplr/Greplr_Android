@@ -19,6 +19,8 @@
 
 <resources>
     <color name="main_toolbarColor">#776B6570</color>
+    <color name="textview_dark">#212121</color>
+    <color name="textview_light">#757575</color>
 
     <color name="greplr_primary">#6B6570</color>
     <color name="greplr_primary_dark">#6B6570</color>
