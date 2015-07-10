@@ -25,6 +25,7 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,8 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.ui.MaterialEditText;
+import com.greplr.common.utils.ColorUtils;
 import com.greplr.models.shopping.search.Search;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
@@ -113,12 +116,17 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         onSearchFABListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog customDialog = new Dialog(getActivity());
+                final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
                 customDialog.setContentView(R.layout.searchdialog_shopping_search);
                 customDialog.setTitle("What are you looking for?");
                 customDialog.setCancelable(true);
-                final EditText product = (EditText) customDialog.findViewById(R.id.et_product_name);
-                Button buttonDone = (Button) customDialog.findViewById(R.id.ok_button);
+
+                CardView shoppingCardView = (CardView) customDialog.findViewById(R.id.shopping_search_card_dialog);
+                shoppingCardView.setCardBackgroundColor((ColorUtils.getDarkerColor(getResources().getColor(R.color.shopping_color_dark))));
+
+                final MaterialEditText product = (MaterialEditText) customDialog.findViewById(R.id.et_product_name);
+                AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
+                buttonDone.setSupportBackgroundTintList(getResources().getColorStateList(android.R.color.white));
                 product.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
                     @Override
