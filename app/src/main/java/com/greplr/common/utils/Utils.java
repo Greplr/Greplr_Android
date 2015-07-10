@@ -25,7 +25,6 @@ import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
-import android.widget.EditText;
 
 import com.greplr.common.ui.MaterialEditText;
 
@@ -140,6 +139,39 @@ public class Utils {
         });
     }
 
+    public static String calculateArrivalTime(Calendar depatureTime, String duration) {
+        if (duration.equalsIgnoreCase("0h 0m"))
+            return "";
+        int minutes = Integer.valueOf(DateTimeUtils.intToMinString(depatureTime.get(Calendar.MINUTE))) + Integer.valueOf(duration.split("h")[1].split("m")[0].trim());
+        int hours = Integer.valueOf(DateTimeUtils.intToHrString(depatureTime.get(Calendar.HOUR_OF_DAY), true)) + Integer.valueOf(duration.split("h")[0]);
+        if(minutes >= 60) {
+            minutes = minutes - 60;
+            hours = hours + 1;
+            if(hours >= 24)
+                hours = hours - 24;
+
+        }
+        if(hours >= 24)
+            hours = hours - 24;
+
+        String hour = String.valueOf(hours);
+        String min = String.valueOf(minutes);
+        if(hour.length() == 1){
+            if(min.length() == 1)
+                return "0" + hour + ":0" + String.valueOf(minutes);
+            else
+                return "0" + hour + ":" + String.valueOf(minutes);
+        } else {
+            if(min.length() == 1)
+                return hour + ":0" + String.valueOf(minutes);
+            else
+                return hour + ":" + String.valueOf(minutes);
+        }
+    }
+
+    public static String editOrderLogoUrl(String logoUrl) {
+        return logoUrl.replace("%s", "200");
+    }
 
     public static int dp2px(Context context, float dp) {
         Resources r = context.getResources();
