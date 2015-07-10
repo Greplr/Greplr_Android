@@ -22,11 +22,11 @@ package com.greplr.models.events;
  * Created by raghav on 21/06/15.
  */
 public class Plays {
-    public String Ratings;
-    public String Actors;
-    public String Director;
-    public String Length;
-    public String EventTitle;
+    private String Ratings;
+    private String Actors;
+    private String Director;
+    private String Length;
+    private String EventTitle;
 
     public String getRatings() {
         return Ratings;

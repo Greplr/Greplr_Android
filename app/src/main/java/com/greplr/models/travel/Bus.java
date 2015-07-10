@@ -22,16 +22,16 @@ package com.greplr.models.travel;
  * Created by championswimmer on 20/6/15.
  */
 public class Bus {
-    public String origin;
-    public String destination;
-    public String seat;
-    public String duration;
-    public String condition;
-    public String fare;
-    public String bustype;
-    public String travelagency;
-    public String arrdate;
-    public String depdate;
+    private String origin;
+    private String destination;
+    private String seat;
+    private String duration;
+    private String condition;
+    private String fare;
+    private String bustype;
+    private String travelagency;
+    private String arrdate;
+    private String depdate;
 
     public String getOrigin() {
         return origin;
