@@ -150,7 +150,7 @@
                             android:paddingBottom="6dp"
                             android:paddingLeft="10dp"
                             android:text="MRP"
-                            android:textColor="@color/prize_textview"
+                            android:textColor="@color/textview_error"
                             android:textStyle="normal" />
 
                     </LinearLayout>

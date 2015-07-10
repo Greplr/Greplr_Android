@@ -58,7 +58,7 @@
     <color name="shopping_color_light">#4D31BF</color>
     <color name="shopping_color_dark">#1A1040</color>
 
-    <color name="prize_textview">#F44336</color>
+    <color name="textview_error">#F44336</color>
     <color name="edittext_error_color_primary">#EF9A9A</color>
 
 </resources>
