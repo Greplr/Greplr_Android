@@ -52,7 +52,11 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:minHeight="?attr/actionBarSize"
-                android:background="@color/main_toolbarColor" />
+                android:background="@color/main_toolbarColor">
+
+                <include layout="@layout/toolbar_content" />
+
+                </android.support.v7.widget.Toolbar>
 
         </RelativeLayout>
 
