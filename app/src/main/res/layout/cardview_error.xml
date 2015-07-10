@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview_progress"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="28dp"
-    android:background="@android:color/white"
-    android:foreground="?selectableItemBackground">
+    android:layout_margin="8dp"
+    card_view:cardBackgroundColor="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="150dp"
         android:orientation="vertical">
 
         <TextView
@@ -19,7 +19,10 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="No Internet Connection" />
+            android:text="No Internet Connection"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/textview_dark"
+            android:layout_margin="12dp"/>
 
         <TextView
             android:id="@+id/error_message"
@@ -28,7 +31,33 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:text="Check your connection and try again" />
+            android:text="Check your connection and try again"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textview_error"
+            android:layout_margin="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/error_message"
+            android:layout_alignLeft="@+id/error_message"
+            android:layout_alignStart="@+id/error_message"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/app_icon"
+                android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Greplr"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/textview_light" />
+        </LinearLayout>
     </RelativeLayout>
 
 </com.greplr.common.ui.GlassCardView>
