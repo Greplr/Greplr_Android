@@ -55,7 +55,6 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
 
     public static final String LOG_TAG = "Greplr/Event/Play";
 
-
     private RecyclerView mRecyclerView;
     private List<Plays> playList;
 
