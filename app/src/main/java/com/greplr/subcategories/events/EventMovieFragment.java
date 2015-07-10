@@ -140,11 +140,13 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
             viewHolder.rating.setText(movieList.get(i).getRatings() + "/10");
             viewHolder.language.setText(movieList.get(i).getLanguage());
             viewHolder.length.setText(movieList.get(i).getLength());
+            viewHolder.actors.setText(movieList.get(i).getActors());
             if (movieList.get(i).getActors().equals("")) {
                 viewHolder.actorsImage.setVisibility(View.GONE);
                 viewHolder.actors.setVisibility(View.GONE);
             } else {
-                viewHolder.actors.setText(movieList.get(i).getActors());
+                viewHolder.actorsImage.setVisibility(View.VISIBLE);
+                viewHolder.actors.setVisibility(View.VISIBLE);
             }
             Picasso.with(getActivity()).load(movieList.get(i).getBannerURL()).
                     fit().centerCrop().into(viewHolder.banner);
