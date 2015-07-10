@@ -154,19 +154,28 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+
             viewHolder.name.setText(restaurantList.get(i).getName());
             viewHolder.distance.setText(restaurantList.get(i).getDistance_friendly());
             viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.cuisines.setText(restaurantList.get(i).getCuisines());
             viewHolder.costForTwo.setText("\u20B9 " + restaurantList.get(i).getCost_for_two() + " for two");
-            if (restaurantList.get(i).getAccepts_credit_card().equals("0"))
-                viewHolder.credit.setVisibility(View.GONE);
-            if (restaurantList.get(i).getHas_delivery().equals("0"))
-                viewHolder.delivery.setVisibility(View.GONE);
-            if (restaurantList.get(i).getIs_pure_veg().equals("0"))
-                viewHolder.vegetarian.setImageResource(R.drawable.ic_action_nonveg);
-            if (restaurantList.get(i).getHas_bar().equals("0"))
-                viewHolder.bar.setVisibility(View.GONE);
+
+            viewHolder.credit.setVisibility(
+                    restaurantList.get(i).getAccepts_credit_card().equals("0")
+                            ?View.GONE:View.VISIBLE);
+
+            viewHolder.delivery.setVisibility(
+                    restaurantList.get(i).getHas_delivery().equals("0")
+                            ?View.GONE:View.VISIBLE);
+
+            viewHolder.vegetarian.setImageResource(
+                    restaurantList.get(i).getIs_pure_veg().equals("0")?
+                            R.drawable.ic_action_nonveg:R.drawable.ic_action_veg);
+
+            viewHolder.bar.setVisibility(restaurantList.get(i).getHas_bar().equals("0")?
+                        View.GONE:View.VISIBLE);
+
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
