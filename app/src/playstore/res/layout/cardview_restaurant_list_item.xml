@@ -58,7 +58,7 @@
                         android:scaleType="centerCrop" />
 
                     <TextView
-                        android:id="@+id/rest_name"
+                        android:id="@+id/restaurant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -161,7 +161,7 @@
 
 
                         <ImageButton
-                            android:id="@+id/location_restaurant"
+                            android:id="@+id/restaurant_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
