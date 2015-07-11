@@ -23,6 +23,7 @@ package com.greplr.subcategories.food;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -160,21 +161,25 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.cuisines.setText(restaurantList.get(i).getCuisines());
             viewHolder.costForTwo.setText("\u20B9 " + restaurantList.get(i).getCost_for_two() + " for two");
+            viewHolder.rating.setText(restaurantList.get(i).getRating_aggregate());
+            viewHolder.ratingCard.setCardBackgroundColor(Color.parseColor(
+                    "#" + restaurantList.get(i).getRating_color()
+            ));
 
             viewHolder.credit.setVisibility(
                     restaurantList.get(i).getAccepts_credit_card().equals("0")
-                            ?View.GONE:View.VISIBLE);
+                            ? View.GONE : View.VISIBLE);
 
             viewHolder.delivery.setVisibility(
                     restaurantList.get(i).getHas_delivery().equals("0")
-                            ?View.GONE:View.VISIBLE);
+                            ? View.GONE : View.VISIBLE);
 
             viewHolder.vegetarian.setImageResource(
-                    restaurantList.get(i).getIs_pure_veg().equals("0")?
-                            R.drawable.ic_action_nonveg:R.drawable.ic_action_veg);
+                    restaurantList.get(i).getIs_pure_veg().equals("0") ?
+                            R.drawable.ic_action_nonveg : R.drawable.ic_action_veg);
 
-            viewHolder.bar.setVisibility(restaurantList.get(i).getHas_bar().equals("0")?
-                        View.GONE:View.VISIBLE);
+            viewHolder.bar.setVisibility(restaurantList.get(i).getHas_bar().equals("0") ?
+                    View.GONE : View.VISIBLE);
 
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -207,6 +212,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
             ImageView vegetarian;
             ImageView credit;
             ImageView bar;
+            CardView ratingCard;
+            TextView rating;
 
             public ViewHolder(CardView v) {
                 super(v);
@@ -220,6 +227,8 @@ public class FoodRestaurantsFragment extends UnderSubCategoryFragment {
                 vegetarian = (ImageView) v.findViewById(R.id.restaurant_vegetarian);
                 credit = (ImageView) v.findViewById(R.id.restaurant_credit);
                 bar = (ImageView) v.findViewById(R.id.restaurant_bar);
+                ratingCard = (CardView) v.findViewById(R.id.restaurant_rating);
+                rating = (TextView) v.findViewById(R.id.restaurant_rating_text);
             }
         }
     }
