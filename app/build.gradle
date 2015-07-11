@@ -21,16 +21,16 @@ android {
         applicationId "com.greplr"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 12
-        versionName "0.4.8"
+        versionCode 13
+        versionName "0.4.9"
     }
 
     productFlavors {
         mmx {
-
+            versionName = android.defaultConfig.versionName + "-MMX"
         }
         playstore {
-
+            versionName = android.defaultConfig.versionName + "-PLAY"
         }
     }
 
@@ -40,6 +40,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            versionNameSuffix = "-DEBUG"
             signingConfig signingConfigs.debug
         }
     }
