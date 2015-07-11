@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -39,6 +40,7 @@ import com.greplr.api.Api;
 import com.greplr.models.events.Plays;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
@@ -136,10 +138,11 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.eventTitle.setText(playList.get(i).getEventTitle());
-            viewHolder.ratings.setText(playList.get(i).getRatings() + "/10");
             viewHolder.director.setText(playList.get(i).getDirector());
             viewHolder.length.setText(playList.get(i).getLength());
             viewHolder.actors.setText(playList.get(i).getActors());
+            Picasso.with(getActivity()).load(playList.get(i).getBannerURL()).
+                    fit().centerCrop().into(viewHolder.playBanner);
 
         }
 
@@ -150,18 +153,18 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView eventTitle;
-            TextView ratings;
             TextView director;
             TextView length;
             TextView actors;
+            ImageView playBanner;
 
             public ViewHolder(CardView v) {
                 super(v);
                 eventTitle = (TextView) v.findViewById(R.id.play_name);
-                ratings = (TextView) v.findViewById(R.id.play_rating);
                 director = (TextView) v.findViewById(R.id.Director_name);
                 length = (TextView) v.findViewById(R.id.play_length);
                 actors = (TextView) v.findViewById(R.id.play_actors);
+                playBanner = (ImageView) v.findViewById(R.id.play_banner);
             }
         }
     }

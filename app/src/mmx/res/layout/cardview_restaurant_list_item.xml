@@ -68,6 +68,39 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|right">
+
+                <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/restaurant_rating"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="12dp"
+                    android:foreground="?selectableItemBackground"
+                    card_view:cardCornerRadius="6dp"
+                    card_view:cardElevation="2dp"
+                    card_view:cardPreventCornerOverlap="false">
+
+                    <TextView
+                        android:id="@+id/textview_restaurant_rating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Star"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="#424242"
+                        android:textSize="10dp"
+                        android:textStyle="normal" />
+
+                </com.greplr.common.ui.GlassCardView>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

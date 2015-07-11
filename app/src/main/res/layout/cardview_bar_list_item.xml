@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -17,8 +16,7 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<com.greplr.common.ui.GlassCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_bar_item"
     android:layout_width="match_parent"
@@ -26,8 +24,8 @@
     android:layout_margin="5dp"
     android:foreground="?selectableItemBackground"
     card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false">
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
 
     <LinearLayout
@@ -47,42 +45,29 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_local_bar"
+                    android:scaleType="centerCrop" />
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_local_bar"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/bar_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="20dp"
+                    android:text="Bar Name"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/bar_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="sans-serif"
-                        android:text="Bar Name"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                        android:textColor="#FFFFFF"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
@@ -105,40 +90,25 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_distance"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_distance"
+                        android:scaleType="centerCrop" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/bar_distance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:gravity="center_vertical"
+                        android:paddingLeft="6dp"
+                        android:text="Distance"
+                        android:textColor="@color/food_color_dark"
+                        android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/bar_distance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="Distance"
-                            android:textColor="@color/food_color_dark"
-                            android:textStyle="normal" />
-                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -148,41 +118,25 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_map"
+                        android:scaleType="centerCrop" />
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_map"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/bar_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
+                        android:gravity="center_vertical"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="6dp"
+                        android:text="Address"
+                        android:textColor="@color/food_color_dark"
+                        android:textStyle="normal" />
 
-                        <TextView
-                            android:id="@+id/bar_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:paddingBottom="6dp"
-                            android:text="Address"
-                            android:textColor="@color/food_color_dark"
-                            android:textStyle="normal" />
-                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

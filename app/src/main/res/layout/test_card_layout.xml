@@ -18,69 +18,72 @@
 
 <com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view_cab_item"
+    android:id="@+id/card_view_cafe_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@android:color/white"
-    android:foreground="?selectableItemBackground">
+    android:layout_margin="2dp"
+    android:foreground="?selectableItemBackground"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="2dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="false">
 
 
-<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?selectableItemBackgroundBorderless"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/events_color_light">
+            android:background="@color/food_color_primary">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/logo_bus_type"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_margin="6dp"
+                    android:background="@drawable/ic_directions_bus"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/restaurant_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="10dp"
+                    android:text="Cab Name"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_margin="6dp"
-                        android:background="@drawable/ic_local_offer"
-                        android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
+                    android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/product_name"
+                        android:id="@+id/bus_fare"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:fontFamily="sans-serif"
-                        android:text="Product Name"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        android:gravity="center_vertical"
+                        android:text="\u20B9999"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
-
+                        android:textSize="19sp"
+                        android:textStyle="italic" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -90,8 +93,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:weightSum="4">
 
@@ -99,252 +100,69 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="2dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-<<<<<<< HEAD
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Length :"
-                            android:textColor="@color/events_color_dark"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="5dp"/>
-
-                        <TextView
-                            android:id="@+id/language"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NA"
-                            android:textColor="#212121"/>
-=======
-                        android:padding="2dp">
->>>>>>> origin/yogesh
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/wallet_profile"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/min_price"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="6dp"
-                            android:text="Min Prize"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
-
-                        <TextView
-                            android:id="@+id/mrp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-<<<<<<< HEAD
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Director :"
-                                android:textColor="@color/events_color_dark"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="5dp"/>
-
-                            <TextView
-                                android:id="@+id/length"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NA"
-                                android:textColor="#212121"/>
-
-                        </LinearLayout>
-=======
-                            android:paddingBottom="6dp"
-                            android:paddingLeft="10dp"
-                            android:text="MRP"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
->>>>>>> origin/yogesh
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_history"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/cod"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="6dp"
-                            android:text="COD Available"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_work"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
-
-                        <TextView
-                            android:id="@+id/product_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:ellipsize="end"
-                            android:maxLines="3"
-                            android:minLines="1"
-                            android:paddingBottom="6dp"
-                            android:text="Product Description"
-                            android:textColor="#212121"
-                            android:textStyle="normal" />
-                    </LinearLayout>
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_bus_agency"
+                        android:scaleType="centerCrop" />
 
-
-                        <ImageButton
-                            android:id="@+id/app_icon"
-                            android:layout_width="96dp"
-                            android:layout_height="96dp"
-                            android:adjustViewBounds="true"
-                            android:background="@android:color/transparent"
-                            android:scaleType="centerCrop" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/travel_agency_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:id="@+id/provider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="4dp"
-                            android:gravity="center"
-                            android:paddingBottom="2dp"
-                            android:text="provider"
-                            android:textColor="#BDBDBD"
-                            android:textSize="10sp"
-                            android:textStyle="italic" />
-                    </LinearLayout>
-
+                        android:layout_gravity="center"
+                        android:text="Travel Agency Name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#212121"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
                 </LinearLayout>
 
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="6dp"
+                        android:background="@drawable/ic_history"
+                        android:scaleType="centerCrop" />
+
+                    <TextView
+                        android:id="@+id/bus_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Bus Type"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#424242"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
--->
+
 
 </com.greplr.common.ui.GlassCardView>

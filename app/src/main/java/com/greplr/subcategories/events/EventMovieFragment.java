@@ -151,7 +151,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                 viewHolder.actors.setVisibility(View.VISIBLE);
             }
             Picasso.with(getActivity()).load(movieList.get(i).getBannerURL()).
-                    fit().centerCrop().into(viewHolder.banner);
+                    fit().centerCrop().into(viewHolder.movieBanner);
         }
 
         @Override
@@ -165,7 +165,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
             TextView language;
             TextView length;
             TextView actors;
-            ImageView banner;
+            ImageView movieBanner;
             ImageView actorsImage;
 
             public ViewHolder(CardView v) {
@@ -175,7 +175,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                 language = (TextView) v.findViewById(R.id.language);
                 length = (TextView) v.findViewById(R.id.length);
                 actors = (TextView) v.findViewById(R.id.actors);
-                banner = (ImageView) v.findViewById(R.id.banner);
+                movieBanner = (ImageView) v.findViewById(R.id.movie_banner);
                 actorsImage = (ImageView) v.findViewById(R.id.actors_image);
             }
         }
