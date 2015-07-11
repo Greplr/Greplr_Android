@@ -84,30 +84,13 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
                         <ImageView
                             android:id="@+id/iv_order_rating"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_distance"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/restaurant_order_rating"
@@ -117,8 +100,9 @@
                             android:gravity="center_vertical"
                             android:text="Rating"
                             android:textColor="@color/food_color_primary"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="6dp"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -127,31 +111,13 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
                         <ImageView
                             android:id="@+id/iv_order_min_order"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
                             android:background="@drawable/wallet_profile"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/restaurant_order_min_order"
@@ -161,8 +127,9 @@
                             android:gravity="center_vertical"
                             android:text="Minimum Order"
                             android:textColor="@color/food_color_primary"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="6dp"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -171,33 +138,13 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
                         <ImageView
                             android:id="@+id/iv_order_address"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_map"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/restaurant_order_address"
@@ -208,8 +155,9 @@
                             android:paddingBottom="6dp"
                             android:text="Address"
                             android:textColor="@color/food_color_primary"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="6dp"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -250,7 +198,7 @@
                             android:background="@android:color/transparent"
                             android:scaleType="centerCrop"
                             android:src="@drawable/ic_location"
-                            />
+                            android:layout_marginTop="8dp"/>
 
                     </LinearLayout>
 
