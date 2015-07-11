@@ -1,0 +1,19 @@
+language: android
+
+script: ./gradlew clean assembleDebug
+
+branches:
+  only:
+    - master
+
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-22.0.1
+  - android-22
+  - extra-google-google_play_services
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - addon-google_apis-google-22
+  - extra-android-support
