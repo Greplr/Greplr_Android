@@ -48,19 +48,9 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:layout_margin="6dp"
                     android:background="@drawable/ic_movie"
                     android:scaleType="centerCrop" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
 
                     <TextView
                         android:id="@+id/movie_title"
@@ -72,9 +62,9 @@
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                </LinearLayout>
+                        android:textStyle="normal"
+                        android:paddingLeft="20dp"
+                        />
 
             </LinearLayout>
 
@@ -95,12 +85,11 @@
 
 
                 <ImageView
-                    android:id="@+id/banner"
+                    android:id="@+id/movie_banner"
                     android:layout_width="fill_parent"
                     android:layout_height="150dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@android:color/white"
-                    android:scaleType="fitCenter"
+                    android:background="@android:color/transparent"
                     android:src="@drawable/ic_local_movies_red" />
 
                 <LinearLayout
@@ -141,14 +130,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.95"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp"
+                        android:paddingLeft="8dp"
                         android:paddingRight="4dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -165,8 +148,6 @@
                                 android:text="NA"
                                 android:textColor="#212121" />
 
-                        </LinearLayout>
-
                     </LinearLayout>
                 </LinearLayout>
 
@@ -177,32 +158,12 @@
                     android:layout_marginLeft="5dp"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_star"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_toEndOf="@+id/item_image"
-                        android:layout_toRightOf="@+id/item_image"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/rating"
@@ -212,8 +173,9 @@
                             android:gravity="center_vertical"
                             android:text="Star"
                             android:textColor="#F8BA07"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="4dp"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -239,13 +201,6 @@
                             android:scaleType="centerCrop" />
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp">
 
                         <TextView
                             android:id="@+id/actors"
@@ -257,10 +212,11 @@
                             android:maxLines="3"
                             android:minLines="1"
                             android:paddingBottom="6dp"
-                            android:text="Fare"
+                            android:text="Actors"
                             android:textColor="#424242"
-                            android:textStyle="normal" />
-                    </LinearLayout>
+                            android:textStyle="normal"
+                            android:paddingLeft="4dp"/>
+
                 </LinearLayout>
 
 

@@ -47,28 +47,12 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dp">
-
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
                         android:layout_margin="6dp"
                         android:background="@drawable/ic_local_play"
                         android:scaleType="centerCrop" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp">
 
                     <TextView
                         android:id="@+id/play_name"
@@ -80,9 +64,10 @@
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="17sp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="3dp"/>
 
-                </LinearLayout>
 
 
             </LinearLayout>
@@ -95,15 +80,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="4"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="3dp"
                 android:layout_weight="4"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/play_banner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_play_circle" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -144,14 +135,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical"
-                        android:paddingLeft="4dp"
+                        android:paddingLeft="8dp"
                         android:paddingRight="4dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingLeft="4dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -168,64 +154,17 @@
                                 android:text="NA"
                                 android:textColor="#212121"/>
 
-                        </LinearLayout>
-
                     </LinearLayout>
                 </LinearLayout>
+
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
-
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="6dp"
-                            android:background="@drawable/ic_star"
-                            android:scaleType="centerCrop" />
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/play_rating"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Star"
-                            android:textColor="#F8BA07"
-                            android:textStyle="normal"
-                            android:gravity="center_vertical"/>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="2dp">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
 
                         <ImageView
                             android:layout_width="18dp"
@@ -236,15 +175,7 @@
                             android:layout_margin="6dp"
                             android:background="@drawable/ic_actor"
                             android:scaleType="centerCrop" />
-                    </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="4dp"
-                        android:gravity="center">
 
                         <TextView
                             android:id="@+id/play_actors"
@@ -256,10 +187,9 @@
                             android:maxLines="3"
                             android:minLines="1"
                             android:textColor="#424242"
-                            android:paddingBottom="6dp"
+                            android:paddingLeft="4dp"
                             android:textStyle="normal"
                             android:gravity="center_vertical"/>
-                    </LinearLayout>
                 </LinearLayout>
 
 
