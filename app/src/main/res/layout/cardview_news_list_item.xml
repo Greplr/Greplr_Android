@@ -18,8 +18,7 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<com.greplr.common.ui.GlassCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.greplr.common.ui.GlassCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view_news_item"
     android:layout_width="match_parent"
@@ -27,8 +26,8 @@
     android:layout_margin="5dp"
     android:foreground="?selectableItemBackground"
     card_view:cardCornerRadius="0dp"
-    card_view:cardUseCompatPadding="true"
-    card_view:cardPreventCornerOverlap="false">
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,49 +35,48 @@
 
         <ImageView
             android:id="@+id/news_image"
-            android:layout_height="wrap_content"
-            android:minHeight="100dp"
             android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            android:minHeight="100dp" />
 
         <TextView
+            android:id="@+id/news_headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New \n Text"
-            android:id="@+id/news_headline"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/news_image"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/news_image"
             android:ellipsize="end"
             android:ems="3"
             android:maxLines="3"
             android:minLines="1"
+            android:text="New \n Text"
             android:textColor="@android:color/black"
             android:textSize="17sp"
-            android:textStyle="bold"
-            android:layout_toRightOf="@+id/news_image"
-            android:layout_marginLeft="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignTop="@+id/news_image"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/news_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="N\ne\nw\ns\n \nT\ne"
-            android:id="@+id/news_summary"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
+            android:layout_alignLeft="@+id/news_image"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/news_image"
+            android:layout_below="@+id/news_image"
             android:maxLines="8"
             android:paddingBottom="10dp"
-            android:layout_below="@+id/news_image"
-            android:layout_alignLeft="@+id/news_image"
-            android:layout_alignStart="@+id/news_image"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:text="N\ne\nw\ns\n \nT\ne"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
 
 
     </RelativeLayout>
-
 
 
 </com.greplr.common.ui.GlassCardView>

@@ -31,8 +31,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="?selectableItemBackgroundBorderless">
+        android:background="?selectableItemBackgroundBorderless"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,56 +54,57 @@
                     android:scaleType="centerCrop" />
 
                 <TextView
-                    android:layout_marginLeft="10dp"
-                    android:layout_gravity="center"
                     android:id="@+id/dept_time_flight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00:00"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="2dp"
+                    android:text="00:00"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                     android:textColor="#FFFFFF"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="2dp"
                     android:text="-"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                     android:textColor="#FFFFFF"
                     android:textSize="19sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
 
                 <TextView
-                    android:layout_gravity="center"
                     android:id="@+id/arr_time_flight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="3dp"
                     android:text="11:11"
                     android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                     android:textColor="#FFFFFF"
                     android:textSize="19sp"
-                    android:textStyle="normal"/>
+                    android:textStyle="normal" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/flight_fare"
-                        android:layout_marginRight="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
                         android:gravity="center_vertical"
                         android:text="\u20B9999"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textColor="#FFFFFF"
                         android:textSize="19sp"
-                        android:textStyle="italic"
-                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
+                        android:textStyle="italic" />
                 </RelativeLayout>
 
             </LinearLayout>
