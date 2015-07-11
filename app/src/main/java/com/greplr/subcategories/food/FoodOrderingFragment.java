@@ -39,7 +39,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.food.Order;
@@ -90,7 +91,18 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("Greplr", "FoodOrderingFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_food_order, container, false);
+        return inflater.inflate(R.layout.fragment_food_order, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_food_order);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
         Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
         apiHandler.getOrderFood(
@@ -102,50 +114,33 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         area_id = orders.getArea_id();
                         restaurantList = orders.getRestaurants();
-                        updateOrders(restaurantList);
-                        Log.d(LOG_TAG, restaurantList.get(0).getAddress()  + "  " + restaurantList.get(0).getCode()  + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getChain().getName());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new OrderAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        Log.d(LOG_TAG, restaurantList.get(0).getAddress() + "  " + restaurantList.get(0).getCode() + "  " + restaurantList.get(0).getDescription() + "  " + restaurantList.get(0).getId() + "  " + restaurantList.get(0).getLatitude() + "  " + restaurantList.get(0).getLogo() + "  " + restaurantList.get(0).getLongitude() + "  " + restaurantList.get(0).getMetadata() + "  " + restaurantList.get(0).getChain().getName());
+                        sendParseAnalytics("true");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("food/orders/search", params);
-
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+                        sendParseAnalytics("false");
                     }
                 }
         );
-        return rootView;
 
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_food_order);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
-        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-
-    }
-    public void updateOrders(List<Order.OrderRestaurants> restaurantList){
-        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new OrderAdapter()));
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("lat", String.valueOf(App.currentLatitude));
+        params.put("lng", String.valueOf(App.currentLongitude));
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("food/orders/search", params);
     }
 
     public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
-
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -157,8 +152,8 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(restaurantList.get(i).getName());
-            viewHolder.rating.setText(restaurantList.get(i).getRating() +"/5");
-            viewHolder.minOrder.setText("Minimum Order : \u20b9"+restaurantList.get(i).getMinimum_order_amount());
+            viewHolder.rating.setText(restaurantList.get(i).getRating() + "/5");
+            viewHolder.minOrder.setText("Minimum Order : \u20b9" + restaurantList.get(i).getMinimum_order_amount());
             viewHolder.address.setText(restaurantList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
 
@@ -181,8 +176,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                     params.put("success", "true");
                     ParseAnalytics.trackEventInBackground("food/orders/search", params);
                     PackageManager pm = getActivity().getPackageManager();
-                    try
-                    {
+                    try {
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
                         params.put("foodpanda app found", "true");
@@ -190,11 +184,9 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                         ParseAnalytics.trackEventInBackground("food/orders/search", params);
                         pm.getPackageInfo("com.global.foodpanda.android", PackageManager.GET_ACTIVITIES);
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-                                "foodpanda://?&c=IN&s=c&a="+area_id+"&v="+restaurantList.get(i).getId())));
+                                "foodpanda://?&c=IN&s=c&a=" + area_id + "&v=" + restaurantList.get(i).getId())));
                         Toast.makeText(getActivity(), "Make sure you use Panda50", Toast.LENGTH_SHORT).show();
-                    }
-                    catch (PackageManager.NameNotFoundException e)
-                    {
+                    } catch (PackageManager.NameNotFoundException e) {
                         // No Foodpanda app!
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));

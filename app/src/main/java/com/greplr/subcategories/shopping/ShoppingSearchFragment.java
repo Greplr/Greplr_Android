@@ -175,11 +175,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "true");
-                        params.put("product name", productName);
-                        ParseAnalytics.trackEventInBackground("shopping/search", params);
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -187,11 +183,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        params.put("product name", productName);
-                        ParseAnalytics.trackEventInBackground("shopping/search", params);
+                        sendParseAnalytics("false");
                     }
                 }
         );
@@ -208,6 +200,13 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
             }
         }
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("success", success);
+        params.put("product name", productName);
+        ParseAnalytics.trackEventInBackground("shopping/search", params);
     }
 
     public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {

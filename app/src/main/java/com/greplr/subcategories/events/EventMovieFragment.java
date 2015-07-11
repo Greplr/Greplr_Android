@@ -106,9 +106,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                         movieList = movies;
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new MoviesAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -116,12 +114,16 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("events/movies/search", params);
+                        sendParseAnalytics("false");
                     }
                 }
         );
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("events/movies/search", params);
     }
 
     public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {

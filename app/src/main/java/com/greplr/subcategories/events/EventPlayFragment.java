@@ -103,10 +103,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         playList = plays;
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new PlayAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
-
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -114,12 +111,16 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("events/plays/search", params);
+                        sendParseAnalytics("false");
                     }
                 }
         );
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("events/plays/search", params);
     }
 
     public class PlayAdapter extends RecyclerView.Adapter<PlayAdapter.ViewHolder> {
@@ -164,6 +165,5 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
             }
         }
     }
-
 
 }

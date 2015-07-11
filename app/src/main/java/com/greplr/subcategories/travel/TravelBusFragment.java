@@ -103,18 +103,16 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "TravelBusFragment onCreateView");
-        View rootView = inflater.inflate(R.layout.fragment_travel_bus, container, false);
-        cityList = new ArrayList<>();
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_travel_bus, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView = (RecyclerView) view.findViewById(
-                R.id.recyclerview_bus);
+        cityList = new ArrayList<>();
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_bus);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -229,12 +227,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new BusAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -242,12 +235,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Map<String, String> params = new HashMap<>();
-                        params.put("departure", departureLocation);
-                        params.put("arrival", arrivalLocation);
-                        params.put("travelDate", travelDate);
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
+                        sendParseAnalytics("false");
                     }
                 }
         );
@@ -265,6 +253,15 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
             }
         }
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("departure", departureLocation);
+        params.put("arrival", arrivalLocation);
+        params.put("travelDate", travelDate);
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("travel/bus/search", params);
     }
 
     public class BusAdapter extends RecyclerView.Adapter<BusAdapter.ViewHolder> {

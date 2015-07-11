@@ -105,11 +105,8 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                         offerList = offers;
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
                         Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability() + "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("shopping/offers", params);
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -117,14 +114,17 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("shopping/offers", params);
+                        sendParseAnalytics("false");
                     }
                 }
         );
 
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("shopping/offers", params);
     }
 
     public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {

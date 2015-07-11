@@ -115,12 +115,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         cabList = cabs;
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new CabAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "true");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
+                        sendParseAnalytics("true");
                     }
 
                     @Override
@@ -128,13 +123,7 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        //Parse Analytics
-                        Map<String, String> params = new HashMap<>();
-                        params.put("lat", String.valueOf(App.currentLatitude));
-                        params.put("lng", String.valueOf(App.currentLongitude));
-                        params.put("success", "false");
-                        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
-
+                        sendParseAnalytics("false");
                     }
                 }
         );
@@ -167,6 +156,14 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 cab.getDisplay_name() + " from " + cab.getProvider() + " ?\n" +
                 "Minimum Fare : " + cab.getMin_price());
         return cabHailDialog.create();
+    }
+
+    private void sendParseAnalytics(String success) {
+        Map<String, String> params = new HashMap<>();
+        params.put("lat", String.valueOf(App.currentLatitude));
+        params.put("lng", String.valueOf(App.currentLongitude));
+        params.put("success", success);
+        ParseAnalytics.trackEventInBackground("travel/cabs/search", params);
     }
 
     public class CabAdapter extends RecyclerView.Adapter<CabAdapter.ViewHolder> {
