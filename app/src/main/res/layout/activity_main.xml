@@ -12,28 +12,26 @@
   ~     The source code of this program is confidential and proprietary. If you are not part of the
   ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     You should immediately close your copy of code, and destroy the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
-<RelativeLayout
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/main_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
-        sothree:umanoShadowHeight="0dp"
+        sothree:umanoPanelHeight="0dp"
         sothree:umanoParalaxOffset="100dp"
-        sothree:umanoPanelHeight="0dp">
+        sothree:umanoShadowHeight="0dp">
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -47,16 +45,16 @@
             </FrameLayout>
 
             <android.support.v7.widget.Toolbar
-                android:layout_alignParentTop="true"
                 android:id="@+id/main_toolbar"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:minHeight="?attr/actionBarSize"
-                android:background="@color/main_toolbarColor">
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/main_toolbarColor"
+                android:minHeight="?attr/actionBarSize">
 
                 <include layout="@layout/toolbar_content" />
 
-                </android.support.v7.widget.Toolbar>
+            </android.support.v7.widget.Toolbar>
 
         </RelativeLayout>
 
@@ -68,18 +66,21 @@
             android:gravity="center|top"
             android:orientation="vertical"
             android:padding="15dp">
+
             <android.support.v7.widget.CardView
-                android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+                android:layout_margin="3dp" />
+
             <android.support.v7.widget.CardView
-                android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+                android:layout_margin="3dp" />
+
             <android.support.v7.widget.CardView
-                android:layout_margin="3dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="100dp"
+                android:layout_margin="3dp" />
 
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -12,7 +12,7 @@
  *     The source code of this program is confidential and proprietary. If you are not part of the
  *     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
  *
- *     You should immediately close your copy of code, and destory the file. You are not authorised to
+ *     You should immediately close your copy of code, and destroy the file. You are not authorised to
  *     be in possession of this code or view or modify it or use it in any capacity.
  */
 
@@ -27,6 +27,10 @@ import android.text.TextWatcher;
 import android.util.TypedValue;
 
 import com.greplr.common.ui.MaterialEditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -144,25 +148,25 @@ public class Utils {
             return "";
         int minutes = Integer.valueOf(DateTimeUtils.intToMinString(depatureTime.get(Calendar.MINUTE))) + Integer.valueOf(duration.split("h")[1].split("m")[0].trim());
         int hours = Integer.valueOf(DateTimeUtils.intToHrString(depatureTime.get(Calendar.HOUR_OF_DAY), true)) + Integer.valueOf(duration.split("h")[0]);
-        if(minutes >= 60) {
+        if (minutes >= 60) {
             minutes = minutes - 60;
             hours = hours + 1;
-            if(hours >= 24)
+            if (hours >= 24)
                 hours = hours - 24;
 
         }
-        if(hours >= 24)
+        if (hours >= 24)
             hours = hours - 24;
 
         String hour = String.valueOf(hours);
         String min = String.valueOf(minutes);
-        if(hour.length() == 1){
-            if(min.length() == 1)
+        if (hour.length() == 1) {
+            if (min.length() == 1)
                 return "0" + hour + ":0" + String.valueOf(minutes);
             else
                 return "0" + hour + ":" + String.valueOf(minutes);
         } else {
-            if(min.length() == 1)
+            if (min.length() == 1)
                 return hour + ":0" + String.valueOf(minutes);
             else
                 return hour + ":" + String.valueOf(minutes);
@@ -177,6 +181,22 @@ public class Utils {
         Resources r = context.getResources();
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
         return Math.round(px);
+    }
+
+    public static String processWitOutcome(String jsonOutput) throws JSONException {
+
+        JSONArray jsonArray = new JSONArray(jsonOutput);
+        String intent = jsonArray.getJSONObject(0).getString("intent");
+        JSONObject entities = jsonArray.getJSONObject(0).getJSONObject("entities");
+
+        String BASE_URL = "greplr://";
+
+        if (intent.equals("find_cabs")) {
+            return BASE_URL + "travel/cab";
+        } else {
+            return intent;
+        }
+
     }
 
 }

@@ -12,7 +12,7 @@
   ~     The source code of this program is confidential and proprietary. If you are not part of the
   ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     You should immediately close your copy of code, and destroy the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
@@ -20,14 +20,14 @@
     android:id="@+id/dialog_fragment_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/dialog_edittext"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
-        android:layout_gravity="left" />
+        android:layout_gravity="left"
+        android:imeOptions="actionDone" />
 
     <LinearLayout
         android:id="@+id/button_layout"
@@ -41,10 +41,8 @@
         android:id="@+id/button_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
         android:layout_gravity="end"
-        />
-
+        android:text="Done" />
 
 
 </LinearLayout>

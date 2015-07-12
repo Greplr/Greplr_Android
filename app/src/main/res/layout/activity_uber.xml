@@ -12,20 +12,23 @@
   ~     The source code of this program is confidential and proprietary. If you are not part of the
   ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     You should immediately close your copy of code, and destroy the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.greplr.UberActivity">
+    tools:context="com.greplr.UberActivity">
 
 
     <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView" />
+        android:layout_height="match_parent" />
 </RelativeLayout>

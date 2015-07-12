@@ -12,12 +12,13 @@
   ~     The source code of this program is confidential and proprietary. If you are not part of the
   ~     Greplr Team (one of the above 6 named individuals) you should not be viewing this code.
   ~
-  ~     You should immediately close your copy of code, and destory the file. You are not authorised to
+  ~     You should immediately close your copy of code, and destroy the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.greplr.LoginActivity">
 
@@ -28,74 +29,73 @@
 
     <FrameLayout
         android:id="@+id/login_framelayout"
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:background="#aa263238">
 
         <com.greplr.common.ui.CircularRevealView
             android:id="@+id/reveal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-
-        <Button
-            android:layout_margin="10dp"
-            android:paddingLeft="50dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:gravity="left"
-            android:background="@drawable/login_button_facebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Login with Facebook"
-            android:id="@+id/facebook_login" />
-
-        <Button
-            android:layout_margin="10dp"
-            android:paddingLeft="50dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:gravity="left"
-            android:background="@drawable/login_button_twitter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Login with Twitter"
-            android:id="@+id/twitter_login" >
-        </Button>
-
-        <Button
-            android:layout_margin="10dp"
-            android:paddingLeft="50dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:gravity="left"
-            android:background="@drawable/login_button_google"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:text="Login with Google"
-            android:id="@+id/google_login" />
-
-        <ProgressBar
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/login_progress"
-            android:visibility="gone"
-            android:indeterminate="false" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/facebook_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_button_facebook"
+                android:gravity="left"
+                android:paddingBottom="10dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="Login with Facebook"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/twitter_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_button_twitter"
+                android:gravity="left"
+                android:paddingBottom="10dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="Login with Twitter"
+                android:textAppearance="?android:textAppearanceMedium"></Button>
+
+            <Button
+                android:id="@+id/google_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_button_google"
+                android:gravity="left"
+                android:paddingBottom="10dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="Login with Google"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <ProgressBar
+                android:id="@+id/login_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </FrameLayout>
 </RelativeLayout>
