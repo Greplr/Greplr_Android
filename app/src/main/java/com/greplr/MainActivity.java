@@ -41,6 +41,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -50,6 +51,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
@@ -57,14 +60,20 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import ai.wit.sdk.IWitListener;
+import ai.wit.sdk.Wit;
+import ai.wit.sdk.model.WitOutcome;
 
 public class MainActivity
         extends AppCompatActivity
         implements FragmentManager.OnBackStackChangedListener,
         com.google.android.gms.location.LocationListener,
-        ResultCallback<LocationSettingsResult> {
+        ResultCallback<LocationSettingsResult>,
+        IWitListener {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
     private static FragmentManager fragmentManager;
@@ -80,6 +89,9 @@ public class MainActivity
     private SlidingUpPanelLayout slideFrame;
     private Boolean isActivityRunning = true;
     private long activityStartTime;
+    private EditText search;
+
+    private Wit wit;
 
 
     public static void switchFragment(Fragment frag, boolean addToBackStack) {
@@ -113,18 +125,17 @@ public class MainActivity
             buildLocationSettingsRequest();
             checkLocationSettings();
 
+            wit = new Wit("F7VYYKKXBOHM3R6TYCRRPZFQGO3WF5ZR", this);
+            wit.enableContextLocation(getApplicationContext());
+
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.main_toolbarColor)));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             }
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return true;
-                }
-            });
+
+            search = (EditText) toolbar.findViewById(R.id.greplr_search);
 
             fragmentManager = getSupportFragmentManager();
             fragmentManager.addOnBackStackChangedListener(this);
@@ -148,12 +159,6 @@ public class MainActivity
             setSupportActionBar(toolbar);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return true;
-                }
-            });
 
             bottomSliderLayout = (LinearLayout) findViewById(R.id.bottom_slider_layout);
             slideFrame = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
@@ -165,7 +170,7 @@ public class MainActivity
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
 
-    public void showSlidePanel () {
+    public void showSlidePanel() {
         //bottomSliderLayout.setVisibility(View.VISIBLE);
         //slideFrame.setPanelHeight(getResources().getDimensionPixelOffset(R.dimen.sliding_panel_height));
 
@@ -181,7 +186,6 @@ public class MainActivity
     public ImageView getBackgroundImage() {
         return backgroundImage;
     }
-
 
 
     @Override
@@ -225,9 +229,9 @@ public class MainActivity
 //        ParseAnalytics.trackEventInBackground("application close", params);
 
         long timeElapsed = System.nanoTime() - activityStartTime;
-        timeElapsed = timeElapsed/1000000000;//Convert to seconds;
-        params.put("spent/min", String.valueOf((timeElapsed/60)));
-        params.put("spent/sec", String.valueOf((timeElapsed%60)));
+        timeElapsed = timeElapsed / 1000000000;//Convert to seconds;
+        params.put("spent/min", String.valueOf((timeElapsed / 60)));
+        params.put("spent/sec", String.valueOf((timeElapsed % 60)));
         ParseAnalytics.trackEventInBackground("mainactivity/close", params);
 
     }
@@ -249,6 +253,11 @@ public class MainActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
+            if (search.getText().toString().length() != 0) {
+                wit.captureTextIntent(search.getText().toString());
+            } else {
+                Toast.makeText(this, "Please enter search query", Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 
@@ -403,7 +412,7 @@ public class MainActivity
     @Override
     public void onBackStackChanged() {
 
-        if (fragmentManager.getBackStackEntryCount() == 0){
+        if (fragmentManager.getBackStackEntryCount() == 0) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
                 getWindow().setNavigationBarColor(getResources().getColor(android.R.color.black));
@@ -417,5 +426,36 @@ public class MainActivity
             showSlidePanel();
         }
 
+    }
+
+    @Override
+    public void witDidGraspIntent(ArrayList<WitOutcome> witOutcomes, String s, Error error) {
+        if (error != null) {
+            Log.d(LOG_TAG, error.getLocalizedMessage());
+        } else {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonOutput = gson.toJson(witOutcomes);
+            Log.d(LOG_TAG, jsonOutput);
+        }
+    }
+
+    @Override
+    public void witDidStartListening() {
+        Log.d(LOG_TAG, "witDidStartListening()");
+    }
+
+    @Override
+    public void witDidStopListening() {
+        Log.d(LOG_TAG, "witDidStopListening()");
+    }
+
+    @Override
+    public void witActivityDetectorStarted() {
+        Log.d(LOG_TAG, "witActivityDetectorStarted()");
+    }
+
+    @Override
+    public String witGenerateMessageId() {
+        return null;
     }
 }
