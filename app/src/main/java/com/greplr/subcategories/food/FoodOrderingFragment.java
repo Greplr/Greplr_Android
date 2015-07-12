@@ -164,7 +164,7 @@ public class FoodOrderingFragment extends UnderSubCategoryFragment {
                 }
             });
 
-            Picasso.with(getActivity()).load(Utils.editOrderLogoUrl(restaurantList.get(i).getLogo())).fit().centerCrop().into(viewHolder.logo);
+            Picasso.with(getActivity()).load(Utils.editOrderLogoUrl(restaurantList.get(i).getLogo())).into(viewHolder.logo);
             Log.d("URL", Utils.editOrderLogoUrl(restaurantList.get(i).getLogo()));
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
