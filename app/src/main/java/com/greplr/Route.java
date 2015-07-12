@@ -20,6 +20,8 @@ package com.greplr;
 
 import android.support.v4.app.Fragment;
 
+import com.greplr.subcategories.events.EventFragment;
+import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.travel.TravelFragment;
 
 /**
@@ -57,8 +59,8 @@ public class Route {
 
     public static Fragment getTopcategoryFragByRoute (String dataString) {
         if (dataString.contains(TRAVEL.ROOT)) return TravelFragment.newInstance(CAT_ORDER_TRAVEL);
-        if (dataString.contains(FOOD.ROOT)) return TravelFragment.newInstance(CAT_ORDER_FOOD);
-        if (dataString.contains(EVENTS.ROOT)) return TravelFragment.newInstance(CAT_ORDER_EVENT);
+        if (dataString.contains(FOOD.ROOT)) return FoodFragment.newInstance(CAT_ORDER_FOOD);
+        if (dataString.contains(EVENTS.ROOT)) return EventFragment.newInstance(CAT_ORDER_EVENT);
         return null;
     }
 
