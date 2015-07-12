@@ -168,14 +168,19 @@ public class MainActivity
             ((App) getApplication()).getApiHandler();
 
             if (getIntent().getData() != null) {
-                String deepLinkUri = getIntent().getDataString();
-                Log.d(LOG_TAG, "Starting from Uri : " + deepLinkUri);
-                switchFragment(Route.getTopcategoryFragByRoute(deepLinkUri), false);
+                String dataString = getIntent().getDataString();
+                Log.d(LOG_TAG, "Starting from Uri : " + dataString);
+                doDeepLinking(dataString);
+
             }
 
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
+    }
+
+    public void doDeepLinking (String deepLinkUrl) {
+        switchFragment(Route.getTopcategoryFragByRoute(deepLinkUrl), false);
     }
 
     public void showSlidePanel() {
@@ -445,7 +450,9 @@ public class MainActivity
             String jsonOutput = gson.toJson(witOutcomes);
             Log.d(LOG_TAG, jsonOutput);
             try {
-                Log.d(LOG_TAG, Utils.processWitOutcome(jsonOutput));
+                String witOutcomeUrl = Utils.processWitOutcome(jsonOutput);
+                Log.d(LOG_TAG, witOutcomeUrl);
+                doDeepLinking(witOutcomeUrl);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
