@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -16,104 +15,64 @@
   ~     You should immediately close your copy of code, and destory the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/travel_bus_card_dialog"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:minWidth="300dp"
+        android:id="@+id/travel_bus_card_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minWidth="300dp"
+        card_view:cardBackgroundColor="@color/travel_dialog_backgroundColor"
         card_view:cardCornerRadius="2dp"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardBackgroundColor="@color/travel_dialog_backgroundColor">
+        card_view:cardPreventCornerOverlap="false">
 
         <LinearLayout
-            android:minWidth="300dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
+            android:minWidth="300dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:orientation="vertical">
 
-<!--                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Origin"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#1B5E20"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>-->
+                <!--                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:text="Origin"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:textColor="#1B5E20"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"/>-->
 
                 <com.greplr.common.ui.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"
                     android:id="@+id/et_origin"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:hint="Origin"
-                    android:textColorHint="@android:color/white"
-                    app:met_floatingLabel="normal"
-                    app:met_floatingLabelText="Origin"
-                    app:met_baseColor="@android:color/white"
-                    app:met_primaryColor="@android:color/white"
-                    app:met_errorColor="@color/edittext_error_color_primary"
-                    app:met_underlineColor="@android:color/white"
-                    app:met_floatingLabelTextColor="@android:color/white"
-                    app:met_floatingLabelAnimating="true"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical">
-
-<!--                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Destination"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#1B5E20"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>-->
-
-                <com.greplr.common.ui.MaterialAutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:hint="Origin"
                     android:imeOptions="actionNext"
+                    android:padding="5dp"
                     android:singleLine="true"
-                    android:id="@+id/et_destination"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:hint="Enter Destination"
                     android:textColorHint="@android:color/white"
-                    app:met_floatingLabel="normal"
-                    app:met_floatingLabelText="Destination"
+                    android:textSize="14sp"
                     app:met_baseColor="@android:color/white"
-                    app:met_primaryColor="@android:color/white"
                     app:met_errorColor="@color/edittext_error_color_primary"
-                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelAnimating="true"
+                    app:met_floatingLabelText="Origin"
                     app:met_floatingLabelTextColor="@android:color/white"
-                    app:met_floatingLabelAnimating="true"/>
+                    app:met_primaryColor="@android:color/white"
+                    app:met_underlineColor="@android:color/white" />
 
             </LinearLayout>
 
@@ -123,48 +82,87 @@
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
-<!--                <TextView
-                    android:layout_width="wrap_content"
+                <!--                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:text="Destination"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:textColor="#1B5E20"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"/>-->
+
+                <com.greplr.common.ui.MaterialAutoCompleteTextView
+                    android:id="@+id/et_destination"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Date"
+                    android:hint="Enter Destination"
+                    android:imeOptions="actionNext"
+                    android:padding="5dp"
+                    android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#1B5E20"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>-->
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textSize="14sp"
+                    app:met_baseColor="@android:color/white"
+                    app:met_errorColor="@color/edittext_error_color_primary"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelAnimating="true"
+                    app:met_floatingLabelText="Destination"
+                    app:met_floatingLabelTextColor="@android:color/white"
+                    app:met_primaryColor="@android:color/white"
+                    app:met_underlineColor="@android:color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <!--                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:text="Date"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:textColor="#1B5E20"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"/>-->
 
                 <com.greplr.common.ui.MaterialEditText
                     android:id="@+id/et_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:inputType="phone"
-                    android:imeOptions="actionSearch"
                     android:digits="0123456789"
+                    android:hint="Date (DD-MM-YYYY)"
+                    android:imeOptions="actionSearch"
+                    android:inputType="phone"
+                    android:padding="5dp"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:hint="Date (DD-MM-YYYY)"
                     android:textColorHint="@android:color/white"
-                    app:met_floatingLabel="normal"
-                    app:met_floatingLabelText="Date"
+                    android:textSize="14sp"
                     app:met_baseColor="@android:color/white"
-                    app:met_primaryColor="@android:color/white"
                     app:met_errorColor="@color/edittext_error_color_primary"
-                    app:met_underlineColor="@android:color/white"
+                    app:met_floatingLabel="normal"
+                    app:met_floatingLabelAnimating="true"
+                    app:met_floatingLabelText="Date"
                     app:met_floatingLabelTextColor="@android:color/white"
-                    app:met_floatingLabelAnimating="true"/>
+                    app:met_primaryColor="@android:color/white"
+                    app:met_underlineColor="@android:color/white" />
 
             </LinearLayout>
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ok_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="SEARCH"
-                android:textColor="@color/travel_color_dark"
-                android:id="@+id/ok_button" />
+                android:textColor="@color/travel_color_dark" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

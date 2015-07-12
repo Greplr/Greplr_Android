@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -21,6 +20,6 @@
     android:id="@+id/subcategory_logo"
     android:layout_width="100dp"
     android:layout_height="100dp"
-    android:adjustViewBounds="true"
     android:layout_centerHorizontal="true"
+    android:adjustViewBounds="true"
     android:src="@drawable/cardicon_travel_bus" />

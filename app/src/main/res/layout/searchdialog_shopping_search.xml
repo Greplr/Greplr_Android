@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -16,15 +15,14 @@
   ~     You should immediately close your copy of code, and destory the file. You are not authorised to
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
-        android:id="@+id/shopping_search_card_dialog"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/shopping_search_card_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="300dp"
@@ -38,35 +36,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <com.greplr.common.ui.MaterialEditText
-                    android:layout_margin="8dp"
-                    android:padding="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:imeOptions="actionSearch"
-                    android:id="@+id/et_product_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:hint="Search"
-                    android:textColorHint="@android:color/white"
-                    app:met_floatingLabel="normal"
-                    app:met_floatingLabelText="Search the product"
-                    app:met_baseColor="@android:color/white"
-                    app:met_primaryColor="@android:color/white"
-                    app:met_errorColor="@color/edittext_error_color_primary"
-                    app:met_underlineColor="@android:color/white"
-                    app:met_floatingLabelTextColor="@android:color/white"
-                    app:met_floatingLabelAnimating="true"/>
+            <com.greplr.common.ui.MaterialEditText
+                android:id="@+id/et_product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Search"
+                android:imeOptions="actionSearch"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:textSize="14sp"
+                app:met_baseColor="@android:color/white"
+                app:met_errorColor="@color/edittext_error_color_primary"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelAnimating="true"
+                app:met_floatingLabelText="Search the product"
+                app:met_floatingLabelTextColor="@android:color/white"
+                app:met_primaryColor="@android:color/white"
+                app:met_underlineColor="@android:color/white" />
 
 
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/ok_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Search"
-                android:textColor="@color/shopping_color_dark"
-                android:id="@+id/ok_button"/>
+                android:textColor="@color/shopping_color_dark" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -26,32 +26,29 @@
     <ImageView
         android:id="@+id/subcategory_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
     <com.github.florent37.materialviewpager.MaterialViewPager
-        android:layout_alignParentTop="true"
         android:id="@+id/subcategory_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:viewpager_logo="@layout/header_logo"
-        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
-        app:viewpager_logoMarginTop="50dp"
-        app:viewpager_color="@android:color/transparent"
-        app:viewpager_headerHeight="200dp"
+        android:layout_alignParentTop="true"
         android:alpha="1"
         app:elevation="5dp"
+        app:viewpager_color="@android:color/transparent"
+        app:viewpager_displayToolbarWhenSwipe="true"
+        app:viewpager_enableToolbarElevation="true"
+        app:viewpager_headerAdditionalHeight="30dp"
         app:viewpager_headerAlpha="0"
+        app:viewpager_headerHeight="200dp"
         app:viewpager_hideLogoWithFade="true"
         app:viewpager_hideToolbarAndTitle="true"
-        app:viewpager_enableToolbarElevation="true"
-        app:viewpager_parallaxHeaderFactor="1.2"
-        app:viewpager_headerAdditionalHeight="30dp"
-        app:viewpager_displayToolbarWhenSwipe="true"
-        />
+        app:viewpager_logo="@layout/header_logo"
+        app:viewpager_logoMarginTop="50dp"
+        app:viewpager_pagerTitleStrip="@layout/material_view_pager_pagertitlestrip_newstand"
+        app:viewpager_parallaxHeaderFactor="1.2" />
 
-    <com.melnykov.fab.FloatingActionButton
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
+    <com.melnykov.fab.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:id="@+id/search_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

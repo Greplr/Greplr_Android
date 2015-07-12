@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Greplr : A super-aggregator. One app to rule them all.
   ~     Copyright (C) 2015  Greplr Team
   ~     Where Greplr Team consists of :
@@ -17,10 +16,8 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerview_bus"
-    android:padding="@dimen/padding_main_recyclerview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    />
+    android:padding="@dimen/padding_main_recyclerview" />
