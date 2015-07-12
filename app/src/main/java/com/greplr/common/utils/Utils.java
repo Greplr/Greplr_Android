@@ -78,13 +78,12 @@ public class Utils {
     }
 
     public static String editOrderLogoUrl(String logoUrl) {
-        String editedUrl = logoUrl;
         try {
-            editedUrl.replace("%s", "200");
+            logoUrl = logoUrl.replace("%s", "200");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return editedUrl;
+        return logoUrl;
     }
 
     public static int dp2px(Context context, float dp) {
