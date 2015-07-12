@@ -60,6 +60,8 @@ import com.parse.ParseAnalytics;
 import com.parse.ParseUser;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -436,6 +438,11 @@ public class MainActivity
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonOutput = gson.toJson(witOutcomes);
             Log.d(LOG_TAG, jsonOutput);
+            try {
+                Log.d(LOG_TAG, Utils.processWitOutcome(jsonOutput));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
