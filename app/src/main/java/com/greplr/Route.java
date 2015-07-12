@@ -18,34 +18,48 @@
 
 package com.greplr;
 
+import android.support.v4.app.Fragment;
+
+import com.greplr.subcategories.travel.TravelFragment;
+
 /**
  * Created by championswimmer on 22/6/15.
  */
 public class Route {
 
-    public static final String TRAVEL = "travel";
-    public static final String FOOD = "food";
-    public static final String EVENTS = "events";
+
+    public static final int CAT_ORDER_TRAVEL = 0;
+    public static final int CAT_ORDER_FOOD = 1;
+    public static final int CAT_ORDER_EVENT = 2;
+    public static final int CAT_ORDER_SHOPPING = 3;
+    public static final int CAT_ORDER_NEWS = 4;
 
     public static interface TRAVEL {
-        String travel = "/"+ TRAVEL +"/";
-        String BUS = travel + "bus";
-        String CAB = travel + "cab";
-        String FLIGHT = travel + "flight";
+        String ROOT = "/travel";
+        String BUS = ROOT + "/bus";
+        String CAB = ROOT + "/cab";
+        String FLIGHT = ROOT + "/flight";
     }
 
     public static interface FOOD {
-        String food = "/"+ FOOD +"/";
-        String ORDER = food + "order";
-        String RESTAURANT = food + "restaurant";
-        String CAFE = food + "cafe";
-        String BAR = food + "bar";
+        String ROOT = "/food";
+        String ORDER = ROOT + "/order";
+        String RESTAURANT = ROOT + "/restaurant";
+        String CAFE = ROOT + "/cafe";
+        String BAR = ROOT + "/bar";
     }
 
     public static interface EVENTS {
-        String events = "/"+ EVENTS +"/";
-        String MOVIE = events + "movie";
-        String PLAY = events + "play";
+        String ROOT = "/events";
+        String MOVIE = ROOT + "/movie";
+        String PLAY = ROOT + "/play";
+    }
+
+    public static Fragment getTopcategoryFragByRoute (String dataString) {
+        if (dataString.contains(TRAVEL.ROOT)) return TravelFragment.newInstance(CAT_ORDER_TRAVEL);
+        if (dataString.contains(FOOD.ROOT)) return TravelFragment.newInstance(CAT_ORDER_FOOD);
+        if (dataString.contains(EVENTS.ROOT)) return TravelFragment.newInstance(CAT_ORDER_EVENT);
+        return null;
     }
 
 }

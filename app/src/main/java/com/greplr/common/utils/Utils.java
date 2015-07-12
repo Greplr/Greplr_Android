@@ -98,7 +98,7 @@ public class Utils {
         String intent = jsonArray.getJSONObject(0).getString("intent");
         JSONObject entities = jsonArray.getJSONObject(0).getJSONObject("entities");
 
-        String BASE_URL = "greplr://";
+        String BASE_URL = "http://greplr.com/";
 
         if (intent.equals("find_cabs")) {
             return BASE_URL + "travel/cab";

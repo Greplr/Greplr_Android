@@ -167,6 +167,12 @@ public class MainActivity
 
             ((App) getApplication()).getApiHandler();
 
+            if (getIntent().getData() != null) {
+                String deepLinkUri = getIntent().getDataString();
+                Log.d(LOG_TAG, "Starting from Uri : " + deepLinkUri);
+                switchFragment(Route.getTopcategoryFragByRoute(deepLinkUri), false);
+            }
+
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
