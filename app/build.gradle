@@ -21,8 +21,8 @@ android {
         applicationId "com.greplr"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 13
-        versionName "0.4.9"
+        versionCode 15
+        versionName "0.5.0"
     }
 
     productFlavors {
