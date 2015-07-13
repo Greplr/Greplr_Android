@@ -157,7 +157,7 @@ public class Utils {
                 }
                 return flightURL;
 
-            case "find_eatries" : return BASE_URL + "food/restaurant";
+            case "find_eateries" : return BASE_URL + "food/restaurant";
 
             default: return BASE_URL;
 
