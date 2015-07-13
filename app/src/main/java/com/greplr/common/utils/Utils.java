@@ -22,11 +22,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.location.Location;
 import android.os.Build;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.TypedValue;
-
-import com.greplr.common.ui.MaterialEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +31,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.util.Calendar;
 
 /**
  * Created by prempal on 3/7/15.
@@ -97,13 +92,75 @@ public class Utils {
         JSONArray jsonArray = new JSONArray(jsonOutput);
         String intent = jsonArray.getJSONObject(0).getString("intent");
         JSONObject entities = jsonArray.getJSONObject(0).getJSONObject("entities");
+        String origin = null;
+        String destination = null;
+        String date = null;
+
+        if(entities.length() != 0){
+            if(entities.has("destination"))
+                destination = entities.getJSONArray("destination").getJSONObject(0).getString("value");
+            if(entities.has("origin"))
+                origin = entities.getJSONArray("origin").getJSONObject(0).getString("value");
+            if(entities.has("datetime"))
+                date = entities.getJSONArray("datetime").getJSONObject(0).getString("value");
+        }
 
         String BASE_URL = "http://greplr.com/";
 
-        if (intent.equals("find_cabs")) {
-            return BASE_URL + "travel/cab";
-        } else {
-            return intent;
+        switch(intent){
+
+            case "find_cabs" : return BASE_URL + "travel/cab";
+
+            case "find_bus" : String busURL =  BASE_URL + "travel/bus";
+                if(origin != null)
+                    busURL += "?origin=" + origin;
+                if(destination != null){
+
+                    if(busURL.contains("?"))
+                        busURL += "&";
+                    else
+                        busURL += "?";
+
+                    busURL += "destination=" + destination;
+                }
+                if(date != null){
+
+                    if(busURL.contains("?"))
+                        busURL += "&";
+                    else
+                        busURL += "?";
+
+                    busURL += "date=" + date;
+                }
+                return busURL;
+
+            case "find_flights" : String flightURL =  BASE_URL + "travel/bus";
+                if(origin != null)
+                    flightURL += "?origin=" + origin;
+                if(destination != null){
+
+                    if(flightURL.contains("?"))
+                        flightURL += "&";
+                    else
+                        flightURL += "?";
+
+                    flightURL += "destination=" + destination;
+                }
+                if(date != null){
+
+                    if(flightURL.contains("?"))
+                        flightURL += "&";
+                    else
+                        flightURL += "?";
+
+                    flightURL += "date=" + date;
+                }
+                return flightURL;
+
+            case "find_eatries" : return BASE_URL + "food/restaurant";
+
+            default: return BASE_URL;
+
         }
 
     }
