@@ -19,6 +19,7 @@
 package com.greplr.subcategories.events;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -162,6 +163,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                     final Dialog customDialog = new Dialog(getActivity());
                     customDialog.setContentView(R.layout.dialog_movies_venues);
                     customDialog.setTitle("List of Theaters");
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
                     customDialog.setCancelable(true);
                     ListView listView = (ListView) customDialog.findViewById(R.id.listView_movies_venues);
                     final ArrayList<String> list = new ArrayList<String>();
