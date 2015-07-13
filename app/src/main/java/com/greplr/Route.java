@@ -51,6 +51,10 @@ public class Route {
         String RESTAURANT = ROOT + "/restaurant";
         String CAFE = ROOT + "/cafe";
         String BAR = ROOT + "/bar";
+
+        int SUBCAT_NUM_ORDER = 0;
+        int SUBCAT_NUM_RESTAURANT = 1;
+        int SUBCAT_NUM_CAFE = 2;
     }
 
     public static interface EVENTS {
@@ -85,6 +89,8 @@ public class Route {
         if (dataString.contains(TRAVEL.CAB)) return TRAVEL.SUBCAT_NUM_CAB;
         if (dataString.contains(TRAVEL.BUS)) return TRAVEL.SUBCAT_NUM_BUS;
         if (dataString.contains(TRAVEL.FLIGHT)) return TRAVEL.SUBCAT_NUM_FLIGHT;
+
+        if (dataString.contains(FOOD.RESTAURANT)) return FOOD.SUBCAT_NUM_RESTAURANT;
 
         return 0;
     }
