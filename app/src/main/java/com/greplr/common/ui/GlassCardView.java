@@ -64,7 +64,7 @@ public class GlassCardView extends CardView {
         super.onLayout(changed, left, top, right, bottom);
         MarginLayoutParams margins = MarginLayoutParams.class.cast(getLayoutParams());
         int horizontalMargin = getResources().getDimensionPixelSize(R.dimen.cardMarginHorizontal);
-        int verticalMargin = getResources().getDimensionPixelSize(R.dimen.cardMarginVertical);
+        int verticalMargin = getResources().getDimensionPixelSize(R.dimen.cardMarginVertical)/5;
         margins.topMargin = verticalMargin;
         margins.bottomMargin = verticalMargin;
         margins.leftMargin = horizontalMargin;
