@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.greplr.MainActivity;
 import com.greplr.R;
+import com.greplr.Route;
 import com.greplr.common.utils.ColorUtils;
 import com.greplr.topcategories.Topcategories;
 import com.melnykov.fab.FloatingActionButton;
@@ -132,6 +133,13 @@ public abstract class SubCategoryFragment extends Fragment {
         Picasso.with(getActivity()).load(backImgRes).fit().centerCrop().into(backgroundImage);
         headerLogo.setImageResource(((UnderSubCategoryFragment) pagerAdapter.getItem(0)).getFragmentIcon());
 
+        if (((MainActivity) getActivity()).deepLinkUrl.contains("greplr.com")) {
+            int deepSubCat = Route.
+                    getSubcategoryPositionByRoute
+                            (((MainActivity) getActivity()).deepLinkUrl);
+            matViewPager.getViewPager().setCurrentItem(deepSubCat);
+            ((MainActivity) getActivity()).deepLinkUrl = "";
+        }
 
         return rootView;
     }

@@ -39,7 +39,7 @@ import com.greplr.R;
 import com.greplr.adapters.ErrorAdapter;
 import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
-import com.greplr.models.shopping.offers.Offers;
+import com.greplr.models.shopping.Offers;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 import com.squareup.picasso.Picasso;

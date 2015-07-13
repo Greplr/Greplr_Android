@@ -42,21 +42,32 @@
                 <category android:name="ANDROID.INTENT.CATEGORY.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- For the scheme "http://greplr.com/travel/cabs" -->
             <intent-filter>
                 <data
                     android:host="greplr.com"
+                    android:pathPrefix="/"
                     android:scheme="http" />
-
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
+            <!-- For the scheme "http://greplr.com/travel/cabs" via ADB -->
+            <intent-filter>
+                <data android:scheme="http"
+                    android:host="greplr.com"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
-
                 <category android:name="android.intent.category.DEFAULT" >
                 </category>
             </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".MainActivity" />
         </activity>
 
         <activity

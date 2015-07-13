@@ -48,7 +48,7 @@ import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.ui.MaterialEditText;
 import com.greplr.common.utils.ColorUtils;
-import com.greplr.models.shopping.search.Search;
+import com.greplr.models.shopping.Search;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;

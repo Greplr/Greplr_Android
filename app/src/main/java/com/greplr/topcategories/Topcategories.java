@@ -21,6 +21,7 @@ package com.greplr.topcategories;
 import android.support.v4.app.Fragment;
 
 import com.greplr.R;
+import com.greplr.Route;
 import com.greplr.subcategories.events.EventFragment;
 import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.shopping.ShoppingFragment;
@@ -46,33 +47,33 @@ public class Topcategories {
                     R.drawable.cardicon_travel,
                     R.drawable.topcategorycard_bg_travel,
                     R.color.travel_color_dark,
-                    TravelFragment.newInstance(0)));
+                    TravelFragment.newInstance(Route.TRAVEL.CAT_NUM)));
             topCategories.add(new Category(
                     "Food",
                     R.drawable.cardicon_food,
                     R.drawable.topcategorycard_bg_food,
                     R.color.food_color_dark,
-                    FoodFragment.newInstance(1)));
+                    FoodFragment.newInstance(Route.FOOD.CAT_NUM)));
             topCategories.add(new Category(
                     "Events",
                     R.drawable.cardicon_events,
                     R.drawable.topcategorycard_bg_events,
                     R.color.events_color_dark,
-                    EventFragment.newInstance(2)));
+                    EventFragment.newInstance(Route.EVENTS.CAT_NUM)));
             topCategories.add(new Category(
 
                     "Shopping",
                     R.drawable.cardicon_shopping,
                     R.drawable.topcategorycard_bg_events,
                     R.color.shopping_color_dark,
-                    ShoppingFragment.newInstance(3)));
+                    ShoppingFragment.newInstance(Route.SHOPPING.CAT_NUM)));
 
             topCategories.add(new Category(
                     "News",
                     R.drawable.cardicon_news,
                     R.drawable.topcategorycard_bg_events,
                     R.color.news_color_primary,
-                            NewsFragment.newInstance(4)));
+                    NewsFragment.newInstance(Route.NEWS.CAT_NUM)));
         }
         return topCategories;
     }

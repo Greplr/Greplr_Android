@@ -21,6 +21,7 @@ package com.greplr;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +33,7 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -46,6 +48,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
@@ -73,9 +76,9 @@ import ai.wit.sdk.model.WitOutcome;
 public class MainActivity
         extends AppCompatActivity
         implements FragmentManager.OnBackStackChangedListener,
-        com.google.android.gms.location.LocationListener,
+        LocationListener,
         ResultCallback<LocationSettingsResult>,
-        IWitListener {
+        IWitListener, SearchView.OnQueryTextListener {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
     private static FragmentManager fragmentManager;
@@ -91,7 +94,7 @@ public class MainActivity
     private SlidingUpPanelLayout slideFrame;
     private Boolean isActivityRunning = true;
     private long activityStartTime;
-    private EditText search;
+    public String deepLinkUrl = "";
 
     private Wit wit;
 
@@ -137,8 +140,6 @@ public class MainActivity
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
             }
 
-            search = (EditText) toolbar.findViewById(R.id.greplr_search);
-
             fragmentManager = getSupportFragmentManager();
             fragmentManager.addOnBackStackChangedListener(this);
 
@@ -157,6 +158,8 @@ public class MainActivity
                 }, 5000);
             }
 
+
+
             toolbar = (Toolbar) findViewById(R.id.main_toolbar);
             setSupportActionBar(toolbar);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -167,10 +170,26 @@ public class MainActivity
 
             ((App) getApplication()).getApiHandler();
 
+            if (getIntent().getData() != null) {
+                String dataString = getIntent().getDataString();
+                Log.d(LOG_TAG, "Starting from Uri : " + dataString);
+                doDeepLinking(dataString);
+            }
+
         }
 
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
+
+    public void doDeepLinking (String dataStr) {
+        deepLinkUrl = dataStr.toLowerCase();
+        try {
+            switchFragment(Route.getTopcategoryFragByRoute(deepLinkUrl), false);
+        } catch (NullPointerException ne) {
+            ne.printStackTrace();
+        }
+    }
+
 
     public void showSlidePanel() {
         //bottomSliderLayout.setVisibility(View.VISIBLE);
@@ -243,7 +262,27 @@ public class MainActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setOnQueryTextListener(MainActivity.this);
+
         return true;
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 
     @Override
@@ -255,11 +294,6 @@ public class MainActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            if (search.getText().toString().length() != 0) {
-                wit.captureTextIntent(search.getText().toString());
-            } else {
-                Toast.makeText(this, "Please enter search query", Toast.LENGTH_SHORT).show();
-            }
             return true;
         }
 
@@ -439,7 +473,9 @@ public class MainActivity
             String jsonOutput = gson.toJson(witOutcomes);
             Log.d(LOG_TAG, jsonOutput);
             try {
-                Log.d(LOG_TAG, Utils.processWitOutcome(jsonOutput));
+                String witOutcomeUrl = Utils.processWitOutcome(jsonOutput);
+                Log.d(LOG_TAG, witOutcomeUrl);
+                doDeepLinking(witOutcomeUrl);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -465,4 +501,5 @@ public class MainActivity
     public String witGenerateMessageId() {
         return null;
     }
+
 }
