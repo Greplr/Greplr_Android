@@ -77,104 +77,14 @@ public class Utils {
         return df.format(Double.valueOf(fare));
     }
 
-    public static void dateFormatter(final MaterialEditText editText) {
-
-        editText.addTextChangedListener(new TextWatcher() {
-            private String current = "";
-            private String ddmmyyyy = "DDMMYYYY";
-            private Calendar cal = Calendar.getInstance();
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (!s.toString().equals(current)) {
-                    String clean = s.toString().replaceAll("[^\\d.]", "");
-                    String cleanC = current.replaceAll("[^\\d.]", "");
-
-                    int cl = clean.length();
-                    int sel = cl;
-                    for (int i = 2; i <= cl && i < 6; i += 2) {
-                        sel++;
-                    }
-
-                    if (clean.equals(cleanC))
-                        sel--;
-
-                    if (clean.length() < 8) {
-                        clean = clean + ddmmyyyy.substring(clean.length());
-                    } else {
-
-                        int day = Integer.parseInt(clean.substring(0, 2));
-                        int mon = Integer.parseInt(clean.substring(2, 4));
-                        int year = Integer.parseInt(clean.substring(4, 8));
-
-                        if (mon > 12)
-                            mon = 12;
-                        cal.set(Calendar.MONTH, mon - 1);
-                        if (year < 1900)
-                            year = 1900;
-                        if (year > 2100)
-                            year = 2100;
-                        cal.set(Calendar.YEAR, year);
-
-                        day = (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
-                        clean = String.format("%02d%02d%02d", day, mon, year);
-                    }
-
-                    clean = String.format("%s-%s-%s", clean.substring(0, 2),
-                            clean.substring(2, 4),
-                            clean.substring(4, 8));
-
-                    sel = sel < 0 ? 0 : sel;
-                    current = clean;
-                    editText.setText(current);
-                    editText.setSelection(sel < current.length() ? sel : current.length());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    public static String calculateArrivalTime(Calendar depatureTime, String duration) {
-        if (duration.equalsIgnoreCase("0h 0m"))
-            return "";
-        int minutes = Integer.valueOf(DateTimeUtils.intToMinString(depatureTime.get(Calendar.MINUTE))) + Integer.valueOf(duration.split("h")[1].split("m")[0].trim());
-        int hours = Integer.valueOf(DateTimeUtils.intToHrString(depatureTime.get(Calendar.HOUR_OF_DAY), true)) + Integer.valueOf(duration.split("h")[0]);
-        if (minutes >= 60) {
-            minutes = minutes - 60;
-            hours = hours + 1;
-            if (hours >= 24)
-                hours = hours - 24;
-
-        }
-        if (hours >= 24)
-            hours = hours - 24;
-
-        String hour = String.valueOf(hours);
-        String min = String.valueOf(minutes);
-        if (hour.length() == 1) {
-            if (min.length() == 1)
-                return "0" + hour + ":0" + String.valueOf(minutes);
-            else
-                return "0" + hour + ":" + String.valueOf(minutes);
-        } else {
-            if (min.length() == 1)
-                return hour + ":0" + String.valueOf(minutes);
-            else
-                return hour + ":" + String.valueOf(minutes);
-        }
-    }
-
     public static String editOrderLogoUrl(String logoUrl) {
-        return logoUrl.replace("%s", "200");
+        String editedUrl = logoUrl;
+        try {
+            editedUrl.replace("%s", "200");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return editedUrl;
     }
 
     public static int dp2px(Context context, float dp) {

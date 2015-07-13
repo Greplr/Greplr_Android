@@ -148,7 +148,7 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
                 destination.setAdapter(adapter);
 
                 final MaterialEditText date = (MaterialEditText) customDialog.findViewById(R.id.et_date);
-                Utils.dateFormatter(date);
+                DateTimeUtils.dateFormatter(date);
                 date.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
                     @Override
@@ -300,12 +300,12 @@ public class TravelBusFragment extends UnderSubCategoryFragment {
             }
 
             if (arrdate != null) {
-                viewHolder.arrdate.setText(String.valueOf(Utils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
+                viewHolder.arrdate.setText(String.valueOf(DateTimeUtils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
 //                        DateTimeUtils.intToHrString(arrdate.get(Calendar.HOUR_OF_DAY), true)
 //                                + ":"
 //                                + DateTimeUtils.intToMinString(arrdate.get(Calendar.MINUTE)));
             } else {
-                viewHolder.arrdate.setText(String.valueOf(Utils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
+                viewHolder.arrdate.setText(String.valueOf(DateTimeUtils.calculateArrivalTime(depdate, busList.get(i).getDuration())));
             }
 
 
