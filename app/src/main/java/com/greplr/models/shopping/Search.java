@@ -16,7 +16,7 @@
  *     be in possession of this code or view or modify it or use it in any capacity.
  */
 
-package com.greplr.models.shopping.search;
+package com.greplr.models.shopping;
 
 import java.util.List;
 
