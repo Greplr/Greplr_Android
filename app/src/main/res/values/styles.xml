@@ -16,7 +16,7 @@
   ~     be in possession of this code or view or modify it or use it in any capacity.
   -->
 
-<resources >
+<resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -30,10 +30,10 @@
         <item name="colorAccent">@color/greplr_accent</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
 
-    <style name="Greplr" parent="Greplr.Base">
-    </style>
+    <style name="Greplr" parent="Greplr.Base"></style>
 
     <style name="Greplr.Base.Login" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/greplr_primary_login</item>
@@ -48,7 +48,7 @@
     </style>
 
     <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
-    <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="AppTheme.LightCards">
@@ -78,6 +78,21 @@
 
     <style name="AppTheme.SearchDialog" parent="Base.Theme.AppCompat.Dialog">
 
+    </style>
+
+    <style name="MySearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Background for the search query section (e.g. EditText) -->
+        <item name="queryBackground">@color/textview_dark</item>
+        <!-- Background for the actions section (e.g. voice, submit) -->
+        <item name="submitBackground">@color/greplr_accent</item>
+        <!-- Search button icon -->
+        <item name="searchIcon">@drawable/abc_ic_search_api_mtrl_alpha</item>
+        <!-- Go/commit button icon -->
+        <item name="goIcon">@drawable/abc_ic_go_search_api_mtrl_alpha</item>
+        <!-- Voice search button icon -->
+        <item name="voiceIcon">@drawable/abc_ic_voice_search_api_mtrl_alpha</item>
+        <!-- Commit icon shown in the query suggestion row -->
+        <item name="commitIcon">@drawable/abc_ic_commit_search_api_mtrl_alpha</item>
     </style>
 
 </resources>
