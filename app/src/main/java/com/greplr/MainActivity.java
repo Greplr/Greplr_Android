@@ -92,6 +92,7 @@ public class MainActivity
     private Boolean isActivityRunning = true;
     private long activityStartTime;
     private EditText search;
+    public String deepLinkUrl = "";
 
     private Wit wit;
 
@@ -171,7 +172,6 @@ public class MainActivity
                 String dataString = getIntent().getDataString();
                 Log.d(LOG_TAG, "Starting from Uri : " + dataString);
                 doDeepLinking(dataString);
-
             }
 
         }
@@ -179,9 +179,15 @@ public class MainActivity
         backgroundImage = (ImageView) findViewById(R.id.main_background_image);
     }
 
-    public void doDeepLinking (String deepLinkUrl) {
-        switchFragment(Route.getTopcategoryFragByRoute(deepLinkUrl), false);
+    public void doDeepLinking (String dataStr) {
+        deepLinkUrl = dataStr.toLowerCase();
+        try {
+            switchFragment(Route.getTopcategoryFragByRoute(deepLinkUrl), false);
+        } catch (NullPointerException ne) {
+            ne.printStackTrace();
+        }
     }
+
 
     public void showSlidePanel() {
         //bottomSliderLayout.setVisibility(View.VISIBLE);

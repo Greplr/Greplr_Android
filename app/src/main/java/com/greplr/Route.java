@@ -22,6 +22,8 @@ import android.support.v4.app.Fragment;
 
 import com.greplr.subcategories.events.EventFragment;
 import com.greplr.subcategories.food.FoodFragment;
+import com.greplr.subcategories.news.NewsFragment;
+import com.greplr.subcategories.shopping.ShoppingFragment;
 import com.greplr.subcategories.travel.TravelFragment;
 
 /**
@@ -30,20 +32,20 @@ import com.greplr.subcategories.travel.TravelFragment;
 public class Route {
 
 
-    public static final int CAT_ORDER_TRAVEL = 0;
-    public static final int CAT_ORDER_FOOD = 1;
-    public static final int CAT_ORDER_EVENT = 2;
-    public static final int CAT_ORDER_SHOPPING = 3;
-    public static final int CAT_ORDER_NEWS = 4;
-
     public static interface TRAVEL {
+        int CAT_NUM = 0;
         String ROOT = "/travel";
         String BUS = ROOT + "/bus";
         String CAB = ROOT + "/cab";
         String FLIGHT = ROOT + "/flight";
+
+        int SUBCAT_NUM_CAB = 0;
+        int SUBCAT_NUM_BUS = 1;
+        int SUBCAT_NUM_FLIGHT = 2;
     }
 
     public static interface FOOD {
+        int CAT_NUM = 1;
         String ROOT = "/food";
         String ORDER = ROOT + "/order";
         String RESTAURANT = ROOT + "/restaurant";
@@ -52,16 +54,39 @@ public class Route {
     }
 
     public static interface EVENTS {
+        int CAT_NUM = 2;
         String ROOT = "/events";
         String MOVIE = ROOT + "/movie";
         String PLAY = ROOT + "/play";
     }
 
+    public static interface SHOPPING {
+        int CAT_NUM = 3;
+        String ROOT = "/shopping";
+
+    }
+
+    public static interface NEWS {
+        int CAT_NUM = 4;
+        String ROOT = "/news";
+
+    }
+
     public static Fragment getTopcategoryFragByRoute (String dataString) {
-        if (dataString.contains(TRAVEL.ROOT)) return TravelFragment.newInstance(CAT_ORDER_TRAVEL);
-        if (dataString.contains(FOOD.ROOT)) return FoodFragment.newInstance(CAT_ORDER_FOOD);
-        if (dataString.contains(EVENTS.ROOT)) return EventFragment.newInstance(CAT_ORDER_EVENT);
+        if (dataString.contains(TRAVEL.ROOT)) return TravelFragment.newInstance(TRAVEL.CAT_NUM);
+        if (dataString.contains(FOOD.ROOT)) return FoodFragment.newInstance(FOOD.CAT_NUM);
+        if (dataString.contains(EVENTS.ROOT)) return EventFragment.newInstance(EVENTS.CAT_NUM);
+        if (dataString.contains(SHOPPING.ROOT)) return ShoppingFragment.newInstance(SHOPPING.CAT_NUM);
+        if (dataString.contains(NEWS.ROOT)) return NewsFragment.newInstance(NEWS.CAT_NUM);
         return null;
+    }
+
+    public static int getSubcategoryPositionByRoute (String dataString) {
+        if (dataString.contains(TRAVEL.CAB)) return TRAVEL.SUBCAT_NUM_CAB;
+        if (dataString.contains(TRAVEL.BUS)) return TRAVEL.SUBCAT_NUM_BUS;
+        if (dataString.contains(TRAVEL.FLIGHT)) return TRAVEL.SUBCAT_NUM_FLIGHT;
+
+        return 0;
     }
 
 }

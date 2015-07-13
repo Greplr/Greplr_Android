@@ -47,33 +47,33 @@ public class Topcategories {
                     R.drawable.cardicon_travel,
                     R.drawable.topcategorycard_bg_travel,
                     R.color.travel_color_dark,
-                    TravelFragment.newInstance(Route.CAT_ORDER_TRAVEL)));
+                    TravelFragment.newInstance(Route.TRAVEL.CAT_NUM)));
             topCategories.add(new Category(
                     "Food",
                     R.drawable.cardicon_food,
                     R.drawable.topcategorycard_bg_food,
                     R.color.food_color_dark,
-                    FoodFragment.newInstance(Route.CAT_ORDER_FOOD)));
+                    FoodFragment.newInstance(Route.FOOD.CAT_NUM)));
             topCategories.add(new Category(
                     "Events",
                     R.drawable.cardicon_events,
                     R.drawable.topcategorycard_bg_events,
                     R.color.events_color_dark,
-                    EventFragment.newInstance(Route.CAT_ORDER_EVENT)));
+                    EventFragment.newInstance(Route.EVENTS.CAT_NUM)));
             topCategories.add(new Category(
 
                     "Shopping",
                     R.drawable.cardicon_shopping,
                     R.drawable.topcategorycard_bg_events,
                     R.color.shopping_color_dark,
-                    ShoppingFragment.newInstance(Route.CAT_ORDER_SHOPPING)));
+                    ShoppingFragment.newInstance(Route.SHOPPING.CAT_NUM)));
 
             topCategories.add(new Category(
                     "News",
                     R.drawable.cardicon_news,
                     R.drawable.topcategorycard_bg_events,
                     R.color.news_color_primary,
-                    NewsFragment.newInstance(Route.CAT_ORDER_NEWS)));
+                    NewsFragment.newInstance(Route.NEWS.CAT_NUM)));
         }
         return topCategories;
     }
