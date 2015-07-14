@@ -83,7 +83,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/Greplr.Base.Login">
+            android:theme="@style/AppTheme.Login">
         </activity>
         <activity
             android:name=".AccountActivity"
