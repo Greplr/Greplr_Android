@@ -18,6 +18,8 @@
 
 package com.greplr.subcategories.events;
 
+import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -27,7 +29,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
@@ -42,6 +46,7 @@ import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,7 +148,24 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
             viewHolder.actors.setText(playList.get(i).getActors());
             Picasso.with(getActivity()).load(playList.get(i).getBannerURL()).
                     fit().centerCrop().into(viewHolder.playBanner);
-
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Dialog customDialog = new Dialog(getActivity());
+                    customDialog.setContentView(R.layout.dialog_plays_venues);
+                    customDialog.setTitle("Venue");
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
+                    customDialog.setCancelable(true);
+                    ListView listView = (ListView) customDialog.findViewById(R.id.listView_plays_venues);
+                    final ArrayList<String> list = new ArrayList<String>();
+                    for (int j = 0; j < playList.get(i).getArrVenues().size(); ++j) {
+                        list.add(playList.get(i).getArrVenues().get(j).getVenueName());
+                    }
+                    final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+                    listView.setAdapter(adapter);
+                    customDialog.show();
+                }
+            });
         }
 
         @Override
@@ -157,9 +179,12 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
             TextView length;
             TextView actors;
             ImageView playBanner;
+            View view;
 
             public ViewHolder(CardView v) {
                 super(v);
+
+                view = v;
                 eventTitle = (TextView) v.findViewById(R.id.play_name);
                 director = (TextView) v.findViewById(R.id.Director_name);
                 length = (TextView) v.findViewById(R.id.play_length);
