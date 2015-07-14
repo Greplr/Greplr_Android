@@ -43,7 +43,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -56,6 +55,7 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.greplr.common.utils.DecimalUtils;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.location.GeoCodingLocationData;
 import com.greplr.topcategories.TopcategoriesFragment;
@@ -78,7 +78,7 @@ public class MainActivity
         implements FragmentManager.OnBackStackChangedListener,
         LocationListener,
         ResultCallback<LocationSettingsResult>,
-        IWitListener, SearchView.OnQueryTextListener {
+        IWitListener {
 
     public static final String LOG_TAG = "Greplr/MainActivity";
     private static FragmentManager fragmentManager;
@@ -172,7 +172,6 @@ public class MainActivity
 
             if (getIntent().getData() != null) {
                 String dataString = getIntent().getDataString();
-                Log.d(LOG_TAG, "Starting from Uri : " + dataString);
                 doDeepLinking(dataString);
             }
 
@@ -182,6 +181,7 @@ public class MainActivity
     }
 
     public void doDeepLinking (String dataStr) {
+        Log.d(LOG_TAG, "Starting from Uri : " + dataStr);
         deepLinkUrl = dataStr.toLowerCase();
         try {
             switchFragment(Route.getTopcategoryFragByRoute(deepLinkUrl), false);
@@ -266,21 +266,26 @@ public class MainActivity
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(MainActivity.this);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() > 0) {
+                    wit.captureTextIntent(query);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
 
         return true;
-    }
-
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
     }
 
     @Override
@@ -401,7 +406,7 @@ public class MainActivity
     @Override
     public void onLocationChanged(Location loc) {
         Log.d(LOG_TAG, "onLocationChanged");
-        Location location = Utils.adjustLocationDecimalPrecision(loc);
+        Location location = DecimalUtils.adjustLocationDecimalPrecision(loc);
         App.currentLocation = location;
         Log.d(LOG_TAG, "Latitudes = " + location.getLatitude() + "");
         Log.d(LOG_TAG, "Longitude = " + location.getLongitude() + "");

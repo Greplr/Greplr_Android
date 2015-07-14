@@ -60,18 +60,6 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    public static Location adjustLocationDecimalPrecision(Location loc) {
-        DecimalFormat df = new DecimalFormat("#.####");
-        loc.setLatitude(Double.parseDouble(df.format(loc.getLatitude())));
-        loc.setLongitude(Double.parseDouble(df.format(loc.getLongitude())));
-        return loc;
-    }
-
-    public static String adjustFlightFarePrecision(String fare) {
-        DecimalFormat df = new DecimalFormat("#");
-        return df.format(Double.valueOf(fare));
-    }
-
     public static String editOrderLogoUrl(String logoUrl) {
         try {
             logoUrl = logoUrl.replace("%s", "200");
@@ -134,7 +122,7 @@ public class Utils {
                 }
                 return busURL;
 
-            case "find_flights" : String flightURL =  BASE_URL + "travel/bus";
+            case "find_flights" : String flightURL =  BASE_URL + "travel/flights";
                 if(origin != null)
                     flightURL += "?origin=" + origin;
                 if(destination != null){
