@@ -25,7 +25,7 @@
     <color name="greplr_primary">#6B6570</color>
     <color name="greplr_primary_dark">#6B6570</color>
     <color name="greplr_blank">#424242</color>
-    <color name="greplr_accent">#FD446B</color>
+    <color name="greplr_accent">#00bf97</color>
 
     <color name="greplr_primary_login">#455A64</color>
     <color name="greplr_primary_dark_login">#263238</color>
@@ -44,9 +44,9 @@
     <color name="travel_edittext_light">#FFFFFF</color>
     <color name="travel_dialog_backgroundColor">#1F5C52</color>
 
-    <color name="food_color_primary">#e64a19</color>
-    <color name="food_color_light">#ff6e40</color>
-    <color name="food_color_dark">#bf360c</color>
+    <color name="food_color_primary">#BF6629</color>
+    <color name="food_color_light">#FF8936</color>
+    <color name="food_color_dark">#5C3114</color>
 
     <color name="events_color_primary">#d32f2f</color>
     <color name="events_color_light">#ff5252</color>

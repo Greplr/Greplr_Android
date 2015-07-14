@@ -32,8 +32,6 @@
     <style name="AppTheme.Login" parent="Theme.AppCompat.NoActionBar">
     </style>
 
-
-
     <style name="AppTheme.LightCards">
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/AppTheme.DarkCards.TextViewStyle</item>
