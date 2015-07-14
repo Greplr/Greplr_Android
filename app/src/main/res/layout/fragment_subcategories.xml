@@ -27,6 +27,9 @@
         android:id="@+id/subcategory_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <View android:id="@+id/subcategory_background_overlay"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
     <com.github.florent37.materialviewpager.MaterialViewPager
         android:id="@+id/subcategory_viewpager"

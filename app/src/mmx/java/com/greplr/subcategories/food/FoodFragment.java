@@ -57,4 +57,9 @@ public class FoodFragment extends SubCategoryFragment {
         };
     }
 
+    @Override
+    public int getCategoryColorDark() {
+        return getResources().getColor(R.color.food_color_dark);
+    }
+
 }

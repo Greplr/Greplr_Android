@@ -55,6 +55,7 @@ public abstract class SubCategoryFragment extends Fragment {
     private ImageView backgroundImage;
     private ImageView headerLogo;
     private FloatingActionButton searchFab;
+    private View backgroundOverlay;
 
     public SubCategoryFragment() {
         // Required empty public constructor
@@ -93,8 +94,12 @@ public abstract class SubCategoryFragment extends Fragment {
             mActionBar.hide();
         }
 
-        //backgroundImage = (ImageView) rootView.findViewById(R.id.subcategory_background);
         backgroundImage = ((MainActivity) getActivity()).getBackgroundImage();
+        backgroundOverlay = rootView.findViewById(R.id.subcategory_background_overlay);
+        backgroundOverlay.setBackgroundColor(
+                ColorUtils.adjustAlpha(getCategoryColorDark(), 0.5f)
+        );
+
 
         final SubCategoryPagerAdapter pagerAdapter = new SubCategoryPagerAdapter(getChildFragmentManager());
         matViewPager.getViewPager().setAdapter(pagerAdapter);
@@ -154,6 +159,8 @@ public abstract class SubCategoryFragment extends Fragment {
     public int getCategoryColor() {
         return getResources().getColor(Topcategories.getTopCategories().get(getCatNum()).cardColor);
     }
+
+    public abstract int getCategoryColorDark();
 
     public int getUnderSubFragCount() {
         return getUnderSubCategories().length;

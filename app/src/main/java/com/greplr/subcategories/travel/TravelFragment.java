@@ -58,4 +58,9 @@ public class TravelFragment extends SubCategoryFragment {
         };
     }
 
+    @Override
+    public int getCategoryColorDark() {
+        return getResources().getColor(R.color.travel_color_dark);
+    }
+
 }

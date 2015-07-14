@@ -110,4 +110,9 @@ public class NewsFragment extends SubCategoryFragment {
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity) getActivity()).hideSlidePanel();
     }
+
+    @Override
+    public int getCategoryColorDark() {
+        return getResources().getColor(R.color.news_color_dark);
+    }
 }

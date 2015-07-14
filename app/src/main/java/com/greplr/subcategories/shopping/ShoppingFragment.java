@@ -52,4 +52,8 @@ public class ShoppingFragment extends SubCategoryFragment {
         };
     }
 
+    @Override
+    public int getCategoryColorDark() {
+        return getResources().getColor(R.color.shopping_color_dark);
+    }
 }

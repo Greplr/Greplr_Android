@@ -53,6 +53,7 @@
     <color name="events_color_dark">#b71c1c</color>
 
     <color name="news_color_primary">#2962ff</color>
+    <color name="news_color_dark">#2962ff</color>
 
     <color name="shopping_color_primary">#34217F</color>
     <color name="shopping_color_light">#4D31BF</color>

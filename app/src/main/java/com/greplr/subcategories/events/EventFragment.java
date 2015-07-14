@@ -55,4 +55,9 @@ public class EventFragment extends SubCategoryFragment {
         };
     }
 
+    @Override
+    public int getCategoryColorDark() {
+        return getResources().getColor(R.color.events_color_dark);
+    }
+
 }
