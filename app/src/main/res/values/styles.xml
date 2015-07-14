@@ -19,17 +19,15 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
     </style>
 
-    <style name="Greplr.Base" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="AppBaseTheme">
         <item name="colorPrimary">@color/greplr_primary</item>
         <item name="colorPrimaryDark">@color/greplr_primary_dark</item>
         <item name="colorAccent">@color/greplr_accent</item>
         <item name="searchViewStyle">@style/MySearchViewStyle</item>
     </style>
-
-    <style name="Greplr" parent="Greplr.Base"></style>
 
     <style name="AppTheme.Login" parent="Theme.AppCompat.NoActionBar">
     </style>

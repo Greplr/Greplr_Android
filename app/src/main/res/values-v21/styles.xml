@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Greplr" parent="Greplr.Base">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:statusBarColor">@color/greplr_primary_dark</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
