@@ -25,7 +25,6 @@ import com.greplr.Route;
 import com.greplr.subcategories.events.EventFragment;
 import com.greplr.subcategories.food.FoodFragment;
 import com.greplr.subcategories.shopping.ShoppingFragment;
-import com.greplr.subcategories.news.NewsFragment;
 import com.greplr.subcategories.travel.TravelFragment;
 
 import java.util.ArrayList;
@@ -68,12 +67,12 @@ public class Topcategories {
                     R.color.shopping_color_primary,
                     ShoppingFragment.newInstance(Route.SHOPPING.CAT_NUM)));
 
-            topCategories.add(new Category(
-                    "News",
-                    R.drawable.cardicon_news,
-                    R.drawable.topcategorycard_bg_events,
-                    R.color.news_color_primary,
-                    NewsFragment.newInstance(Route.NEWS.CAT_NUM)));
+//            topCategories.add(new Category(
+//                    "News",
+//                    R.drawable.cardicon_news,
+//                    R.drawable.topcategorycard_bg_events,
+//                    R.color.news_color_primary,
+//                    NewsFragment.newInstance(Route.NEWS.CAT_NUM)));
         }
         return topCategories;
     }
