@@ -39,6 +39,7 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.NumberedAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.food.Cafe;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -151,7 +152,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
             viewHolder.restaurantName.setText(cafeList.get(i).getName());
-            viewHolder.distance.setText(String.valueOf(cafeList.get(i).getDistance()) + " meter");
+            viewHolder.distance.setText(Utils.friendlyDistance(String.valueOf(cafeList.get(i).getDistance())));
             viewHolder.address.setText(cafeList.get(i).getAddress());
             viewHolder.location.setOnClickListener(new View.OnClickListener() {
                 @Override
