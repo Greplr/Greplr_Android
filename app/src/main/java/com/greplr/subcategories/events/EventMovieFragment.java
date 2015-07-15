@@ -18,7 +18,9 @@
 
 package com.greplr.subcategories.events;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -166,12 +169,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
                     customDialog.setCancelable(true);
                     ListView listView = (ListView) customDialog.findViewById(R.id.listView_movies_venues);
-                    final ArrayList<String> list = new ArrayList<String>();
-                    for (int j = 0; j < movieList.get(i).getArrVenues().size(); ++j) {
-                        list.add(movieList.get(i).getArrVenues().get(j).getVenueName());
-                    }
-                    final ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
-                    listView.setAdapter(adapter);
+                    listView.setAdapter(new MoviesVenueAdapter(getActivity(), movieList));
                     customDialog.show();
                 }
             });
@@ -204,6 +202,53 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                 actorsImage = (ImageView) v.findViewById(R.id.actors_image);
             }
         }
+    }
+
+    public class MoviesVenueAdapter extends BaseAdapter {
+        private Activity activity;
+        private LayoutInflater inflater;
+        private List<Movies> venueItems;
+
+        public MoviesVenueAdapter(Activity activity, List<Movies> venueItems) {
+            this.activity = activity;
+            this.venueItems = venueItems;
+        }
+
+        @Override
+        public int getCount() {
+            return venueItems.size();
+        }
+
+        @Override
+        public Object getItem(int location) {
+            return venueItems.get(location);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if (inflater == null)
+                inflater = (LayoutInflater) activity
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            if (convertView == null)
+                convertView = inflater.inflate(R.layout.movies_details_list_item, null);
+
+            TextView venueName = (TextView) convertView.findViewById(R.id.venue_name);
+            TextView venueLocation = (TextView) convertView.findViewById(R.id.venue_location);
+            TextView venueDistance = (TextView) convertView.findViewById(R.id.venue_distance);
+
+            venueName.setText(venueItems.get(position).getArrVenues().get(position).getVenueName());
+            venueLocation.setText(venueItems.get(position).getArrVenues().get(position).getRegion_strName());
+            venueDistance.setText(venueItems.get(position).getArrVenues().get(position).getVenueCode());
+
+            return convertView;
+        }
+
     }
 
 }
