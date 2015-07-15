@@ -41,7 +41,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_weight="5"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:orientation="horizontal"
@@ -71,41 +71,43 @@
                     android:textStyle="normal" />
 
             </LinearLayout>
+            <!--
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:gravity="center|right">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="center|right">
 
-                <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/restaurant_rating"
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="12dp"
-                    android:foreground="?selectableItemBackground"
-                    card_view:cardCornerRadius="6dp"
-                    card_view:cardElevation="2dp"
-                    card_view:cardPreventCornerOverlap="false">
+                            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/restaurant_rating"
+                                android:layout_width="40dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="12dp"
+                                android:foreground="?selectableItemBackground"
+                                card_view:cardCornerRadius="6dp"
+                                card_view:cardElevation="2dp"
+                                card_view:cardPreventCornerOverlap="false">
 
-                    <TextView
-                        android:id="@+id/restaurant_rating_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Star"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@android:color/white"
-                        android:textSize="13dp"
-                        android:textStyle="normal" />
+                                <TextView
+                                    android:id="@+id/restaurant_rating_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:text="Star"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="13dp"
+                                    android:textStyle="normal" />
 
-                </android.support.v7.widget.CardView>
+                            </android.support.v7.widget.CardView>
+
 
             </LinearLayout>
-
+ -->
         </LinearLayout>
 
         <LinearLayout

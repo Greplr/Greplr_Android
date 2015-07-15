@@ -164,10 +164,10 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Dialog customDialog = new Dialog(getActivity());
+                    final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
                     customDialog.setContentView(R.layout.dialog_movies_venues);
-                    customDialog.setTitle("List of Theaters");
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
+//                    customDialog.setTitle("List of Theaters");
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.white)));
                     customDialog.setCancelable(true);
                     ListView listView = (ListView) customDialog.findViewById(R.id.listView_movies_venues);
                     listView.setAdapter(new MoviesVenueAdapter(getActivity(), movieList.get(i).getArrVenues()));

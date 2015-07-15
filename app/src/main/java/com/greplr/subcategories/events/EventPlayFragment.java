@@ -155,10 +155,10 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
             viewHolder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Dialog customDialog = new Dialog(getActivity());
+                    final Dialog customDialog = new Dialog(getActivity(), R.style.AppTheme_SearchDialog);
                     customDialog.setContentView(R.layout.dialog_plays_venues);
-                    customDialog.setTitle("Venue");
-                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
+//                    customDialog.setTitle("Venue");
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(android.R.color.white)));
                     customDialog.setCancelable(true);
                     ListView listView = (ListView) customDialog.findViewById(R.id.listView_plays_venues);
                     listView.setAdapter(new PlaysVenueAdapter(getActivity(), playList.get(i).getArrVenues()));

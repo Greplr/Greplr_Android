@@ -61,5 +61,7 @@
 
     <color name="textview_error">#F44336</color>
     <color name="edittext_error_color_primary">#EF9A9A</color>
+    <color name="movies_textview_head">#780116</color>
+    <color name="movies_textview_detail_one">#C32F27</color>
 
 </resources>

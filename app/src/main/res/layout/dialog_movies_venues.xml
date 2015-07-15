@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/events_color_light">
+    android:background="@android:color/white"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp">
 
     <ListView
         android:id="@+id/listView_movies_venues"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"/>
 </LinearLayout>
