@@ -19,8 +19,8 @@
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <item android:drawable="@drawable/cardicon_travel_bus" android:duration="2200" />
-    <item android:drawable="@drawable/cardicon_travel_flight" android:duration="2200" />
-    <item android:drawable="@drawable/cardicon_travel_train" android:duration="2200" />
-    <item android:drawable="@drawable/cardicon_travel_taxi" android:duration="2200" />
+    <item android:drawable="@drawable/cardicon_travel_bus" android:duration="3600" />
+    <item android:drawable="@drawable/cardicon_travel_flight" android:duration="3600" />
+    <item android:drawable="@drawable/cardicon_travel_train" android:duration="3600" />
+    <item android:drawable="@drawable/cardicon_travel_taxi" android:duration="3600" />
 </animation-list>

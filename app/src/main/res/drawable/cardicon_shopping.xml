@@ -19,6 +19,6 @@
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <item android:drawable="@drawable/cardicon_shopping_search" android:duration="2400" />
-    <item android:drawable="@drawable/cardicon_shopping_offers" android:duration="2400" />
+    <item android:drawable="@drawable/cardicon_shopping_search" android:duration="3200" />
+    <item android:drawable="@drawable/cardicon_shopping_offers" android:duration="3200" />
 </animation-list>

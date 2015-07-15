@@ -19,8 +19,8 @@
 
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <item android:drawable="@drawable/cardicon_food_cafe" android:duration="2000" />
-    <item android:drawable="@drawable/cardicon_food_bar" android:duration="2000" />
-    <item android:drawable="@drawable/cardicon_food_order" android:duration="2000" />
-    <item android:drawable="@drawable/cardicon_food_restaurant" android:duration="2000" />
+    <item android:drawable="@drawable/cardicon_food_cafe" android:duration="2800" />
+    <item android:drawable="@drawable/cardicon_food_bar" android:duration="2800" />
+    <item android:drawable="@drawable/cardicon_food_order" android:duration="2800" />
+    <item android:drawable="@drawable/cardicon_food_restaurant" android:duration="2800" />
 </animation-list>
