@@ -21,7 +21,9 @@ package com.greplr.subcategories.events;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -31,7 +33,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -44,12 +45,12 @@ import com.greplr.R;
 import com.greplr.adapters.ErrorAdapter;
 import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -230,7 +231,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
 
             if (inflater == null)
                 inflater = (LayoutInflater) activity
@@ -241,10 +242,19 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
             TextView venueName = (TextView) convertView.findViewById(R.id.venue_name);
             TextView venueLocation = (TextView) convertView.findViewById(R.id.venue_location);
             TextView venueDistance = (TextView) convertView.findViewById(R.id.venue_distance);
+            ImageView venueMapLocation = (ImageView) convertView.findViewById(R.id.iv_venue_location);
 
             venueName.setText(venueItems.get(position).getVenueName());
             venueLocation.setText(venueItems.get(position).getRegion_strName());
-            venueDistance.setText(venueItems.get(position).getVenueCode());
+            venueDistance.setText(Utils.friendlyDistance(String.valueOf(Utils.calDistanceFromCoordinates(venueItems.get(position).getVenueLatitude(), venueItems.get(position).getVenueLongitude()))));
+            venueMapLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q=" + venueItems.get(position).getVenueLatitude() + ","
+                            + venueItems.get(position).getVenueLongitude() + "(" + venueItems.get(position).getVenueName() + ")"));
+                    startActivity(intent);
+                }
+            });
 
             return convertView;
         }
