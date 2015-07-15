@@ -105,7 +105,7 @@ public class ShoppingOffersFragment extends UnderSubCategoryFragment {
                         offerList = offers;
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability() + "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
+//                        Log.d(LOG_TAG, offerList.get(0).getUrl() + "  " + offerList.get(0).getAvailability() + "  " + offerList.get(0).getDescription() + "  " + offerList.get(0).getTitle() + "  " + offerList.get(0).getImageUrls().get(0).getUrl());
                         sendParseAnalytics("true");
                     }
 
