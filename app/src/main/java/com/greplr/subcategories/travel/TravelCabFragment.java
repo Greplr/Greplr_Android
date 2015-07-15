@@ -186,8 +186,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            runEnterAnimation(viewHolder.itemView, i);
-            setAnimation(viewHolder.itemView, i);
+//            runEnterAnimation(viewHolder.itemView, i);
+//            setAnimation(viewHolder.itemView, i);
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
             if (viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo") || viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")) {
                 viewHolder.cabType.setImageResource(R.drawable.ic_cab_hatchback);
