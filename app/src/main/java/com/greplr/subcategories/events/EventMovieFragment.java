@@ -45,6 +45,7 @@ import com.greplr.R;
 import com.greplr.adapters.ErrorAdapter;
 import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.events.Movies;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -245,7 +246,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
 
             venueName.setText(venueItems.get(position).getVenueName());
             venueLocation.setText(venueItems.get(position).getRegion_strName());
-//            venueDistance.setText(venueItems.get(position).getDistance());
+            venueDistance.setText(Utils.friendlyDistance(String.valueOf(Utils.calDistanceFromCoordinates(venueItems.get(position).getVenueLatitude(), venueItems.get(position).getVenueLongitude()))));
             venueMapLocation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

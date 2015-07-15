@@ -20,8 +20,11 @@ package com.greplr.common.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.location.Location;
 import android.os.Build;
 import android.util.TypedValue;
+
+import com.greplr.App;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -162,4 +165,10 @@ public class Utils {
         return dist + " m";
     }
 
+    public static float calDistanceFromCoordinates(String lat, String lng){
+        Location venLocation = new Location("Destination");
+        venLocation.setLatitude(Double.valueOf(lat));
+        venLocation.setLongitude(Double.valueOf(lng));
+        return App.currentLocation.distanceTo(venLocation);
+    }
 }
