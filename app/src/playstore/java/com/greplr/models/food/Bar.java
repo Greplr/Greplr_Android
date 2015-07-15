@@ -31,6 +31,24 @@ public class Bar {
     private String address;
     private String id;
     private List<String> type;
+    private String rating;
+    private String open_now;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getOpen_now() {
+        return open_now;
+    }
+
+    public void setOpen_now(String open_now) {
+        this.open_now = open_now;
+    }
 
     public int getDistance() {
         return distance;
