@@ -36,6 +36,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,6 +49,7 @@ import com.greplr.R;
 import com.greplr.adapters.ErrorAdapter;
 import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
+import com.greplr.common.utils.Utils;
 import com.greplr.models.travel.Cab;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
@@ -168,6 +172,10 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
     public class CabAdapter extends RecyclerView.Adapter<CabAdapter.ViewHolder> {
 
+        private int lastPosition = -1;
+        private static final int ANIMATED_ITEMS_COUNT = 2;
+        private boolean animateItems = false;
+        private int lastAnimatedPosition = -1;
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -178,6 +186,8 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
+            runEnterAnimation(viewHolder.itemView, i);
+            setAnimation(viewHolder.itemView, i);
             viewHolder.displayName.setText(cabList.get(i).getDisplay_name());
             if (viewHolder.displayName.getText().toString().equalsIgnoreCase("ubergo") || viewHolder.displayName.getText().toString().equalsIgnoreCase("hatchback")) {
                 viewHolder.cabType.setImageResource(R.drawable.ic_cab_hatchback);
@@ -291,6 +301,32 @@ public class TravelCabFragment extends UnderSubCategoryFragment {
                 cabType = (ImageView) v.findViewById(R.id.cab_type);
             }
         }
+
+        private void setAnimation(View viewToAnimate, int position) {
+            // If the bound view wasn't previously displayed on screen, it's animated
+            if (position > lastPosition)
+            {
+                Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_bottom);
+                viewToAnimate.startAnimation(animation);
+                lastPosition = position;
+            }
+        }
+
+        private void runEnterAnimation(View view, int position) {
+            if (!animateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
+                return;
+            }
+            if (position > lastAnimatedPosition) {
+                lastAnimatedPosition = position;
+                view.setTranslationY(Utils.getScreenHeight(getActivity()));
+                view.animate()
+                        .translationY(0)
+                        .setInterpolator(new DecelerateInterpolator(3.f))
+                        .setDuration(700)
+                        .start();
+            }
+        }
+
     }
 
 }

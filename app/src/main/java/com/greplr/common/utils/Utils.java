@@ -20,9 +20,12 @@ package com.greplr.common.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
 import android.util.TypedValue;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.greplr.App;
 
@@ -38,6 +41,8 @@ import java.text.DecimalFormat;
  * Created by prempal on 3/7/15.
  */
 public class Utils {
+
+    private static int screenHeight = 0;
 
     public static String loadJSONFromAsset(Context context, String filename) {
         String json = null;
@@ -171,4 +176,18 @@ public class Utils {
         venLocation.setLongitude(Double.valueOf(lng));
         return App.currentLocation.distanceTo(venLocation);
     }
+
+    public static int getScreenHeight(Context c) {
+
+        if (screenHeight == 0) {
+            WindowManager wm = (WindowManager) c.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            screenHeight = size.y;
+        }
+
+        return screenHeight;
+    }
+
 }
