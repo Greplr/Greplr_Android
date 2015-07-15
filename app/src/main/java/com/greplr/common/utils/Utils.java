@@ -20,7 +20,6 @@ package com.greplr.common.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.location.Location;
 import android.os.Build;
 import android.util.TypedValue;
 
@@ -151,6 +150,16 @@ public class Utils {
 
         }
 
+    }
+
+    public static String friendlyDistance(String dist) {
+        float distance = Float.valueOf(dist);
+        if (distance >= 1000) {
+            float easyDistance = distance/1000;
+            DecimalFormat df = new DecimalFormat("#.##");
+            return String.valueOf(df.format(easyDistance)) + " km";
+        }
+        return dist + " m";
     }
 
 }
