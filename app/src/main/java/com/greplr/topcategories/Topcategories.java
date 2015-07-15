@@ -34,7 +34,7 @@ import java.util.ArrayList;
  */
 public class Topcategories {
 
-    public static final int TOTAL_CATEGORIES = 5;
+    public static final int TOTAL_CATEGORIES = 4;
 
     private static ArrayList<Category> topCategories;
 
