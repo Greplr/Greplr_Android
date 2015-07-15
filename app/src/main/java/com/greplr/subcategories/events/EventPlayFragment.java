@@ -21,7 +21,9 @@ package com.greplr.subcategories.events;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -238,7 +240,7 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (inflater == null)
                 inflater = (LayoutInflater) activity
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -248,11 +250,20 @@ public class EventPlayFragment extends UnderSubCategoryFragment {
             TextView venueName = (TextView) convertView.findViewById(R.id.venue_name);
             TextView venueLocation = (TextView) convertView.findViewById(R.id.venue_location);
             TextView venueDistance = (TextView) convertView.findViewById(R.id.venue_distance);
+            ImageView venueMapLocation = (ImageView) convertView.findViewById(R.id.iv_venue_location);
 
             venueName.setText(venueItems.get(position).getVenueName());
             venueLocation.setText(venueItems.get(position).getRegion_strName());
-            venueDistance.setText(venueItems.get(position).getDistance());
+//            venueDistance.setText(venueItems.get(position).getDistance());
+            venueMapLocation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q=" + venueItems.get(position).getVenueLatitude() + ","
+                            + venueItems.get(position).getVenueLongitude() + "(" + venueItems.get(position).getVenueName() + ")"));
 
+                    startActivity(intent);
+                }
+            });
             return convertView;
         }
     }
