@@ -115,7 +115,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 customDialog.setCancelable(true);
 
                 CardView shoppingCardView = (CardView) customDialog.findViewById(R.id.shopping_search_card_dialog);
-                shoppingCardView.setCardBackgroundColor((ColorUtils.getDarkerColor(getResources().getColor(R.color.shopping_color_dark))));
+                shoppingCardView.setCardBackgroundColor((ColorUtils.getDarkerColor(getResources().getColor(R.color.shopping_color_light))));
 
                 final MaterialEditText product = (MaterialEditText) customDialog.findViewById(R.id.et_product_name);
                 AppCompatButton buttonDone = (AppCompatButton) customDialog.findViewById(R.id.ok_button);
