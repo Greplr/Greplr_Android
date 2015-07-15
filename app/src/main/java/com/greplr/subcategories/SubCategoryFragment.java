@@ -76,7 +76,7 @@ public abstract class SubCategoryFragment extends Fragment {
 
         final MaterialViewPager matViewPager = (MaterialViewPager) rootView.findViewById(R.id.subcategory_viewpager);
         searchFab = (FloatingActionButton) rootView.findViewById(R.id.search_fab);
-        searchFab.setColorNormal(getCategoryColor());
+        searchFab.setColorNormal(getCategoryColorDark());
         searchFab.setColorPressed(getCategoryColor());
         searchFab.setColorRipple(Color.GRAY);
         Toolbar toolbar = matViewPager.getToolbar();

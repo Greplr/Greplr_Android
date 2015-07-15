@@ -259,6 +259,7 @@ public class TravelFlightFragment extends UnderSubCategoryFragment {
         if (getParentFragment() != null) {
             if (isVisibleToUser) {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.VISIBLE);
+                ((SubCategoryFragment) getParentFragment()).getSearchFab().show(true);
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setOnClickListener(onSearchFABListener);
             } else {
                 ((SubCategoryFragment) getParentFragment()).getSearchFab().setVisibility(View.GONE);
