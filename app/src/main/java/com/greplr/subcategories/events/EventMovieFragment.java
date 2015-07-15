@@ -169,7 +169,7 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getActivity().getResources().getColor(R.color.events_color_light)));
                     customDialog.setCancelable(true);
                     ListView listView = (ListView) customDialog.findViewById(R.id.listView_movies_venues);
-                    listView.setAdapter(new MoviesVenueAdapter(getActivity(), movieList));
+                    listView.setAdapter(new MoviesVenueAdapter(getActivity(), movieList.get(i).getArrVenues()));
                     customDialog.show();
                 }
             });
@@ -207,9 +207,9 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
     public class MoviesVenueAdapter extends BaseAdapter {
         private Activity activity;
         private LayoutInflater inflater;
-        private List<Movies> venueItems;
+        private List<Movies.Venues> venueItems;
 
-        public MoviesVenueAdapter(Activity activity, List<Movies> venueItems) {
+        public MoviesVenueAdapter(Activity activity, List<Movies.Venues> venueItems) {
             this.activity = activity;
             this.venueItems = venueItems;
         }
@@ -242,9 +242,9 @@ public class EventMovieFragment extends UnderSubCategoryFragment {
             TextView venueLocation = (TextView) convertView.findViewById(R.id.venue_location);
             TextView venueDistance = (TextView) convertView.findViewById(R.id.venue_distance);
 
-            venueName.setText(venueItems.get(position).getArrVenues().get(position).getVenueName());
-            venueLocation.setText(venueItems.get(position).getArrVenues().get(position).getRegion_strName());
-            venueDistance.setText(venueItems.get(position).getArrVenues().get(position).getVenueCode());
+            venueName.setText(venueItems.get(position).getVenueName());
+            venueLocation.setText(venueItems.get(position).getRegion_strName());
+            venueDistance.setText(venueItems.get(position).getVenueCode());
 
             return convertView;
         }
