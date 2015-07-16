@@ -20,9 +20,6 @@ package com.greplr.subcategories.shopping;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -45,17 +42,15 @@ import com.greplr.App;
 import com.greplr.R;
 import com.greplr.adapters.ErrorAdapter;
 import com.greplr.adapters.LoaderAdapter;
-import com.greplr.api.Api;
+import com.greplr.api.ShoppingApi;
 import com.greplr.common.ui.MaterialEditText;
 import com.greplr.common.utils.ColorUtils;
 import com.greplr.models.shopping.Search;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit.Callback;
@@ -68,7 +63,6 @@ import retrofit.client.Response;
 public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     public static final String LOG_TAG = "Greplr/Shopping/Search";
 
-    private List<Search> searchList;
     private RecyclerView mRecyclerView;
     private View.OnClickListener onSearchFABListener;
     private String productName;
@@ -164,14 +158,19 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     }
 
     private void fetchSearch() {
-        Api apiHandler = ((App) getActivity().getApplication()).getApiHandler();
-        apiHandler.getShoppingResult(
+        ShoppingApi apiHandler = ((App) getActivity().getApplication()).getShoppingApiHandler();
+
+        apiHandler.getShoppingResults(
                 productName,
-                new Callback<List<Search>>() {
+                "search.flipkart.com",
+                "0",
+                "50",
+                "true",
+                new Callback<Search>() {
                     @Override
-                    public void success(List<Search> search, Response response) {
-                        searchList = search;
+                    public void success(Search searchResponse, Response response) {
 //                        Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
+                        Log.d(LOG_TAG, searchResponse.getRESPONSE().toString());
                         mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
@@ -222,40 +221,40 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-            viewHolder.productName.setText(searchList.get(i).getTitle());
-            viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice().getAmount());
-            viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
-            viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-            if (searchList.get(i).getProductDescription() == null)
-                viewHolder.productDescription.setText(searchList.get(i).getColor());
-            else
-                viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
-
-            if (Boolean.valueOf(searchList.get(i).getCodAvailable()))
-                viewHolder.cod.setText("COD Available : Yes");
-            else
-                viewHolder.cod.setText("COD Available : No");
-
-            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_200x200()).fit().centerCrop().into(viewHolder.icon);
-//            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
-
-            viewHolder.view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Map<String, String> params = new HashMap<>();
-                    params.put("success", "true");
-                    params.put("product name clicked", searchList.get(i).getTitle());
-                    ParseAnalytics.trackEventInBackground("shopping/search clicked", params);
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getProductUrl()));
-                    startActivity(browserIntent);
-                }
-            });
+//            viewHolder.productName.setText(searchList.get(i).getTitle());
+//            viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice().getAmount());
+//            viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
+//            viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//
+//            if (searchList.get(i).getProductDescription() == null)
+//                viewHolder.productDescription.setText(searchList.get(i).getColor());
+//            else
+//                viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
+//
+//            if (Boolean.valueOf(searchList.get(i).getCodAvailable()))
+//                viewHolder.cod.setText("COD Available : Yes");
+//            else
+//                viewHolder.cod.setText("COD Available : No");
+//
+//            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_200x200()).fit().centerCrop().into(viewHolder.icon);
+////            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
+//
+//            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Map<String, String> params = new HashMap<>();
+//                    params.put("success", "true");
+//                    params.put("product name clicked", searchList.get(i).getTitle());
+//                    ParseAnalytics.trackEventInBackground("shopping/search clicked", params);
+//                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getProductUrl()));
+//                    startActivity(browserIntent);
+//                }
+//            });
         }
 
         @Override
         public int getItemCount() {
-            return searchList.size();
+            return 5;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
