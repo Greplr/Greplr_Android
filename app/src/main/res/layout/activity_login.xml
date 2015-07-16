@@ -75,7 +75,7 @@
                 android:text="Login with Twitter"
                 android:textAppearance="?android:textAppearanceMedium"></Button>
 
-            <Button
+          <!--  <Button
                 android:id="@+id/google_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                 android:paddingRight="10dp"
                 android:paddingTop="10dp"
                 android:text="Login with Google"
-                android:textAppearance="?android:textAppearanceMedium" />
+                android:textAppearance="?android:textAppearanceMedium" /> -->
 
             <ProgressBar
                 android:id="@+id/login_progress"

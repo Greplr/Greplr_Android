@@ -38,7 +38,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.greplr.common.ui.CircularRevealView;
 import com.greplr.common.ui.Helper;
-import com.greplr.common.utils.Utils;
 import com.parse.LogInCallback;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
@@ -74,13 +73,13 @@ public class LoginActivity extends AppCompatActivity {
 
         facebookLoginButton = (Button) findViewById(R.id.facebook_login);
         twitterLoginButton = (Button) findViewById(R.id.twitter_login);
-        googleLoginButton = (Button) findViewById(R.id.google_login);
+//        googleLoginButton = (Button) findViewById(R.id.google_login);
         mLoginFrameLayout = (FrameLayout) findViewById(R.id.login_framelayout);
         revealView = (CircularRevealView) findViewById(R.id.reveal);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
         analyticsParams = new HashMap<>();
 
-        googleColor = getResources().getColor(R.color.google_main);
+//        googleColor = getResources().getColor(R.color.google_main);
         twitterColor = getResources().getColor(R.color.twitter_main);
         facebookColor = getResources().getColor(R.color.facebook_main);
 
@@ -179,12 +178,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        googleLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CircularRevealStart(revealView, googleLoginButton, googleColor);
-            }
-        });
+//        googleLoginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CircularRevealStart(revealView, googleLoginButton, googleColor);
+//            }
+//        });
 
 //        ChangeColorOnTouch(facebookLoginButton, Color.parseColor("#3e62ba"), Color.parseColor("#aa263238"));
 //        ChangeColorOnTouch(twitterLoginButton, Color.parseColor("#55acee"), Color.parseColor("#aa263238"));
