@@ -3,6 +3,7 @@ package com.greplr.api;
 import com.greplr.models.shopping.Search;
 
 import retrofit.Callback;
+import retrofit.client.Response;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -20,6 +21,6 @@ public interface ShoppingApi {
             @Query("start") String start,
             @Query("count") String count,
             @Query("disableMultipleImage") String disableMultipleImage,
-            Callback<Search> searchCallback);
+            Callback<Response> searchCallback);
 
 }

@@ -20,6 +20,9 @@ package com.greplr.subcategories.shopping;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
@@ -49,8 +52,13 @@ import com.greplr.models.shopping.Search;
 import com.greplr.subcategories.SubCategoryFragment;
 import com.greplr.subcategories.UnderSubCategoryFragment;
 import com.parse.ParseAnalytics;
+import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit.Callback;
@@ -66,7 +74,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
     private RecyclerView mRecyclerView;
     private View.OnClickListener onSearchFABListener;
     private String productName;
-
+    List<Search.Product> searchList;
     public static ShoppingSearchFragment newInstance() {
         return new ShoppingSearchFragment();
     }
@@ -166,14 +174,28 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
                 "0",
                 "50",
                 "true",
-                new Callback<Search>() {
+                new Callback<Response>() {
                     @Override
-                    public void success(Search searchResponse, Response response) {
-//                        Log.d(LOG_TAG, search.get(0).getCashBack() + "  " + search.get(0).getTitle() + "  " + search.get(0).getCashBack() + "  " + search.get(0).getCodAvailable() + "  " + search.get(0).getColor() + "  " + search.get(0).getEmiAvailable());
-                        Log.d(LOG_TAG, searchResponse.getRESPONSE().toString());
-                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingAdapter()));
+                    public void success(Response response, Response response2) {
+                        BufferedReader reader = null;
+                        StringBuilder sb = new StringBuilder();
+                        try {
+                            reader = new BufferedReader(new InputStreamReader(response.getBody().in()));
+                            String line;
+                            try {
+                                while ((line = reader.readLine()) != null) {
+                                    sb.append(line);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        String searchResult = sb.toString();
+                        searchList = Search.getProductList(searchResult);
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ShoppingSearchAdapter()));
                         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
-                        ((SubCategoryFragment) getParentFragment()).getSearchFab().attachToRecyclerView(mRecyclerView);
                         sendParseAnalytics("true");
                     }
 
@@ -209,7 +231,7 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
         ParseAnalytics.trackEventInBackground("shopping/search", params);
     }
 
-    public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ViewHolder> {
+    public class ShoppingSearchAdapter extends RecyclerView.Adapter<ShoppingSearchAdapter.ViewHolder> {
 
 
         @Override
@@ -221,40 +243,35 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
 
         @Override
         public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
-//            viewHolder.productName.setText(searchList.get(i).getTitle());
-//            viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice().getAmount());
-//            viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMaximumRetailPrice().getAmount());
-//            viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//
-//            if (searchList.get(i).getProductDescription() == null)
-//                viewHolder.productDescription.setText(searchList.get(i).getColor());
-//            else
-//                viewHolder.productDescription.setText(searchList.get(i).getProductDescription());
-//
-//            if (Boolean.valueOf(searchList.get(i).getCodAvailable()))
-//                viewHolder.cod.setText("COD Available : Yes");
-//            else
-//                viewHolder.cod.setText("COD Available : No");
-//
-//            Picasso.with(getActivity()).load(searchList.get(i).getImageUrls().get_200x200()).fit().centerCrop().into(viewHolder.icon);
-////            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
-//
-//            viewHolder.view.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Map<String, String> params = new HashMap<>();
-//                    params.put("success", "true");
-//                    params.put("product name clicked", searchList.get(i).getTitle());
-//                    ParseAnalytics.trackEventInBackground("shopping/search clicked", params);
-//                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getProductUrl()));
-//                    startActivity(browserIntent);
-//                }
-//            });
+            viewHolder.productName.setText(searchList.get(i).getMainTitle());
+            viewHolder.minPrice.setText("\u20b9" + searchList.get(i).getSellingPrice());
+            viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMrp());
+            viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            if (searchList.get(i).getSubTitle() != null)
+                viewHolder.productDescription.setText(searchList.get(i).getSubTitle());
+
+                viewHolder.cod.setText("COD Available : Yes");
+
+            Picasso.with(getActivity()).load(searchList.get(i).getProductAltImage()).fit().centerInside().into(viewHolder.icon);
+//            Log.d("IMAGE URL : ", searchList.get(i).getImageUrls().get_400x400());
+
+            viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("success", "true");
+                    params.put("product name clicked", searchList.get(i).getMainTitle());
+                    ParseAnalytics.trackEventInBackground("shopping/search clicked", params);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(searchList.get(i).getSmartUrl() + "&affid=arnavgrep"));
+                    startActivity(browserIntent);
+                }
+            });
         }
 
         @Override
         public int getItemCount() {
-            return 5;
+            return searchList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
