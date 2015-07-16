@@ -52,7 +52,7 @@
                 android:paddingBottom="10dp"
                 android:id="@+id/greplr_logo"
                 android:layout_gravity="center|top"
-                android:src="@drawable/loginscreen"/>
+                android:src="@drawable/ic_launcher"/>
 
             <Button
                 android:id="@+id/facebook_login"
