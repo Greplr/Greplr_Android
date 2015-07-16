@@ -46,6 +46,13 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="247dp"
+                android:layout_height="200dp"
+                android:paddingBottom="10dp"
+                android:id="@+id/greplr_logo"
+                android:layout_gravity="center|top"
+                android:src="@drawable/loginscreen"/>
 
             <Button
                 android:id="@+id/facebook_login"
