@@ -19,7 +19,6 @@
 package com.greplr.subcategories.food;
 
 import android.content.ActivityNotFoundException;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -39,7 +38,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.food.Bar;
@@ -105,6 +105,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "response " + response.getStatus());
                         barList = bars;
                         updateBars(barList);
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -115,6 +116,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -137,8 +139,7 @@ public class FoodBarsFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_food_bar);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }

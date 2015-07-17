@@ -37,7 +37,8 @@ import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
 import com.greplr.App;
 import com.greplr.R;
-import com.greplr.adapters.NumberedAdapter;
+import com.greplr.adapters.ErrorAdapter;
+import com.greplr.adapters.LoaderAdapter;
 import com.greplr.api.Api;
 import com.greplr.common.utils.Utils;
 import com.greplr.models.food.Cafe;
@@ -99,6 +100,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
                         Log.d(LOG_TAG, "success" + response.getUrl() + response.getStatus());
                         cafeList = cafes;
                         updateCafes(cafeList);
+                        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -109,6 +111,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
                     @Override
                     public void failure(RetrofitError error) {
                         Log.d(LOG_TAG, "failure" + error.getUrl() + error.getMessage());
+                        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new ErrorAdapter()));
                         Map<String, String> params = new HashMap<>();
                         params.put("lat", String.valueOf(App.currentLatitude));
                         params.put("lng", String.valueOf(App.currentLongitude));
@@ -129,8 +132,7 @@ public class FoodCafesFragment extends UnderSubCategoryFragment {
                 R.id.recyclerview_food_cafe);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewMaterialAdapter(new NumberedAdapter(0));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new LoaderAdapter()));
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
 
     }
