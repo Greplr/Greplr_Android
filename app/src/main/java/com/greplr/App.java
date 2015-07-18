@@ -29,6 +29,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.greplr.api.Api;
 import com.greplr.api.NewsApi;
+import com.greplr.api.ShoppingApi;
 import com.greplr.api.UberApi;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
@@ -61,10 +62,9 @@ public class App extends Application
     private Api apiHandler;
     private NewsApi newsApiHandler;
     private UberApi uberApiHandler;
+    private ShoppingApi shoppingApiHandler;
     private RestAdapter restAdapter;
     private OkHttpClient ok;
-
-
 
     public static boolean locationInitialised = false;
 
@@ -170,4 +170,16 @@ public class App extends Application
         }
         return uberApiHandler;
     }
+
+    public ShoppingApi getShoppingApiHandler(){
+        if(shoppingApiHandler == null){
+            restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(ShoppingApi.BASE_URL)
+                    .setClient(new OkClient(getOkHttpClient()))
+                    .build();
+            shoppingApiHandler = restAdapter.create(ShoppingApi.class);
+        }
+        return shoppingApiHandler;
+    }
+
 }
