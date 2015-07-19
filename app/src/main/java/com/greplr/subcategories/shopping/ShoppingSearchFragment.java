@@ -248,6 +248,9 @@ public class ShoppingSearchFragment extends UnderSubCategoryFragment {
             viewHolder.mrp.setText("\u20b9 " + searchList.get(i).getMrp());
             viewHolder.mrp.setPaintFlags(viewHolder.mrp.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
+            if(searchList.get(i).getSellingPrice().equalsIgnoreCase(searchList.get(i).getMrp())){
+                viewHolder.mrp.setVisibility(View.GONE);
+            }
             if (searchList.get(i).getSubTitle() != null)
                 viewHolder.productDescription.setText(searchList.get(i).getSubTitle());
 
